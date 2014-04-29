@@ -41,7 +41,7 @@ public class PollingDao extends BaseDaoImpl{
 	*/
 	public Map<String, Object> login_deliver(String username, String password) throws SQLException {
 
-		String sql = "select id from mf_deliverer where realname = ? and telephone = ?";
+		String sql = "select id from mf_manager where name = ? and password = ?";
 		return this.executeQueryOne(sql, new String[]{username,password});
 	}
 
@@ -104,5 +104,17 @@ public class PollingDao extends BaseDaoImpl{
 		
 		String sql = "update mf_order set status = ? where id = ?";
 		this.executeUpdate(sql, new Integer[]{OrderStatus.DELIVERED,order_id});
+	}
+
+	/**
+	 * @param manager_id
+	 * @return
+	 * @throws SQLException 
+	 */
+	public List<Integer> listRestIdByManagerId(Integer manager_id) throws SQLException {
+		
+		String sql = "select distinct(r.id) id from mf_restaurant r,mf_manager_dep md,mf_dep_restaurant dr where r.id = dr.rest_id and dr.dep_id = md.dep_id and md.manager_id = ?";
+		
+		return this.executeQueryForInt(sql, new Integer[]{manager_id});
 	}
 }

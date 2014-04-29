@@ -24,7 +24,7 @@ import com.cta.platform.persistence.annotation.Table;
  * @date 2013-6-3 下午01:31:19
  *
  */
-@Table(name="MF_ROLE")
+@Table(name="mf_role")
 public class RoleEntity implements Serializable{
 
 	/**@Field the long serialVersionUID*/

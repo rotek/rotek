@@ -82,30 +82,31 @@ public class PollingService {
 	* @return List<Map<String,Object>>
 	* @throws
 	*/
-	public List<Map<String, Object>> listNewOrders(Date time_last,Integer deliver_id) throws SQLException {
+	public List<Map<String, Object>> listNewOrders(Date time_last,Integer manager_id) throws SQLException {
 
 		if(null == time_last){
 			time_last = DateUtils.getDateForQuery(new Date());
 		}
-		List<Map<String,Object>> delivererInfos = pollingDao.listDeliverInfo(deliver_id);
-		if(null == delivererInfos || delivererInfos.size() <=0){
+		List<Integer> restIdList = pollingDao.listRestIdByManagerId(manager_id);
+		if(null == restIdList || restIdList.size() <=0){
 			return new ArrayList<Map<String,Object>>();
 		}
 		StringBuilder orderSql = new StringBuilder();
 		//找出这个配送员分配的高级接收权限的店铺楼宇和没有被分配高级权限的区域
-		orderSql.append("select o.id,o.phone receiver_phone,o.totalPrice menu_price,o.carriage,o.address,o.remark,o.ordered_time,o.status,r.name rest_name from mf_order o");
+		orderSql.append("select o.id,o.phone receiver_phone,o.totalPrice menu_price,o.carriage,o.address,o.remark,o.ordered_time,o.status,o.secret,r.name rest_name from mf_order o");
 		orderSql.append(" left join mf_restaurant r on o.rest_id = r.id");
-		orderSql.append(" where o.ordered_time > ?");
-		orderSql.append(" and (");
-		for(int i= 0;i< delivererInfos.size();i++){
-			Map<String,Object> info = delivererInfos.get(i);
-			orderSql.append(" o.rest_id =").append(info.get("rest_id"));
-			orderSql.append(" and o.building_id =").append(info.get("building_id"));
-			if(i < delivererInfos.size() -1){
-				orderSql.append(" or");
+		orderSql.append(" where o.ordered_time >= ?");
+		orderSql.append(" and o.rest_id in (");
+		for(int i= 0;i< restIdList.size();i++){
+			orderSql.append(restIdList.get(i));
+			if(i < restIdList.size() -1){
+				orderSql.append(",");
 			}
 		}
 		
+		if(restIdList.size() == 0){
+			orderSql.append("0");
+		}
 		orderSql.append(")");
 
 		List<Map<String,Object>> orderList = pollingDao.listNewOrders(orderSql.toString(),time_last);
