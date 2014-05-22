@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true">
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:SystemGlobals.properties</value>
+		</property>
+	</bean>
+
+	<!-- datasource -->
+	<bean id="parentDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="maxPoolSize" value="${pool.maxPoolSize}" />
+		<property name="minPoolSize" value="${pool.minPoolSize}" />
+		<property name="initialPoolSize" value="${pool.initialPoolSize}" />
+		<property name="acquireIncrement" value="${pool.acquireIncrement}" />
+		<property name="maxIdleTime" value="${pool.maxIdleTime}" />
+	</bean>
+
+	<bean id="dataSource" parent="parentDataSource">
+		<property name="driverClass" value="${database.driverClassName}" />
+		<property name="jdbcUrl" value="${database.url}" />
+		<property name="user" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+	</bean>
+
+	<bean id="baseDao" class="com.rotek.platform.persistence.dao.BaseDaoImpl">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+
+
+	<!-- 开启dao层的注解扫描 -->
+	<context:component-scan base-package="com.rotek.dao.impl" />
+</beans>

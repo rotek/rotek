@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+    <bean id="pollTaskJob" class="com.rotek.dispatcher.SystemTaskDispatcher"></bean>
+
+    <!--轮询定时任务列表 -->
+    <bean id="systemTaskDispatcher"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="pollTaskJob" />
+        </property>
+        <property name="targetMethod">
+            <value>poolTask</value>
+        </property>
+    </bean>
+    <bean id="systemTaskDispatcherTime"
+        class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="systemTaskDispatcher" />
+        </property>
+        <property name="cronExpression">
+              <value>0 * * * * ?</value><!-- 每分钟 -->
+        </property>
+    </bean>
+    <!-- 更新文章列表结束 -->
+
+    <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+    <bean id="startQuertz" lazy-init="true" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+				<!-- 更新文章列表 -->
+                <ref bean="systemTaskDispatcherTime"/>
+            </list>
+        </property>
+    </bean>
+<!--
+    0 0 12 * * ? 每天12点触发
+	0 15 10 ? * * 每天10点15分触发
+	0 15 10 * * ? 每天10点15分触发
+	0 15 10 * * ? * 每天10点15分触发
+	0 15 10 * * ? 2005 2005年每天10点15分触发
+	0 * 14 * * ? 每天下午的 2点到2点59分每分触发
+	0 0/5 14 * * ? 每天下午的 2点到2点59分(整点开始，每隔5分触发)
+	0 0/5 14,18 * * ? 每天下午的 2点到2点59分(整点开始，每隔5分触发)
+	0 0-5 14 * * ? 每天下午的 2点到2点05分每分触发
+	0 10,44 14 ? 3 WED 3月分每周三下午的 2点10分和2点44分触发
+	0 15 10 ? * MON-FRI 从周一到周五每天上午的10点15分触发
+	0 15 10 15 * ? 每月15号上午10点15分触发
+	0 15 10 L * ? 每月最后一天的10点15分触发
+	0 15 10 ? * 6L 每月最后一周的星期五的10点15分触发
+	0 15 10 ? * 6L 2002-2005 从2002年到2005年每月最后一周的星期五的10点15分触发
+	0 15 10 ? * 6#3 每月的第三周的星期五开始触发
+	0 0 12 1/5 * ? 每月的第一个中午开始每隔5天触发一次
+	0 11 11 11 11 ? 每年的11月11号 11点11分触发(光棍节)
+-->
+</beans>
