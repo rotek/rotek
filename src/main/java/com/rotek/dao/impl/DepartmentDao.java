@@ -16,8 +16,8 @@ import org.springframework.stereotype.Repository;
 
 import com.rotek.dto.DepartmentDto;
 import com.rotek.entity.DepartmentEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
 
 /**
  * @ClassName: DepartmentDao

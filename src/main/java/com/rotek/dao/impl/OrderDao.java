@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
 import com.rotek.dto.OrderDto;
 import com.rotek.entity.DelivererEntity;
 import com.rotek.entity.OrderEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
 
 /**
  * @ClassName: OrderDao

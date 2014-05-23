@@ -28,8 +28,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.rotek.constant.DataStatus;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.NewsEntity;
-import com.rotek.platform.config.SystemGlobals;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.config.SystemGlobals;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.NewsService;
 import com.danga.MemCached.MemCachedClient;
 

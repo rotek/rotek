@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rotek.constant.OrderStatus;
 import com.rotek.constant.RankType;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
 
 /**
  * @ClassName: PollingController

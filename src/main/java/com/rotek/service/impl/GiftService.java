@@ -27,9 +27,9 @@ import com.rotek.dao.impl.GiftDao;
 import com.rotek.dto.GiftDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.GiftEntity;
-import com.rotek.platform.config.SystemGlobals;
-import com.rotek.platform.util.ListPager;
-import com.rotek.platform.util.ValidateUtil;
+import com.cta.platform.config.SystemGlobals;
+import com.cta.platform.util.ListPager;
+import com.cta.platform.util.ValidateUtil;
 import com.rotek.util.FileUtils;
 
 /**

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rotek.entity.OrderEntity;
-import com.rotek.platform.persistence.annotation.Column;
+import com.cta.platform.persistence.annotation.Column;
 
 /**
  * @ClassName: OrderDto

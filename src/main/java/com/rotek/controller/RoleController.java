@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.NodeEntity;
 import com.rotek.entity.RoleEntity;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.RoleService;
 
 /**

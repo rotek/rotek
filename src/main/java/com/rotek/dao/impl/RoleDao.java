@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
 import com.rotek.entity.ButtonEntity;
 import com.rotek.entity.MenuEntity;
 import com.rotek.entity.RoleEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
 
 /**
  * @ClassName: RoleDao
@@ -97,7 +97,7 @@ public class RoleDao extends BaseDaoImpl{
 	public List<MenuEntity> listAuthority_menu(Integer nodeId) throws SQLException {
 
 		String sql = "select id,menu_name from mf_menu where super_menu_id = ?";
-		return this.selerotekll(sql, new Object[]{nodeId} ,MenuEntity.class);
+		return this.selectAll(sql, new Object[]{nodeId} ,MenuEntity.class);
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class RoleDao extends BaseDaoImpl{
 	*/
 	public List<ButtonEntity> listAuthority_button(Integer nodeId) throws SQLException {
 		String sql ="select id,button_name from mf_button where id in (select button_id from mf_menu_button where menu_id = ?)";
-		return this.selerotekll(sql,new Object[]{nodeId} ,ButtonEntity.class);
+		return this.selectAll(sql,new Object[]{nodeId} ,ButtonEntity.class);
 	}
 
 	/**

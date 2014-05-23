@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.rotek.dto.BuildingDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.BuildingEntity;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.BuildingService;
 import com.danga.MemCached.MemCachedClient;
 

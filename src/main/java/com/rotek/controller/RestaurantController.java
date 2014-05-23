@@ -40,8 +40,8 @@ import com.rotek.constant.DataStatus;
 import com.rotek.dto.RestaurantDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.RestaurantEntity;
-import com.rotek.platform.config.SystemGlobals;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.config.SystemGlobals;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.RestaurantService;
 import com.rotek.util.DateUtils;
 

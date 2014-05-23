@@ -22,8 +22,8 @@ import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.UserDao;
 import com.rotek.entity.RegistUserDetail;
 import com.rotek.entity.RegistUserEntity;
-import com.rotek.platform.util.ListPager;
-import com.rotek.platform.util.ValidateUtil;
+import com.cta.platform.util.ListPager;
+import com.cta.platform.util.ValidateUtil;
 
 /**
  * @ClassName: UserService

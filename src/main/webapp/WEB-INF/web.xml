@@ -7,13 +7,13 @@
     version="2.5">
 <!-- 系统配置文件 -->
 <context-param>
-	<param-name>com.rotek.platform.config.file</param-name>
+	<param-name>com.cta.platform.config.file</param-name>
 	<param-value>SystemGlobals.properties</param-value>
 </context-param>
 
 <!-- log4j的配置 -->
 <context-param>
-	<param-name>com.rotek.platform.lo4j.file</param-name>
+	<param-name>com.cta.platform.lo4j.file</param-name>
 	<param-value>WEB-INF/log4j.xml</param-value>
 </context-param>
 
@@ -29,7 +29,7 @@
 </session-config>
 <!-- 初始化系统配置 -->
 <listener>
-	<listener-class>com.rotek.platform.config.ConfigInitializer</listener-class>
+	<listener-class>com.cta.platform.config.ConfigInitializer</listener-class>
 </listener>
 
 <listener>

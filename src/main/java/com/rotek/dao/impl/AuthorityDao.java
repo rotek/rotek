@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rotek.entity.ButtonEntity;
 import com.rotek.entity.MenuEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
 
 /**
  * @ClassName: AuthorityDao
@@ -54,6 +54,6 @@ public class AuthorityDao extends BaseDaoImpl{
 	public List<ButtonEntity> getListButton(Integer role_id, Integer menuId) throws SQLException {
 
 		String sql = "select button_name,action from mf_button where id in (select button_id from mf_role_power where role_id = ? and menu_id = ?)";
-		return this.selerotekll(sql, new Object[]{role_id,menuId}, ButtonEntity.class);
+		return this.selectAll(sql, new Object[]{role_id,menuId}, ButtonEntity.class);
 	}
 }

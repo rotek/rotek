@@ -11,7 +11,7 @@ package com.rotek.dto;
 import java.io.Serializable;
 
 import com.rotek.entity.UserEntity;
-import com.rotek.platform.persistence.annotation.Column;
+import com.cta.platform.persistence.annotation.Column;
 
 /**
  * @ClassName: UserDto

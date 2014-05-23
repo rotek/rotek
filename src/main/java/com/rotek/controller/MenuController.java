@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rotek.dto.MenuDto;
 import com.rotek.entity.MenuEntity;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.MenuService;
 
 /**

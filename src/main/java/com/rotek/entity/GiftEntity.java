@@ -10,12 +10,12 @@ package com.rotek.entity;
 
 import java.io.Serializable;
 
-import com.rotek.platform.constant.StrategyType;
-import com.rotek.platform.persistence.annotation.Column;
-import com.rotek.platform.persistence.annotation.ID;
-import com.rotek.platform.persistence.annotation.Length;
-import com.rotek.platform.persistence.annotation.NotEmpty;
-import com.rotek.platform.persistence.annotation.Table;
+import com.cta.platform.constant.StrategyType;
+import com.cta.platform.persistence.annotation.Column;
+import com.cta.platform.persistence.annotation.ID;
+import com.cta.platform.persistence.annotation.Length;
+import com.cta.platform.persistence.annotation.NotEmpty;
+import com.cta.platform.persistence.annotation.Table;
 
 /**
  * @ClassName: GiftEntity

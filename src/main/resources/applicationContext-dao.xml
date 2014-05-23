@@ -31,7 +31,7 @@
 		<property name="password" value="${database.password}" />
 	</bean>
 
-	<bean id="baseDao" class="com.rotek.platform.persistence.dao.BaseDaoImpl">
+	<bean id="baseDao" class="com.cta.platform.persistence.dao.BaseDaoImpl">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>

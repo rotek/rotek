@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.log4j.Logger;
 
-import com.rotek.platform.config.SystemGlobals;
+import com.cta.platform.config.SystemGlobals;
 import com.rotek.util.phone.Client;
 
 /**

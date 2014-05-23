@@ -15,8 +15,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.rotek.entity.TaskEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
 
 /**
  * @ClassName: TaskDao
@@ -95,7 +95,7 @@ public class TaskDao extends BaseDaoImpl{
 	*/ 
 	public List<TaskEntity> getTask(Date time) throws SQLException {
 		String sql = "select id,target_id,time,type from mf_task where time < ?";
-		return this.selerotekll(sql, new Object[]{time}, TaskEntity.class);
+		return this.selectAll(sql, new Object[]{time}, TaskEntity.class);
 	}
 
 	/**

@@ -21,8 +21,8 @@ import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.ManagerDao;
 import com.rotek.dto.ManagerDto;
 import com.rotek.entity.ManagerEntity;
-import com.rotek.platform.util.ListPager;
-import com.rotek.platform.util.ValidateUtil;
+import com.cta.platform.util.ListPager;
+import com.cta.platform.util.ValidateUtil;
 
 /**
  * @ClassName: ManagerService

@@ -21,8 +21,8 @@ import org.springframework.stereotype.Service;
 import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.RegionDao;
 import com.rotek.entity.RegionEntity;
-import com.rotek.platform.util.ListPager;
-import com.rotek.platform.util.ValidateUtil;
+import com.cta.platform.util.ListPager;
+import com.cta.platform.util.ValidateUtil;
 
 /**
  * @ClassName: RegionService

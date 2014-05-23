@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.rotek.constant.DataStatus;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.RestMenuEntity;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.RestMenuService;
 
 /**

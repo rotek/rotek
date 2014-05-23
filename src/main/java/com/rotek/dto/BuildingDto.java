@@ -9,7 +9,7 @@
 package com.rotek.dto;
 
 import com.rotek.entity.BuildingEntity;
-import com.rotek.platform.persistence.annotation.Column;
+import com.cta.platform.persistence.annotation.Column;
 
 /**
  * @ClassName: BuildingDto

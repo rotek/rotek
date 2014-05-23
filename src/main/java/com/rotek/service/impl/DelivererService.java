@@ -25,8 +25,8 @@ import com.rotek.dto.DelivererDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.DelivererEntity;
 import com.rotek.entity.DepartmentEntity;
-import com.rotek.platform.util.ListPager;
-import com.rotek.platform.util.ValidateUtil;
+import com.cta.platform.util.ListPager;
+import com.cta.platform.util.ValidateUtil;
 
 /**
  * @ClassName: DelivererService

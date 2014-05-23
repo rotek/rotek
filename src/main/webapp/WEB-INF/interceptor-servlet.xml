@@ -16,11 +16,11 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
-			<bean class="com.rotek.platform.interceptor.AuthorityInteceptor" />
+			<bean class="com.cta.platform.interceptor.AuthorityInteceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
-			<bean class="com.rotek.platform.interceptor.LoginInterceptor" />
+			<bean class="com.cta.platform.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 

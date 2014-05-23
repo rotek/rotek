@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rotek.dto.DepartmentDto;
 import com.rotek.entity.DepartmentEntity;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.DepartmentService;
 
 /**

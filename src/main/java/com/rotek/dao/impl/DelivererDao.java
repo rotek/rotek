@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
 import com.rotek.dto.DelivererDto;
 import com.rotek.entity.DelivererEntity;
 import com.rotek.entity.DepartmentEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
 
 /**
  * @ClassName: DelivererDao
@@ -73,7 +73,7 @@ public class DelivererDao extends BaseDaoImpl{
 	public List<DepartmentEntity> listDeliverers(Integer d_id) throws SQLException {
 
 		String sql = "select id,dep_name from mf_department where id in (select dep_id from mf_deliverer_dep where deliverer_id = ?)";
-		return this.selerotekll(sql, new Integer []{d_id},DepartmentEntity.class);
+		return this.selectAll(sql, new Integer []{d_id},DepartmentEntity.class);
 	}
 
 	/**

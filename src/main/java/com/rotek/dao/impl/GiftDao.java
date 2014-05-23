@@ -15,8 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import com.rotek.dto.GiftDto;
 import com.rotek.entity.GiftEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
 
 @Repository
 public class GiftDao extends BaseDaoImpl{

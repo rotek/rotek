@@ -9,7 +9,7 @@
 	default-autowire="byName" default-lazy-init="true">
 	<!-- spring 的上下文的实体类 -->
 	<!--
-	<bean class="com.rotek.platform.spring.SpringContext"></bean>
+	<bean class="com.cta.platform.spring.SpringContext"></bean>
 	 -->
 
 	<!-- 定义试图解析器 ：视图解析的流程是 ModelAndView==》XmlViewResolver查找view的定义 -->

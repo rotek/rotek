@@ -10,10 +10,10 @@ package com.rotek.entity;
 
 import java.util.Date;
 
-import com.rotek.platform.constant.StrategyType;
-import com.rotek.platform.persistence.annotation.Column;
-import com.rotek.platform.persistence.annotation.ID;
-import com.rotek.platform.persistence.annotation.Table;
+import com.cta.platform.constant.StrategyType;
+import com.cta.platform.persistence.annotation.Column;
+import com.cta.platform.persistence.annotation.ID;
+import com.cta.platform.persistence.annotation.Table;
 
 /**
  * @ClassName: TaskEntity

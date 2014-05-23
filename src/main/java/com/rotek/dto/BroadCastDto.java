@@ -9,7 +9,7 @@
 package com.rotek.dto;
 
 import com.rotek.entity.BroadCastEntity;
-import com.rotek.platform.persistence.annotation.Column;
+import com.cta.platform.persistence.annotation.Column;
 
 /**
  * @ClassName: BroadCastDto
@@ -20,6 +20,11 @@ import com.rotek.platform.persistence.annotation.Column;
  */
 public class BroadCastDto extends BroadCastEntity{
 
+	/** 
+	 * @Fields serialVersionUID 
+	 * @Description: 
+	 */
+	private static final long serialVersionUID = 8335052660757601806L;
 	@Column(name="building_name")
 	private String building_name;//轮播在哪个楼宇下显示
 

@@ -31,7 +31,7 @@ import com.rotek.constant.DataStatus;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.RegistUserDetail;
 import com.rotek.entity.RegistUserEntity;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.UserService;
 import com.rotek.util.DateUtils;
 

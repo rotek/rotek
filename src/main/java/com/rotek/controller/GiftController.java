@@ -36,7 +36,7 @@ import com.rotek.constant.DataStatus;
 import com.rotek.dto.GiftDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.GiftEntity;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.GiftService;
 
 /**

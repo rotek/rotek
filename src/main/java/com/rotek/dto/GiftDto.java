@@ -11,8 +11,8 @@ package com.rotek.dto;
 import java.util.Date;
 
 import com.rotek.entity.GiftEntity;
-import com.rotek.platform.persistence.annotation.Column;
-import com.rotek.platform.persistence.annotation.NotEmpty;
+import com.cta.platform.persistence.annotation.Column;
+import com.cta.platform.persistence.annotation.NotEmpty;
 
 /**
  * @ClassName: GiftDto

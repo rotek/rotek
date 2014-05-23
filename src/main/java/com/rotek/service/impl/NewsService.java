@@ -26,9 +26,9 @@ import com.rotek.dao.impl.NewsDao;
 import com.rotek.dto.NewsDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.NewsEntity;
-import com.rotek.platform.config.SystemGlobals;
-import com.rotek.platform.util.ListPager;
-import com.rotek.platform.util.ValidateUtil;
+import com.cta.platform.config.SystemGlobals;
+import com.cta.platform.util.ListPager;
+import com.cta.platform.util.ValidateUtil;
 import com.rotek.util.FileUtils;
 
 /**

@@ -17,8 +17,8 @@ import org.springframework.stereotype.Repository;
 import com.rotek.dto.BuildingDto;
 import com.rotek.entity.BuildingEntity;
 import com.rotek.entity.DepartmentEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
 
 @Repository
 public class BuildingDao extends BaseDaoImpl{
@@ -132,7 +132,7 @@ public class BuildingDao extends BaseDaoImpl{
 	public List<DepartmentEntity> getDepartments(Integer b_id) throws SQLException {
 
 		String sql = "select id,dep_name from mf_department where id in (select dep_id from mf_building_dep where b_id = ?)";
-		return this.selerotekll(sql, new Integer[]{b_id}, DepartmentEntity.class);
+		return this.selectAll(sql, new Integer[]{b_id}, DepartmentEntity.class);
 	}
 
 	/**

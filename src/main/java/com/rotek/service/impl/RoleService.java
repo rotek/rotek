@@ -25,8 +25,8 @@ import com.rotek.entity.ButtonEntity;
 import com.rotek.entity.MenuEntity;
 import com.rotek.entity.NodeEntity;
 import com.rotek.entity.RoleEntity;
-import com.rotek.platform.util.ListPager;
-import com.rotek.platform.util.ValidateUtil;
+import com.cta.platform.util.ListPager;
+import com.cta.platform.util.ValidateUtil;
 
 /**
  * @ClassName: RoleService

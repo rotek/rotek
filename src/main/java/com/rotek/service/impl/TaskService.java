@@ -30,8 +30,8 @@ import com.rotek.dao.impl.TaskDao;
 import com.rotek.dto.OrderDto;
 import com.rotek.entity.DelivererEntity;
 import com.rotek.entity.TaskEntity;
-import com.rotek.platform.config.SystemGlobals;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.config.SystemGlobals;
+import com.cta.platform.util.ListPager;
 import com.rotek.util.ShortMessageUtils;
 
 /**

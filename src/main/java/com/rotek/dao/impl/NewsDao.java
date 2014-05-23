@@ -15,8 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import com.rotek.dto.NewsDto;
 import com.rotek.entity.NewsEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
 
 /**
  * @ClassName: NewsDao

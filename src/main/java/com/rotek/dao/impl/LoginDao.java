@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import org.springframework.stereotype.Repository;
 
 import com.rotek.dto.UserDto;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
 
 /**
  * @ClassName: LoginDao

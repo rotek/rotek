@@ -22,8 +22,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.AboutDao;
-import com.rotek.platform.config.SystemGlobals;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.config.SystemGlobals;
+import com.cta.platform.util.ListPager;
 import com.rotek.util.FileUtils;
 
 /**

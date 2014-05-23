@@ -19,8 +19,8 @@ import com.rotek.dto.RestaurantDto;
 import com.rotek.entity.DepartmentEntity;
 import com.rotek.entity.RestaurantDetailEntity;
 import com.rotek.entity.RestaurantEntity;
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
 
 /**
  * @ClassName: RestaurantDao
@@ -75,7 +75,7 @@ public class RestaurantDao extends BaseDaoImpl{
 	public List<DepartmentEntity> listDeparts(Integer rest_id) throws SQLException {
 
 		String sql = "select id,dep_name from mf_department where id in (select dep_id from mf_dep_restaurant where rest_id = ?)";
-		return this.selerotekll(sql, new Integer[]{rest_id}, DepartmentEntity.class);
+		return this.selectAll(sql, new Integer[]{rest_id}, DepartmentEntity.class);
 	}
 
 	/**

@@ -14,7 +14,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.rotek.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.persistence.dao.BaseDaoImpl;
 
 /**
  * @ClassName: MenuCategoryDao

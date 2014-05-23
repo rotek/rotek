@@ -50,8 +50,8 @@ import com.rotek.constant.OrderType;
 import com.rotek.dto.OrderDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.OrderEntity;
-import com.rotek.platform.config.SystemGlobals;
-import com.rotek.platform.util.ListPager;
+import com.cta.platform.config.SystemGlobals;
+import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.OrderService;
 import com.rotek.util.DateUtils;
 

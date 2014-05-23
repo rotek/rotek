@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.cta.platform.config.SystemGlobals;
+import com.cta.platform.util.ListPager;
 import com.rotek.dto.UserDto;
-import com.rotek.platform.config.SystemGlobals;
-import com.rotek.platform.util.ListPager;
 import com.rotek.service.impl.AboutService;
 
 /**

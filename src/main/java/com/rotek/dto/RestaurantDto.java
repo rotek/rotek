@@ -11,7 +11,7 @@ package com.rotek.dto;
 import java.util.Date;
 
 import com.rotek.entity.RestaurantEntity;
-import com.rotek.platform.persistence.annotation.Column;
+import com.cta.platform.persistence.annotation.Column;
 
 /**
  * @ClassName: RestaurantDto
