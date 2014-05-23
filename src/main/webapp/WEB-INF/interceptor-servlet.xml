@@ -14,10 +14,10 @@
 
 	<!-- 获取用户权限的拦截器 -->
 	<mvc:interceptors>
-		<mvc:interceptor>
+		<!-- <mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
 			<bean class="com.cta.platform.interceptor.AuthorityInteceptor" />
-		</mvc:interceptor>
+		</mvc:interceptor> -->
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
 			<bean class="com.cta.platform.interceptor.LoginInterceptor" />

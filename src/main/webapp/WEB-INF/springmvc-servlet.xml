@@ -24,10 +24,9 @@
 	</bean>
 
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
-	<bean id="hostUserArgumentResolver" class="com.cta.platform.resolver.HostUserArgumentResolver"/>
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-	    <property name="customArgumentResolver" ref="hostUserArgumentResolver" />
+	<!-- <bean id="hostUserArgumentResolver" class="com.cta.platform.resolver.HostUserArgumentResolver"/> -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <!-- <property name="customArgumentResolver" ref="hostUserArgumentResolver" /> -->
 		<property name="messageConverters">
 			<list>
 				<ref bean="jacksonMessageConverter" />
