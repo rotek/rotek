@@ -12,24 +12,19 @@
            http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<!-- 获取用户权限的拦截器 -->
+	<!-- 获取用户权限的拦截器 
 	<mvc:interceptors>
-		<!-- <mvc:interceptor>
-			<mvc:mapping path="/admin/**" />
-			<bean class="com.cta.platform.interceptor.AuthorityInteceptor" />
-		</mvc:interceptor> -->
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
-			<bean class="com.cta.platform.interceptor.LoginInterceptor" />
+			<bean class="com.cta.platform.interceptor.AuthorityInteceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
+	-->
 
 	<!--静态文件的的映射 -->
 	<mvc:resources location="/**" mapping="/**" />
-	<!--
 	<mvc:resources location="/assets/jsp/**" mapping="/assets/jsp/**" />
 	<mvc:resources location="/assets/js/**" mapping="/assets/js/**" />
 	<mvc:resources location="/assets/css/**" mapping="/assets/css/**" />
 	<mvc:resources location="/assets/images/**" mapping="/assets/images/**" />
-	 -->
 </beans>
