@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>CTA后台管理系统</title>
+<title>九如后台管理系统</title>
 <%@include file="/assets/jsp/common.jsp"%>
 </head>
 <body>

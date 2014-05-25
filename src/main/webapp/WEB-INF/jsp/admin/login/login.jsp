@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>酷客外卖网站后台管理系统登陆</title>
+<title>九如后台管理系统登陆</title>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_lib/jquery/jquery.1.72.min.js"></script>
 <style>
 div,body,p,form,input,h1{
