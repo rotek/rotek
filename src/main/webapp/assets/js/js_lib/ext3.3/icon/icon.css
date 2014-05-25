@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+.updateBtn {
+	background-image:url(../icon/edit.gif) !important;
+}
+
+.searchBtn {
+	background-image:url(../icon/serch.gif) !important;
+}
+.searchBtn2 {
+	background-image:url(../icon/search.gif) !important;
+}
+.addBtn{
+	background-image:url(../icon/drop-add.gif) !important;
+}
+.delBtn{
+	background-image:url(../icon/delete.gif) !important;
+}
+.queryBtn{
+	background-image:url(../icon/query.gif) !important;
+}
+.selectBtn{
+	background-image:url(../icon/select.gif) !important;
+}
+.lockedBtn{
+	background-image:url(../icon/hmenu-lock.gif) !important;
+}
+.unlockedBtn{
+	background-image:url(../icon/hmenu-unlock.gif) !important;
+}
+.changeBtn{
+	background-image:url(../icon/cog_change_.png) !important;
+}
+.poweroffBtn{
+	background-image:url(../icon/poweroff.png) !important;
+}
+.releaseBtn{
+	background-image:url(../icon/release.gif) !important;
+}
+.unpublishBtn{
+	background-image:url(../icon/unpublish.gif) !important;
+}
+.playBtn{
+	background-image:url(../icon/right-btn.gif) !important;
+}
+.refreshBtn{
+	background-image:url(../icon/refresh.gif) !important;
+}
+.rightBtn{
+	background-image:url(../icon/drop-yes.gif) !important;
+}
+.noBtn{
+	background-image:url(../icon/drop-no.gif) !important;
+}
+.warningBtn{
+	background-image:url(../icon/icon-warning.gif) !important;
+}
+.infoBtn{
+	background-image:url(../icon/icon-info.gif) !important;
+}
+.questionBtn{
+	background-image:url(../icon/icon-question.gif) !important;
+}
+.allowBtn{
+	background-image:url(../icon/ans.png) !important;
+}
+.noallowBtn{
+	background-image:url(../icon/anx.png) !important;
+}
+.reSetBtn{
+	background-image:url(../icon/reset.png) !important;
+}
+.yellowBtn{
+	background-image:url(../icon/yellow.png) !important;
+}
+.greenBtn{
+	background-image:url(../icon/green.png) !important;
+}
+.redBtn{
+	background-image:url(../icon/red.png) !important;
+}

@@ -11,7 +11,7 @@
             http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<!-- 对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
-	<context:component-scan base-package="com.cta.controller" />
+	<context:component-scan base-package="com.rotek.controller" />
 
 	<!-- spring的默认实现,不配置也一样 -->
 	<bean id="handlerMapping"
@@ -24,7 +24,10 @@
 	</bean>
 
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	<bean id="hostUserArgumentResolver" class="com.rotek.resolver.HostUserArgumentResolver" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="customArgumentResolver" ref="hostUserArgumentResolver" />
 		<property name="messageConverters">
 			<list>
 				<ref bean="jacksonMessageConverter" />
@@ -33,7 +36,9 @@
 	</bean>
 
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
 
 	<!-- 定义文件上传 -->
 	<bean id="multipartResolver"

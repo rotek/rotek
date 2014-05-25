@@ -1,72 +1,132 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" import="java.text.*"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title></title>
-<script language="JavaScript" type="text/javascript"> 
-    function showTime() { 
-	    var today;
-	    var hour;
-	    var second;
-	    var minute;
-	    var year;
-	    var month;
-	    var date;
-	    var strDate; 
-	    today = new Date(); 
-	    var n_day = today.getDay(); 
-	    switch (n_day) { 
-		    case 0:{ 
-		    	strDate = "星期日" 
-		    }break; 
-		    case 1:{ 
-		    	strDate = "星期一" 
-		    }break; 
-		    case 2:{ 
-		    	strDate ="星期二" 
-		    }break; 
-		    case 3:{ 
-		    	strDate = "星期三" 
-		    }break; 
-		    case 4:{ 
-		    	strDate = "星期四" 
-		    }break; 
-		    case 5:{ 
-		    	strDate = "星期五" 
-		    }break; 
-		    case 6:{ 
-		    	strDate = "星期六" 
-		    }break; 
-		    case 7:{ 
-		    	strDate = "星期日" 
-		    }break; 
-	    } 
-	    year = today.getFullYear(); 
-	    month = today.getMonth()+1; 
-	    date = today.getDate(); 
-	    hour = today.getHours(); 
-	    minute =today.getMinutes(); 
-	    second = today.getSeconds(); 
-	    if(month<10) month="0"+month; 
-	    if(date<10) date="0"+date; 
-	    if(hour<10) hour="0"+hour; 
-	    if(minute<10) minute="0"+minute; 
-	    if(second<10) second="0"+second; 
-	    document.getElementById('clock').innerHTML = year + "年" + month + "月" + date + "日 " + strDate +" " + hour + ":" + minute + ":" + second; 
-	    setTimeout("showTime();", 1000); 
-    }
-    
-</script> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>酷客外卖网站后台管理系统登陆</title>
+<script type="text/javascript" src="/assets/js/js_lib/jquery/jquery.1.72.min.js"></script>
+<style>
+div,body,p,form,input,h1{
+	margin:0; padding:0; font-size:12px; font-family:"宋体"}
+body{
+	background:url('/assets/images/login/login.jpg') no-repeat center top}
+#head{
+	height:300px;
+	margin:0 auto;
+	}
 
+#head2{
+	height:110px;
+	margin:0 auto;
+	}
+#main{
+	width:185px;
+	height:80px;
+	margin:0 auto;
+}
+#main p{
+	margin-bottom:20px;
+	color:#969696}
+.CMS_txt{
+	width:133px;
+	height:19px;
+	background:url('/assets/images/login/box.gif') no-repeat;
+	padding:1px;
+	line-height:19px;
+	border:none}
+.CMS_button{
+	width:75px;
+	height:30px;
+	background:url('/assets/images/login/button.gif') no-repeat;
+	border:none;
+	cursor:pointer;
+	margin:0 auto}
+#center{
+	text-align:center;}
+#footer{
+	height:70px;
+	margin:0 auto;
+	}
+#footer p{
+	text-align:center;
+	color:#666666;
+	margin-bottom:20px;}
+#footer p a{
+	padding:0 3px;
+	color:#666;
+	text-decoration:none
+	}
+#footer p a:hover{
+	text-decoration:underline}
+</style>
 </head>
 
-<body onload="showTime()">
+<body>
+<div id="head">
 
-<font size="5">现在时间是：</font><div style="color: red;" id="clock"></div>
+</div>
+<div id="main">
 
-<h1 align="center" >您已经进入登录测试页面！！</h1>
-<h2 align="center"> 恭喜，项目代码工程部署好了。。。。</h2>
+<p><span>用户名：</span><input type="text" class="CMS_txt" id="username"/></p>
+<p><span>密&nbsp;&nbsp;码：</span><input type="password" class="CMS_txt" id='password'/></p>
+</div>
+<div id="center"><input type="button" class="CMS_button" id = "subBtn" value="" /></div>
+<div id="head2"></div>
+<div id="head2"></div>
+<div id="footer">
+	<p>版权所有 Copyright 2008-2011 www.cncqa All Rights Reserved 京ICP备11029827号</p>
 
+	<p>技术支持：Administrator</p>
+	<p><a href="#">关于我们</a>|<a href="#">广告服务</a>|<a href="#">联系我们</a>|<a href="#">诚聘英才</a>|<a href="#">网站地图</a>|<a href="#">版权隐私</a>|<a href="#">使用协议</a>|<a href="#">帮助中心</a></p>
+
+</div>
 </body>
+<script type="text/javascript">
+
+	var LoginObj = {
+		initListener : function(){
+			$("#subBtn").click(function(){
+				var username = $("#username").val();//根据id获取值
+				var password = $("#password").val();
+				if(LoginObj.testEmpty(username) || LoginObj.testEmpty(password)){//非空验证
+					alert("用户名或密码不能为空！");
+					return;
+				}
+
+				$.ajax({
+					type: "POST",
+		  		   	beforeSend:function(){
+		  			   document.getElementById("subBtn").disabled = true;
+		  		   	},
+					url : "/admin/login/login",
+					data : {
+						username : username,
+						password : password
+					},
+					success : function(json,state){
+
+						document.getElementById("subBtn").disabled = false;
+						if("success" == state && "success" == json.result){
+
+							window.location.href="/admin/index/toIndex";
+						}else {
+							alert("用户名或密码错误！");
+						}
+					},
+					error : function(){
+						document.getElementById("subBtn").disabled = true;
+						alert("对不起，系统繁忙，请退出浏览器后重试！");
+					}
+				});
+			});
+		},
+		testEmpty : function(val){//非空验证
+			if($.trim(val))return false;
+			return true;
+		}
+	};
+$(function(){
+	LoginObj.initListener();
+});
+</script>
 </html>

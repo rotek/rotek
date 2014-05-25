@@ -54,5 +54,5 @@
 		</property>
 	</bean>
 <!-- 开启dao层的注解扫描 -->
-	<context:component-scan base-package="com.cta.dao.impl"/>
+	<context:component-scan base-package="com.rotek.dao.impl"/>
 </beans>
