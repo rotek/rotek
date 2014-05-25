@@ -9,7 +9,7 @@
 div,body,p,form,input,h1{
 	margin:0; padding:0; font-size:12px; font-family:"宋体"}
 body{
-	background:url('/assets/images/login/login.jpg') no-repeat center top}
+	background:url('${pageContext.request.contextPath }/assets/images/login/login.jpg') no-repeat center top}
 #head{
 	height:300px;
 	margin:0 auto;
