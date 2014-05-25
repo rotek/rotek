@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>酷客外卖网站后台管理系统登陆</title>
-<script type="text/javascript" src="/assets/js/js_lib/jquery/jquery.1.72.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_lib/jquery/jquery.1.72.min.js"></script>
 <style>
 div,body,p,form,input,h1{
 	margin:0; padding:0; font-size:12px; font-family:"宋体"}
@@ -30,14 +30,14 @@ body{
 .CMS_txt{
 	width:133px;
 	height:19px;
-	background:url('/assets/images/login/box.gif') no-repeat;
+	background:url('${pageContext.request.contextPath }/assets/images/login/box.gif') no-repeat;
 	padding:1px;
 	line-height:19px;
 	border:none}
 .CMS_button{
 	width:75px;
 	height:30px;
-	background:url('/assets/images/login/button.gif') no-repeat;
+	background:url('${pageContext.request.contextPath }/assets/images/login/button.gif') no-repeat;
 	border:none;
 	cursor:pointer;
 	margin:0 auto}
@@ -98,7 +98,7 @@ body{
 		  		   	beforeSend:function(){
 		  			   document.getElementById("subBtn").disabled = true;
 		  		   	},
-					url : "/admin/login/login",
+					url : "${pageContext.request.contextPath }/admin/login/login",
 					data : {
 						username : username,
 						password : password
@@ -108,7 +108,7 @@ body{
 						document.getElementById("subBtn").disabled = false;
 						if("success" == state && "success" == json.result){
 
-							window.location.href="/admin/index/toIndex";
+							window.location.href="${pageContext.request.contextPath }/admin/index/toIndex";
 						}else {
 							alert("用户名或密码错误！");
 						}
