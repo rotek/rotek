@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50510
 File Encoding         : 65001
 
-Date: 2014-06-02 21:23:13
+Date: 2014-06-02 21:47:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,8 +22,8 @@ DROP TABLE IF EXISTS `agentestimateinfo`;
 CREATE TABLE `agentestimateinfo` (
   `EstimateID` int(11) NOT NULL AUTO_INCREMENT,
   `AgentID` int(11) NOT NULL,
-  `DLSXJPJ` char(255) DEFAULT NULL,
-  `DLSGLXZ` char(255) DEFAULT NULL,
+  `DLSXJPJ` char(255) CHARACTER SET utf8 DEFAULT NULL,
+  `DLSGLXZ` char(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`EstimateID`),
   KEY `AgentID` (`AgentID`),
   CONSTRAINT `agentestimateinfo_ibfk_1` FOREIGN KEY (`AgentID`) REFERENCES `agentinfo` (`AgentID`)
@@ -40,13 +40,13 @@ DROP TABLE IF EXISTS `agentidentityinfo`;
 CREATE TABLE `agentidentityinfo` (
   `AgentIdentityID` int(11) NOT NULL AUTO_INCREMENT,
   `AgentID` int(11) NOT NULL,
-  `DLSZJMC` char(255) DEFAULT NULL,
-  `DLSZJYXQ` char(255) DEFAULT NULL,
-  `DLSZJZP` char(255) DEFAULT NULL,
+  `DLSZJMC` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `DLSZJYXQ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `DLSZJZP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`AgentIdentityID`),
   KEY `AgentID` (`AgentID`),
   CONSTRAINT `agentidentityinfo_ibfk_1` FOREIGN KEY (`AgentID`) REFERENCES `agentinfo` (`AgentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='代理商证件信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='代理商证件信息表';
 
 -- ----------------------------
 -- Records of agentidentityinfo
@@ -59,16 +59,16 @@ DROP TABLE IF EXISTS `agentinfo`;
 CREATE TABLE `agentinfo` (
   `AgentID` int(11) NOT NULL AUTO_INCREMENT,
   `UserRoleID` int(11) NOT NULL,
-  `DLSMC` char(255) NOT NULL,
-  `DLSTXDZ` char(255) NOT NULL,
-  `DLSLXFS` char(255) DEFAULT NULL,
-  `DLSLXR` char(255) NOT NULL,
-  `DLQY` char(255) DEFAULT NULL,
-  `SSJB` char(255) DEFAULT NULL,
+  `DLSMC` char(255) CHARACTER SET gb2312 NOT NULL,
+  `DLSTXDZ` char(255) CHARACTER SET gb2312 NOT NULL,
+  `DLSLXFS` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `DLSLXR` char(255) CHARACTER SET gb2312 NOT NULL,
+  `DLQY` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `SSJB` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`AgentID`),
   KEY `UserRoleID` (`UserRoleID`),
   CONSTRAINT `agentinfo_ibfk_1` FOREIGN KEY (`UserRoleID`) REFERENCES `userrole` (`UserRoleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='基本信息：九如公司业务员负责录入。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='基本信息：九如公司业务员负责录入。';
 
 -- ----------------------------
 -- Records of agentinfo
@@ -82,7 +82,7 @@ CREATE TABLE `algorithm1data` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ProjectID` int(11) NOT NULL,
   `AlgorithmTypeID` int(11) NOT NULL,
-  `LJBH` char(255) DEFAULT NULL,
+  `LJBH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `LJGHSJ` datetime DEFAULT NULL,
   `LJEDYXSJ` int(11) DEFAULT NULL,
   `LJYXSJ` int(11) DEFAULT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE `algorithm1data` (
   KEY `AlgorithmTypeID` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm1data_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`),
   CONSTRAINT `algorithm1data_ibfk_2` FOREIGN KEY (`AlgorithmTypeID`) REFERENCES `algorithmtype` (`AlgorithmTypeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='服务超限\r\n1. 累计运行时间（年）达到N年，转化为小时数，记为Na，Na=设置小时，固定值。\r\n2. 服务档案记录的上一次更换时间T，若当前时间记为Td，距离上一次更换的时间差为Ta=(T-Td)（注：转化为小时数），既是在服务档案中对应的零件目前的累计运行时间。\r\n3. Ta>Na时发送提醒。\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务超限\r\n1. 累计运行时间（年）达到N年，转化为小时数，记为Na，Na=设置小时，固定值。\r\n2. 服务档案记录的上一次更换时间T，若当前时间记为Td，距离上一次更换的时间差为Ta=(T-Td)（注：转化为小时数），既是在服务档案中对应的零件目前的累计运行时间。\r\n3. Ta>Na时发送提醒。\r\n';
 
 -- ----------------------------
 -- Records of algorithm1data
@@ -105,7 +105,7 @@ CREATE TABLE `algorithm2data` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ProjectID` int(11) NOT NULL,
   `AlgorithmTypeID` int(11) NOT NULL,
-  `LJBH` char(11) DEFAULT NULL,
+  `LJBH` char(11) CHARACTER SET gb2312 DEFAULT NULL,
   `LJEDYXSJ` int(11) DEFAULT NULL,
   `LJYXSJ` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
@@ -113,7 +113,7 @@ CREATE TABLE `algorithm2data` (
   KEY `AlgorithmTypeID` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm2data_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`),
   CONSTRAINT `algorithm2data_ibfk_2` FOREIGN KEY (`AlgorithmTypeID`) REFERENCES `algorithmtype` (`AlgorithmTypeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='服务超限\r\n1. 开关量的累计运行时间Ha，单位是小时Na，Na=设置小时，固定值。\r\n2. 计算：Ha>Na时发送提醒。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务超限\r\n1. 开关量的累计运行时间Ha，单位是小时Na，Na=设置小时，固定值。\r\n2. 计算：Ha>Na时发送提醒。';
 
 -- ----------------------------
 -- Records of algorithm2data
@@ -127,7 +127,7 @@ CREATE TABLE `algorithm3data` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ProjectID` int(11) NOT NULL,
   `AlgorithmTypeID` int(11) NOT NULL,
-  `LJBH` char(11) DEFAULT NULL,
+  `LJBH` char(11) CHARACTER SET gb2312 DEFAULT NULL,
   `GLQCESJ` int(11) DEFAULT NULL,
   `GLQCEBFB` int(11) DEFAULT NULL,
   `LJCEYXSJ` int(11) DEFAULT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE `algorithm3data` (
   KEY `AlgorithmTypeID` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm3data_ibfk_1` FOREIGN KEY (`AlgorithmTypeID`) REFERENCES `algorithmtype` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm3data_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='服务超限\r\n1.（过滤器的）前后压差Pa（当设定相应的开关量存在信号时），大于或等于设定值S Mpa的n%时\r\n2. 此种情况持续存在N分钟，发送提醒。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务超限\r\n1.（过滤器的）前后压差Pa（当设定相应的开关量存在信号时），大于或等于设定值S Mpa的n%时\r\n2. 此种情况持续存在N分钟，发送提醒。';
 
 -- ----------------------------
 -- Records of algorithm3data
@@ -150,7 +150,7 @@ CREATE TABLE `algorithm4data` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ProjectID` int(11) NOT NULL,
   `AlgorithmTypeID` int(11) NOT NULL,
-  `LJBH` char(11) DEFAULT NULL,
+  `LJBH` char(11) CHARACTER SET gb2312 DEFAULT NULL,
   `MLLCESJ` int(11) DEFAULT NULL,
   `MXTSLLBZ` int(11) DEFAULT NULL,
   `MXTSLLLJSJ` int(11) DEFAULT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE `algorithm4data` (
   KEY `AlgorithmTypeID` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm4data_ibfk_1` FOREIGN KEY (`AlgorithmTypeID`) REFERENCES `algorithmtype` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm4data_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='服务超限\r\n1. 当设定相应的开关量K存在信号时，根据此膜系统产水流量M，产水流量小于设定值S m³时\r\n2. 此种状态持续N分钟以上。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务超限\r\n1. 当设定相应的开关量K存在信号时，根据此膜系统产水流量M，产水流量小于设定值S m³时\r\n2. 此种状态持续N分钟以上。';
 
 -- ----------------------------
 -- Records of algorithm4data
@@ -173,7 +173,7 @@ CREATE TABLE `algorithm5data` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ProjectID` int(11) NOT NULL,
   `AlgorithmTypeID` int(11) NOT NULL,
-  `LJBH` char(11) DEFAULT NULL,
+  `LJBH` char(11) CHARACTER SET gb2312 DEFAULT NULL,
   `MLLCESJ` int(11) DEFAULT NULL,
   `MXTHSLBZ` int(11) DEFAULT NULL,
   `MXTHSLCELJSJ` int(11) DEFAULT NULL,
@@ -182,7 +182,7 @@ CREATE TABLE `algorithm5data` (
   KEY `AlgorithmTypeID` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm5data_ibfk_1` FOREIGN KEY (`AlgorithmTypeID`) REFERENCES `algorithmtype` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm5data_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='服务超限\r\n1. 当设定相应的开关量K存在信号时，根据此膜系统产水纯水流量M1和浓水流量M2进行比较计算，如果回收率{纯水流量/（纯水流量+浓水流量）*100%}高于或低于设定值S%时\r\n2. 此种状态持续N分钟以上。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务超限\r\n1. 当设定相应的开关量K存在信号时，根据此膜系统产水纯水流量M1和浓水流量M2进行比较计算，如果回收率{纯水流量/（纯水流量+浓水流量）*100%}高于或低于设定值S%时\r\n2. 此种状态持续N分钟以上。';
 
 -- ----------------------------
 -- Records of algorithm5data
@@ -196,7 +196,7 @@ CREATE TABLE `algorithm6data` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ProjectID` int(11) NOT NULL,
   `AlgorithmTypeID` int(11) NOT NULL,
-  `LJBH` char(11) DEFAULT NULL,
+  `LJBH` char(11) CHARACTER SET gb2312 DEFAULT NULL,
   `DWSJYLSD` int(11) DEFAULT NULL,
   `DYSYLTJ` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
@@ -204,7 +204,7 @@ CREATE TABLE `algorithm6data` (
   KEY `AlgorithmTypeID` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm6data_ibfk_1` FOREIGN KEY (`AlgorithmTypeID`) REFERENCES `algorithmtype` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm6data_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='定时提醒\r\n1. 当月使用量：月累计运行时间*单位运行用量设定值S g/h，其中，月累计运行时间通过运行的开关量信息的累计运行时间计算。\r\n2. 根据当月的使用量提醒建议下个月的使用量：如编号：1号杀菌剂 当月使用量： 请参考！\r\n3. 名称可随意调整。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='定时提醒\r\n1. 当月使用量：月累计运行时间*单位运行用量设定值S g/h，其中，月累计运行时间通过运行的开关量信息的累计运行时间计算。\r\n2. 根据当月的使用量提醒建议下个月的使用量：如编号：1号杀菌剂 当月使用量： 请参考！\r\n3. 名称可随意调整。';
 
 -- ----------------------------
 -- Records of algorithm6data
@@ -218,7 +218,7 @@ CREATE TABLE `algorithm8data` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ProjectID` int(11) NOT NULL,
   `AlgorithmTypeID` int(11) NOT NULL,
-  `LJBH` char(11) DEFAULT NULL,
+  `LJBH` char(11) CHARACTER SET gb2312 DEFAULT NULL,
   `MXTCEDDL` int(11) DEFAULT NULL,
   `MXTDDLBZ` int(11) DEFAULT NULL,
   `MXTDDLLJSJ` int(11) DEFAULT NULL,
@@ -227,7 +227,7 @@ CREATE TABLE `algorithm8data` (
   KEY `AlgorithmTypeID` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm8data_ibfk_1` FOREIGN KEY (`AlgorithmTypeID`) REFERENCES `algorithmtype` (`AlgorithmTypeID`),
   CONSTRAINT `algorithm8data_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='服务超限\r\n1. 当设定相应的开关量K存在信号时，根据此膜系统产水电导率M，产水电导率小于设定值S m³时。\r\n2. 此种状态持续N分钟以上。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务超限\r\n1. 当设定相应的开关量K存在信号时，根据此膜系统产水电导率M，产水电导率小于设定值S m³时。\r\n2. 此种状态持续N分钟以上。';
 
 -- ----------------------------
 -- Records of algorithm8data
@@ -239,9 +239,9 @@ CREATE TABLE `algorithm8data` (
 DROP TABLE IF EXISTS `algorithmtype`;
 CREATE TABLE `algorithmtype` (
   `AlgorithmTypeID` int(11) NOT NULL AUTO_INCREMENT,
-  `AlgorithmTypeName` enum('') DEFAULT NULL,
+  `AlgorithmTypeName` enum('') CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`AlgorithmTypeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='算法类别设置表：报警类；提醒类。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='算法类别设置表：报警类；提醒类。';
 
 -- ----------------------------
 -- Records of algorithmtype
@@ -255,14 +255,14 @@ CREATE TABLE `carbonfilterdetail` (
   `CarbonFilterID` int(11) NOT NULL AUTO_INCREMENT,
   `CarbonFilterGroupID` int(11) NOT NULL,
   `LLSL` int(11) DEFAULT NULL,
-  `PP` char(255) DEFAULT NULL,
-  `XH` char(255) DEFAULT NULL,
+  `PP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `XH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `CKDJ` double DEFAULT NULL,
   `EDGHSJ` double DEFAULT NULL,
   PRIMARY KEY (`CarbonFilterID`),
   KEY `CarbonFilterGroupID` (`CarbonFilterGroupID`),
   CONSTRAINT `carbonfilterdetail_ibfk_1` FOREIGN KEY (`CarbonFilterGroupID`) REFERENCES `carbonfiltergroupinfo` (`CarbonFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of carbonfilterdetail
@@ -275,14 +275,14 @@ DROP TABLE IF EXISTS `carbonfiltergroupinfo`;
 CREATE TABLE `carbonfiltergroupinfo` (
   `CarbonFilterGroupID` int(11) NOT NULL AUTO_INCREMENT,
   `ComponentID` int(11) NOT NULL,
-  `GG` char(255) DEFAULT NULL,
+  `GG` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `CLL` int(11) DEFAULT NULL,
   `TLGD` int(11) DEFAULT NULL,
-  `CZ` char(255) DEFAULT NULL,
+  `CZ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`CarbonFilterGroupID`),
   KEY `ComponentID` (`ComponentID`),
   CONSTRAINT `carbonfiltergroupinfo_ibfk_1` FOREIGN KEY (`ComponentID`) REFERENCES `componentinfo` (`ComponentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='碳滤器组信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='碳滤器组信息表';
 
 -- ----------------------------
 -- Records of carbonfiltergroupinfo
@@ -295,14 +295,14 @@ DROP TABLE IF EXISTS `complaintinfo`;
 CREATE TABLE `complaintinfo` (
   `ComplaintID` int(11) NOT NULL AUTO_INCREMENT,
   `AgentID` int(11) NOT NULL,
-  `DLSMC` char(255) DEFAULT NULL,
-  `TSDW` char(255) DEFAULT NULL,
-  `TSSX` char(255) DEFAULT NULL,
+  `DLSMC` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `TSDW` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `TSSX` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `TSSJ` datetime DEFAULT NULL,
   PRIMARY KEY (`ComplaintID`),
   KEY `AgentID` (`AgentID`),
   CONSTRAINT `complaintinfo_ibfk_1` FOREIGN KEY (`AgentID`) REFERENCES `agentinfo` (`AgentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='投诉信息统计表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='投诉信息统计表';
 
 -- ----------------------------
 -- Records of complaintinfo
@@ -316,13 +316,13 @@ CREATE TABLE `componentinfo` (
   `ComponentID` int(11) NOT NULL AUTO_INCREMENT,
   `LocaleComponentID` int(11) DEFAULT NULL,
   `ProjectID` int(11) NOT NULL,
-  `LJBH` char(255) DEFAULT NULL,
-  `LJLB` char(255) DEFAULT NULL,
-  `LJBM` char(255) DEFAULT NULL,
+  `LJBH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `LJLB` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `LJBM` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`ComponentID`),
   KEY `ProjectID` (`ProjectID`),
   CONSTRAINT `componentinfo_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='工程零件信息表\r\nLocaleComponentID:用于将现场零件ID和管理系统的零件ID对应使用，唯一。\r\nLJLB:泵，砂滤器，碳滤器，软化器，过滤器，膜，紫外杀菌器，水箱，加药装置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='工程零件信息表\r\nLocaleComponentID:用于将现场零件ID和管理系统的零件ID对应使用，唯一。\r\nLJLB:泵，砂滤器，碳滤器，软化器，过滤器，膜，紫外杀菌器，水箱，加药装置';
 
 -- ----------------------------
 -- Records of componentinfo
@@ -335,13 +335,13 @@ DROP TABLE IF EXISTS `customerdatainfo`;
 CREATE TABLE `customerdatainfo` (
   `DataID` int(11) NOT NULL AUTO_INCREMENT,
   `CustomerID` int(11) NOT NULL,
-  `ZLLB` enum('') DEFAULT NULL,
-  `ZLDZ` char(255) DEFAULT NULL,
-  `ZLMC` char(255) DEFAULT NULL,
+  `ZLLB` enum('') CHARACTER SET gb2312 DEFAULT NULL,
+  `ZLDZ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `ZLMC` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`DataID`),
   KEY `CustomerID` (`CustomerID`),
   CONSTRAINT `customerdatainfo_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customerinfo` (`CustomerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='客户资料信息表\r\n资料类别：文档，演示稿，图片，视频\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户资料信息表\r\n资料类别：文档，演示稿，图片，视频\r\n';
 
 -- ----------------------------
 -- Records of customerdatainfo
@@ -355,17 +355,17 @@ CREATE TABLE `customerinfo` (
   `CustomerID` int(11) NOT NULL AUTO_INCREMENT,
   `UserRoleID` int(11) NOT NULL,
   `AgentID` int(11) DEFAULT NULL,
-  `KHMC` char(255) NOT NULL,
-  `KHJWDDZ` char(255) NOT NULL,
-  `KHTXDZ` char(255) DEFAULT NULL,
-  `KHLXR` char(255) NOT NULL,
-  `KHLXDH` char(255) DEFAULT NULL,
+  `KHMC` char(255) CHARACTER SET gb2312 NOT NULL,
+  `KHJWDDZ` char(255) CHARACTER SET gb2312 NOT NULL,
+  `KHTXDZ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `KHLXR` char(255) CHARACTER SET gb2312 NOT NULL,
+  `KHLXDH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`CustomerID`),
   KEY `UserRoleID` (`UserRoleID`),
   KEY `AgentID` (`AgentID`),
   CONSTRAINT `customerinfo_ibfk_1` FOREIGN KEY (`UserRoleID`) REFERENCES `userrole` (`UserRoleID`),
   CONSTRAINT `customerinfo_ibfk_2` FOREIGN KEY (`AgentID`) REFERENCES `agentinfo` (`AgentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='客户基本信息表\r\n代理商外键：可以为空，如果为空，直接归九如公司管理。\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户基本信息表\r\n代理商外键：可以为空，如果为空，直接归九如公司管理。\r\n';
 
 -- ----------------------------
 -- Records of customerinfo
@@ -379,22 +379,22 @@ CREATE TABLE `customerprojectinfo` (
   `ProjectID` int(11) NOT NULL AUTO_INCREMENT,
   `LocaleProjectID` int(11) DEFAULT NULL,
   `CustomerID` int(11) NOT NULL,
-  `GCMC` char(255) NOT NULL,
-  `GCBH` char(255) NOT NULL,
-  `LocaleGCBH` char(255) DEFAULT NULL,
-  `GCFL` enum('') DEFAULT NULL,
-  `GCJS` char(255) DEFAULT NULL,
-  `GCXH` char(255) DEFAULT NULL,
-  `GCZP` char(255) DEFAULT NULL,
-  `JSCSJJ` char(255) DEFAULT NULL,
-  `JSCSFJ` char(255) DEFAULT NULL,
-  `GCLJ` char(255) DEFAULT NULL,
-  `AZSJ` char(255) DEFAULT NULL,
-  `TYSJ` char(255) DEFAULT NULL,
+  `GCMC` char(255) CHARACTER SET gb2312 NOT NULL,
+  `GCBH` char(255) CHARACTER SET gb2312 NOT NULL,
+  `LocaleGCBH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `GCFL` enum('') CHARACTER SET gb2312 DEFAULT NULL,
+  `GCJS` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `GCXH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `GCZP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `JSCSJJ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `JSCSFJ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `GCLJ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `AZSJ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `TYSJ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`ProjectID`),
   KEY `CustomerID` (`CustomerID`),
   CONSTRAINT `customerprojectinfo_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customerinfo` (`CustomerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='客户工程基本信息表\r\nLocaleProjectID:用于将现场的工程ID和管理系统的工程ID对应，唯一。\r\nLocaleGCBH:用于将现场工程编号和管理系统的工程编号对应。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户工程基本信息表\r\nLocaleProjectID:用于将现场的工程ID和管理系统的工程ID对应，唯一。\r\nLocaleGCBH:用于将现场工程编号和管理系统的工程编号对应。';
 
 -- ----------------------------
 -- Records of customerprojectinfo
@@ -411,7 +411,7 @@ CREATE TABLE `dosesettingdetail` (
   PRIMARY KEY (`DoseSettingID`),
   KEY `DoseSettingGroupID` (`DoseSettingGroupID`),
   CONSTRAINT `dosesettingdetail_ibfk_1` FOREIGN KEY (`DoseSettingGroupID`) REFERENCES `dosesettinggroupinfo` (`DoseSettingGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dosesettingdetail
@@ -424,8 +424,8 @@ DROP TABLE IF EXISTS `dosesettinggroupinfo`;
 CREATE TABLE `dosesettinggroupinfo` (
   `DoseSettingGroupID` int(11) NOT NULL AUTO_INCREMENT,
   `ComponentID` int(11) NOT NULL,
-  `YJPP` char(255) DEFAULT NULL,
-  `YJXH` char(255) DEFAULT NULL,
+  `YJPP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `YJXH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `GL` int(11) DEFAULT NULL,
   `YJND` double DEFAULT NULL,
   `YJEDTJL` double DEFAULT NULL,
@@ -433,7 +433,7 @@ CREATE TABLE `dosesettinggroupinfo` (
   PRIMARY KEY (`DoseSettingGroupID`),
   KEY `ComponentID` (`ComponentID`),
   CONSTRAINT `dosesettinggroupinfo_ibfk_1` FOREIGN KEY (`ComponentID`) REFERENCES `componentinfo` (`ComponentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='加药装置组信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='加药装置组信息表';
 
 -- ----------------------------
 -- Records of dosesettinggroupinfo
@@ -470,7 +470,7 @@ CREATE TABLE `emccarbonfilterdaysummary` (
   PRIMARY KEY (`CarbonFilterDaySumID`),
   KEY `CarbonFilterGroupID` (`CarbonFilterGroupID`),
   CONSTRAINT `emccarbonfilterdaysummary_ibfk_1` FOREIGN KEY (`CarbonFilterGroupID`) REFERENCES `carbonfiltergroupinfo` (`CarbonFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC碳滤器零件明细数据表:精确到小时';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC碳滤器零件明细数据表:精确到小时';
 
 -- ----------------------------
 -- Records of emccarbonfilterdaysummary
@@ -524,11 +524,11 @@ CREATE TABLE `emccarbonfilterdetail` (
   `EDSZYWJON` tinyint(4) DEFAULT NULL,
   `EDSZWNND` double(255,0) DEFAULT NULL,
   `EDSZWNNDON` tinyint(4) DEFAULT NULL,
-  `OtherInfo` char(255) DEFAULT NULL,
+  `OtherInfo` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`CarbonFilterID`),
   KEY `CarbonFilterGroupID` (`CarbonFilterGroupID`),
   CONSTRAINT `emccarbonfilterdetail_ibfk_1` FOREIGN KEY (`CarbonFilterGroupID`) REFERENCES `carbonfiltergroupinfo` (`CarbonFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC碳滤器零件明细数据表:精确到分钟';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC碳滤器零件明细数据表:精确到分钟';
 
 -- ----------------------------
 -- Records of emccarbonfilterdetail
@@ -565,7 +565,7 @@ CREATE TABLE `emccarbonfiltermonthsummary` (
   PRIMARY KEY (`CarbonFilterMonthSumID`),
   KEY `CarbonFilterGroupID` (`CarbonFilterGroupID`),
   CONSTRAINT `emccarbonfiltermonthsummary_ibfk_1` FOREIGN KEY (`CarbonFilterGroupID`) REFERENCES `carbonfiltergroupinfo` (`CarbonFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC碳滤器零件明细数据表:精确到天\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC碳滤器零件明细数据表:精确到天\r\n';
 
 -- ----------------------------
 -- Records of emccarbonfiltermonthsummary
@@ -602,7 +602,7 @@ CREATE TABLE `emccarbonfilteryearsummary` (
   PRIMARY KEY (`CarbonFilterYearSumID`),
   KEY `CarbonFilterGroupID` (`CarbonFilterGroupID`),
   CONSTRAINT `emccarbonfilteryearsummary_ibfk_1` FOREIGN KEY (`CarbonFilterGroupID`) REFERENCES `carbonfiltergroupinfo` (`CarbonFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC碳滤器零件明细数据表:精确到月';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC碳滤器零件明细数据表:精确到月';
 
 -- ----------------------------
 -- Records of emccarbonfilteryearsummary
@@ -639,7 +639,7 @@ CREATE TABLE `emcfilmdaysummary` (
   PRIMARY KEY (`FilmDaySumID`),
   KEY `FilmGroupID` (`FilmGroupID`),
   CONSTRAINT `emcfilmdaysummary_ibfk_1` FOREIGN KEY (`FilmGroupID`) REFERENCES `filmgroupinfo` (`FilmGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC膜零件明细数据表:精确到小时';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC膜零件明细数据表:精确到小时';
 
 -- ----------------------------
 -- Records of emcfilmdaysummary
@@ -693,11 +693,11 @@ CREATE TABLE `emcfilmdetail` (
   `EDSZYWJON` tinyint(4) DEFAULT NULL,
   `EDSZWNND` double(255,0) DEFAULT NULL,
   `EDSZWNNDON` tinyint(4) DEFAULT NULL,
-  `OtherInfo` char(255) DEFAULT NULL,
+  `OtherInfo` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`FilmID`),
   KEY `FilmGroupID` (`FilmGroupID`),
   CONSTRAINT `emcfilmdetail_ibfk_1` FOREIGN KEY (`FilmGroupID`) REFERENCES `filmgroupinfo` (`FilmGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC膜零件明细数据表:精确到分钟';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC膜零件明细数据表:精确到分钟';
 
 -- ----------------------------
 -- Records of emcfilmdetail
@@ -734,7 +734,7 @@ CREATE TABLE `emcfilmmonthsummary` (
   PRIMARY KEY (`FilmMonthSumID`),
   KEY `FilmGroupID` (`FilmGroupID`),
   CONSTRAINT `emcfilmmonthsummary_ibfk_1` FOREIGN KEY (`FilmGroupID`) REFERENCES `filmgroupinfo` (`FilmGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC膜零件明细数据表:精确到天\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC膜零件明细数据表:精确到天\r\n';
 
 -- ----------------------------
 -- Records of emcfilmmonthsummary
@@ -771,7 +771,7 @@ CREATE TABLE `emcfilmyearsummary` (
   PRIMARY KEY (`FilmYearSumID`),
   KEY `FilmGroupID` (`FilmGroupID`),
   CONSTRAINT `emcfilmyearsummary_ibfk_1` FOREIGN KEY (`FilmGroupID`) REFERENCES `filmgroupinfo` (`FilmGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC膜零件明细数据表:精确到月';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC膜零件明细数据表:精确到月';
 
 -- ----------------------------
 -- Records of emcfilmyearsummary
@@ -808,7 +808,7 @@ CREATE TABLE `emcfilterdaysummary` (
   PRIMARY KEY (`FilterDaySumID`),
   KEY `FilterGroupID` (`FilterGroupID`),
   CONSTRAINT `emcfilterdaysummary_ibfk_1` FOREIGN KEY (`FilterGroupID`) REFERENCES `filtergroupinfo` (`FilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC过滤器零件明细数据表:精确到小时';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC过滤器零件明细数据表:精确到小时';
 
 -- ----------------------------
 -- Records of emcfilterdaysummary
@@ -862,11 +862,11 @@ CREATE TABLE `emcfilterdetail` (
   `EDSZYWJON` tinyint(4) DEFAULT NULL,
   `EDSZWNND` double(255,0) DEFAULT NULL,
   `EDSZWNNDON` tinyint(4) DEFAULT NULL,
-  `OtherInfo` char(255) DEFAULT NULL,
+  `OtherInfo` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`FilterID`),
   KEY `FilterGroupID` (`FilterGroupID`),
   CONSTRAINT `emcfilterdetail_ibfk_1` FOREIGN KEY (`FilterGroupID`) REFERENCES `filtergroupinfo` (`FilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC过滤器零件明细数据表:精确到分钟';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC过滤器零件明细数据表:精确到分钟';
 
 -- ----------------------------
 -- Records of emcfilterdetail
@@ -903,7 +903,7 @@ CREATE TABLE `emcfiltermonthsummary` (
   PRIMARY KEY (`FilterMonthSumID`),
   KEY `FilterGroupID` (`FilterGroupID`),
   CONSTRAINT `emcfiltermonthsummary_ibfk_1` FOREIGN KEY (`FilterGroupID`) REFERENCES `filtergroupinfo` (`FilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC过滤器零件明细数据表:精确到天\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC过滤器零件明细数据表:精确到天\r\n';
 
 -- ----------------------------
 -- Records of emcfiltermonthsummary
@@ -940,7 +940,7 @@ CREATE TABLE `emcfilteryearsummary` (
   PRIMARY KEY (`FilterYearSumID`),
   KEY `FilterGroupID` (`FilterGroupID`),
   CONSTRAINT `emcfilteryearsummary_ibfk_1` FOREIGN KEY (`FilterGroupID`) REFERENCES `filtergroupinfo` (`FilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC过滤器零件明细数据表:精确到月';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC过滤器零件明细数据表:精确到月';
 
 -- ----------------------------
 -- Records of emcfilteryearsummary
@@ -977,7 +977,7 @@ CREATE TABLE `emcpumpdaysummary` (
   PRIMARY KEY (`PumpDaySumID`),
   KEY `PumpGroupID` (`PumpGroupID`),
   CONSTRAINT `emcpumpdaysummary_ibfk_1` FOREIGN KEY (`PumpGroupID`) REFERENCES `pumpgroupinfo` (`PumpGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='EMC泵零件明细数据表:精确到小时';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='EMC泵零件明细数据表:精确到小时';
 
 -- ----------------------------
 -- Records of emcpumpdaysummary
@@ -1031,11 +1031,11 @@ CREATE TABLE `emcpumpdetail` (
   `EDSZYWJON` tinyint(4) DEFAULT NULL,
   `EDSZWNND` double(255,0) DEFAULT NULL,
   `EDSZWNNDON` tinyint(4) DEFAULT NULL,
-  `OtherInfo` char(255) DEFAULT NULL,
+  `OtherInfo` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`PumpID`),
   KEY `PumpGroupID` (`PumpGroupID`),
   CONSTRAINT `emcpumpdetail_ibfk_1` FOREIGN KEY (`PumpGroupID`) REFERENCES `pumpgroupinfo` (`PumpGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='EMC泵零件明细数据表:精确到分钟';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='EMC泵零件明细数据表:精确到分钟';
 
 -- ----------------------------
 -- Records of emcpumpdetail
@@ -1072,7 +1072,7 @@ CREATE TABLE `emcpumpmonthsummary` (
   PRIMARY KEY (`PumpMonthSumID`),
   KEY `PumpGroupID` (`PumpGroupID`),
   CONSTRAINT `emcpumpmonthsummary_ibfk_1` FOREIGN KEY (`PumpGroupID`) REFERENCES `pumpgroupinfo` (`PumpGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='EMC泵零件明细数据表:精确到天\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='EMC泵零件明细数据表:精确到天\r\n';
 
 -- ----------------------------
 -- Records of emcpumpmonthsummary
@@ -1109,7 +1109,7 @@ CREATE TABLE `emcpumpyearsummary` (
   PRIMARY KEY (`PumpYearSumID`),
   KEY `PumpGroupID` (`PumpGroupID`),
   CONSTRAINT `emcpumpyearsummary_ibfk_1` FOREIGN KEY (`PumpGroupID`) REFERENCES `pumpgroupinfo` (`PumpGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='EMC泵零件明细数据表:精确到月';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='EMC泵零件明细数据表:精确到月';
 
 -- ----------------------------
 -- Records of emcpumpyearsummary
@@ -1146,7 +1146,7 @@ CREATE TABLE `emcsandfilterdaysummary` (
   PRIMARY KEY (`SandFilterDaySumID`),
   KEY `SandFilterGroupID` (`SandFilterGroupID`),
   CONSTRAINT `emcsandfilterdaysummary_ibfk_1` FOREIGN KEY (`SandFilterGroupID`) REFERENCES `sandfiltergroupinfo` (`SandFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到小时';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到小时';
 
 -- ----------------------------
 -- Records of emcsandfilterdaysummary
@@ -1200,11 +1200,11 @@ CREATE TABLE `emcsandfilterdetail` (
   `EDSZYWJON` tinyint(4) DEFAULT NULL,
   `EDSZWNND` double(255,0) DEFAULT NULL,
   `EDSZWNNDON` tinyint(4) DEFAULT NULL,
-  `OtherInfo` char(255) DEFAULT NULL,
+  `OtherInfo` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`SandFilterID`),
   KEY `SandFilterGroupID` (`SandFilterGroupID`),
   CONSTRAINT `emcsandfilterdetail_ibfk_1` FOREIGN KEY (`SandFilterGroupID`) REFERENCES `sandfiltergroupinfo` (`SandFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到分钟';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到分钟';
 
 -- ----------------------------
 -- Records of emcsandfilterdetail
@@ -1241,7 +1241,7 @@ CREATE TABLE `emcsandfiltermonthsummary` (
   PRIMARY KEY (`SandFilterMonthSumID`),
   KEY `SandFilterGroupID` (`SandFilterGroupID`),
   CONSTRAINT `emcsandfiltermonthsummary_ibfk_1` FOREIGN KEY (`SandFilterGroupID`) REFERENCES `sandfiltergroupinfo` (`SandFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到天\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到天\r\n';
 
 -- ----------------------------
 -- Records of emcsandfiltermonthsummary
@@ -1278,7 +1278,7 @@ CREATE TABLE `emcsandfilteryearsummary` (
   PRIMARY KEY (`SandFilterYearSumID`),
   KEY `SandFilterGroupID` (`SandFilterGroupID`),
   CONSTRAINT `emcsandfilteryearsummary_ibfk_1` FOREIGN KEY (`SandFilterGroupID`) REFERENCES `sandfiltergroupinfo` (`SandFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到月';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到月';
 
 -- ----------------------------
 -- Records of emcsandfilteryearsummary
@@ -1315,7 +1315,7 @@ CREATE TABLE `emcsoftenerdaysummary` (
   PRIMARY KEY (`SoftenerDaySumID`),
   KEY `SoftenerGroupID` (`SoftenerGroupID`),
   CONSTRAINT `emcsoftenerdaysummary_ibfk_1` FOREIGN KEY (`SoftenerGroupID`) REFERENCES `softenergroupinfo` (`SoftenerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC软化器零件明细数据表:精确到小时';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC软化器零件明细数据表:精确到小时';
 
 -- ----------------------------
 -- Records of emcsoftenerdaysummary
@@ -1369,11 +1369,11 @@ CREATE TABLE `emcsoftenerdetail` (
   `EDSZYWJON` tinyint(4) DEFAULT NULL,
   `EDSZWNND` double(255,0) DEFAULT NULL,
   `EDSZWNNDON` tinyint(4) DEFAULT NULL,
-  `OtherInfo` char(255) DEFAULT NULL,
+  `OtherInfo` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`SoftenerID`),
   KEY `SoftenerGroupID` (`SoftenerGroupID`),
   CONSTRAINT `emcsoftenerdetail_ibfk_1` FOREIGN KEY (`SoftenerGroupID`) REFERENCES `softenergroupinfo` (`SoftenerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC软化器零件明细数据表:精确到分钟';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC软化器零件明细数据表:精确到分钟';
 
 -- ----------------------------
 -- Records of emcsoftenerdetail
@@ -1410,7 +1410,7 @@ CREATE TABLE `emcsoftenermonthsummary` (
   PRIMARY KEY (`SoftenerMonthSumID`),
   KEY `SoftenerGroupID` (`SoftenerGroupID`),
   CONSTRAINT `emcsoftenermonthsummary_ibfk_1` FOREIGN KEY (`SoftenerGroupID`) REFERENCES `softenergroupinfo` (`SoftenerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC软化器零件明细数据表:精确到天\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC软化器零件明细数据表:精确到天\r\n';
 
 -- ----------------------------
 -- Records of emcsoftenermonthsummary
@@ -1447,7 +1447,7 @@ CREATE TABLE `emcsofteneryearsummary` (
   PRIMARY KEY (`SoftenerYearSumID`),
   KEY `SoftenerGroupID` (`SoftenerGroupID`),
   CONSTRAINT `emcsofteneryearsummary_ibfk_1` FOREIGN KEY (`SoftenerGroupID`) REFERENCES `softenergroupinfo` (`SoftenerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC软化器零件明细数据表:精确到月';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC软化器零件明细数据表:精确到月';
 
 -- ----------------------------
 -- Records of emcsofteneryearsummary
@@ -1484,7 +1484,7 @@ CREATE TABLE `emctankdaysummary` (
   PRIMARY KEY (`TankDaySumID`),
   KEY `TankGroupID` (`TankGroupID`),
   CONSTRAINT `emctankdaysummary_ibfk_1` FOREIGN KEY (`TankGroupID`) REFERENCES `tankgroupinfo` (`TankGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到小时';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC砂滤器零件明细数据表:精确到小时';
 
 -- ----------------------------
 -- Records of emctankdaysummary
@@ -1538,11 +1538,11 @@ CREATE TABLE `emctankdetail` (
   `EDSZYWJON` tinyint(4) DEFAULT NULL,
   `EDSZWNND` double(255,0) DEFAULT NULL,
   `EDSZWNNDON` tinyint(4) DEFAULT NULL,
-  `OtherInfo` char(255) DEFAULT NULL,
+  `OtherInfo` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`TankID`),
   KEY `TankGroupID` (`TankGroupID`),
   CONSTRAINT `emctankdetail_ibfk_1` FOREIGN KEY (`TankGroupID`) REFERENCES `tankgroupinfo` (`TankGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC水箱零件明细数据表:精确到分钟';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC水箱零件明细数据表:精确到分钟';
 
 -- ----------------------------
 -- Records of emctankdetail
@@ -1579,7 +1579,7 @@ CREATE TABLE `emctankmonthsummary` (
   PRIMARY KEY (`TankMonthSumID`),
   KEY `TankGroupID` (`TankGroupID`),
   CONSTRAINT `emctankmonthsummary_ibfk_1` FOREIGN KEY (`TankGroupID`) REFERENCES `tankgroupinfo` (`TankGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC水箱零件明细数据表:精确到天\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC水箱零件明细数据表:精确到天\r\n';
 
 -- ----------------------------
 -- Records of emctankmonthsummary
@@ -1616,7 +1616,7 @@ CREATE TABLE `emctankyearsummary` (
   PRIMARY KEY (`TankYearSumID`),
   KEY `TankGroupID` (`TankGroupID`),
   CONSTRAINT `emctankyearsummary_ibfk_1` FOREIGN KEY (`TankGroupID`) REFERENCES `tankgroupinfo` (`TankGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC水箱零件明细数据表:精确到月';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC水箱零件明细数据表:精确到月';
 
 -- ----------------------------
 -- Records of emctankyearsummary
@@ -1653,7 +1653,7 @@ CREATE TABLE `emcuvsterilizerdaysummary` (
   PRIMARY KEY (`UVSterilizerDaySumID`),
   KEY `UVSterilizerGroupID` (`UVSterilizerGroupID`),
   CONSTRAINT `emcuvsterilizerdaysummary_ibfk_1` FOREIGN KEY (`UVSterilizerGroupID`) REFERENCES `uvsterilizergroupinfo` (`UVSterilizerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC紫外线杀菌器零件明细数据表:精确到小时';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC紫外线杀菌器零件明细数据表:精确到小时';
 
 -- ----------------------------
 -- Records of emcuvsterilizerdaysummary
@@ -1707,11 +1707,11 @@ CREATE TABLE `emcuvsterilizerdetail` (
   `EDSZYWJON` tinyint(4) DEFAULT NULL,
   `EDSZWNND` double(255,0) DEFAULT NULL,
   `EDSZWNNDON` tinyint(4) DEFAULT NULL,
-  `OtherInfo` char(255) DEFAULT NULL,
+  `OtherInfo` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`UVSterilizerID`),
   KEY `UVSterilizerGroupID` (`UVSterilizerGroupID`),
   CONSTRAINT `emcuvsterilizerdetail_ibfk_1` FOREIGN KEY (`UVSterilizerGroupID`) REFERENCES `uvsterilizergroupinfo` (`UVSterilizerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC紫外线杀菌器零件明细数据表:精确到分钟';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC紫外线杀菌器零件明细数据表:精确到分钟';
 
 -- ----------------------------
 -- Records of emcuvsterilizerdetail
@@ -1748,7 +1748,7 @@ CREATE TABLE `emcuvsterilizermonthsummary` (
   PRIMARY KEY (`UVSterilizerMonthSumID`),
   KEY `UVSterilizerGroupID` (`UVSterilizerGroupID`),
   CONSTRAINT `emcuvsterilizermonthsummary_ibfk_1` FOREIGN KEY (`UVSterilizerGroupID`) REFERENCES `uvsterilizergroupinfo` (`UVSterilizerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC紫外线杀菌器零件明细数据表:精确到天\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC紫外线杀菌器零件明细数据表:精确到天\r\n';
 
 -- ----------------------------
 -- Records of emcuvsterilizermonthsummary
@@ -1785,7 +1785,7 @@ CREATE TABLE `emcuvsterilizeryearsummary` (
   PRIMARY KEY (`UVSterilizerYearSumID`),
   KEY `UVSterilizerGroupID` (`UVSterilizerGroupID`),
   CONSTRAINT `emcuvsterilizeryearsummary_ibfk_1` FOREIGN KEY (`UVSterilizerGroupID`) REFERENCES `uvsterilizergroupinfo` (`UVSterilizerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 ROW_FORMAT=COMPACT COMMENT='EMC紫外线杀菌器零件明细数据表:精确到月';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='EMC紫外线杀菌器零件明细数据表:精确到月';
 
 -- ----------------------------
 -- Records of emcuvsterilizeryearsummary
@@ -1808,7 +1808,7 @@ CREATE TABLE `filmdetail` (
   PRIMARY KEY (`FilmID`),
   KEY `FilmGroupID` (`FilmGroupID`),
   CONSTRAINT `filmdetail_ibfk_1` FOREIGN KEY (`FilmGroupID`) REFERENCES `filmgroupinfo` (`FilmGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of filmdetail
@@ -1821,18 +1821,18 @@ DROP TABLE IF EXISTS `filmgroupinfo`;
 CREATE TABLE `filmgroupinfo` (
   `FilmGroupID` int(11) NOT NULL AUTO_INCREMENT,
   `ComponentID` int(11) NOT NULL,
-  `PLFS` char(255) DEFAULT NULL,
-  `MKGG` char(255) DEFAULT NULL,
+  `PLFS` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `MKGG` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `MZSL` int(11) DEFAULT NULL,
   `CSL` int(11) DEFAULT NULL,
-  `MPP` char(255) DEFAULT NULL,
-  `MXH` char(255) DEFAULT NULL,
+  `MPP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `MXH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `MHSL` double DEFAULT NULL,
   `MCKDJ` double DEFAULT NULL,
   PRIMARY KEY (`FilmGroupID`),
   KEY `ComponentID` (`ComponentID`),
   CONSTRAINT `filmgroupinfo_ibfk_1` FOREIGN KEY (`ComponentID`) REFERENCES `componentinfo` (`ComponentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='膜组信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='膜组信息表';
 
 -- ----------------------------
 -- Records of filmgroupinfo
@@ -1850,7 +1850,7 @@ CREATE TABLE `filterdetail` (
   PRIMARY KEY (`FilterID`),
   KEY `FilterGroupID` (`FilterGroupID`),
   CONSTRAINT `filterdetail_ibfk_1` FOREIGN KEY (`FilterGroupID`) REFERENCES `filtergroupinfo` (`FilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of filterdetail
@@ -1863,21 +1863,21 @@ DROP TABLE IF EXISTS `filtergroupinfo`;
 CREATE TABLE `filtergroupinfo` (
   `FilterGroupID` int(11) NOT NULL AUTO_INCREMENT,
   `ComponentID` int(11) NOT NULL,
-  `GG` char(255) DEFAULT NULL,
+  `GG` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `CLL` int(11) DEFAULT NULL,
   `GLJD` double DEFAULT NULL,
   `LXCC` double DEFAULT NULL,
   `LXSL` int(11) DEFAULT NULL,
-  `LXCZ` char(255) DEFAULT NULL,
-  `LXPP` char(255) DEFAULT NULL,
-  `LXXH` char(255) DEFAULT NULL,
-  `LXJKXS` char(255) DEFAULT NULL,
+  `LXCZ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `LXPP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `LXXH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `LXJKXS` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `LXCKDJ` double DEFAULT NULL,
-  `Others` char(255) DEFAULT NULL,
+  `Others` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`FilterGroupID`),
   KEY `ComponentID` (`ComponentID`),
   CONSTRAINT `filtergroupinfo_ibfk_1` FOREIGN KEY (`ComponentID`) REFERENCES `componentinfo` (`ComponentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='过滤器组信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='过滤器组信息表';
 
 -- ----------------------------
 -- Records of filtergroupinfo
@@ -1890,17 +1890,17 @@ DROP TABLE IF EXISTS `maintainceservicesdetail`;
 CREATE TABLE `maintainceservicesdetail` (
   `MaintainceServicesID` int(11) NOT NULL AUTO_INCREMENT,
   `ProjectID` int(11) NOT NULL,
-  `LJSSLB` enum('') DEFAULT NULL,
-  `LJBH` char(255) DEFAULT NULL,
+  `LJSSLB` enum('') CHARACTER SET gb2312 DEFAULT NULL,
+  `LJBH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `FWRQ` datetime DEFAULT NULL,
-  `FWNR` char(255) DEFAULT NULL,
-  `FWGS` char(255) DEFAULT NULL,
-  `FWRY` char(255) DEFAULT NULL,
-  `FWPJ` char(255) DEFAULT NULL,
+  `FWNR` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `FWGS` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `FWRY` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `FWPJ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`MaintainceServicesID`),
   KEY `ProjectID` (`ProjectID`),
   CONSTRAINT `maintainceservicesdetail_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='维护保养明细表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='维护保养明细表';
 
 -- ----------------------------
 -- Records of maintainceservicesdetail
@@ -1913,15 +1913,15 @@ DROP TABLE IF EXISTS `projectdatainfo`;
 CREATE TABLE `projectdatainfo` (
   `ProjectDataID` int(11) NOT NULL AUTO_INCREMENT,
   `ProjectID` int(11) NOT NULL,
-  `GCZLMC` char(255) DEFAULT NULL,
-  `GCZLJJ` char(255) DEFAULT NULL,
-  `GCZLLX` enum('') DEFAULT NULL,
-  `GCZLLJ` char(255) DEFAULT NULL,
-  `GCJCTLX` char(255) DEFAULT NULL,
+  `GCZLMC` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `GCZLJJ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `GCZLLX` enum('') CHARACTER SET gb2312 DEFAULT NULL,
+  `GCZLLJ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `GCJCTLX` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`ProjectDataID`),
   KEY `ProjectID` (`ProjectID`),
   CONSTRAINT `projectdatainfo_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='客户工程资料信息表\r\nGCZLLX:doc,ppt,jpg,pdf,视频\r\nGCJCTLB:为空则为普通资料；不为空则为相应的监测图：可以多选，可以不选。\r\nString类型表示：业务人员上传的时候自己通过复选框选择。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户工程资料信息表\r\nGCZLLX:doc,ppt,jpg,pdf,视频\r\nGCJCTLB:为空则为普通资料；不为空则为相应的监测图：可以多选，可以不选。\r\nString类型表示：业务人员上传的时候自己通过复选框选择。';
 
 -- ----------------------------
 -- Records of projectdatainfo
@@ -1957,7 +1957,7 @@ CREATE TABLE `pumpdaysummary` (
   PRIMARY KEY (`PumpDaySumID`),
   KEY `PumpGroupID` (`PumpGroupID`),
   CONSTRAINT `pumpdaysummary_ibfk_1` FOREIGN KEY (`PumpGroupID`) REFERENCES `pumpgroupinfo` (`PumpGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='泵零件明细数据表：精确到小时, 自然小时统计，如果需要汇总不是自然小时的数据，则从明细表实时过滤\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='泵零件明细数据表：精确到小时, 自然小时统计，如果需要汇总不是自然小时的数据，则从明细表实时过滤\r\n';
 
 -- ----------------------------
 -- Records of pumpdaysummary
@@ -2009,11 +2009,11 @@ CREATE TABLE `pumpdetail` (
   `EDYWJON` tinyint(4) DEFAULT NULL,
   `EDWNND` double DEFAULT NULL,
   `EDWNNDON` tinyint(4) DEFAULT NULL,
-  `OtherInfo` char(255) DEFAULT NULL,
+  `OtherInfo` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`PumpID`),
   KEY `PumpGroupID` (`PumpGroupID`),
   CONSTRAINT `pumpdetail_ibfk_1` FOREIGN KEY (`PumpGroupID`) REFERENCES `pumpgroupinfo` (`PumpGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='泵零件明细数据表:明细表的数据精确到分钟';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='泵零件明细数据表:明细表的数据精确到分钟';
 
 -- ----------------------------
 -- Records of pumpdetail
@@ -2026,13 +2026,13 @@ DROP TABLE IF EXISTS `pumpgroupinfo`;
 CREATE TABLE `pumpgroupinfo` (
   `PumpGroupID` int(11) NOT NULL AUTO_INCREMENT,
   `ComponentID` int(11) NOT NULL,
-  `PP` char(255) DEFAULT NULL,
-  `XH` char(255) DEFAULT NULL,
+  `PP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `XH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `GL` int(11) DEFAULT NULL,
   PRIMARY KEY (`PumpGroupID`),
   KEY `ComponentID` (`ComponentID`),
   CONSTRAINT `pumpgroupinfo_ibfk_1` FOREIGN KEY (`ComponentID`) REFERENCES `componentinfo` (`ComponentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='泵组信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='泵组信息表';
 
 -- ----------------------------
 -- Records of pumpgroupinfo
@@ -2068,7 +2068,7 @@ CREATE TABLE `pumpmonthsummary` (
   PRIMARY KEY (`PumpMonthSumID`),
   KEY `PumpGroupID` (`PumpGroupID`),
   CONSTRAINT `pumpmonthsummary_ibfk_1` FOREIGN KEY (`PumpGroupID`) REFERENCES `pumpgroupinfo` (`PumpGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='泵零件明细数据表：按天汇总数据，精确到每一天。\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='泵零件明细数据表：按天汇总数据，精确到每一天。\r\n';
 
 -- ----------------------------
 -- Records of pumpmonthsummary
@@ -2104,7 +2104,7 @@ CREATE TABLE `pumpyearsummary` (
   PRIMARY KEY (`PumpYearSumID`),
   KEY `PumpGroupID` (`PumpGroupID`),
   CONSTRAINT `pumpyearsummary_ibfk_1` FOREIGN KEY (`PumpGroupID`) REFERENCES `pumpgroupinfo` (`PumpGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='泵零件明细数据表：精确到月，自然月统计\r\n\r\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='泵零件明细数据表：精确到月，自然月统计\r\n\r\n';
 
 -- ----------------------------
 -- Records of pumpyearsummary
@@ -2123,7 +2123,7 @@ CREATE TABLE `sandfilterdetail` (
   PRIMARY KEY (`SandFilterID`),
   KEY `SandFilterGroupID` (`SandFilterGroupID`),
   CONSTRAINT `sandfilterdetail_ibfk_1` FOREIGN KEY (`SandFilterGroupID`) REFERENCES `sandfiltergroupinfo` (`SandFilterGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sandfilterdetail
@@ -2136,18 +2136,18 @@ DROP TABLE IF EXISTS `sandfiltergroupinfo`;
 CREATE TABLE `sandfiltergroupinfo` (
   `SandFilterGroupID` int(11) NOT NULL AUTO_INCREMENT,
   `ComponentID` int(11) NOT NULL,
-  `GG` char(255) DEFAULT NULL,
+  `GG` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `CLL` int(11) DEFAULT NULL,
   `TLGD` int(11) DEFAULT NULL,
-  `CZ` char(255) DEFAULT NULL,
+  `CZ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `LLSL` int(11) DEFAULT NULL,
-  `LLPP` char(255) DEFAULT NULL,
-  `LLXH` char(255) DEFAULT NULL,
+  `LLPP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `LLXH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `LLCKDJ` double DEFAULT NULL,
   PRIMARY KEY (`SandFilterGroupID`),
   KEY `ComponentID` (`ComponentID`),
   CONSTRAINT `sandfiltergroupinfo_ibfk_1` FOREIGN KEY (`ComponentID`) REFERENCES `componentinfo` (`ComponentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='砂滤器组信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='砂滤器组信息表';
 
 -- ----------------------------
 -- Records of sandfiltergroupinfo
@@ -2164,7 +2164,7 @@ CREATE TABLE `softenerdetail` (
   PRIMARY KEY (`SoftenerID`),
   KEY `SoftenerGroupID` (`SoftenerGroupID`),
   CONSTRAINT `softenerdetail_ibfk_1` FOREIGN KEY (`SoftenerGroupID`) REFERENCES `softenergroupinfo` (`SoftenerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of softenerdetail
@@ -2177,18 +2177,18 @@ DROP TABLE IF EXISTS `softenergroupinfo`;
 CREATE TABLE `softenergroupinfo` (
   `SoftenerGroupID` int(11) NOT NULL AUTO_INCREMENT,
   `ComponentID` int(11) NOT NULL,
-  `GG` char(255) DEFAULT NULL,
+  `GG` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `CLL` int(11) DEFAULT NULL,
   `TLGD` int(11) DEFAULT NULL,
-  `CZ` char(255) DEFAULT NULL,
+  `CZ` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `LLSL` int(11) DEFAULT NULL,
-  `LLPP` char(255) DEFAULT NULL,
-  `LLXH` char(255) DEFAULT NULL,
+  `LLPP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `LLXH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `LLCKDJ` double DEFAULT NULL,
   PRIMARY KEY (`SoftenerGroupID`),
   KEY `ComponentID` (`ComponentID`),
   CONSTRAINT `softenergroupinfo_ibfk_1` FOREIGN KEY (`ComponentID`) REFERENCES `componentinfo` (`ComponentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='软化器组信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='软化器组信息表';
 
 -- ----------------------------
 -- Records of softenergroupinfo
@@ -2205,7 +2205,7 @@ CREATE TABLE `tankdetail` (
   PRIMARY KEY (`TankID`),
   KEY `TankGroupID` (`TankGroupID`),
   CONSTRAINT `tankdetail_ibfk_1` FOREIGN KEY (`TankGroupID`) REFERENCES `tankgroupinfo` (`TankGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tankdetail
@@ -2218,13 +2218,13 @@ DROP TABLE IF EXISTS `tankgroupinfo`;
 CREATE TABLE `tankgroupinfo` (
   `TankGroupID` int(11) NOT NULL AUTO_INCREMENT,
   `ComponentID` int(11) NOT NULL,
-  `GG` char(255) DEFAULT NULL,
+  `GG` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `RJ` double DEFAULT NULL,
-  `Others` char(255) DEFAULT NULL,
+  `Others` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`TankGroupID`),
   KEY `ComponentID` (`ComponentID`),
   CONSTRAINT `tankgroupinfo_ibfk_1` FOREIGN KEY (`ComponentID`) REFERENCES `componentinfo` (`ComponentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='水箱组信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='水箱组信息表';
 
 -- ----------------------------
 -- Records of tankgroupinfo
@@ -2238,15 +2238,15 @@ CREATE TABLE `unprocessedinfo` (
   `UnprocessedInfoID` int(11) NOT NULL AUTO_INCREMENT,
   `AgengID` int(11) NOT NULL,
   `ProjectID` int(11) NOT NULL,
-  `ErrorInfoLB` enum('') DEFAULT NULL,
-  `LJBM` char(255) DEFAULT NULL,
+  `ErrorInfoLB` enum('') CHARACTER SET gb2312 DEFAULT NULL,
+  `LJBM` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `JLRQ` datetime DEFAULT NULL,
   PRIMARY KEY (`UnprocessedInfoID`),
   KEY `AgengID` (`AgengID`),
   KEY `ProjectID` (`ProjectID`),
   CONSTRAINT `unprocessedinfo_ibfk_1` FOREIGN KEY (`AgengID`) REFERENCES `agentinfo` (`AgentID`),
   CONSTRAINT `unprocessedinfo_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `customerprojectinfo` (`ProjectID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='未处理信息统计表\r\nErrorInfoLB:报警未处理；提醒未处理；工程师未及时回复';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='未处理信息统计表\r\nErrorInfoLB:报警未处理；提醒未处理；工程师未及时回复';
 
 -- ----------------------------
 -- Records of unprocessedinfo
@@ -2261,13 +2261,13 @@ CREATE TABLE `userinfo` (
   `UserRoleID` int(11) NOT NULL,
   `CustomerID` int(11) DEFAULT NULL,
   `AgentID` int(11) DEFAULT NULL,
-  `UserName` char(255) NOT NULL,
-  `PassWord` char(255) NOT NULL,
-  `PassWordConfirm` char(255) DEFAULT NULL,
-  `Email` char(255) DEFAULT NULL,
-  `Telephone` char(255) DEFAULT NULL,
-  `RealName` char(255) DEFAULT NULL,
-  `CompanyName` char(255) DEFAULT NULL,
+  `UserName` char(255) CHARACTER SET gb2312 NOT NULL,
+  `PassWord` char(255) CHARACTER SET gb2312 NOT NULL,
+  `PassWordConfirm` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `Email` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `Telephone` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `RealName` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `CompanyName` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `LogInTime` datetime DEFAULT NULL,
   PRIMARY KEY (`UserID`),
   KEY `CustomerID` (`CustomerID`),
@@ -2276,7 +2276,7 @@ CREATE TABLE `userinfo` (
   CONSTRAINT `userinfo_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customerinfo` (`CustomerID`),
   CONSTRAINT `userinfo_ibfk_2` FOREIGN KEY (`AgentID`) REFERENCES `agentinfo` (`AgentID`),
   CONSTRAINT `userinfo_ibfk_3` FOREIGN KEY (`UserRoleID`) REFERENCES `userrole` (`UserRoleID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=gb2312 COMMENT='备注：\r\n1. 注册用户信息表中关联客户信息表和代理商信息表，从而实现实现客户、代理商及注册用户一对多的关系，关联外键可以为空。\r\n2. 系统新注册用户，默认是注册用户权限。';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='备注：\r\n1. 注册用户信息表中关联客户信息表和代理商信息表，从而实现实现客户、代理商及注册用户一对多的关系，关联外键可以为空。\r\n2. 系统新注册用户，默认是注册用户权限。';
 
 -- ----------------------------
 -- Records of userinfo
@@ -2293,9 +2293,9 @@ INSERT INTO `userinfo` VALUES ('5', '8', null, null, 'JRXXGLY', '123', '123', nu
 DROP TABLE IF EXISTS `userrole`;
 CREATE TABLE `userrole` (
   `UserRoleID` int(11) NOT NULL AUTO_INCREMENT,
-  `UserRoleName` char(255) NOT NULL,
+  `UserRoleName` char(255) CHARACTER SET gb2312 NOT NULL,
   PRIMARY KEY (`UserRoleID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=gb2312 COMMENT='用户角色与权限表：\r\n1. 权限分类： 超级系统管理员（内置），九如公司业务员，九如公司工程师，代理商，客户，注册用户，访客，九如信息管理员，学习者。\r\n2. 新注册用户默认都是注册用户权限，通过九如公司业务员（内置）实现权限分配（如九如公司工程师）及注册用户和真实客户/代理商的绑定。';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户角色与权限表：\r\n1. 权限分类： 超级系统管理员（内置），九如公司业务员，九如公司工程师，代理商，客户，注册用户，访客，九如信息管理员，学习者。\r\n2. 新注册用户默认都是注册用户权限，通过九如公司业务员（内置）实现权限分配（如九如公司工程师）及注册用户和真实客户/代理商的绑定。';
 
 -- ----------------------------
 -- Records of userrole
@@ -2321,7 +2321,7 @@ CREATE TABLE `uvsterilizerdetail` (
   PRIMARY KEY (`UVSterilizerID`),
   KEY `UVSterilizerGroupID` (`UVSterilizerGroupID`),
   CONSTRAINT `uvsterilizerdetail_ibfk_1` FOREIGN KEY (`UVSterilizerGroupID`) REFERENCES `uvsterilizergroupinfo` (`UVSterilizerGroupID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of uvsterilizerdetail
@@ -2337,15 +2337,15 @@ CREATE TABLE `uvsterilizergroupinfo` (
   `CLL` int(11) DEFAULT NULL,
   `DGSL` int(11) DEFAULT NULL,
   `DGSM` int(11) DEFAULT NULL,
-  `DGPP` char(255) DEFAULT NULL,
-  `DGXH` char(255) DEFAULT NULL,
+  `DGPP` char(255) CHARACTER SET gb2312 DEFAULT NULL,
+  `DGXH` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   `DGGL` double DEFAULT NULL,
   `DGCKDJ` double DEFAULT NULL,
-  `Others` char(255) DEFAULT NULL,
+  `Others` char(255) CHARACTER SET gb2312 DEFAULT NULL,
   PRIMARY KEY (`UVSterilizerGroupID`),
   KEY `ComponentID` (`ComponentID`),
   CONSTRAINT `uvsterilizergroupinfo_ibfk_1` FOREIGN KEY (`ComponentID`) REFERENCES `componentinfo` (`ComponentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=gb2312 COMMENT='紫外杀菌器组信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='紫外杀菌器组信息表';
 
 -- ----------------------------
 -- Records of uvsterilizergroupinfo
