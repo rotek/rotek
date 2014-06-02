@@ -1,0 +1,19 @@
+navicat的数据库存放位置在什么地方？带着这样的疑问，我们去解决问题，navicat是默认安装，mysql也是默认安装，数据库存在默认用户所在的目录下面。
+
+安装MySQL时，请选择“Custom”安装方式。在选择安装目录时，可以同时选择数据安放的位置，很多人此时只是设置了MySQL的安装位置。
+
+对于已经安装完毕的用户而言，请打开MySQL安装目录中的“my.ini”文件，使用查找功能，输入“datadir”进行定位，你会看到默认的数据存放位置通常是：“系统盘:\Documents and Settings\All Users\Application Data\MySQL\...”此时，你可以修改“datadir”对应的位置，然后将原来位置的所有数据拷贝到新的位置即可。具体步骤：
+
+1、打开任务管理器，停掉“mysqld.exe”服务进程；
+2、拷贝原数据存放目录中的所有数据到你指定的存放位置；
+3、修改“datadir”指向新的存放位置<提示：“datadir”所指向的路径请用“/”而非常用的“\”>；
+4、使用命令行启动MySQL服务<cmdline: net start mysql>；
+
+
+Navica数据库文件在 C:\Documents and Settings\All Users\Application Data\MySQL\MySQL Server 5.1\data
+
+默认情况下 Application Data 文件夹是隐藏属性，要让其显示出来才能看到其下的文件。 具体方法： 工具－－文件夹选项－－查看--- 隐藏文件和文件夹下面的显示所有的文件和文件夹。这样就能看到数据库文件。
+
+MySQL的GUI工具不少，常用的Navicat默认存放备份文件的路径为（当前用户）“我的文档”中的“Navicat\MySQL\Servers\服务名称”目录。为防止数据在重装系统后丢失，可以按照如下方式修改：
+
+启动“Navicat”，选择当前服务并点击鼠标右键，在右键菜单中选择“连接属性”(如提示关闭当前服务器连接，请选择是)，然后在打开的对话框“高级”标签页中设置新的数据备份路径。
