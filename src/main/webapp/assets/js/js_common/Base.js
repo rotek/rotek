@@ -49,6 +49,9 @@ CTA.common = {
 				if(value.width){
 					column.width = value.width;
 				}
+				if(typeof(value.align) != "undefined" ){
+					column.align = value.align;
+				}
 				if(value.renderer && Function == value.renderer.constructor){
 					column.renderer = value.renderer;
 				}

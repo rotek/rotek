@@ -3,12 +3,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>CTA后台管理系统</title>
+<title>工程信息管理</title>
 <%@include file="/assets/jsp/common.jsp"%>
 </head>
 <body>
 
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/gift/userGifts.js">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/project/project.js">
 </script>
 </html>
