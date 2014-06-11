@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cta.platform.util.ListPager;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.NodeEntity;
 import com.rotek.entity.RoleEntity;
-import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.RoleService;
 
 /**
@@ -66,10 +66,7 @@ public class RoleController {
 	public String listRoles(
 			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "limit", defaultValue = "15") Integer limit,
-			@RequestParam(value="id", defaultValue = "") String id,
-			@RequestParam(value="role_name", defaultValue = "") String role_name,
-			@RequestParam(value="memo", defaultValue = "") String memo,
-			@RequestParam(value="status", defaultValue = "") Integer status,
+			RoleEntity role,
 			HttpServletRequest request,
 			UserDto user,
 			ModelMap modelMap) throws Exception {
@@ -77,12 +74,6 @@ public class RoleController {
 		Integer pageNo = (start / limit);
 		pager.setRowsPerPage(limit);
 		pager.setPageNo(pageNo);
-
-		RoleEntity role = new RoleEntity();
-		role.setSuper_role_id(user.getRole_id());
-		role.setRole_name(role_name);
-		role.setMemo(memo);
-		role.setStatus(status);
 
 		List<RoleEntity> roleList = roleService.listRoles(role,pager);
 		modelMap.put("dataList", roleList);
@@ -118,17 +109,15 @@ public class RoleController {
 	 */
 	@RequestMapping("addRole")
 	public String addRole(
-			@RequestParam(value="role_name", defaultValue="") String role_name,
+			@RequestParam(value="role_name", defaultValue="") String name,
 			@RequestParam(value="status", defaultValue="1") Integer status,
 			@RequestParam(value="super_id", defaultValue="1") Integer super_id,
 			@RequestParam(value="memo", defaultValue="") String memo,
 			ModelMap model) throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		RoleEntity roleEntity = new RoleEntity();
 
-		roleEntity.setRole_name(role_name);
+		roleEntity.setName(name);
 		roleEntity.setStatus(status);
-		roleEntity.setSuper_role_id(super_id);
-		roleEntity.setMemo(memo);
 
 		List<String> messages = roleService.addRole(roleEntity);
 		model.put("success", null == messages ? true : false);
@@ -185,11 +174,8 @@ public class RoleController {
 			ModelMap model) throws Exception{
 		RoleEntity roleEntity = new RoleEntity();
 		roleEntity.setId(id);
-		roleEntity.setRole_name(role_name);
-		roleEntity.setMemo(memo);
+		roleEntity.setName(role_name);
 		roleEntity.setStatus(status);
-		roleEntity.setSuper_role_id(super_role_id);
-
 		List<String> messages = roleService.modifyRole(roleEntity,authority);
 		model.put("success", null == messages ? true : false);
 		model.put("messages", messages);

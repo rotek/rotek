@@ -99,6 +99,7 @@ CTA.common.Toolbar = Ext.extend(Ext.Toolbar,{
 				cls : 'x-btn-text-icon',
 				style : 'margin:0px 10px 0px 0px',
 				text : text,
+				isVisible : isShow,
 				handler : func
 			});
 		}

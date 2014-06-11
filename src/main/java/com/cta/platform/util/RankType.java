@@ -6,7 +6,7 @@
 * @date 2013-9-3 上午11:51:24
 * @version V1.0
 */
-package com.rotek.constant;
+package com.cta.platform.util;
 
 /**
  * @ClassName: RankType

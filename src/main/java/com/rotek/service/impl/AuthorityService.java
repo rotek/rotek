@@ -18,9 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rotek.dao.impl.AuthorityDao;
-import com.rotek.dto.UserDto;
 import com.rotek.entity.ButtonEntity;
 import com.rotek.entity.MenuEntity;
+import com.rotek.entity.User;
 
 /**
  * @ClassName: AuthorityService
@@ -44,7 +44,7 @@ public class AuthorityService {
 	* @return JSONObject
 	* @throws
 	*/
-	public JSONObject listAuthority(UserDto user, String url_inDB) throws SQLException {
+	public JSONObject listAuthority(Integer roleId, String url_inDB) throws SQLException {
 		JSONObject authority = new JSONObject();
 		if(StringUtils.isBlank(url_inDB)){
 			return authority;
@@ -55,21 +55,21 @@ public class AuthorityService {
 		}
 
 		Integer menuId = menu.getId();
-		List<ButtonEntity> buttonList = authorityDao.getListButton(user.getRole_id(),menuId);
+		List<ButtonEntity> buttonList = authorityDao.getListButton(roleId,menuId);
 		for(ButtonEntity button : buttonList){
 			authority.put(button.getAction(),true);
 		}
-//		authority.put("add",true);
-//		authority.put("drop",true);
-//		authority.put("modify",true);
-//		authority.put("query",true);
-//		authority.put("viewDetail",true);
-//		authority.put("setDepartmentDeliverer",true);
-//		authority.put("setRestaurantDeliverer",true);
-//		authority.put("setDepartment",true);
-//		authority.put("setBuilding",true);
-//		authority.put("setReserveTime",true);
-//		authority.put("setRestaurantType",true);
+		authority.put("add",true);
+		authority.put("drop",true);
+		authority.put("modify",true);
+		authority.put("query",true);
+		authority.put("viewDetail",true);
+		authority.put("setDepartmentDeliverer",true);
+		authority.put("setRestaurantDeliverer",true);
+		authority.put("setDepartment",true);
+		authority.put("setBuilding",true);
+		authority.put("setReserveTime",true);
+		authority.put("setRestaurantType",true);
 		return authority;
 	}
 }

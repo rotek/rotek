@@ -8,11 +8,8 @@ CTA.role.params = {
 		          index:'id',
 		          header:'角色id'
 		      },{
-		          index:'role_name',
+		          index:'name',
 		          header:'角色名称'
-		      },{
-		        index:'memo',
-		        header:'角色说明'
 		      },{
 		        index:'status',
 		        header:'角色状态',

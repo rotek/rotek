@@ -50,20 +50,16 @@ public class RoleService {
 	* @throws
 	*/
 	public List<RoleEntity> listRoles(RoleEntity role, ListPager pager) throws SQLException{
+		
 		StringBuilder sql = new StringBuilder();
-
-		sql.append("select id,role_name,memo,status from mf_role where 1 = 1 and super_role_id = ?");
-		List<Object> params = new LinkedList<Object>();
-		params.add(role.getSuper_role_id());
+		sql.append("select id,name,status from r_role where 1 = 1");
+		List<Object> params = new ArrayList<Object>();
 		if(null != role.getId()){
 			sql.append(" and id = ?");
 			params.add(role.getId());
 		}
-		if(StringUtils.isNotEmpty(role.getRole_name())){
-			sql.append(" and role_name like '%"+role.getRole_name().trim()+"%'");
-		}
-		if(StringUtils.isNotEmpty(role.getMemo())){
-			sql.append(" and memo like '%"+role.getMemo().trim()+"%'");
+		if(StringUtils.isNotEmpty(role.getName())){
+			sql.append(" and role_name like '%"+role.getName().trim()+"%'");
 		}
 		if(null != role.getStatus()){
 			sql.append(" and status = ?");
@@ -73,6 +69,7 @@ public class RoleService {
 		sql.append(" order by status,id desc");
 		List<RoleEntity> roles = roleDao.listRoles(sql.toString(),params.toArray(),pager);
 		return roles;
+		
 	}
 
 	/**
