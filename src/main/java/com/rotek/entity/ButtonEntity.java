@@ -25,7 +25,7 @@ import com.cta.platform.persistence.annotation.Table;
  *
  */
 @Table(name="MF_BUTTON")
-public class ButtonEntity implements Serializable{
+public class ButtonEntity extends BaseEntity{
 
 	/**@Field the long serialVersionUID*/
 	private static final long serialVersionUID = 103654789244563236L;

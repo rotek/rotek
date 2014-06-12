@@ -39,7 +39,7 @@ public class ButtonDao extends BaseDaoImpl{
 	public List<Map<String, Object>> listButtons_s() throws SQLException {
 
 		String sql = "select id,name,sort from r_button where status = ?";
-		return this.executeQuery(sql, new Integer[]{ButtonEntity});
+		return this.executeQuery(sql, new Integer[]{ButtonEntity.STATUS_ENABLED});
 	}
 
 	/**
