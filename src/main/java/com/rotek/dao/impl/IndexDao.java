@@ -40,7 +40,7 @@ public class IndexDao extends BaseDaoImpl{
 	*/
 	public List<MenuDto> listSuperMenu(Integer role_id) throws SQLException {
 
-		String sql = "select id,menu_name from mf_menu where id in (select distinct super_menu_id from mf_menu where id in (select distinct menu_id from mf_role_power where role_id = ?)) and status = 1 order by sort desc";
+		String sql = "select id,menu_name from r_menu where id in (select distinct super_menu_id from r_menu where id in (select distinct menu_id from mf_role_power where role_id = ?)) and status = 1 order by sort desc";
 		return this.selectAll(sql, new Object[]{role_id}, MenuDto.class);
 	}
 
@@ -54,7 +54,7 @@ public class IndexDao extends BaseDaoImpl{
 	*/
 	public List<MenuEntity> listChildMenu(Integer role_id) throws SQLException {
 
-		String sql = "select id,menu_name,super_menu_id,url from mf_menu where id in (select distinct menu_id from mf_role_power where role_id = ?) and status = 1 order by sort desc";
+		String sql = "select id,menu_name,super_menu_id,url from r_menu where id in (select distinct menu_id from mf_role_power where role_id = ?) and status = 1 order by sort desc";
 		return this.selectAll(sql, new Object[]{role_id},MenuEntity.class);
 	}
 

@@ -8,7 +8,7 @@ CTA.button.params = {
 		          index:'id',
 		          header:'按钮ID'
 		      },{
-		          index:'button_name',
+		          index:'name',
 		          header:'按钮名称'
 		      },{
 		        index:'action',
@@ -64,7 +64,7 @@ toolbar.regAddHandler(function(){
     items : [{
         fieldLabel : '按钮名称',
         emptyText : '请输入按钮名称',
-        name : 'button_name',
+        name : 'name',
         minLength:1,
         maxLength: 50
       },{
@@ -93,7 +93,7 @@ toolbar.regAddHandler(function(){
 			name : 'sort',
 			hiddenName : 'sort',
 			triggerAction : 'all',
-			displayField : 'button_name',
+			displayField : 'name',
 			valueField : 'sort',
 			editable : false,
 			store : new Ext.data.Store({
@@ -102,7 +102,7 @@ toolbar.regAddHandler(function(){
 					fields : [ {
 						name : 'sort'
 					}, {
-						name : 'button_name'
+						name : 'name'
 					} ]
 				}),
 				proxy : new Ext.data.HttpProxy({
@@ -152,7 +152,7 @@ toolbar.regModifyHandler(function(){
     	      },{
     	        fieldLabel : '按钮名称',
     	        emptyText : '请输入按钮名称',
-    	        name : 'button_name',
+    	        name : 'name',
     	        minLength:1,
     	        maxLength: 50
     	      },{
@@ -181,7 +181,7 @@ toolbar.regModifyHandler(function(){
     				name : 'sort',
     				hiddenName : 'sort',
     				triggerAction : 'all',
-    				displayField : 'button_name',
+    				displayField : 'name',
     				valueField : 'sort',
     				editable : false,
     				store : new Ext.data.Store({
@@ -190,7 +190,7 @@ toolbar.regModifyHandler(function(){
     						fields : [ {
     							name : 'sort'
     						}, {
-    							name : 'button_name'
+    							name : 'name'
     						} ]
     					}),
     					proxy : new Ext.data.HttpProxy({

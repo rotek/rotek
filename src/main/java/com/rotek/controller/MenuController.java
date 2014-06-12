@@ -68,7 +68,7 @@ public class MenuController {
 		@RequestParam(value = "limit", defaultValue = "15") Integer limit,
 
 		@RequestParam(value = "id", defaultValue = "") Integer id,
-		@RequestParam(value = "menu_name", defaultValue = "") String menu_name,
+		@RequestParam(value = "name", defaultValue = "") String name,
 		@RequestParam(value = "super_menu_id", defaultValue = "") Integer super_menu_id,
 		@RequestParam(value = "url", defaultValue = "") String url,
 		@RequestParam(value = "sort", defaultValue = "") Integer sort,
@@ -83,7 +83,7 @@ public class MenuController {
 
 		MenuEntity menu = new MenuEntity();
 		menu.setId(id);
-		menu.setName(menu_name);
+		menu.setName(name);
 		menu.setSuper_menu_id(super_menu_id);
 		menu.setUrl(url);
 		menu.setSort(sort);
@@ -135,7 +135,7 @@ public class MenuController {
 	* @Title: addMenu
 	* @Description: 添加菜单
 	* @param @param id
-	* @param @param menu_name
+	* @param @param name
 	* @param @param super_menu_id
 	* @param @param url
 	* @param @param sort
@@ -147,7 +147,7 @@ public class MenuController {
 	*/
 	@RequestMapping("addMenu")
 	public String addMenu(
-			@RequestParam(value = "menu_name", defaultValue = "") String menu_name,
+			@RequestParam(value = "name", defaultValue = "") String name,
 			@RequestParam(value = "super_menu_id", defaultValue = "") Integer super_menu_id,
 			@RequestParam(value = "url", defaultValue = "") String url,
 			@RequestParam(value = "sort", defaultValue = "") Integer sort,
@@ -155,7 +155,7 @@ public class MenuController {
 			ModelMap modelMap) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SQLException{
 
 		MenuEntity menu = new MenuEntity();
-		menu.setName(menu_name);
+		menu.setName(name);
 		menu.setSuper_menu_id(super_menu_id);
 		menu.setUrl(url);
 		menu.setSort(sort);
@@ -193,7 +193,7 @@ public class MenuController {
 	 * @throws IllegalAccessException
 	* @Title: modifyMenu
 	* @Description: 修改menu
-	* @param @param menu_name
+	* @param @param name
 	* @param @param super_menu_id
 	* @param @param url
 	* @param @param sort
@@ -206,7 +206,7 @@ public class MenuController {
 	@RequestMapping("modifyMenu")
 	public String modifyMenu(
 			@RequestParam(value = "id", defaultValue = "") Integer id,
-			@RequestParam(value = "menu_name", defaultValue = "") String menu_name,
+			@RequestParam(value = "name", defaultValue = "") String name,
 			@RequestParam(value = "super_menu_id", defaultValue = "") Integer super_menu_id,
 			@RequestParam(value = "url", defaultValue = "") String url,
 			@RequestParam(value = "sort", defaultValue = "") Integer sort,
@@ -217,7 +217,7 @@ public class MenuController {
 
 			MenuEntity menu = new MenuEntity();
 			menu.setId(id);
-			menu.setName(menu_name);
+			menu.setName(name);
 			menu.setSuper_menu_id(super_menu_id);
 			menu.setUrl(url);
 			menu.setSort(sort);

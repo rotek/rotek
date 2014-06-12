@@ -37,7 +37,7 @@ public class AuthorityDao extends BaseDaoImpl{
 	* @throws
 	*/
 	public MenuEntity getMenu(String url_inDB) throws SQLException {
-		String sql = "select id from mf_menu where url=?";
+		String sql = "select id from r_menu where url=?";
 		return this.selectOne(sql, new Object[]{url_inDB}, MenuEntity.class);
 	}
 
@@ -53,7 +53,7 @@ public class AuthorityDao extends BaseDaoImpl{
 	*/
 	public List<ButtonEntity> getListButton(Integer role_id, Integer menuId) throws SQLException {
 
-		String sql = "select button_name,action from mf_button where id in (select button_id from mf_role_power where role_id = ? and menu_id = ?)";
+		String sql = "select button_name,action from r_button where id in (select button_id from mf_role_power where role_id = ? and menu_id = ?)";
 		return this.selectAll(sql, new Object[]{role_id,menuId}, ButtonEntity.class);
 	}
 }

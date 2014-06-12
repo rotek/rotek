@@ -96,7 +96,7 @@ public class RoleDao extends BaseDaoImpl{
 	*/
 	public List<MenuEntity> listAuthority_menu(Integer nodeId) throws SQLException {
 
-		String sql = "select id,menu_name from mf_menu where super_menu_id = ?";
+		String sql = "select id,menu_name from r_menu where super_menu_id = ?";
 		return this.selectAll(sql, new Object[]{nodeId} ,MenuEntity.class);
 	}
 
@@ -109,7 +109,7 @@ public class RoleDao extends BaseDaoImpl{
 	* @throws
 	*/
 	public List<ButtonEntity> listAuthority_button(Integer nodeId) throws SQLException {
-		String sql ="select id,button_name from mf_button where id in (select button_id from mf_menu_button where menu_id = ?)";
+		String sql ="select id,button_name from r_button where id in (select button_id from r_menu_button where menu_id = ?)";
 		return this.selectAll(sql,new Object[]{nodeId} ,ButtonEntity.class);
 	}
 

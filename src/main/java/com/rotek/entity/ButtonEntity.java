@@ -24,7 +24,7 @@ import com.cta.platform.persistence.annotation.Table;
  * @date 2013-6-3 上午09:25:15
  *
  */
-@Table(name="MF_BUTTON")
+@Table(name="r_button")
 public class ButtonEntity extends BaseEntity{
 
 	/**@Field the long serialVersionUID*/

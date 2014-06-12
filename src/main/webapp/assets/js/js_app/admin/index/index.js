@@ -99,7 +99,7 @@ CTA.index.Index = {
 			var menu ={
 					id : Math.random(),
 					titleCollapse : true,
-					title: super_menu.menu_name,
+					title: super_menu.name,
 					items : sub_menu//添加子节点
 			};
 			return menu;
@@ -130,7 +130,7 @@ CTA.index.Index = {
 				var submenu = json_submemuList[i];
 				var child = new Ext.tree.TreeNode({
 					id : Math.random(),
-				    text:submenu.menu_name,
+				    text:submenu.name,
 				    href : submenu.url,
 				    draggable:false,
 				    leaf:true,

@@ -8,7 +8,7 @@ CTA.menu.params = {
 		          index:'id',
 		          header:'菜单ID'
 		      },{
-		          index:'menu_name',
+		          index:'name',
 		          header:'菜单名称'
 		      },{
 		        index:'url',
@@ -61,7 +61,7 @@ toolbar.regAddHandler(function(){
     items : [{
         fieldLabel : '菜单名称',
         emptyText : '请输入菜单名称',
-        name : 'menu_name',
+        name : 'name',
         minLength:1,
         maxLength: 50
       },{
@@ -78,7 +78,7 @@ toolbar.regAddHandler(function(){
 			hiddenName : 'super_menu_id',
 			triggerAction : 'all',
 			valueField : 'id',
-			displayField : 'menu_name',
+			displayField : 'name',
 			editable : false,
 			allowBlank : false,
 			store : new Ext.data.Store({
@@ -87,7 +87,7 @@ toolbar.regAddHandler(function(){
 					fields : [ {
 						name : 'id'
 					}, {
-						name : 'menu_name'
+						name : 'name'
 					} ]
 				}),
 				proxy : new Ext.data.HttpProxy({
@@ -101,7 +101,7 @@ toolbar.regAddHandler(function(){
 			name : 'sort',
 			hiddenName : 'sort',
 			triggerAction : 'all',
-			displayField : 'menu_name',
+			displayField : 'name',
 			valueField : 'sort',
 			editable : false,
 			allowBlank : false,
@@ -111,7 +111,7 @@ toolbar.regAddHandler(function(){
 					fields : [ {
 						name : 'sort'
 					}, {
-						name : 'menu_name'
+						name : 'name'
 					} ]
 				}),
 				proxy : new Ext.data.HttpProxy({
@@ -162,7 +162,7 @@ toolbar.regModifyHandler(function(){
     	      },{
     	        fieldLabel : '菜单名称',
     	        emptyText : '请输入菜单名称',
-    	        name : 'menu_name',
+    	        name : 'name',
     	        minLength:1,
     	        maxLength: 50
     	      },{
@@ -180,7 +180,7 @@ toolbar.regModifyHandler(function(){
     				hiddenName : 'super_menu_id',
     				triggerAction : 'all',
     				valueField : 'id',
-    				displayField : 'menu_name',
+    				displayField : 'name',
     				editable : false,
     				allowBlank : false,
     				store : new Ext.data.Store({
@@ -189,7 +189,7 @@ toolbar.regModifyHandler(function(){
     						fields : [ {
     							name : 'id'
     						}, {
-    							name : 'menu_name'
+    							name : 'name'
     						} ]
     					}),
     					proxy : new Ext.data.HttpProxy({
@@ -210,7 +210,7 @@ toolbar.regModifyHandler(function(){
     				name : 'sort',
     				hiddenName : 'sort',
     				triggerAction : 'all',
-    				displayField : 'menu_name',
+    				displayField : 'name',
     				valueField : 'sort',
     				editable : false,
     				allowBlank : false,
@@ -220,7 +220,7 @@ toolbar.regModifyHandler(function(){
     						fields : [ {
     							name : 'sort'
     						}, {
-    							name : 'menu_name'
+    							name : 'name'
     						} ]
     					}),
     					proxy : new Ext.data.HttpProxy({
@@ -263,7 +263,7 @@ toolbar.regModifyHandler(function(){
 		            name:'id',
 		            type:'int'
 		        },{
-		        	name:'button_name',
+		        	name:'name',
 		        	type:'string'
 		        }
 		    ]))
@@ -286,7 +286,7 @@ toolbar.regModifyHandler(function(){
                  }
              },{
           	   header:'按钮名称',
-          	   dataIndex:'button_name'
+          	   dataIndex:'name'
              }]);
 
      var buttonsGrid = new Ext.grid.EditorGridPanel({
@@ -348,7 +348,7 @@ toolbar.regQueryHandler(function(){
 		      },{
 		        fieldLabel : '菜单名称',
 		        emptyText : '请输入菜单名称',
-		        name : 'menu_name',
+		        name : 'name',
 		        allowBlank : true
 		      },{
 		        fieldLabel : '菜单URL',
@@ -363,7 +363,7 @@ toolbar.regQueryHandler(function(){
 					hiddenName : 'super_menu_id',
 					triggerAction : 'all',
 					valueField : 'id',
-					displayField : 'menu_name',
+					displayField : 'name',
 					editable : false,
 					allowBlank : true,
 					store : new Ext.data.Store({
@@ -372,7 +372,7 @@ toolbar.regQueryHandler(function(){
 							fields : [ {
 								name : 'id'
 							}, {
-								name : 'menu_name'
+								name : 'name'
 							} ]
 						}),
 						proxy : new Ext.data.HttpProxy({
@@ -386,7 +386,7 @@ toolbar.regQueryHandler(function(){
 					name : 'sort',
 					hiddenName : 'sort',
 					triggerAction : 'all',
-					displayField : 'menu_name',
+					displayField : 'name',
 					valueField : 'sort',
 					editable : false,
 					allowBlank : true,
@@ -396,7 +396,7 @@ toolbar.regQueryHandler(function(){
 							fields : [ {
 								name : 'sort'
 							}, {
-								name : 'menu_name'
+								name : 'name'
 							} ]
 						}),
 						proxy : new Ext.data.HttpProxy({

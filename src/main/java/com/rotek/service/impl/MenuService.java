@@ -53,7 +53,7 @@ public class MenuService {
 
 		StringBuilder sql = new StringBuilder();
 		List<Object> params = new LinkedList<Object>();
-		sql.append("select 	id, menu_name, url, status from mf_menu where 1 = 1");
+		sql.append("select 	id, menu_name, url, status from r_menu where 1 = 1");
 
 		if(null != menu.getId()){
 			sql.append(" and id = ?");
@@ -206,7 +206,7 @@ public class MenuService {
 			messages.add("请选择您要操作的数据!");
 		}
 		StringBuilder sql = new StringBuilder();
-		sql.append("update mf_menu set status = ").append(DataStatus.DISABLED);
+		sql.append("update r_menu set status = ").append(DataStatus.DISABLED);
 		sql.append(" where id in ("+ids.trim()+")");
 		menuDao.deleteMenu(sql.toString());
 		
