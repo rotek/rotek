@@ -133,7 +133,7 @@ public class RoleService {
 			for(ButtonEntity button : buttonList){
 				NodeEntity node = new NodeEntity();
 				node.setId("node_"+button.getId()+"_"+Math.random());
-				node.setText(button.getButton_name());
+				node.setText(button.getName());
 				node.setLeaf(true);
 				node.setChecked(roleDao.testButtonAuthority(roleId,nodeId,button.getId()));
 				nodeList.add(node);
@@ -144,7 +144,7 @@ public class RoleService {
 		for(MenuEntity menu : menuList){
 			NodeEntity node = new NodeEntity();
 			node.setId("menu_"+menu.getId());
-			node.setText(menu.getMenu_name());
+			node.setText(menu.getName());
 			node.setLeaf(false);
 			node.setChecked(roleDao.testMenuAuthority(roleId,menu.getId()));
 			nodeList.add(node);

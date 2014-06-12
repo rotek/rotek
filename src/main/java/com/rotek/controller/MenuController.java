@@ -83,7 +83,7 @@ public class MenuController {
 
 		MenuEntity menu = new MenuEntity();
 		menu.setId(id);
-		menu.setMenu_name(menu_name);
+		menu.setName(menu_name);
 		menu.setSuper_menu_id(super_menu_id);
 		menu.setUrl(url);
 		menu.setSort(sort);
@@ -155,7 +155,7 @@ public class MenuController {
 			ModelMap modelMap) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SQLException{
 
 		MenuEntity menu = new MenuEntity();
-		menu.setMenu_name(menu_name);
+		menu.setName(menu_name);
 		menu.setSuper_menu_id(super_menu_id);
 		menu.setUrl(url);
 		menu.setSort(sort);
@@ -217,7 +217,7 @@ public class MenuController {
 
 			MenuEntity menu = new MenuEntity();
 			menu.setId(id);
-			menu.setMenu_name(menu_name);
+			menu.setName(menu_name);
 			menu.setSuper_menu_id(super_menu_id);
 			menu.setUrl(url);
 			menu.setSort(sort);

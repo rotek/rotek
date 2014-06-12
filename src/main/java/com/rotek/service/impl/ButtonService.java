@@ -62,7 +62,7 @@ public class ButtonService {
 
 		StringBuilder sql = new StringBuilder();
 		List<Object> params = new LinkedList<Object>();
-		sql.append("select id,button_name,action,memo,status,sort from mf_button");
+		sql.append("select id,name,action,memo,status,sort from mf_button");
 
 		sql.append(" order by sort desc");
 		return buttonDao.listButtons(sql.toString(),params.toArray(),pager);

@@ -34,9 +34,9 @@ public class ButtonEntity implements Serializable{
 	@Column(name="id")
 	private Integer id;
 	//
-	@Column(name="button_name")
+	@Column(name="name")
 	@Length(maxLength=50,minLength=0,message="按钮名称须为0-50字符")
-	private String button_name;
+	private String name;
 	//
 	@Column(name="action")
 	@Length(maxLength=50,minLength=1,message="按钮action须为1-50字符")
@@ -65,11 +65,12 @@ public class ButtonEntity implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getButton_name() {
-		return button_name;
+
+	public String getName() {
+		return name;
 	}
-	public void setButton_name(String button_name) {
-		this.button_name = button_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getAction() {
 		return action;

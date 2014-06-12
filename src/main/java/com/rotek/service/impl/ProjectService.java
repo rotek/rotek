@@ -105,10 +105,10 @@ public class ProjectService {
 		sql.append(" left join mf_gift g on gu.gift_id = g.id");
 		sql.append(" where 1=1");
 
-		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
-			sql.append(" and gu.status <> ?");
-			params.add(OrderStatus.INVALID);
-		}
+//		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
+//			sql.append(" and gu.status <> ?");
+//			params.add(OrderStatus.INVALID);
+//		}
 
 		if(null != gift.getExchange_id()){
 			sql.append(" and gu.id = ?");
@@ -224,10 +224,10 @@ public class ProjectService {
 		List<Object> params = new LinkedList<Object>();
 		sql.append("select id, name, pic, points, status from mf_gift where 1 = 1");
 
-		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
-			sql.append(" and status <> ?");
-			params.add(OrderStatus.INVALID);
-		}
+//		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
+//			sql.append(" and status <> ?");
+//			params.add(OrderStatus.INVALID);
+//		}
 
 		if(null != gift.getId()){
 			sql.append(" and id = ?");

@@ -59,8 +59,8 @@ public class MenuService {
 			sql.append(" and id = ?");
 			params.add(menu.getId());
 		}
-		if(StringUtils.isNotEmpty(menu.getMenu_name())){
-			sql.append(" and menu_name like '%"+menu.getMenu_name()+"%'");
+		if(StringUtils.isNotEmpty(menu.getName())){
+			sql.append(" and menu_name like '%"+menu.getName()+"%'");
 		}
 		if(StringUtils.isNotEmpty(menu.getUrl())){
 			sql.append(" and url like '%"+menu.getUrl()+"%'");
