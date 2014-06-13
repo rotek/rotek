@@ -19,13 +19,13 @@ import java.util.regex.Pattern;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 
+import com.cta.platform.constant.RegexType;
 import com.cta.platform.persistence.annotation.Column;
 import com.cta.platform.persistence.annotation.Length;
 import com.cta.platform.persistence.annotation.NotEmpty;
 import com.cta.platform.persistence.annotation.NotNull;
 import com.cta.platform.persistence.annotation.Size;
 import com.cta.platform.persistence.annotation.TelePhone;
-import com.rotek.constant.RegexType;
 
 /**
  * @ClassName: ValidateUtil

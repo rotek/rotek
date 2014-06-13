@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import jxl.common.Logger;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -25,6 +27,7 @@ public class SystemGlobals {
 
 	/**@Field the Properties preferences*/
 	private static Properties preferences = new Properties();
+	private static Logger logger = Logger.getLogger(SystemGlobals.class);
 	/**
 	* @Title: loadConfig
 	* @Description:加载配置文件
@@ -37,8 +40,9 @@ public class SystemGlobals {
 			InputStream is = SystemGlobals.class.getClassLoader().getResourceAsStream(file_name);
 			preferences.load(is);
 		} catch (IOException e) {
+			
+			logger.error("加载 SystemGlobals.properties 文件失败",e);
 			e.printStackTrace();
-			System.out.println("---------->加载系统配置文件失败!");
 		}
 	}
 
@@ -129,5 +133,14 @@ public class SystemGlobals {
 			return defaultValue;
 		}
 		return Double.parseDouble(value);
+	}
+
+	public static boolean getBooleanPreference(String key, boolean defaultValue) {
+		
+		String value = getPreference(key);
+		if(null == value){
+			return defaultValue;
+		}
+		return Boolean.valueOf(value);
 	}
 }

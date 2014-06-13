@@ -33,10 +33,6 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver{
 			HttpServletResponse response, Object handler, Exception ex) {
 		logger.error("统一出错处理", ex);
 		if (isJsonRequest(request)) {
-			//ModelAndView ret = new ModelAndView("jsonView");
-			//ret.addObject("fail", ex.getMessage());
-			//return null;
-
 			ModelAndView ret = new ModelAndView("jsonView");
 			ret.addObject("failed", ex.getMessage());
 			return ret;

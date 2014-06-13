@@ -44,8 +44,6 @@ public class DBOperator {
     private int dbType = DBOption.DB_MYSQL;
     /**@Field the String dbVersion*/
     private String dbVersion = null;
-    /**@Field the Integer GENERATESTRATEGY*/
-    private Integer GENERATESTRATEGY = 1;
 
 	/**
 	 * @param nest
@@ -95,8 +93,6 @@ public class DBOperator {
 		this.dbVersion = dbVersion;
 	}
 
-	//==============================================================================================
-
 	/**
 	* @Title: executeQueryPage
 	* @Description:
@@ -131,7 +127,7 @@ public class DBOperator {
 			}
 
 		} catch (SQLException e) {
-			logger.error("SQLException",e);
+			logger.error("SQLException",e.fillInStackTrace());
 			throw new SQLException(e);
 		}finally{
 			DBHelper.close(ps,rs);

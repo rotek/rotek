@@ -15,7 +15,6 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import com.cta.platform.config.SystemGlobals;
@@ -32,9 +31,6 @@ import com.cta.platform.util.ListPager;
  *
  */
 public class BaseDaoImpl implements IBaseDao{
-
-	/** The logger. */
-    private static Logger logger = Logger.getLogger(DBOperator.class);
 
 	/**@Field the int dbType*/
 	private static final int dbType = DBOption.DB_MYSQL;
@@ -100,7 +96,6 @@ public class BaseDaoImpl implements IBaseDao{
 
 		return SystemGlobals.getPreference("db_version");
 	}
-	//=========================================================================================================
 
 
 	/* (no Javadoc)
