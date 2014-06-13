@@ -131,7 +131,7 @@ toolbar.regAddHandler(function(){
 			emptyText : '点击设置管理员角色',
 			name : 'role_id',
 			triggerAction : 'all',
-			displayField : 'role_name',
+			displayField : 'name',
 			valueField : 'id',
 			hiddenName : 'role_id',
 			allowBlank : false,
@@ -141,7 +141,7 @@ toolbar.regAddHandler(function(){
 					fields : [ {
 						name : 'id'
 					}, {
-						name : 'role_name'
+						name : 'name'
 					} ]
 				}),
 				proxy : new Ext.data.HttpProxy({
@@ -268,7 +268,7 @@ toolbar.regModifyHandler(function(){
     				emptyText : '点击设置管理员角色',
     				name : 'role_id',
     				triggerAction : 'all',
-    				displayField : 'role_name',
+    				displayField : 'name',
     				valueField : 'id',
     				hiddenName : 'role_id',
     				editable : false,
@@ -279,7 +279,7 @@ toolbar.regModifyHandler(function(){
     						fields : [ {
     							name : 'id'
     						}, {
-    							name : 'role_name'
+    							name : 'name'
     						} ]
     					}),
     					proxy : new Ext.data.HttpProxy({
@@ -328,7 +328,7 @@ toolbar.regModifyHandler(function(){
     	      data : data
     	  });
 
-      //Ext.getCmp('manager_role').setValue(data.role_name);
+      //Ext.getCmp('manager_role').setValue(data.name);
       var updateWindow = new CTA.common.UpdateWindow({
     	id : 'updateWindow',
         width : 500,

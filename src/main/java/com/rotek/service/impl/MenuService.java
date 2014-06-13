@@ -53,14 +53,14 @@ public class MenuService {
 
 		StringBuilder sql = new StringBuilder();
 		List<Object> params = new LinkedList<Object>();
-		sql.append("select 	id, menu_name, url, status from r_menu where 1 = 1");
+		sql.append("select 	id, name, url, status from r_menu where 1 = 1");
 
 		if(null != menu.getId()){
 			sql.append(" and id = ?");
 			params.add(menu.getId());
 		}
 		if(StringUtils.isNotEmpty(menu.getName())){
-			sql.append(" and menu_name like '%"+menu.getName()+"%'");
+			sql.append(" and name like '%"+menu.getName()+"%'");
 		}
 		if(StringUtils.isNotEmpty(menu.getUrl())){
 			sql.append(" and url like '%"+menu.getUrl()+"%'");
@@ -91,7 +91,7 @@ public class MenuService {
 	*/
 	public List<Map<String, Object>> listMenus_super() throws SQLException {
 
-		String super_menu_ids = SystemGlobals.getPreference("super_menu_id", "0");
+		String super_menu_ids = SystemGlobals.getPreference("super_menu_id", "1");
 		return menuDao.listMenus_super(super_menu_ids);
 	}
 	/**

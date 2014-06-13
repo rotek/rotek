@@ -8,7 +8,6 @@
 */
 package com.rotek.dto;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,7 @@ import com.rotek.entity.MenuEntity;
  * @date 2013-6-1 下午02:51:54
  *
  */
-public class MenuDto extends MenuEntity implements Serializable{
+public class MenuDto extends MenuEntity{
 	//子级菜单
 	private List<MenuEntity> subMenuList = new ArrayList<MenuEntity>();
 	//对应的button

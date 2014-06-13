@@ -18,7 +18,7 @@ import com.cta.platform.persistence.annotation.Table;
  * @author chenwenpeng
  * @date 2013-6-5 下午11:13:02
  */
-@Table(name="MF_MENU_QD")
+@Table(name="r_menu_QD")
 public class MenuEntity implements Serializable{
 	/** The long serialVersionUID*/
 	private static final long serialVersionUID = 2561879663366718695L;

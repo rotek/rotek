@@ -53,7 +53,7 @@ public class AuthorityDao extends BaseDaoImpl{
 	*/
 	public List<ButtonEntity> getListButton(Integer role_id, Integer menuId) throws SQLException {
 
-		String sql = "select button_name,action from r_button where id in (select button_id from mf_role_power where role_id = ? and menu_id = ?)";
+		String sql = "select name,action from r_button where id in (select button_id from r_role_authority where role_id = ? and menu_id = ?)";
 		return this.selectAll(sql, new Object[]{role_id,menuId}, ButtonEntity.class);
 	}
 }

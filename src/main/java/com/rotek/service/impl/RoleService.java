@@ -59,7 +59,7 @@ public class RoleService {
 			params.add(role.getId());
 		}
 		if(StringUtils.isNotEmpty(role.getName())){
-			sql.append(" and role_name like '%"+role.getName().trim()+"%'");
+			sql.append(" and name like '%"+role.getName().trim()+"%'");
 		}
 		if(null != role.getStatus()){
 			sql.append(" and status = ?");
@@ -205,7 +205,7 @@ public class RoleService {
 			messages.add("请选择您要操作的数据!");
 		}
 		StringBuilder sql = new StringBuilder();
-		sql.append("update mf_role set status = ").append(DataStatus.DISABLED);
+		sql.append("update r_role set status = ").append(DataStatus.DISABLED);
 		sql.append(" where id in ("+id_str.trim()+")");
 		roleDao.deleteRole(sql.toString());
 		return messages;

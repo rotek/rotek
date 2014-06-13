@@ -25,7 +25,7 @@ import com.cta.platform.persistence.annotation.Table;
  * 
  */
 @Table(name = "R_MENU")
-public class MenuEntity implements Serializable {
+public class MenuEntity extends BaseEntity {
 
 	/** @Field the long serialVersionUID */
 	private static final long serialVersionUID = 112365545L;

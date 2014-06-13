@@ -109,10 +109,9 @@ public class RoleController {
 	 */
 	@RequestMapping("addRole")
 	public String addRole(
-			@RequestParam(value="role_name", defaultValue="") String name,
+			@RequestParam(value="name", defaultValue="") String name,
 			@RequestParam(value="status", defaultValue="1") Integer status,
 			@RequestParam(value="super_id", defaultValue="1") Integer super_id,
-			@RequestParam(value="memo", defaultValue="") String memo,
 			ModelMap model) throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		RoleEntity roleEntity = new RoleEntity();
 
@@ -166,15 +165,13 @@ public class RoleController {
 	@RequestMapping("modifyRole")
 	public String modifyRole(
 			@RequestParam(value="id",defaultValue="0") Integer id,
-			@RequestParam(value="role_name", defaultValue="") String role_name,
+			@RequestParam(value="name", defaultValue="") String name,
 			@RequestParam(value="status", defaultValue="1") Integer status,
-			@RequestParam(value="super_role_id", defaultValue="1") Integer super_role_id,
-			@RequestParam(value="memo", defaultValue="") String memo,
 			@RequestParam(value="authority",defaultValue="") String authority,
 			ModelMap model) throws Exception{
 		RoleEntity roleEntity = new RoleEntity();
 		roleEntity.setId(id);
-		roleEntity.setName(role_name);
+		roleEntity.setName(name);
 		roleEntity.setStatus(status);
 		List<String> messages = roleService.modifyRole(roleEntity,authority);
 		model.put("success", null == messages ? true : false);
