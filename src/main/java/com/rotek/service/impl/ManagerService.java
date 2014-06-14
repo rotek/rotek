@@ -12,17 +12,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cta.platform.util.ListPager;
+import com.cta.platform.util.ValidateUtil;
 import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.ManagerDao;
 import com.rotek.dto.ManagerDto;
 import com.rotek.entity.ManagerEntity;
-import com.cta.platform.util.ListPager;
-import com.cta.platform.util.ValidateUtil;
 
 /**
  * @ClassName: ManagerService
@@ -47,7 +48,7 @@ public class ManagerService {
 	* @return List<ManagerEntity>
 	* @throws
 	*/
-	public List<ManagerEntity> listManagers(ManagerEntity manager, ListPager pager) throws SQLException {
+	public List<Map<String,Object>> listManagers(ManagerEntity manager, ListPager pager) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select id, name, real_name, phone,status from mf_manager where 1 =1");
 		List<Object> params = new LinkedList<Object>();
@@ -55,15 +56,15 @@ public class ManagerService {
 			sql.append(" and id = ?");
 			params.add(manager.getId());
 		}
-		if(StringUtils.isNotBlank(manager.getName())){
+		if(StringUtils.isNotEmpty(manager.getName())){
 			sql.append(" and name like '%"+manager.getName()+"%'");
 		}
 
-		if(StringUtils.isNotBlank(manager.getReal_name())){
+		if(StringUtils.isNotEmpty(manager.getReal_name())){
 			sql.append(" and real_name like '%"+manager.getReal_name()+"%'");
 		}
 
-		if(StringUtils.isNotBlank(manager.getPhone())){
+		if(StringUtils.isNotEmpty(manager.getPhone())){
 			sql.append(" and phone like '%"+manager.getPhone()+"%'");
 		}
 		if(null != manager.getStatus()){

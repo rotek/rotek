@@ -10,6 +10,7 @@ package com.rotek.controller;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,10 +20,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cta.platform.util.ListPager;
 import com.rotek.dto.ManagerDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.ManagerEntity;
-import com.cta.platform.util.ListPager;
 import com.rotek.service.impl.ManagerService;
 
 /**
@@ -90,7 +91,7 @@ public class ManagerController {
 		manager.setAnswer(answer);
 		manager.setStatus(status);
 
-		List<ManagerEntity> managerList = managerService.listManagers(manager,pager);
+		List<Map<String,Object>> managerList = managerService.listManagers(manager,pager);
 		modelMap.put("dataList", managerList);
 		modelMap.put("totalCount", pager.getTotalRows());
 		return "jsonView";

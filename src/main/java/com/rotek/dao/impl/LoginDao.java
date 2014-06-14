@@ -38,7 +38,7 @@ public class LoginDao extends BaseDaoImpl {
 	public UserDto getUser(String username, String password)
 			throws SQLException {
 
-		String sql = "select  id , r_role_id , r_costomer_id , name , password , email , telephone , realname , companyname , status from r_user where name = ? and password = ? and status = ?";
+		String sql = "select  id , r_role_id , r_customer_id , name , password , email , telephone , realname , companyname , status from r_manager where name = ? and password = ? and status = ?";
 		return this.selectOne(sql, new Object[] { username, password,
 				UserDto.STATUS_ENABLE }, UserDto.class);
 	}

@@ -23,7 +23,7 @@ import com.rotek.dao.impl.AuthorityDao;
 import com.rotek.dao.impl.ButtonDao;
 import com.rotek.entity.ButtonEntity;
 import com.rotek.entity.MenuEntity;
-import com.rotek.entity.User;
+import com.rotek.entity.UserEntity;
 
 /**
  * @ClassName: AuthorityService

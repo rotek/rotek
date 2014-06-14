@@ -1,6 +1,6 @@
 //设置管理员信息
-Ext.ns("CTA.manager");
-CTA.manager.params = {
+Ext.ns("CTA.user");
+CTA.user.params = {
 	//gridpanel的参数
 	gridParam : {
 			url : basePath + "/admin/manager/listManagers",
@@ -39,7 +39,7 @@ CTA.manager.params = {
 	}
 };
 
-var gridPanel = CTA.common.GridPanel.createGridPanel(CTA.manager.params.gridParam);
+var gridPanel = CTA.common.GridPanel.createGridPanel(CTA.user.params.gridParam);
 var toolbar = new CTA.common.Toolbar(authority);
 //添加
 toolbar.regAddHandler(function(){
@@ -48,7 +48,7 @@ toolbar.regAddHandler(function(){
         if(formPanel.getForm().isValid()){
           CTA.common.Mask.showMask({target:'addWindow'});
           formPanel.commit({
-            url : CTA.manager.params.url.addUrl
+            url : CTA.user.params.url.addUrl
           });
         }
     };
@@ -145,7 +145,7 @@ toolbar.regAddHandler(function(){
 					} ]
 				}),
 				proxy : new Ext.data.HttpProxy({
-					url : CTA.manager.params.url.listRolesUrl
+					url : CTA.user.params.url.listRolesUrl
 				})
 			})
 		},{
@@ -170,7 +170,7 @@ toolbar.regAddHandler(function(){
 					} ]
 				}),
 				proxy : new Ext.data.HttpProxy({
-					url : CTA.manager.params.url.listDepartmentsUrl
+					url : CTA.user.params.url.listDepartmentsUrl
 				})
 			})
 		}]
@@ -188,7 +188,7 @@ toolbar.regModifyHandler(function(){
   }
   var id = selections[0].get("id");
   Ext.Ajax.request({
-    url : CTA.manager.params.url.detailUrl,
+    url : CTA.user.params.url.detailUrl,
     params : {id : id},
     success : function(response) {
       var data = Ext.util.JSON.decode(response.responseText).data;
@@ -283,7 +283,7 @@ toolbar.regModifyHandler(function(){
     						} ]
     					}),
     					proxy : new Ext.data.HttpProxy({
-    						url : CTA.manager.params.url.listRolesUrl
+    						url : CTA.user.params.url.listRolesUrl
     					}),
     					autoLoad : true,
         				listeners : {
@@ -315,7 +315,7 @@ toolbar.regModifyHandler(function(){
     						} ]
     					}),
     					proxy : new Ext.data.HttpProxy({
-    						url : CTA.manager.params.url.listDepartmentsUrl
+    						url : CTA.user.params.url.listDepartmentsUrl
     					}),
     					autoLoad : true,
     					listeners : {
@@ -339,7 +339,7 @@ toolbar.regModifyHandler(function(){
             if(formPanel.getForm().isValid()){
               CTA.common.Mask.showMask({target:'updateWindow'});
               formPanel.commit({
-                url : CTA.manager.params.url.modifyUrl
+                url : CTA.user.params.url.modifyUrl
               });
             }
         }
@@ -430,7 +430,7 @@ toolbar.regDropHandler(function(){
 	    if('yes' == button){
 	    	CTA.common.Mask.showMask();
 	    	CTA.common.Ajax.request({
-	    		url : CTA.manager.params.url.dropUrl,
+	    		url : CTA.user.params.url.dropUrl,
 	    		params : {ids : ids.toString()}
 	    	});
 	    }

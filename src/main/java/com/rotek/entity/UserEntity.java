@@ -23,7 +23,7 @@ import com.cta.platform.persistence.annotation.Table;
  * 
  */
 @Table(name = "r_user")
-public class User implements Serializable {
+public class UserEntity implements Serializable {
 
 	/**启用
 	 */
@@ -44,8 +44,8 @@ public class User implements Serializable {
 	@Column(name = "r_role_id")
 	private Integer r_role_id;
 	//
-	@Column(name = "r_costomer_id")
-	private Integer r_costomer_id;
+	@Column(name = "r_customer_id")
+	private Integer r_customer_id;
 	//
 	@Column(name = "r_agent_id")
 	private Integer r_agent_id;
@@ -95,12 +95,13 @@ public class User implements Serializable {
 		this.r_role_id = r_role_id;
 	}
 
-	public Integer getR_costomer_id() {
-		return r_costomer_id;
+	
+	public Integer getR_customer_id() {
+		return r_customer_id;
 	}
 
-	public void setR_costomer_id(Integer r_costomer_id) {
-		this.r_costomer_id = r_costomer_id;
+	public void setR_customer_id(Integer r_customer_id) {
+		this.r_customer_id = r_customer_id;
 	}
 
 	public Integer getR_agent_id() {
