@@ -69,7 +69,7 @@ public class MenuDao extends BaseDaoImpl {
 	*/
 	public List<Map<String, Object>> listMenus_sort() throws SQLException {
 
-		String sql = "select (sort-1) sort,name from r_menu where status = 1 order by sort desc";
+		String sql = "select (sort-1) sort,name from r_menu where status = 1 and id!=1 order by sort desc";
 		return this.executeQuery(sql, null);
 	}
 

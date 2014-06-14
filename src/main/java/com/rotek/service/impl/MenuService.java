@@ -92,6 +92,9 @@ public class MenuService {
 	public List<Map<String, Object>> listMenus_super() throws SQLException {
 
 		String super_menu_ids = SystemGlobals.getPreference("super_menu_id", "1");
+		if(super_menu_ids.equals("1")){
+			super_menu_ids = "0,1";
+		}
 		return menuDao.listMenus_super(super_menu_ids);
 	}
 	/**
