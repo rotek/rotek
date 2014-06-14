@@ -59,7 +59,7 @@ public class IndexController {
 			UserDto user,
 			ModelMap modelMap) throws SQLException{
 
-		List<MenuDto> menuList = indexservice.listMenu(user.getRole_id());
+		List<MenuDto> menuList = indexservice.listMenu(user.getR_role_id());
 		return menuList;
 	}
 
@@ -74,9 +74,9 @@ public class IndexController {
 	*/
 	@RequestMapping("listTodo")
 	public String listTodo(UserDto user,ModelMap modelMap) throws SQLException{
-		Map<String,Object> todo = indexservice.listTodos(user.getDep_id());
-		
-		modelMap.put("data", todo);
+//		Map<String,Object> todo = indexservice.listTodos(user.getDep_id());
+//		
+		modelMap.put("data", null);
 		return "jsonView";
 	}
 }

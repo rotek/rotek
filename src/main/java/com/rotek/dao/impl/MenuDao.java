@@ -55,7 +55,7 @@ public class MenuDao extends BaseDaoImpl {
 	*/
 	public List<Map<String, Object>> listMenus_super(String super_menu_ids) throws SQLException {
 
-		String sql = "select id,menu_name from mf_menu where id in (select id from mf_menu where super_menu_id in("+super_menu_ids+"))  and status = 1 order by super_menu_id,status,sort desc";
+		String sql = "select id,name from r_menu where id in (select id from r_menu where super_menu_id in("+super_menu_ids+"))  and status = 1 order by super_menu_id,status,sort desc";
 		return this.executeQuery(sql, null);
 	}
 
@@ -69,7 +69,7 @@ public class MenuDao extends BaseDaoImpl {
 	*/
 	public List<Map<String, Object>> listMenus_sort() throws SQLException {
 
-		String sql = "select (sort-1) sort,menu_name from mf_menu where status = 1 order by sort desc";
+		String sql = "select (sort-1) sort,name from r_menu where status = 1 and id!=1 order by sort desc";
 		return this.executeQuery(sql, null);
 	}
 
@@ -95,7 +95,7 @@ public class MenuDao extends BaseDaoImpl {
 	* @throws
 	*/
 	public MenuDto getMenuDetail(Integer id) throws SQLException {
-		String sql = "select id, menu_name, super_menu_id, url, sort, status from mf_menu where id = ?";
+		String sql = "select id, name, super_menu_id, url, sort, status from r_menu where id = ?";
 		return this.selectOne(sql, new Integer []{id},MenuDto.class);
 	}
 
@@ -110,7 +110,7 @@ public class MenuDao extends BaseDaoImpl {
 	*/
 	public List<Map<String, Object>> getMenuButonList(Integer id) throws SQLException {
 
-		String sql = "select id,button_name from mf_button  where id in (select button_id from mf_menu_button where menu_id = ?)";
+		String sql = "select id,name from r_button  where id in (select button_id from r_menu_button where menu_id = ?)";
 		return this.executeQuery(sql, new Integer[]{id});
 	}
 
@@ -136,7 +136,7 @@ public class MenuDao extends BaseDaoImpl {
 	*/
 	public void clearMenu_button(Integer id) throws SQLException {
 
-		String sql = "delete from mf_menu_button where menu_id = ?";
+		String sql = "delete from r_menu_button where menu_id = ?";
 		this.executeUpdate(sql, new Integer[]{id});
 	}
 
@@ -151,7 +151,7 @@ public class MenuDao extends BaseDaoImpl {
 	*/
 	public void addMenu_button(Integer menuId, Integer buttonId) throws SQLException {
 
-		String sql = "insert into mf_menu_button values(null,?,?)";
+		String sql = "insert into r_menu_button values(null,?,?)";
 		this.executeUpdate(sql,new Integer[]{menuId,buttonId});
 	}
 

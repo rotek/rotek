@@ -1,11 +1,3 @@
-/**
-* @FileName: GiftService.java
-* @Package com.cta.service.impl
-* @Description: TODO
-* @author chenwenpeng
-* @date 2013-8-9 下午05:26:46
-* @version V1.0
-*/
 package com.rotek.service.impl;
 
 import java.io.IOException;
@@ -30,21 +22,66 @@ import com.rotek.dao.impl.ProjectDao;
 import com.rotek.dto.GiftDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.GiftEntity;
+import com.rotek.entity.ProjectEntity;
 import com.rotek.util.FileUtils;
 
 /**
- * @ClassName: GiftService
- * @Description:
- * @author chenwenpeng
- * @date 2013-8-9 下午05:26:46
- *
- */
+* @ClassName:ProjectService
+* @Description: 工程信息Service
+* @Author WangJuZhu
+* @date 2014年6月10日 下午4:21:22
+* @Version:1.1.0
+*/
 @Service
 public class ProjectService {
 
 	@Autowired
 	private ProjectDao projectDao;
 
+	/**
+	* @MethodName: addProject 
+	* @Description: 新增工程信息
+	* @param project
+	* @param multipartRequest
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public List<String> addProject(ProjectEntity project, MultipartHttpServletRequest multipartRequest) throws Exception {
+		List<String> messages = ValidateUtil.validate(project);
+		if(messages.size() > 0){
+			return messages;
+		}
+		MultipartFile proPic = multipartRequest.getFile("proPic");
+		MultipartFile proParamAffix = multipartRequest.getFile("proParamAffix");
+		
+		//保存工程图片
+		if(null != proPic && StringUtils.isNotBlank(proPic.getOriginalFilename())){
+			String pic_location = SystemGlobals.getPreference("project.proPic.path");
+			String pic_name = FileUtils.savePic(proPic, pic_location, 1024000000);
+			if(null != pic_name){
+				project.setProPic(pic_name);
+			}else {
+				messages.add("工程图片必须在 "+1024000000/1024 +"k 以内!");
+				return messages;
+			}
+		}
+		//保存工程技术参数附件
+		if(null != proParamAffix && StringUtils.isNotBlank(proParamAffix.getOriginalFilename())){
+			String paramAffix_location = SystemGlobals.getPreference("project.proParamAffix.path");
+			String paramAffixName = FileUtils.savePic(proParamAffix, paramAffix_location, 1024000000);
+			if(null != paramAffixName){
+				project.setProParamAffix(paramAffixName);
+			}
+		}
+		projectDao.addProject(project);
+		
+		return null;
+	}
+	
+	
+	
+	
 	/**
 	 * @param user
 	 * @throws SQLException
@@ -68,10 +105,10 @@ public class ProjectService {
 		sql.append(" left join mf_gift g on gu.gift_id = g.id");
 		sql.append(" where 1=1");
 
-		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
-			sql.append(" and gu.status <> ?");
-			params.add(OrderStatus.INVALID);
-		}
+//		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
+//			sql.append(" and gu.status <> ?");
+//			params.add(OrderStatus.INVALID);
+//		}
 
 		if(null != gift.getExchange_id()){
 			sql.append(" and gu.id = ?");
@@ -187,10 +224,10 @@ public class ProjectService {
 		List<Object> params = new LinkedList<Object>();
 		sql.append("select id, name, pic, points, status from mf_gift where 1 = 1");
 
-		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
-			sql.append(" and status <> ?");
-			params.add(OrderStatus.INVALID);
-		}
+//		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
+//			sql.append(" and status <> ?");
+//			params.add(OrderStatus.INVALID);
+//		}
 
 		if(null != gift.getId()){
 			sql.append(" and id = ?");
@@ -215,44 +252,7 @@ public class ProjectService {
 		return projectDao.listUserGifts(sql.toString(), params.toArray(), pager);
 	}
 
-	/**
-	 * @throws SQLException
-	 * @throws IOException
-	 * @throws IllegalStateException
-	 * @param request
-	 * @throws NoSuchMethodException
-	 * @throws InvocationTargetException
-	 * @throws IllegalAccessException
-	* @Title: addGift
-	* @Description:
-	* @param gift
-	* @return
-	* @return List<String>
-	* @throws
-	*/
-	public List<String> addGift(GiftEntity gift, MultipartHttpServletRequest multipartRequest) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException, SQLException {
-		List<String> messages = ValidateUtil.validate(gift);
-		if(messages.size() > 0){
-			return messages;
-		}
 
-		MultipartFile pic = multipartRequest.getFile("pic");
-		if(null != pic && StringUtils.isNotBlank(pic.getOriginalFilename())){
-			String pic_location = SystemGlobals.getPreference("gift.pic.path");
-			long rest_maxPic = SystemGlobals.getLongPreference("gift.pic.maxSize", 102400);
-			//保存图片
-			String pic_name = FileUtils.savePic(pic, pic_location, rest_maxPic);
-			if(null != pic_name){
-				//更新礼品图片
-				gift.setPic(pic_name);
-				projectDao.addGift(gift);
-			}else {
-				messages.add("店铺图片必须在 "+rest_maxPic/1024 +"k 以内!");
-				return messages;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * @throws SQLException

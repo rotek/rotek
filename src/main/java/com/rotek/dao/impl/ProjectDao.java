@@ -1,11 +1,3 @@
-/**
-* @FileName: GiftDao.java
-* @Package com.cta.dao.impl
-* @Description: TODO
-* @author chenwenpeng
-* @date 2013-8-12 上午09:40:42
-* @version V1.0
-*/
 package com.rotek.dao.impl;
 
 import java.sql.SQLException;
@@ -17,10 +9,38 @@ import com.cta.platform.persistence.dao.BaseDaoImpl;
 import com.cta.platform.util.ListPager;
 import com.rotek.dto.GiftDto;
 import com.rotek.entity.GiftEntity;
+import com.rotek.entity.ProjectEntity;
 
+/**
+* @ClassName:ProjectDao
+* @Description: 工程信息管理Dao实现
+* @Author WangJuZhu
+* @date 2014年6月10日 下午4:37:19
+* @Version:1.1.0
+*/
 @Repository
 public class ProjectDao extends BaseDaoImpl{
 
+	/**
+	* @MethodName: addProject 
+	* @Description: 添加工程信息
+	* @param project
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public void addProject(ProjectEntity project) throws SQLException {
+		this.insert(project);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * @throws SQLException
 	* @Title: listUserGifts
@@ -64,18 +84,7 @@ public class ProjectDao extends BaseDaoImpl{
 		return this.selectOne(sql, GiftDto.class);
 	}
 
-	/**
-	 * @throws SQLException
-	* @Title: addGift
-	* @Description:
-	* @param gift
-	* @return void
-	* @throws
-	*/
-	public void addGift(GiftEntity gift) throws SQLException {
-
-		this.insert(gift);
-	}
+	
 
 	/**
 	 * @throws SQLException

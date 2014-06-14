@@ -41,13 +41,12 @@ public class AuthorityInteceptor extends BaseInterceptor{
 			UserDto user = (UserDto) request.getSession().getAttribute(SessionParams.USER);
 			//菜单在库中的url
 			String url_inDB = null;
-
 			String basePath = request.getContextPath();
 			if(requestURI.length()>1){
 				url_inDB = requestURI.substring(basePath.length(),requestURI.length());
 			}
 			//用户权限按钮的map{add:true,modify:true}
-			JSONObject authority = authorityService.listAuthority(user, url_inDB);
+			JSONObject authority = authorityService.listAuthority(user.getR_role_id(), url_inDB);
 			request.setAttribute("authority", authority);
 		}
 		return true;

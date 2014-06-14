@@ -38,8 +38,8 @@ public class ButtonDao extends BaseDaoImpl{
 	*/
 	public List<Map<String, Object>> listButtons_s() throws SQLException {
 
-		String sql = "select id,button_name,sort from mf_button where status = 1";
-		return this.executeQuery(sql, null);
+		String sql = "select id,name,sort from r_button where status = ?";
+		return this.executeQuery(sql, new Integer[]{ButtonEntity.STATUS_ENABLED});
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class ButtonDao extends BaseDaoImpl{
 	*/
 	public ButtonEntity getButtonDetail(Integer id) throws SQLException {
 
-		String sql = "select id, button_name, action, memo, icon, sort, status from mf_button where id = ?";
+		String sql = "select id, name, action, memo, icon, sort, status from r_button where id = ?";
 		return this.selectOne(sql, new Integer[]{id},ButtonEntity.class);
 	}
 

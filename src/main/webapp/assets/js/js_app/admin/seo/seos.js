@@ -224,7 +224,7 @@ toolbar.regModifyHandler(function(){
     		  data : data
     });
 
-      //Ext.getCmp('manager_role').setValue(data.role_name);
+      //Ext.getCmp('manager_role').setValue(data.name);
       var updateWindow = new CTA.common.UpdateWindow({
     	id : 'updateWindow',
     	width : 800,

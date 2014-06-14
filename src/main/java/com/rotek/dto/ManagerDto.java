@@ -30,8 +30,8 @@ public class ManagerDto extends ManagerEntity {
 	@Column(name="role_id")
 	private Integer role_id;//角色id
 
-	@Column(name="role_name")
-	private String role_name;//角色name
+	@Column(name="name")
+	private String name;//角色name
 
 	@Column(name="dep_id")
 	private Integer dep_id;//部门id
@@ -65,11 +65,11 @@ public class ManagerDto extends ManagerEntity {
 	public void setManager_name(String manager_name) {
 		this.manager_name = manager_name;
 	}
-	public String getRole_name() {
-		return role_name;
+	public String getname() {
+		return name;
 	}
-	public void setRole_name(String role_name) {
-		this.role_name = role_name;
+	public void setname(String name) {
+		this.name = name;
 	}
 	public Integer getRole_id() {
 		return role_id;

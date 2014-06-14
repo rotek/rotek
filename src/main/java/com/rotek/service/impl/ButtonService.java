@@ -62,7 +62,7 @@ public class ButtonService {
 
 		StringBuilder sql = new StringBuilder();
 		List<Object> params = new LinkedList<Object>();
-		sql.append("select id,button_name,action,memo,status,sort from mf_button");
+		sql.append("select id,name,action,memo,status,sort from r_button");
 
 		sql.append(" order by sort desc");
 		return buttonDao.listButtons(sql.toString(),params.toArray(),pager);
@@ -141,7 +141,7 @@ public class ButtonService {
 			messages.add("请选择您要操作的数据!");
 		}
 		StringBuilder sql = new StringBuilder();
-		sql.append("update mf_button set status = ").append(DataStatus.DISABLED);
+		sql.append("update r_button set status = ").append(DataStatus.DISABLED);
 		sql.append(" where id in ("+ids.trim()+")");
 		buttonDao.deleteButton(sql.toString());
 		return messages;

@@ -64,7 +64,7 @@ public class ButtonController {
 			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "limit", defaultValue = "15") Integer limit,
 			@RequestParam(value="id", defaultValue = "") Integer id,
-			@RequestParam(value="button_name", defaultValue = "") String button_name,
+			@RequestParam(value="name", defaultValue = "") String name,
 			@RequestParam(value="action", defaultValue = "") String action,
 			@RequestParam(value="memo", defaultValue = "") String memo,
 			@RequestParam(value="icon", defaultValue = "") String icon,
@@ -78,7 +78,7 @@ public class ButtonController {
 
 		ButtonEntity button = new ButtonEntity();
 		button.setId(id);
-		button.setButton_name(button_name);
+		button.setName(name);
 		button.setAction(action);
 		button.setMemo(memo);
 		button.setIcon(icon);
@@ -114,7 +114,7 @@ public class ButtonController {
 	 * @throws IllegalAccessException
 	* @Title: addButton
 	* @Description:
-	* @param @param button_name
+	* @param @param name
 	* @param @param action
 	* @param @param memo
 	* @param @param icon
@@ -128,7 +128,7 @@ public class ButtonController {
 	*/
 	@RequestMapping("addButton")
 	public String addButton(
-			@RequestParam(value="button_name", defaultValue = "") String button_name,
+			@RequestParam(value="name", defaultValue = "") String name,
 			@RequestParam(value="action", defaultValue = "") String action,
 			@RequestParam(value="memo", defaultValue = "") String memo,
 			@RequestParam(value="icon", defaultValue = "") String icon,
@@ -137,7 +137,7 @@ public class ButtonController {
 			ModelMap modelMap) throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 
 		ButtonEntity button = new ButtonEntity();
-		button.setButton_name(button_name);
+		button.setName(name);
 		button.setAction(action);
 		button.setMemo(memo);
 		button.setIcon(icon);
@@ -176,7 +176,7 @@ public class ButtonController {
 	 * @throws IllegalAccessException
 	 * @Title: addButton
 	 * @Description:
-	 * @param @param button_name
+	 * @param @param name
 	 * @param @param action
 	 * @param @param memo
 	 * @param @param icon
@@ -191,7 +191,7 @@ public class ButtonController {
 	@RequestMapping("modifyButton")
 	public String modifyButton(
 			@RequestParam(value="id", defaultValue = "") Integer id,
-			@RequestParam(value="button_name", defaultValue = "") String button_name,
+			@RequestParam(value="name", defaultValue = "") String name,
 			@RequestParam(value="action", defaultValue = "") String action,
 			@RequestParam(value="memo", defaultValue = "") String memo,
 			@RequestParam(value="icon", defaultValue = "") String icon,
@@ -201,7 +201,7 @@ public class ButtonController {
 
 		ButtonEntity button = new ButtonEntity();
 		button.setId(id);
-		button.setButton_name(button_name);
+		button.setName(name);
 		button.setAction(action);
 		button.setMemo(memo);
 		button.setIcon(icon);

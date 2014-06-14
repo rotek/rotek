@@ -95,45 +95,87 @@ toolbar.regAddHandler(function() {
 	//定义添加窗口中的form
 	var formPanel = new CTA.common.SFormPanel({
 		fileUpload : true,
-		items : [ {
-			fieldLabel : '礼品名称',
-			emptyText : '请输入菜单名称',
-			name : 'name',
+		items : [{
+			fieldLabel : '工程名称',
+			emptyText : '请输入工程名称',
+			name : 'proName',
 			minLength : 1,
-			maxLength : 50
+			maxLength : 100
 		}, {
-			xtype : 'numberfield',
-			fieldLabel : '礼品积分',
-			emptyText : '请输入兑换所需积分',
-			name : 'points',
+			fieldLabel : '工程编号',
+			emptyText : '请输入工程编号',
+			name : 'proNum',
 			minLength : 1,
-			maxLength : 10
+			maxLength : 100
+		}, {
+			fieldLabel : '工程型号',
+			emptyText : '请输入工程型号',
+			name : 'proModel',
+			minLength : 1,
+			maxLength : 100
 		}, {
 			xtype : 'combo',
-			fieldLabel : '礼品状态',
-			emptyText : '请选择礼品状态',
-			name : 'status',
+			fieldLabel : '工程类别',
+			emptyText : '请选择工程类别',
+			name : 'proType',
 			triggerAction : 'all',
 			store : new Ext.data.SimpleStore({
 				fields : [ 'label', 'value' ],
-				data : [ [ "启用", "1" ], [ "禁用", "-1" ] ]
+				data : [[ "普通工程", "1" ], [ "EMC工程", "2" ]]
 			}),
 			displayField : 'label',
 			valueField : 'value',
-			hiddenName : 'status',
+			hiddenName : 'proType',
 			mode : 'local',
 			editable : false
 		}, {
-			fieldLabel : '礼品图片',
-			name : 'pic',
-			text : "点击上传菜品图片",
-			inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
-			blankText : '请上传礼品图片'
+			xtype : 'textarea',
+			fieldLabel : '工程介绍',
+			emptyText : '请输入工程介绍',
+			name : 'proIntroduce',
+			height : 70,
+			width : 230
 		}, {
-			xtype : 'htmleditor',
-			fieldLabel : '礼品描述',
-			emptyText : '请输入礼品描述',
-			name : 'descr'
+			fieldLabel : '工程图片',
+			name : 'proPic',
+			text : "点击上传工程图片",
+			inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
+			blankText : '请上传工程图片'
+		}, {
+			xtype : 'textarea',
+			fieldLabel : '技术参数简介',
+			emptyText : '请输入技术参数简介',
+			name : 'proParam',
+			height : 70,
+			width : 230
+		}, {
+			fieldLabel : '技术参数附件',
+			name : 'proParamAffix',
+			text : "点击上传技术参数附件",
+			inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
+			blankText : '请上传技术参数附件'
+		}, {
+			fieldLabel : '工程零件',
+			emptyText : '请输入工程零件',
+			name : 'proPart',
+			minLength : 1,
+			maxLength : 100
+		}, {
+			xtype : 'datefield',
+			fieldLabel : '安装时间',
+			emptyText : '请选择安装时间',
+			name : 'setUpTime',
+			format:'Y-m-d',
+			editable : false,
+			allowBlank : true
+		}, {
+			xtype : 'datefield',
+			fieldLabel : '投运时间',
+			emptyText : '请输入投运时间',
+			name : 'startUseTime',
+			format:'Y-m-d',
+			editable : false,
+			allowBlank : true
 		} ]
 	});
 	addWindow.add(formPanel);

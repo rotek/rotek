@@ -25,7 +25,7 @@ import com.cta.platform.persistence.annotation.Table;
  * @date 2013-7-19 下午04:37:52
  *
  */
-@Table(name="MF_MENU_QD")
+@Table(name="r_menu_QD")
 public class RestMenuEntity implements Serializable{
 
 	/**@Field the long serialVersionUID*/

@@ -24,5 +24,5 @@
 	//某个用户在某个模块的权限
 	var authority = eval("("+'<%=request.getAttribute("authority")%>'+")");
 	//用户名
-	var username = "${sessionScope.user.real_name}";
+	var username = "${sessionScope.user.name}";
 </script>

@@ -105,7 +105,7 @@ public class DepartmentService {
 	*/
 	public List<Map<String, Object>> listDepartments_super() throws SQLException {
 
-		Integer super_dep_id = SystemGlobals.getIntPreference("super_dep_id", 1);
+		Integer super_dep_id = SystemGlobals.getIntPreference("super_dep_id", 7);
 		return departmentDao.listDepartments_s(super_dep_id);
 	}
 	/**

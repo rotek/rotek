@@ -8,11 +8,8 @@ CTA.role.params = {
 		          index:'id',
 		          header:'角色id'
 		      },{
-		          index:'role_name',
+		          index:'name',
 		          header:'角色名称'
-		      },{
-		        index:'memo',
-		        header:'角色说明'
 		      },{
 		        index:'status',
 		        header:'角色状态',
@@ -62,13 +59,8 @@ toolbar.regAddHandler(function(){
     items : [{
         fieldLabel : '角色名称',
         emptyText : '请输入角色名称',
-        name : 'role_name',
+        name : 'name',
         maxLength: 50
-      },{
-        fieldLabel : '角色说明',
-        emptyText : '请输入角色说明',
-        name : 'memo',
-        maxLength: 200
       },{
         xtype : 'combo',
         fieldLabel : '角色状态',
@@ -84,21 +76,6 @@ toolbar.regAddHandler(function(){
         hiddenName : 'status',
         mode : 'local',
         editable : false
-      },{
-        xtype : 'combo',
-        name : 'super_id',
-        triggerAction : 'all',
-        fieldLabel : '上级角色',
-        emptyText : '请选择上级角色',
-        store : new Ext.data.SimpleStore({
-          fields : ['label', 'value'],
-          data : [["总管理员", "1"]]
-        }),
-        displayField : 'label',
-        valueField : 'value',
-        hiddenName : 'super_id',
-        editable : false,
-        mode : 'local'
       }]
   });
   addWindow.add(formPanel);
@@ -128,12 +105,7 @@ toolbar.regModifyHandler(function(){
         },{
           fieldLabel : '角色名称',
           emptyText : '请输入角色名称',
-          name : 'role_name',
-          allowBlank : false
-        },{
-          fieldLabel : '角色说明',
-          emptyText : '请输入角色说明',
-          name : 'memo',
+          name : 'name',
           allowBlank : false
         },{
           xtype : 'combo',
@@ -152,21 +124,6 @@ toolbar.regModifyHandler(function(){
           mode : 'local',
           renderer : function(value){
           }
-        },{
-          xtype : 'combo',
-          name : 'super_role_id',
-          triggerAction : 'all',
-          fieldLabel : '上级角色',
-          emptyText : '请选择上级角色',
-          store : new Ext.data.SimpleStore({
-            fields : ['label', 'value'],
-            data : [["总经理", "1"]]
-          }),
-          displayField : 'label',
-          valueField : 'value',
-          hiddenName : 'super_role_id',
-          editable : false,
-          mode : 'local'
         }],
         data : data
       });
@@ -247,12 +204,12 @@ toolbar.regModifyHandler(function(){
         deferredRender : true,
         items:[{
           id : "role_info",
-          title : data.role_name + " 的基本信息",
+          title : data.name + " 的基本信息",
           layout : 'border',
           items : [role_info_formPanel]
         },{
           id : "role_authority",
-          title : data.role_name + " 的权限信息",
+          title : data.name + " 的权限信息",
           layout : 'border',
           items : [role_info_treePanel]
         }]
@@ -311,13 +268,8 @@ toolbar.regQueryHandler(function(){
 			        fieldLabel : '角色名称',
 			        emptyText : '请输入角色名称',
 			        allowBlank : true,
-			        name : 'role_name'
+			        name : 'name'
 			  },{
-		        fieldLabel : '角色说明',
-		        emptyText : '请输入角色说明',
-		        allowBlank : true,
-		        name : 'memo'
-		      },{
 		        xtype : 'combo',
 		        fieldLabel : '角色状态',
 		        emptyText : '请选择角色状态',
