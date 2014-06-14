@@ -10,7 +10,9 @@ package com.rotek.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rotek.dao.impl.AuthorityDao;
+import com.rotek.dao.impl.ButtonDao;
 import com.rotek.entity.ButtonEntity;
 import com.rotek.entity.MenuEntity;
 import com.rotek.entity.User;
@@ -34,6 +37,9 @@ public class AuthorityService {
 
 	@Autowired
 	private AuthorityDao authorityDao;
+	
+	@Autowired
+	private ButtonDao buttonDao;
 	/**
 	 * @throws SQLException
 	* @Title: listPower
@@ -71,5 +77,31 @@ public class AuthorityService {
 		authority.put("setReserveTime",true);
 		authority.put("setRestaurantType",true);
 		return authority;
+	}
+	
+	/**
+	 * @param url_inDB 
+	 * @param roleId 
+	 * @return
+	 * @throws SQLException
+	 */
+	public JSONArray getButtonList(Integer roleId, String url_inDB) throws SQLException {
+		JSONArray buttonArray = new JSONArray();
+//		List<Map<String,Object>> buttonList = buttonDao.listButtons_s();
+		MenuEntity menu = authorityDao.getMenu(url_inDB);
+		if(null == menu){
+			return buttonArray;
+		}
+		Integer menuId = menu.getId();
+		List<ButtonEntity> buttonList = authorityDao.getListButton(roleId,menuId);
+		for(ButtonEntity button : buttonList){
+			JSONObject buttonJson = new JSONObject();
+			buttonJson.put("name", button.getName());
+			buttonJson.put("action", button.getAction());
+			buttonJson.put("icon", button.getIcon());
+			buttonArray.add(buttonJson);
+		}
+		
+		return buttonArray;
 	}
 }

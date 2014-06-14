@@ -8,9 +8,13 @@
 */
 package com.rotek.interceptor;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
@@ -46,8 +50,11 @@ public class AuthorityInteceptor extends BaseInterceptor{
 				url_inDB = requestURI.substring(basePath.length(),requestURI.length());
 			}
 			//用户权限按钮的map{add:true,modify:true}
-			JSONObject authority = authorityService.listAuthority(user.getR_role_id(), url_inDB);
-			request.setAttribute("authority", authority);
+//			JSONObject authority = authorityService.listAuthority(user.getR_role_id(), url_inDB);
+//			request.setAttribute("authority", authority);
+			
+			JSONArray buttonList = authorityService.getButtonList(user.getR_role_id(), url_inDB);
+			request.setAttribute("buttonInfoList", buttonList);
 		}
 		return true;
 	}

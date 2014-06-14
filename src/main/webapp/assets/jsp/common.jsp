@@ -22,7 +22,8 @@
 	//系统的根路径
 	var basePath = "${pageContext.request.contextPath }";
 	//某个用户在某个模块的权限
-	var authority = eval("("+'<%=request.getAttribute("authority")%>'+")");
+	//var authority = eval("("+'<%=request.getAttribute("authority")%>'+")");
+	var buttonInfoList = eval("("+'<%=request.getAttribute("buttonInfoList")%>'+")");
 	//用户名
 	var username = "${sessionScope.user.name}";
 </script>
