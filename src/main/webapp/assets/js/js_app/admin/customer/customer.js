@@ -1,6 +1,7 @@
 //设置客户信息
 Ext.ns("ROTEK.CUSTOMER");
 ROTEK.CUSTOMER.params = {
+	customerType : 1,
 	//全局gridpanel的参数
 	gridParam : {
 			url :   basePath + "/admin/customer/listCustomers",
@@ -107,9 +108,11 @@ if (toolbar.get("button_add")) {
 	        }),
 	        listeners : {
 	        	'change': function(combo,item,index){
+	        		CTA.common.Constant.queryParams = item;
 	        		
-	        		console.log(combo);
 	        		console.log(item);
+	        		console.log("CTA.common.Constant.queryParams");
+	        		console.log(CTA.common.Constant.queryParams)
 	        		console.log(index);
 	        		if(item == 1){      // 一级代理商
 	        			Ext.getCmp('agentlist').setDisabled(true);// 所属代理商
@@ -187,7 +190,6 @@ if (toolbar.get("button_add")) {
 			 valueField : 'id',
 			 hiddenName : 'r_customer_id',
 			 allowBlank : true,
-				
 			 store : new Ext.data.Store({
 				reader : new Ext.data.JsonReader({
 					root : 'dataList',
@@ -197,13 +199,14 @@ if (toolbar.get("button_add")) {
 						name : 'mc'
 					} ]
 				}),
+				autoLoad : false,
 				proxy : new Ext.data.HttpProxy({
-					url : ROTEK.CUSTOMER.params.url.listAgentsUrl + '?khlb=1'//+Ext.getCmp('agentlist').getValue()
-				}),
-				baseParams:{khlb : Ext.getCmp('agentlist').getItemId()}
-			}),	
-		        editable : false,
-		        disabled : true
+					url : ROTEK.CUSTOMER.params.url.listAgentsUrl
+ 				}),
+				baseParams : {'khlb': CTA.common.Constant.queryParams}
+			}), 
+		    editable : false,
+		    disabled : true
 		},{
 		        xtype : 'combo',
 		        fieldLabel : '角色状态',

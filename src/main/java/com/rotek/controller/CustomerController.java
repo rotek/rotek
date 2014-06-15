@@ -234,8 +234,10 @@ public class CustomerController {
 	* @author Liusw
 	*/
 	@RequestMapping("listAgents")
-	public String listAgents (ModelMap modelMap, HttpServletRequest request) throws Exception {
-		List<Map<String,Object>> roleList = customerService.listAgents(request);
+	public String listAgents (ModelMap modelMap, HttpServletRequest request,
+			@RequestParam(value="khlb", defaultValue="") Integer khlb) throws Exception {
+		
+		List<Map<String,Object>> roleList = customerService.listAgents(khlb);
 		modelMap.put("dataList", roleList);
 		return "jsonView";
 	}
