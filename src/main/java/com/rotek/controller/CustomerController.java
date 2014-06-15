@@ -4,13 +4,7 @@
  */
 package com.rotek.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,16 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cta.platform.util.ListPager;
-import com.rotek.constant.Status;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.CustomerEntity;
 import com.rotek.service.impl.CustomerService;
@@ -237,8 +227,11 @@ public class CustomerController {
 	public String listAgents (ModelMap modelMap, HttpServletRequest request,
 			@RequestParam(value="khlb", defaultValue="") Integer khlb) throws Exception {
 		
-		List<Map<String,Object>> roleList = customerService.listAgents(khlb);
-		modelMap.put("dataList", roleList);
+		List<Map<String,Object>> firstAgentList = customerService.listAgentsByType(CustomerEntity.KHLB_FIRSTAGENT);
+		List<Map<String,Object>> secondAgentList = customerService.listAgentsByType(CustomerEntity.KHLB_SECONDAGENT);
+		
+		modelMap.put("firstAgentList", firstAgentList);
+		modelMap.put("secondAgentList", secondAgentList);
 		return "jsonView";
 	}
 }

@@ -158,7 +158,8 @@ public class CustomerService {
 	* @return List<Map<String,Object>>
 	* @throws
 	*/
-	public List<Map<String, Object>> listAgents(Integer khlb) throws SQLException {
-			return customerDao.listAgents(khlb);
+	public List<Map<String, Object>> listAgentsByType(Integer type) throws SQLException {
+			return customerDao.listAgentsByType(type);
 	}
+
 }
