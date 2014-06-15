@@ -133,9 +133,7 @@ public class CustomerDao extends BaseDaoImpl{
 	 * @return List<Map<String,Object>>
 	 * @throws
 	 */
-	public List<Map<String, Object>> listAgents(HttpServletRequest request) throws SQLException {
-		Map params = request.getParameterMap();
-		String khlb = (String) params.get("khlb");  
+	public List<Map<String, Object>> listAgents(Integer khlb) throws SQLException {
 		
 		String sql = "select id, mc from r_customer where (status = 1) and (khlb=1)";
 		return this.executeQuery(sql, null);
