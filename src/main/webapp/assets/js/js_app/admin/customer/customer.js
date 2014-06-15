@@ -1,7 +1,6 @@
 //设置客户信息
 Ext.ns("ROTEK.CUSTOMER");
 ROTEK.CUSTOMER.params = {
-	customerType : 1,
 	//全局gridpanel的参数
 	gridParam : {
 			url :   basePath + "/admin/customer/listCustomers",
@@ -75,6 +74,8 @@ var toolbar = new CTA.common.Toolbar();
 //添加
 if (toolbar.get("button_add")) {
 	toolbar.get("button_add").setHandler(function() {
+		
+		var customerCache = {};
 		var saveHandler = function(){
 	        //检查表单是否填写好
 	        if(formPanel.getForm().isValid()){
@@ -108,24 +109,45 @@ if (toolbar.get("button_add")) {
 	        }),
 	        listeners : {
 	        	'change': function(combo,item,index){
-	        		CTA.common.Constant.queryParams = item;
 	        		
-	        		console.log(item);
-	        		console.log("CTA.common.Constant.queryParams");
-	        		console.log(CTA.common.Constant.queryParams)
-	        		console.log(index);
-	        		if(item == 1){      // 一级代理商
-	        			Ext.getCmp('agentlist').setDisabled(true);// 所属代理商
-	        			Ext.getCmp('agentarea').setDisabled(false);   // 代理区域
-	        		}else if (item = 2) // 二级代理商
-	        		{
-	        			Ext.getCmp('agentlist').setDisabled(false);
-	        			Ext.getCmp('agentarea').setDisabled(false);  
-	        		}	        		
-	        		else {             // 客户
-	        			Ext.getCmp('agentlist').setDisabled(false);
-	        			Ext.getCmp('agentarea').setDisabled(true);
-	        		}
+	        		//Ext.getCmp('combo_test').getStore().loadData([["11",2],["22",2],["33",2]]);
+	        		
+        			Ext.Ajax.request({
+	        		    url : ROTEK.CUSTOMER.params.url.listAgentsUrl,
+	        		    success : function(response) {
+	        			      var firstAgentList = Ext.util.JSON.decode(response.responseText).firstAgentList;
+	        			      var secondAgentList = Ext.util.JSON.decode(response.responseText).secondAgentList;
+	        			      customerCache.firstAgentList = [];
+	        			      customerCache.secondAgentList = [];
+	        			      Ext.each(firstAgentList, function(item) {
+      			    			  var arr = new Array();
+      			    			  arr.push(item.mc + "");
+      			    			  arr.push(item.id);
+	        			    	  customerCache.firstAgentList.push(arr);
+        			    	  });
+	        			      
+	        			      Ext.each(secondAgentList, function(item) {
+      			    			  var arr = new Array();
+      			    			  arr.push(item.mc);
+      			    			  arr.push(item.id);
+	        			    	  customerCache.secondAgentList.push(arr);
+        			    	  });
+	        			      
+	        			      if(item == 1){
+	        			    	  Ext.getCmp('agents_isshow').setDisabled(false);// 所属代理商
+	      	        			//Ext.getCmp('ssjb_isedit').setDisabled(false); // 所属级别
+	      	        			Ext.getCmp('agentarea').setDisabled(false);   // 代理区域
+	      	        			
+	        			    	  Ext.getCmp('agents_isshow').getStore().loadData(customerCache.firstAgentList);
+	        			      }else {
+	        			    	  Ext.getCmp('agents_isshow').setDisabled(false);
+//	      	        			Ext.getCmp('ssjb_isedit').setDisabled(true);
+	      	        			Ext.getCmp('agentarea').setDisabled(false);
+	      	        			
+	        			    	  Ext.getCmp('agents_isshow').getStore().loadData(customerCache.secondAgentList);
+	        			      }
+	        		    }
+	        	    });
 	        	}
 	        },
 	        displayField : 'label',
@@ -190,23 +212,13 @@ if (toolbar.get("button_add")) {
 			 valueField : 'id',
 			 hiddenName : 'r_customer_id',
 			 allowBlank : true,
-			 store : new Ext.data.Store({
-				reader : new Ext.data.JsonReader({
-					root : 'dataList',
-					fields : [ {
-						name : 'id'
-					}, {
-						name : 'mc'
-					} ]
-				}),
-				autoLoad : false,
-				proxy : new Ext.data.HttpProxy({
-					url : ROTEK.CUSTOMER.params.url.listAgentsUrl
- 				}),
-				baseParams : {'khlb': CTA.common.Constant.queryParams}
-			}), 
+			 store : new Ext.data.SimpleStore({
+		            fields : ['mc', 'id'],
+		            data : []
+		    }),
+		    mode : 'local',
 		    editable : false,
-		    disabled : true
+		    disabled : false
 		},{
 		        xtype : 'combo',
 		        fieldLabel : '角色状态',

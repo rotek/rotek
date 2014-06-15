@@ -133,10 +133,10 @@ public class CustomerDao extends BaseDaoImpl{
 	 * @return List<Map<String,Object>>
 	 * @throws
 	 */
-	public List<Map<String, Object>> listAgents(Integer khlb) throws SQLException {
+	public List<Map<String, Object>> listAgentsByType(Integer khlb) throws SQLException {
 		
-		String sql = "select id, mc from r_customer where (status = 1) and (khlb=1)";
-		return this.executeQuery(sql, null);
+		String sql = "select id, mc from r_customer where status = ? and khlb= ?";
+		return this.executeQuery(sql, new Integer[]{CustomerEntity.STATUS_ENABLED,khlb});
 	}
 
 }

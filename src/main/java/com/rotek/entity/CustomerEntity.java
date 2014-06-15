@@ -5,7 +5,6 @@
 package com.rotek.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import com.cta.platform.constant.StrategyType;
 import com.cta.platform.persistence.annotation.Column;
@@ -20,8 +19,21 @@ import com.cta.platform.persistence.annotation.Table;
 * @Version:1.1.0
 */
 @Table(name = "r_customer")
-public class CustomerEntity implements Serializable {
+public class CustomerEntity extends BaseEntity {
 
+	/**
+	 * 一级代理商
+	 */
+	public static final int KHLB_FIRSTAGENT = 1;
+	/**
+	 * 二级代理商
+	 */
+	public static final int KHLB_SECONDAGENT = 2;
+	/**
+	 * 客户
+	 */
+	public static final int KHLB_CUSTOMER = 3;
+	
 	@ID(strategy=StrategyType.IDENTITY)
 	@Column(name="ID")
 	private Integer id;
