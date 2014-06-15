@@ -40,7 +40,17 @@ ROTEK.CUSTOMER.params = {
 		          header:'代理区域'
 		      },{
 		          index:'ssjb',
-		          header:'所属级别'
+		          header:'所属级别',
+		          renderer:function(value){
+		        	  if(1==value){
+		        		  return "<span style='color:green;'>一级代理商</span>";
+					   }else if(2==value){
+						   		return "<span style='color:green'>二级代理商</span>";
+					   }
+					   else{
+						   return "<span style='color:green;'>三级代理商</span>";
+					   }
+				  }
 		      },{
 		          index:'jwddz',
 		          header:'经纬度地址'
@@ -197,10 +207,10 @@ if (toolbar.get("button_add")) {
 		        emptyText : '请选择所属代理商',
 		        name : 'r_customer_id',
 		        triggerAction : 'all',
-		        displayField : 'name',
+		        displayField : 'mc',
 				valueField : 'id',
 				hiddenName : 'r_customer_id',
-				allowBlank : false,
+				allowBlank : true,
 				
 				store : new Ext.data.Store({
 					reader : new Ext.data.JsonReader({
@@ -214,8 +224,13 @@ if (toolbar.get("button_add")) {
 					proxy : new Ext.data.HttpProxy({
 						url : ROTEK.CUSTOMER.params.url.listAgentsUrl
 					})
-				}),		        
-		        mode : 'local',
+				}),	
+//				autoLoad : true,
+//				listeners : {
+//					load : function (){
+//						Ext.getCmp('manager_dep').setValue(data.dep_id);
+//					}
+//				},
 		        editable : false,
 		        disabled : true
 		      }]
