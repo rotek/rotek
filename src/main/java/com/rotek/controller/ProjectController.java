@@ -1,6 +1,6 @@
 /**
  * @Copyright:Copyright (c) 2013 - 2100
- * @Company:JXWY Co.Ltd.
+ * @Company:JXWY Co.,Ltd.
  */
 package com.rotek.controller;
 
@@ -30,9 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.cta.platform.util.ListPager;
 import com.rotek.constant.Status;
-import com.rotek.dto.GiftDto;
 import com.rotek.dto.UserDto;
-import com.rotek.entity.GiftEntity;
 import com.rotek.entity.ProjectEntity;
 import com.rotek.service.impl.ProjectService;
 
@@ -52,13 +50,57 @@ public class ProjectController {
 
 	/**
 	 * @MethodName: toProjectList
-	 * @Description: 转到工程信息管理列表页面
+	 * @Description: 转到工程信息管理页面
 	 * @return
 	 * @author WangJuZhu
 	 */
-	@RequestMapping("toProjectList")
-	public String toProjectList() {
+	@RequestMapping("toProjects")
+	public String toProject() {
 		return "admin/project/project";
+	}
+	
+	/**
+	* @MethodName: projectList 
+	* @Description: 工程信息列表
+	* @param start
+	* @param limit
+	* @return
+	* @throws Exception
+	* @author WangJuZhu
+	*/
+	@RequestMapping("projectList")
+	public String projectList(
+			@RequestParam(value = "start", defaultValue = "0") Integer start,
+			@RequestParam(value = "limit", defaultValue = "10") Integer limit,
+			@RequestParam(value = "id", defaultValue = "") Integer id,
+			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,  // 工程名称
+			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,  // 工程编号
+			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,  // 工程型号
+			@RequestParam(value = "gclb", defaultValue = "1") int gclb,  // 工程类别
+			@RequestParam(value = "start_azsj", defaultValue = "") Date start_azsj,  // 安装时间
+			@RequestParam(value = "end_azsj", defaultValue = "") Date end_azsj,
+			@RequestParam(value = "start_tysj", defaultValue = "") Date start_tysj, // 投运时间
+			@RequestParam(value = "end_tysj", defaultValue = "") Date end_tysj,
+			@RequestParam(value = "status", defaultValue = "") int status,  // 状态
+			HttpServletRequest request, UserDto user, ModelMap modelMap)throws Exception {
+		
+		ListPager pager = new ListPager();
+		Integer pageNo = (start / limit);
+		pager.setRowsPerPage(limit);
+		pager.setPageNo(pageNo);
+
+		ProjectEntity project = new ProjectEntity();
+		project.setId(id);
+		project.setGcmc(gcmc);
+		project.setGcbh(gcbh);
+		project.setGcxh(gcxh);
+		project.setGcfl(gclb);
+		project.setStatus(status);
+
+		List<ProjectEntity> projects = projectService.listProeject(user, project,start_azsj,end_azsj,start_tysj,end_tysj, pager);
+		modelMap.put("dataList", projects);
+		modelMap.put("totalCount", pager.getTotalRows());
+		return "jsonView";
 	}
 
 	/**
@@ -66,52 +108,41 @@ public class ProjectController {
 	* @Description: 添加工程信息
 	* @param request
 	* @param response
-	* @param proName
-	* @param proNum
-	* @param proModel
-	* @param proType
-	* @param proIntroduce
-	* @param proPic
-	* @param proParam
-	* @param proParamAffix
-	* @param proPart
-	* @param setUpTime
-	* @param startUseTime
 	* @param model
 	* @throws Exception
 	* @author WangJuZhu
 	*/
 	@RequestMapping("addProject")
 	public void addProject(HttpServletRequest request,HttpServletResponse response,
-			@RequestParam(value = "proName", defaultValue = "") String proName,
-			@RequestParam(value = "proNum", defaultValue = "") String proNum,
-			@RequestParam(value = "proModel", defaultValue = "") String proModel,
-			@RequestParam(value = "proType", defaultValue = "1") int proType,
-			@RequestParam(value = "proIntroduce", defaultValue = "") String proIntroduce,
-			@RequestParam(value = "proPic", defaultValue = "") String proPic,
-			@RequestParam(value = "proParam", defaultValue = "") String proParam,
-			@RequestParam(value = "proParamAffix", defaultValue = "") String proParamAffix,
-			@RequestParam(value = "proPart", defaultValue = "") String proPart,
-			@RequestParam(value = "setUpTime", defaultValue = "") Date setUpTime,
-			@RequestParam(value = "startUseTime", defaultValue = "") Date startUseTime,ModelMap model ) throws Exception {
+			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
+			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,
+			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,
+			@RequestParam(value = "gclb", defaultValue = "1") int gclb,
+			@RequestParam(value = "gcjj", defaultValue = "") String gcjj,
+			@RequestParam(value = "gczp", defaultValue = "") String gczp,
+			@RequestParam(value = "jscsjj", defaultValue = "") String jscsjj,
+			@RequestParam(value = "jscsfj", defaultValue = "") String jscsfj,
+			@RequestParam(value = "gclj", defaultValue = "") String gclj,
+			@RequestParam(value = "azsj", defaultValue = "") Date azsj,
+			@RequestParam(value = "tysj", defaultValue = "") Date tysj,ModelMap model ) throws Exception {
 
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 
 		ProjectEntity project = new ProjectEntity();
-		project.setProName(proName);
-		project.setProNum(proNum);
-		project.setProModel(proModel);
-		project.setProParam(proParam);
-		project.setProType(proType);
-		project.setProIntroduce(proIntroduce);
-		project.setProPic(proPic);
-		project.setProParamAffix(proParamAffix);
-		project.setProPart(proPart);
-		project.setSetUpTime(setUpTime);
-		project.setStartUseTime(startUseTime);
+		project.setGcmc(gcmc);
+		project.setGcbh(gcbh);
+		project.setGcxh(gcxh);
+		project.setJscsjj(jscsjj);
+		project.setGcfl(gclb);
+		project.setGcjs(gcjj);
+		project.setGczp(gczp);
+		project.setJscsfj(jscsfj);
+		project.setGclj(gclj);
+		project.setAzsj(azsj);
+		project.setTysj(tysj);
 		project.setStatus(Status.NEW.getCode());
-		project.setCreateTime(new Date());
-		project.setCreateUser(0);
+		project.setCjsj(new Date());
+		project.setCjr(0);
 
 		List<String> messages = projectService.addProject(project, multipartRequest);
 		JSONObject json = new JSONObject();
@@ -123,128 +154,67 @@ public class ProjectController {
 		out.write(json.toString());
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	/**
-	 * @Title: listGifts
-	 * @Description: 列出所有的礼品
-	 * @param start
-	 * @param limit
-	 * @param id
-	 * @param name
-	 * @param points
-	 * @param status
-	 * @param request
-	 * @param user
-	 * @param modelMap
-	 * @return
-	 * @throws Exception
-	 * @return String
-	 * @throws
-	 */
-	@RequestMapping("projectList")
-	public String listGifts(
-			@RequestParam(value = "start", defaultValue = "0") Integer start,
-			@RequestParam(value = "limit", defaultValue = "15") Integer limit,
-
-			@RequestParam(value = "id", defaultValue = "") Integer id,
-			@RequestParam(value = "name", defaultValue = "") String name,
-			@RequestParam(value = "points", defaultValue = "") Integer points,
-			@RequestParam(value = "status", defaultValue = "") Integer status,
-			HttpServletRequest request, UserDto user, ModelMap modelMap)
-			throws Exception {
-		ListPager pager = new ListPager();
-		Integer pageNo = (start / limit);
-		pager.setRowsPerPage(limit);
-		pager.setPageNo(pageNo);
-
-		GiftEntity gift = new GiftEntity();
-		gift.setId(id);
-		gift.setName(name);
-		gift.setPoints(points);
-		gift.setStatus(status);
-
-		List<GiftDto> gifts = projectService.listUserGifts(user, gift, pager);
-		modelMap.put("dataList", gifts);
-		modelMap.put("totalCount", pager.getTotalRows());
-		return "jsonView";
-	}
-
-	/**
-	 * @Title: getProjectDetail
-	 * @Description: 获取礼品详情
-	 * @param id
-	 * @param model
-	 * @return
-	 * @throws SQLException
-	 * @return String
-	 * @throws
-	 */
+	* @MethodName: getProjectDetail 
+	* @Description: 根据工程ID查询工程详情
+	* @param id
+	* @param model
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
 	@RequestMapping("getProjectDetail")
 	public String getProjectDetail(
 			@RequestParam(value = "id", defaultValue = "") Integer id,
 			ModelMap model) throws SQLException {
 
-		GiftEntity gift = projectService.getGiftDetail(id);
-		model.put("data", gift);
+		ProjectEntity project = projectService.getProjectById(id);
+		model.put("data", project);
 		return "jsonView";
 	}
 
 	/**
-	 * @Title: modfiyProject
-	 * @Description:
-	 * @param id
-	 * @param name
-	 * @param pic
-	 * @param descr
-	 * @param points
-	 * @param status
-	 * @param model
-	 * @param request
-	 * @param response
-	 * @throws SQLException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 * @throws IllegalStateException
-	 * @throws IOException
-	 * @return void
-	 * @throws
-	 */
+	* @MethodName: modifyProject 
+	* @Description: 修改工程信息
+	* @param id
+	* @throws IOException
+	* @author WangJuZhu
+	*/
 	@RequestMapping("modifyProject")
 	public void modifyProject(
 			@RequestParam(value = "id", defaultValue = "") Integer id,
-			@RequestParam(value = "name", defaultValue = "") String name,
-			@RequestParam(value = "pic", defaultValue = "") String pic,
-			@RequestParam(value = "descr", defaultValue = "") String descr,
-			@RequestParam(value = "points", defaultValue = "") Integer points,
-			@RequestParam(value = "status", defaultValue = "") Integer status,
-			ModelMap model, HttpServletRequest request,
-			HttpServletResponse response) throws SQLException,
-			IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException, IllegalStateException, IOException {
+			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
+			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,
+			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,
+			@RequestParam(value = "gclb", defaultValue = "1") int gclb,
+			@RequestParam(value = "gcjj", defaultValue = "") String gcjj,
+			@RequestParam(value = "gczp", defaultValue = "") String gczp,
+			@RequestParam(value = "jscsjj", defaultValue = "") String jscsjj,
+			@RequestParam(value = "jscsfj", defaultValue = "") String jscsfj,
+			@RequestParam(value = "gclj", defaultValue = "") String gclj,
+			@RequestParam(value = "azsj", defaultValue = "") Date azsj,
+			@RequestParam(value = "tysj", defaultValue = "") Date tysj,
+			ModelMap model, HttpServletRequest request,HttpServletResponse response) throws SQLException,
+			IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 
-		GiftEntity gift = new GiftEntity();
-		gift.setId(id);
-		gift.setName(name);
-		gift.setDescr(descr);
-		gift.setPoints(points);
-		gift.setStatus(status);
-		gift.setPic(pic);
+		ProjectEntity project = new ProjectEntity();
+		project.setId(id);
+		project.setGcmc(gcmc);
+		project.setGcbh(gcbh);
+		project.setGcxh(gcxh);
+		project.setJscsjj(jscsjj);
+		project.setGcfl(gclb);
+		project.setGcjs(gcjj);
+		project.setGczp(gczp);
+		project.setJscsfj(jscsfj);
+		project.setGclj(gclj);
+		project.setAzsj(azsj);
+		project.setTysj(tysj);
+		project.setStatus(Status.NEW.getCode());
 
-		List<String> messages = projectService.modifyGift(gift,
-				multipartRequest);
+		List<String> messages = projectService.modifyProject(project,multipartRequest);
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
 		json.put("messages", messages);
@@ -253,7 +223,35 @@ public class ProjectController {
 		PrintWriter out = response.getWriter();
 		out.write(json.toString());
 	}
+	
+	/**
+	* @MethodName: deleteProject 
+	* @Description: 批量删除工程信息
+	* @param ids
+	* @param model
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("deleteProject")
+	public String deleteProject(
+			@RequestParam(value = "ids", defaultValue = "") String ids,
+			ModelMap model) throws SQLException {
 
+		List<String> messages = projectService.deleteProject(ids);
+		model.put("success", null == messages ? true : false);
+		model.put("messages", messages);
+		return "jsonView";
+	}
+
+	/**
+	* @MethodName: initBinder 
+	* @Description: 对绑定的时间进行格式化处理
+	* @param request
+	* @param binder
+	* @throws Exception
+	* @author WangJuZhu
+	*/
 	@InitBinder
 	protected void initBinder(HttpServletRequest request,
 			ServletRequestDataBinder binder) throws Exception {
@@ -261,26 +259,6 @@ public class ProjectController {
 		CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
 		binder.registerCustomEditor(Date.class, dateEditor);
 	}
-
-	/**
-	 * @Title: deleteProject
-	 * @Description:
-	 * @param ids
-	 * @param model
-	 * @return
-	 * @throws SQLException
-	 * @return String
-	 * @throws
-	 */
-	@RequestMapping("deleteProject")
-	public String deleteProject(
-			@RequestParam(value = "ids", defaultValue = "") String ids,
-			ModelMap model) throws SQLException {
-
-		List<String> messages = projectService.deleteGift(ids);
-		model.put("success", null == messages ? true : false);
-		model.put("messages", messages);
-		return "jsonView";
-	}
+	
 
 }
