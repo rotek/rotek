@@ -2,6 +2,7 @@ package com.rotek.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -120,6 +121,19 @@ public class CustomerDao extends BaseDaoImpl{
 	public void deleteCustomer(String sql) throws SQLException {
 
 		this.executeUpdate(sql);
+	}
+	
+	/**
+	 * @throws SQLException
+	 * @Title: listAgents_combo
+	 * @Description:
+	 * @param @return
+	 * @return List<Map<String,Object>>
+	 * @throws
+	 */
+	public List<Map<String, Object>> listAgents_combo() throws SQLException {
+		String sql = "select id, mc from r_customer where (status = 1) and (khlb=1)";
+		return this.executeQuery(sql, null);
 	}
 
 }

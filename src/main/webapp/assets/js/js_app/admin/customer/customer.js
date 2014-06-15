@@ -61,6 +61,7 @@ ROTEK.CUSTOMER.params = {
 		detailUrl : basePath + "/admin/customer/getCustomerDetail",
 		modifyUrl : basePath + "/admin/customer/modifyCustomer",
 		dropUrl : basePath + "/admin/customer/deleteCustomer"
+		listAgents : basePath + "/admin/customer/listAgents_combo",
 	}
 };
 
@@ -106,10 +107,13 @@ if (toolbar.get("button_add")) {
 	        		console.log(item);
 	        		console.log(index);
 	        		if(index == 1){
-	        			Ext.getCmp('combo_isshow').show();
+	        			//Ext.getCmp('combo_isshow').show();
+	        			disabled: false;
 	        		}else {
-	        			Ext.getCmp('combo_isshow').hide();
+	        			//Ext.getCmp('combo_isshow').hide();
+	        			disabled: true;
 	        		}
+	        	// 默认初始化的时候不显示
 	        	}
 	        },
 	        displayField : 'label',
@@ -192,19 +196,32 @@ if (toolbar.get("button_add")) {
 	      },{
 		        id : 'combo_isshow',
 		        xtype : 'combo',
-		        fieldLabel : '隐藏',
-		        emptyText : '隐藏或者显示',
-		        name : 'jibie',
+		        fieldLabel : '所属代理商',
+		        emptyText : '请选择所属代理商',
+		        name : 'r_customer_id',
 		        triggerAction : 'all',
-		        store : new Ext.data.SimpleStore({
-		          fields : ['label', 'value'],
-		          data : [["级别1", "1"],["级别2", "2"]]
-		        }),
-		        displayField : 'label',
-		        valueField : 'value',
-		        hiddenName : 'jibie',
+		        displayField : 'name',
+				valueField : 'id',
+				hiddenName : 'r_customer_id',
+				allowBlank : false,
+				
+				store : new Ext.data.Store({
+					reader : new Ext.data.JsonReader({
+						root : 'dataList',
+						fields : [ {
+							name : 'id'
+						}, {
+							name : 'name'
+						} ]
+					}),
+					proxy : new Ext.data.HttpProxy({
+						url : ROTEK.CUSTOMER.params.url.listAgents
+					})
+				})
+		        
 		        mode : 'local',
 		        editable : false
+		        disabled : true
 		      }]
 	  });
 	  addWindow.add(formPanel);

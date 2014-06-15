@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -226,6 +227,23 @@ public class CustomerController {
 		List<String> messages = customerService.deleteCustomer(ids);
 		model.put("success", null == messages ? true : false);
 		model.put("messages", messages);
+		return "jsonView";
+	}
+	
+	
+	/**
+	* @MethodName: listAgents_combo 
+	* @Description: 列出所有的代理商信息
+	* @param modelMap
+	* @return
+	* @throws Exception
+	* @author Liusw
+	*/
+	@RequestMapping("listAgents_combo")
+	public String listAgents_combo(ModelMap modelMap) throws Exception {
+
+		List<Map<String,Object>> roleList = customerService.listAgents_combo();
+		modelMap.put("dataList", roleList);
 		return "jsonView";
 	}
 }

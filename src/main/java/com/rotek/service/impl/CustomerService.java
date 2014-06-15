@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,5 +146,17 @@ public class CustomerService {
 		sql.append(" where id in ("+id_str.trim()+")");
 		customerDao.deleteCustomer(sql.toString());
 		return messages;
+	}
+	
+	/**
+	 * @throws SQLException
+	* @Title: listAgents_combo
+	* @Description:
+	* @param @return
+	* @return List<Map<String,Object>>
+	* @throws
+	*/
+	public List<Map<String, Object>> listAgents_combo() throws SQLException {
+			return customerDao.listAgents_combo();
 	}
 }
