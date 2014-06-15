@@ -47,9 +47,6 @@ ROTEK.CUSTOMER.params = {
 					   }else if(2==value){
 						   		return "<span style='color:green'>二级代理商</span>";
 					   }
-					   else{
-						   return "<span style='color:green;'>三级代理商</span>";
-					   }
 				  }
 		      },{
 		          index:'jwddz',
@@ -101,6 +98,7 @@ if (toolbar.get("button_add")) {
 	  //定义添加窗口中的form
 	  var formPanel = new CTA.common.SFormPanel({
 	    items : [{
+	    	id : 'khlb_combo',
 	        xtype : 'combo',
 	        fieldLabel : '客户类别',
 	        emptyText : '请选择客户类别',
@@ -116,10 +114,14 @@ if (toolbar.get("button_add")) {
 	        		console.log(combo);
 	        		console.log(item);
 	        		console.log(index);
-	        		if(item == 1){
-	        			Ext.getCmp('agents_isshow').setDisabled(true);
-	        		}else {
+	        		if(item == 1){// 代理商
+	        			Ext.getCmp('agents_isshow').setDisabled(true);// 所属代理商
+	        			Ext.getCmp('ssjb_isedit').setDisabled(false); // 所属级别
+	        			Ext.getCmp('agentarea').setDisabled(false);   // 代理区域
+	        		}else {// 客户
 	        			Ext.getCmp('agents_isshow').setDisabled(false);
+	        			Ext.getCmp('ssjb_isedit').setDisabled(true);
+	        			Ext.getCmp('agentarea').setDisabled(true);
 	        		}
 	        	}
 	        },
@@ -159,12 +161,23 @@ if (toolbar.get("button_add")) {
 	        minLength : 1,
 	        maxLength: 50
 	     },{
+	         fieldLabel : '经纬度地址',
+	         emptyText : '请输入经纬度地址',
+	         name : 'jwddz',
+	         minLength : 1,
+	         maxLength: 50,  
+	         allowBlank : true
+	     },{
+	    	id : 'agentarea',
 	        fieldLabel : '代理区域',
 	        emptyText : '请输入代理区域',
 	        name : 'dlqy',
 	        minLength : 1,
-	        maxLength: 50
+	        maxLength: 50,
+	        disabled : true,
+            allowBlank : true
 	     },{
+	    	 id : 'ssjb_isedit',
 	    	 xtype : 'combo',
 	         fieldLabel : '所属级别',
 	         emptyText : '请选择所属级别',
@@ -172,68 +185,70 @@ if (toolbar.get("button_add")) {
 	         triggerAction : 'all',
 	         store : new Ext.data.SimpleStore({
 	           fields : ['label', 'value'],
-	           data : [["一级代理商", "1"],["二级代理商", "2"],["二级代理商", "2"]]
+	           data : [["一级代理商", "1"],["二级代理商", "2"]]
 	         }),
 	         displayField : 'label',
 	         valueField : 'value',
 	         hiddenName : 'ssjb',
+	         listeners : {
+		        	'change': function(combo,item,index){
+		        		if(item == 1){// 代理商
+		        			Ext.getCmp('agents_isshow').setDisabled(true);
+		        		}else {// 客户
+		        			Ext.getCmp('agents_isshow').setDisabled(false);
+		        		}
+		        	}
+		        },
 	         mode : 'local',
-	         editable : false
+	         editable : false,
+             disabled : true,
+             allowBlank : true
 	     },{
-	         fieldLabel : '经纬度地址',
-	         emptyText : '请输入经纬度地址',
-	         name : 'jwddz',
-	         minLength : 1,
-	         maxLength: 50    	 
-	     },{
-	        xtype : 'combo',
-	        fieldLabel : '角色状态',
-	        emptyText : '请选择角色状态',
-	        name : 'status',
-	        triggerAction : 'all',
-	        store : new Ext.data.SimpleStore({
-	          fields : ['label', 'value'],
-	          data : [["启用", "1"],["禁用", "-1"]]
-	        }),
-	        displayField : 'label',
-	        valueField : 'value',
-	        hiddenName : 'status',
-	        mode : 'local',
-	        editable : false
-	      },{
-		        id : 'agents_isshow',
-		        xtype : 'combo',
-		        fieldLabel : '所属代理商',
-		        emptyText : '请选择所属代理商',
-		        name : 'r_customer_id',
-		        triggerAction : 'all',
-		        displayField : 'mc',
-				valueField : 'id',
-				hiddenName : 'r_customer_id',
-				allowBlank : true,
+		     id : 'agents_isshow',
+		     xtype : 'combo',
+		     fieldLabel : '所属代理商',
+		     emptyText : '请选择所属代理商',
+		     name : 'r_customer_id',
+		     triggerAction : 'all',
+		     displayField : 'mc',
+			 valueField : 'id',
+			 hiddenName : 'r_customer_id',
+			 allowBlank : true,
 				
-				store : new Ext.data.Store({
-					reader : new Ext.data.JsonReader({
-						root : 'dataList',
-						fields : [ {
-							name : 'id'
-						}, {
-							name : 'mc'
-						} ]
-					}),
-					proxy : new Ext.data.HttpProxy({
-						url : ROTEK.CUSTOMER.params.url.listAgentsUrl
-					})
-				}),	
-//				autoLoad : true,
-//				listeners : {
-//					load : function (){
-//						Ext.getCmp('manager_dep').setValue(data.dep_id);
-//					}
-//				},
+			 store : new Ext.data.Store({
+				reader : new Ext.data.JsonReader({
+					root : 'dataList',
+					fields : [ {
+						name : 'id'
+					}, {
+						name : 'mc'
+					} ]
+				}),
+				proxy : new Ext.data.HttpProxy({
+					url : ROTEK.CUSTOMER.params.url.listAgentsUrl?'khlb='Ext.getCmp('agents_isshow').getValue
+					//?'khlb='Ext.getCmp('agents_isshow').getValue && 'ssjb='Ext.getCmp('ssjb_isedit').getValue
+				})
+				
+				//baseParams : {'khlb': Ext.getCmp('agents_isshow').getItemId, 'ssjb': Ext.getCmp('ssjb_isedit').getItemId}
+			}),	
 		        editable : false,
 		        disabled : true
-		      }]
+		},{
+		        xtype : 'combo',
+		        fieldLabel : '角色状态',
+		        emptyText : '请选择角色状态',
+		        name : 'status',
+		        triggerAction : 'all',
+		        store : new Ext.data.SimpleStore({
+		          fields : ['label', 'value'],
+		          data : [["启用", "1"],["禁用", "-1"]]
+		        }),
+		        displayField : 'label',
+		        valueField : 'value',
+		        hiddenName : 'status',
+		        mode : 'local',
+		        editable : false
+		   }]
 	  });
 	  addWindow.add(formPanel);
 	  addWindow.show();
@@ -304,7 +319,7 @@ if(toolbar.get("button_modify")){
 	          emptyText : '请选择所属级别',
 	          store : new Ext.data.SimpleStore({
 	            fields : ['label', 'value'],
-	            data : [["一级代理商", "1"],["二级代理商", "2"],["三级代理商", "3"]]
+	            data : [["一级代理商", "1"],["二级代理商", "2"]]
 	          }),
 	          displayField : 'label',
 	          valueField : 'value',

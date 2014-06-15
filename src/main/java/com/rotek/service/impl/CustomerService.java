@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -156,7 +158,7 @@ public class CustomerService {
 	* @return List<Map<String,Object>>
 	* @throws
 	*/
-	public List<Map<String, Object>> listAgents() throws SQLException {
-			return customerDao.listAgents();
+	public List<Map<String, Object>> listAgents(HttpServletRequest request) throws SQLException {
+			return customerDao.listAgents(request);
 	}
 }
