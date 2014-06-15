@@ -85,7 +85,6 @@ public class AuthorityService {
 	 */
 	public JSONArray getButtonList(Integer roleId, String url_inDB) throws SQLException {
 		JSONArray buttonArray = new JSONArray();
-//		List<Map<String,Object>> buttonList = buttonDao.listButtons_s();
 		MenuEntity menu = authorityDao.getMenu(url_inDB);
 		if(null == menu){
 			return buttonArray;

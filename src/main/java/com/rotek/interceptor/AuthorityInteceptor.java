@@ -39,7 +39,7 @@ public class AuthorityInteceptor extends BaseInterceptor{
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		String requestURI = request.getRequestURI();
-		//如果这个请求的链接是打开一个菜单的，那么访问库，找出这个用户在这个模块下面的权限信息{add:true,modify:true};
+		//如果这个请求的链接是打开一个菜单的，那么访问库，找出这个用户在这个模块下面的 按钮权限信息
 		if(StringUtils.isNotEmpty(requestURI) && requestURI.matches("^[\\S]*/to[\\S]*s[\\S]*")){
 			//用户信息
 			UserDto user = (UserDto) request.getSession().getAttribute(SessionParams.USER);
@@ -49,10 +49,7 @@ public class AuthorityInteceptor extends BaseInterceptor{
 			if(requestURI.length()>1){
 				url_inDB = requestURI.substring(basePath.length(),requestURI.length());
 			}
-			//用户权限按钮的map{add:true,modify:true}
-//			JSONObject authority = authorityService.listAuthority(user.getR_role_id(), url_inDB);
-//			request.setAttribute("authority", authority);
-			
+			//加载用户权限 
 			JSONArray buttonList = authorityService.getButtonList(user.getR_role_id(), url_inDB);
 			request.setAttribute("buttonInfoList", buttonList);
 		}
