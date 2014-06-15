@@ -8,6 +8,9 @@ ROTEK.CUSTOMER.params = {
 		          index:'id',
 		          header:'客户ID'
 		      },{
+		          index:'mc',
+		          header:'客户名称'
+		      },{
 		    	  index:'khlb',
 		          header:'客户类别',
 			      renderer:function(value){
@@ -21,10 +24,12 @@ ROTEK.CUSTOMER.params = {
 				  }
 		      },{
 		          index:'r_customer_id',
-		          header:'所属上级'
-		      },{
-		          index:'mc',
-		          header:'客户名称'
+		          header:'所属上级',
+		          renderer:function(value){
+				  	  if(0==value){
+				   		  return "";
+					  }
+					}
 		      },{
 		          index:'txdz',
 		          header:'通信地址'
@@ -98,7 +103,7 @@ if (toolbar.get("button_add")) {
 	        triggerAction : 'all',
 	        store : new Ext.data.SimpleStore({
 	          fields : ['label', 'value'],
-	          data : [["代理商", "1"],["客户", "2"]]
+	          data : [["一级代理商", "1"],["二级代理商", "2"],["三级代理商", "2"]]
 	        }),
 	        listeners : {
 	        	'change': function(combo,item,index){
@@ -106,16 +111,16 @@ if (toolbar.get("button_add")) {
 	        		console.log(combo);
 	        		console.log(item);
 	        		console.log(index);
-	        		if(item == 1){// 代理商
-	        			Ext.getCmp('agents_isshow').setDisabled(true);// 所属代理商
+	        		if(item == 1){      // 一级代理商
+	        			Ext.getCmp('agentlist').setDisabled(true);// 所属代理商
 	        			Ext.getCmp('agentarea').setDisabled(false);   // 代理区域
-	        		}else if (item = 2)
+	        		}else if (item = 2) // 二级代理商
 	        		{
-	        			Ext.getCmp('agents_isshow').setDisabled(false);
-	        			Ext.getCmp('agentarea').setDisabled(false);   // 代理区域
+	        			Ext.getCmp('agentlist').setDisabled(false);
+	        			Ext.getCmp('agentarea').setDisabled(false);  
 	        		}	        		
-	        		else {// 客户
-	        			Ext.getCmp('agents_isshow').setDisabled(false);
+	        		else {             // 客户
+	        			Ext.getCmp('agentlist').setDisabled(false);
 	        			Ext.getCmp('agentarea').setDisabled(true);
 	        		}
 	        	}
@@ -172,7 +177,7 @@ if (toolbar.get("button_add")) {
 	        disabled : true,
             allowBlank : true
 	     },{
-		     id : 'agents_isshow',
+		     id : 'agentlist',
 		     xtype : 'combo',
 		     fieldLabel : '所属代理商',
 		     emptyText : '请选择所属代理商',
@@ -193,8 +198,9 @@ if (toolbar.get("button_add")) {
 					} ]
 				}),
 				proxy : new Ext.data.HttpProxy({
-					url : ROTEK.CUSTOMER.params.url.listAgentsUrl + '?khlb='+Ext.getCmp('agents_isshow').getValue()
-				})
+					url : ROTEK.CUSTOMER.params.url.listAgentsUrl + '?khlb=1'//+Ext.getCmp('agentlist').getValue()
+				}),
+				baseParams:{khlb : Ext.getCmp('agentlist').getItemId()}
 			}),	
 		        editable : false,
 		        disabled : true
