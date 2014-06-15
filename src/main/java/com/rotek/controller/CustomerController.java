@@ -232,17 +232,17 @@ public class CustomerController {
 	
 	
 	/**
-	* @MethodName: listAgents_combo 
+	* @MethodName: listAgents 
 	* @Description: 列出所有的代理商信息
 	* @param modelMap
 	* @return
 	* @throws Exception
 	* @author Liusw
 	*/
-	@RequestMapping("listAgents_combo")
-	public String listAgents_combo(ModelMap modelMap) throws Exception {
+	@RequestMapping("listAgents")
+	public String listAgents(ModelMap modelMap) throws Exception {
 
-		List<Map<String,Object>> roleList = customerService.listAgents_combo();
+		List<Map<String,Object>> roleList = customerService.listAgents();
 		modelMap.put("dataList", roleList);
 		return "jsonView";
 	}

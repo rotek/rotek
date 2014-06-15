@@ -125,13 +125,13 @@ public class CustomerDao extends BaseDaoImpl{
 	
 	/**
 	 * @throws SQLException
-	 * @Title: listAgents_combo
+	 * @Title: listAgents
 	 * @Description:
 	 * @param @return
 	 * @return List<Map<String,Object>>
 	 * @throws
 	 */
-	public List<Map<String, Object>> listAgents_combo() throws SQLException {
+	public List<Map<String, Object>> listAgents() throws SQLException {
 		String sql = "select id, mc from r_customer where (status = 1) and (khlb=1)";
 		return this.executeQuery(sql, null);
 	}

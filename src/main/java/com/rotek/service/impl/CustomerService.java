@@ -150,13 +150,13 @@ public class CustomerService {
 	
 	/**
 	 * @throws SQLException
-	* @Title: listAgents_combo
+	* @Title: listAgents
 	* @Description:
 	* @param @return
 	* @return List<Map<String,Object>>
 	* @throws
 	*/
-	public List<Map<String, Object>> listAgents_combo() throws SQLException {
-			return customerDao.listAgents_combo();
+	public List<Map<String, Object>> listAgents() throws SQLException {
+			return customerDao.listAgents();
 	}
 }

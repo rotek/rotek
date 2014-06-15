@@ -61,7 +61,7 @@ ROTEK.CUSTOMER.params = {
 		detailUrl : basePath + "/admin/customer/getCustomerDetail",
 		modifyUrl : basePath + "/admin/customer/modifyCustomer",
 		dropUrl : basePath + "/admin/customer/deleteCustomer",
-		listAgents : basePath + "/admin/customer/listAgents_combo"
+		listAgentsUrl : basePath + "/admin/customer/listAgents"
 	}
 };
 
@@ -82,7 +82,7 @@ if (toolbar.get("button_add")) {
 		  //定义添加的窗口
 		  var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
-			width : '80%',
+			width : '40%',
 			height : 400,
 		    layout : 'fit',
 		    handler : saveHandler
@@ -106,8 +106,8 @@ if (toolbar.get("button_add")) {
 	        		console.log(combo);
 	        		console.log(item);
 	        		console.log(index);
-	        		if(index == 1){
-	        			Ext.getCmp('agents_isshow').setDisabled(false);
+	        		if(item == 1){
+	        			Ext.getCmp('agents_isshow').setDisabled(true);
 	        		}else {
 	        			Ext.getCmp('agents_isshow').setDisabled(false);
 	        		}
@@ -212,7 +212,7 @@ if (toolbar.get("button_add")) {
 						} ]
 					}),
 					proxy : new Ext.data.HttpProxy({
-						url : ROTEK.CUSTOMER.params.url.listAgents
+						url : ROTEK.CUSTOMER.params.url.listAgentsUrl
 					})
 				}),		        
 		        mode : 'local',
