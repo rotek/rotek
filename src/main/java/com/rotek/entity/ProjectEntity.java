@@ -28,57 +28,63 @@ public class ProjectEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 4628046027257788856L;
 
-	@Column(name="id")
+	@Column(name="ID")
 	@ID(strategy=StrategyType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "customer_id")
-	private Integer customerId ;   		// 客户ID
-
-	@Column(name = "pro_name")
-	private String proName ;    			// 工程名称
+	@Column(name = "LOCALE_PROJECT_ID")
+	private Integer locale_project_id ;   	// 现场的工程ID
 	
-	@Column(name = "pro_num")
-	private String proNum ;    			// 工程编号
+	@Column(name = "LOCALE_GCBH")
+	private String locale_gcbh ;   	// 现场工程编号
 	
-	@Column(name = "pro_model")
-	private String proModel ;    		// 工程型号
+	@Column(name = "R_CUSTOMER_ID")
+	private Integer r_customer_id ;   	// 客户ID
 
-	@Column(name = "pro_type")
-	private Integer proType ;  			// 工程类别（1、普通工程；2、EMC工程）
-
-	@Column(name = "pro_introduce")
-	private String proIntroduce ;   	// 工程介绍
-
-	@Column(name = "pro_pic")
-	private	String	proPic ;      		// 工程照片	
-
-	@Column(name = "pro_param")
-	private String	proParam ;    		// 技术参数简介	
-
-	@Column(name = "pro_param_affix")
-	private String	proParamAffix ;  	// 技术参数附件	
-
-	@Column(name = "pro_part")
-	private String	proPart ;  			// 工程零件	
-
-	@Column(name = "setup_time")
-	private Date setUpTime ;      		// 安装时间	
-
-	@Column(name = "start_use_time")
-	private Date startUseTime ;			// 投运时间
+	@Column(name = "GCMC")
+	private String gcmc ;    	// 工程名称
 	
-	@Column(name = "create_user")
-	private Integer createUser ; 		// 创建人
+	@Column(name = "GCBH")
+	private String gcbh ;    	// 工程编号
 	
-	@Column(name = "create_time")
-	private Date createTime ; 			// 创建时间
+	@Column(name = "GCXH")
+	private String gcxh ;    	// 工程型号
+
+	@Column(name = "GCLB")
+	private Integer gclb ;  	// 工程类别（1、普通工程；2、EMC工程）
+
+	@Column(name = "GCJS")
+	private String gcjs ;   	// 工程介绍
+
+	@Column(name = "GCZP")
+	private	String	gczp ;      // 工程照片	
+
+	@Column(name = "JSCSJJ")
+	private String	jscsjj ;    // 技术参数简介	
+
+	@Column(name = "JSCSFJ")
+	private String	jscsfj ;  	// 技术参数附件	
+
+	@Column(name = "GCLJ")
+	private String	gclj ;  	// 工程零件	
+
+	@Column(name = "AZSJ")
+	private Date azsj ;      	// 安装时间	
+
+	@Column(name = "TYSJ")
+	private Date tysj ;			// 投运时间
 	
-	@Column(name = "status")
-	private Integer status ; 			// 状态
+	@Column(name = "CJR")
+	private Integer cjr ; 		// 创建人
 	
-	@Column(name = "remark")
-	private String	remark ;  			// 备注	
+	@Column(name = "CJSJ")
+	private Date cjsj ; 		// 创建时间
+	
+	@Column(name = "STATUS")
+	private Integer status ; 		// 状态
+	
+	@Column(name = "REMARK")
+	private String	remark ;  		// 备注	
 
 	/** @return id */
 	public Integer getId() {
@@ -90,134 +96,164 @@ public class ProjectEntity implements Serializable {
 		this.id = id;
 	}
 
-	/** @return customerId */
-	public Integer getCustomerId() {
-		return customerId;
+	/** @return locale_project_id */
+	public Integer getLocale_project_id() {
+		return locale_project_id;
 	}
 
-	/** @param customerId customerId to set */
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	/** @param locale_project_id locale_project_id to set */
+	public void setLocale_project_id(Integer locale_project_id) {
+		this.locale_project_id = locale_project_id;
 	}
 
-	/** @return proNum */
-	public String getProNum() {
-		return proNum;
+	/** @return locale_gcbh */
+	public String getLocale_gcbh() {
+		return locale_gcbh;
 	}
 
-	/** @param proNum proNum to set */
-	public void setProNum(String proNum) {
-		this.proNum = proNum;
+	/** @param locale_gcbh locale_gcbh to set */
+	public void setLocale_gcbh(String locale_gcbh) {
+		this.locale_gcbh = locale_gcbh;
 	}
 
-	/** @return proModel */
-	public String getProModel() {
-		return proModel;
+	/** @return r_customer_id */
+	public Integer getR_customer_id() {
+		return r_customer_id;
 	}
 
-	/** @param proModel proModel to set */
-	public void setProModel(String proModel) {
-		this.proModel = proModel;
+	/** @param r_customer_id r_customer_id to set */
+	public void setR_customer_id(Integer r_customer_id) {
+		this.r_customer_id = r_customer_id;
 	}
 
-	/** @return proType */
-	public Integer getProType() {
-		return proType;
+	/** @return gcmc */
+	public String getGcmc() {
+		return gcmc;
 	}
 
-	/** @param proType proType to set */
-	public void setProType(Integer proType) {
-		this.proType = proType;
+	/** @param gcmc gcmc to set */
+	public void setGcmc(String gcmc) {
+		this.gcmc = gcmc;
 	}
 
-	/** @return proIntroduce */
-	public String getProIntroduce() {
-		return proIntroduce;
+	/** @return gcbh */
+	public String getGcbh() {
+		return gcbh;
 	}
 
-	/** @param proIntroduce proIntroduce to set */
-	public void setProIntroduce(String proIntroduce) {
-		this.proIntroduce = proIntroduce;
+	/** @param gcbh gcbh to set */
+	public void setGcbh(String gcbh) {
+		this.gcbh = gcbh;
 	}
 
-	/** @return proPic */
-	public String getProPic() {
-		return proPic;
+	/** @return gcxh */
+	public String getGcxh() {
+		return gcxh;
 	}
 
-	/** @param proPic proPic to set */
-	public void setProPic(String proPic) {
-		this.proPic = proPic;
+	/** @param gcxh gcxh to set */
+	public void setGcxh(String gcxh) {
+		this.gcxh = gcxh;
 	}
 
-	/** @return proParam */
-	public String getProParam() {
-		return proParam;
+	/** @return gclb */
+	public Integer getGclb() {
+		return gclb;
 	}
 
-	/** @param proParam proParam to set */
-	public void setProParam(String proParam) {
-		this.proParam = proParam;
+	/** @param gclb gclb to set */
+	public void setGclb(Integer gclb) {
+		this.gclb = gclb;
 	}
 
-	/** @return proParamAffix */
-	public String getProParamAffix() {
-		return proParamAffix;
+	/** @return gcjs */
+	public String getGcjs() {
+		return gcjs;
 	}
 
-	/** @param proParamAffix proParamAffix to set */
-	public void setProParamAffix(String proParamAffix) {
-		this.proParamAffix = proParamAffix;
+	/** @param gcjs gcjs to set */
+	public void setGcjs(String gcjs) {
+		this.gcjs = gcjs;
 	}
 
-	/** @return proPart */
-	public String getProPart() {
-		return proPart;
+	/** @return gczp */
+	public String getGczp() {
+		return gczp;
 	}
 
-	/** @param proPart proPart to set */
-	public void setProPart(String proPart) {
-		this.proPart = proPart;
+	/** @param gczp gczp to set */
+	public void setGczp(String gczp) {
+		this.gczp = gczp;
 	}
 
-	/** @return setUpTime */
-	public Date getSetUpTime() {
-		return setUpTime;
+	/** @return jscsjj */
+	public String getJscsjj() {
+		return jscsjj;
 	}
 
-	/** @param setUpTime setUpTime to set */
-	public void setSetUpTime(Date setUpTime) {
-		this.setUpTime = setUpTime;
+	/** @param jscsjj jscsjj to set */
+	public void setJscsjj(String jscsjj) {
+		this.jscsjj = jscsjj;
 	}
 
-	/** @return startUseTime */
-	public Date getStartUseTime() {
-		return startUseTime;
+	/** @return jscsfj */
+	public String getJscsfj() {
+		return jscsfj;
 	}
 
-	/** @param startUseTime startUseTime to set */
-	public void setStartUseTime(Date startUseTime) {
-		this.startUseTime = startUseTime;
+	/** @param jscsfj jscsfj to set */
+	public void setJscsfj(String jscsfj) {
+		this.jscsfj = jscsfj;
 	}
 
-	/** @return createUser */
-	public Integer getCreateUser() {
-		return createUser;
+	/** @return gclj */
+	public String getGclj() {
+		return gclj;
 	}
 
-	/** @param createUser createUser to set */
-	public void setCreateUser(Integer createUser) {
-		this.createUser = createUser;
+	/** @param gclj gclj to set */
+	public void setGclj(String gclj) {
+		this.gclj = gclj;
 	}
 
-	/** @return createTime */
-	public Date getCreateTime() {
-		return createTime;
+	/** @return azsj */
+	public Date getAzsj() {
+		return azsj;
 	}
 
-	/** @param createTime createTime to set */
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+	/** @param azsj azsj to set */
+	public void setAzsj(Date azsj) {
+		this.azsj = azsj;
+	}
+
+	/** @return tysj */
+	public Date getTysj() {
+		return tysj;
+	}
+
+	/** @param tysj tysj to set */
+	public void setTysj(Date tysj) {
+		this.tysj = tysj;
+	}
+
+	/** @return cjr */
+	public Integer getCjr() {
+		return cjr;
+	}
+
+	/** @param cjr cjr to set */
+	public void setCjr(Integer cjr) {
+		this.cjr = cjr;
+	}
+
+	/** @return cjsj */
+	public Date getCjsj() {
+		return cjsj;
+	}
+
+	/** @param cjsj cjsj to set */
+	public void setCjsj(Date cjsj) {
+		this.cjsj = cjsj;
 	}
 
 	/** @return status */
@@ -238,16 +274,6 @@ public class ProjectEntity implements Serializable {
 	/** @param remark remark to set */
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	/** @return proName */
-	public String getProName() {
-		return proName;
-	}
-
-	/** @param proName proName to set */
-	public void setProName(String proName) {
-		this.proName = proName;
 	}
 	
 }

@@ -9,10 +9,10 @@ package com.rotek.constant;
 */
 public enum Status {
 	
-	ALL(-1, "全部"),
-	INVALID(0, "无效"),
-	NEW(1, "待审核"),
-	VALID(2, "有效");
+	ALL(-2, "全部"),
+	INVALID(-1, "无效"),
+	NEW(1, "有效"),
+	VALID(2, "待审核");
 
 	private  int code;
 	private  String lable;

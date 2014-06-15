@@ -17,11 +17,8 @@ import com.cta.platform.config.SystemGlobals;
 import com.cta.platform.util.ListPager;
 import com.cta.platform.util.ValidateUtil;
 import com.rotek.constant.DataStatus;
-import com.rotek.constant.OrderStatus;
 import com.rotek.dao.impl.ProjectDao;
-import com.rotek.dto.GiftDto;
 import com.rotek.dto.UserDto;
-import com.rotek.entity.GiftEntity;
 import com.rotek.entity.ProjectEntity;
 import com.rotek.util.FileUtils;
 
@@ -39,6 +36,70 @@ public class ProjectService {
 	private ProjectDao projectDao;
 
 	/**
+	* @MethodName: listProeject 
+	* @Description: 工程列表查询
+	* @param user
+	* @param project
+	* @param pager
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public List<ProjectEntity> listProeject(UserDto user, ProjectEntity project,
+			Date start_azsj, Date end_azsj, Date start_tysj, Date end_tysj, ListPager pager) throws SQLException {
+
+		StringBuilder sql = new StringBuilder();
+		List<Object> params = new LinkedList<Object>();
+		sql.append("select * from r_project where 1 = 1");
+		
+		if(StringUtils.isNotEmpty(project.getGcmc())){
+			sql.append(" and GCMC like '%").append(project.getGcmc()).append("%'");
+		}
+		if(StringUtils.isNotEmpty(project.getGcbh())){
+			sql.append(" and GCBH like '%").append(project.getGcbh()).append("%'");
+		}
+		if(StringUtils.isNotEmpty(project.getGcxh())){
+			sql.append(" and GCXH like '%").append(project.getGcxh()).append("%'");
+		}
+
+		if(null != project.getId()){
+			sql.append(" and id = ?");
+			params.add(project.getId());
+		}
+		
+		if(null != project.getGclb()){
+			sql.append(" and GCFL = ?");
+			params.add(project.getGclb());
+		}
+
+		if(null != project.getStatus()){
+			sql.append(" and status = ?");
+			params.add(project.getStatus());
+		}
+
+		if(null != start_azsj){
+			sql.append(" and AZSJ >= ?");
+			params.add(start_azsj);
+		}
+		if(null != end_azsj){
+			sql.append(" and AZSJ <= ?");
+			params.add(end_azsj);
+		}
+		
+		if(null != start_tysj){
+			sql.append(" and TYSJ >= ?");
+			params.add(start_tysj);
+		}
+		if(null != end_tysj){
+			sql.append(" and TYSJ <= ?");
+			params.add(end_tysj);
+		}
+		
+		sql.append(" order by id desc");
+		return projectDao.listProject(sql.toString(), params.toArray(), pager);
+	}
+	
+	/**
 	* @MethodName: addProject 
 	* @Description: 新增工程信息
 	* @param project
@@ -52,26 +113,26 @@ public class ProjectService {
 		if(messages.size() > 0){
 			return messages;
 		}
-		MultipartFile proPic = multipartRequest.getFile("proPic");
-		MultipartFile proParamAffix = multipartRequest.getFile("proParamAffix");
+		MultipartFile proPic = multipartRequest.getFile("gczp");   // 工程图片
+		MultipartFile proParamAffix = multipartRequest.getFile("jscsfj");  // 技术参数附件
 		
 		//保存工程图片
 		if(null != proPic && StringUtils.isNotBlank(proPic.getOriginalFilename())){
-			String pic_location = SystemGlobals.getPreference("project.proPic.path");
+			String pic_location = SystemGlobals.getPreference("project.gczp.path");
 			String pic_name = FileUtils.savePic(proPic, pic_location, 1024000000);
 			if(null != pic_name){
-				project.setProPic(pic_name);
+				project.setGczp(pic_name);
 			}else {
-				messages.add("工程图片必须在 "+1024000000/1024 +"k 以内!");
+				messages.add("工程图片必须在 "+1024000000/1024 +"k 以内!");  // 100M
 				return messages;
 			}
 		}
 		//保存工程技术参数附件
 		if(null != proParamAffix && StringUtils.isNotBlank(proParamAffix.getOriginalFilename())){
-			String paramAffix_location = SystemGlobals.getPreference("project.proParamAffix.path");
+			String paramAffix_location = SystemGlobals.getPreference("project.jscsfj.path");
 			String paramAffixName = FileUtils.savePic(proParamAffix, paramAffix_location, 1024000000);
 			if(null != paramAffixName){
-				project.setProParamAffix(paramAffixName);
+				project.setJscsfj(paramAffixName);
 			}
 		}
 		projectDao.addProject(project);
@@ -79,253 +140,76 @@ public class ProjectService {
 		return null;
 	}
 	
-	
-	
-	
 	/**
-	 * @param user
-	 * @throws SQLException
-	* @Title: listUserGifts
-	* @Description:
-	* @param gift
-	* @param pager
-	* @param start_time
-	* @param end_time
-	* @return
-	* @return List<RegistUserEntity>
-	* @throws
-	*/
-	public List<GiftDto> listUserGifts(UserDto user, GiftDto gift, ListPager pager,
-			Date start_time, Date end_time) throws SQLException {
-
-		StringBuilder sql = new StringBuilder();
-		List<Object> params = new LinkedList<Object>();
-		sql.append("select gu.id exchange_id, gu.time_exchange exchange_time, gu.status exchange_status, u.nick_name user_name,g.name gift_name from mf_gift_user gu");
-		sql.append(" left join mf_user u on u.id = gu.user_id");
-		sql.append(" left join mf_gift g on gu.gift_id = g.id");
-		sql.append(" where 1=1");
-
-//		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
-//			sql.append(" and gu.status <> ?");
-//			params.add(OrderStatus.INVALID);
-//		}
-
-		if(null != gift.getExchange_id()){
-			sql.append(" and gu.id = ?");
-			params.add(gift.getExchange_id());
-		}
-
-		if(null != gift.getExchange_status()){
-			sql.append(" and gu.status = ?");
-			params.add(gift.getExchange_status());
-		}
-		if(StringUtils.isNotEmpty(gift.getUser_name())){
-			sql.append(" and u.nick_name like '%").append(gift.getUser_name()).append("%'");
-		}
-		if(StringUtils.isNotEmpty(gift.getGift_name())){
-
-			sql.append(" and g.name like '%").append(gift.getGift_name()).append("%'");
-		}
-
-		if(null != start_time){
-			sql.append(" and gu.time_exchange >= ?");
-			params.add(start_time);
-		}
-		if(null != end_time){
-			sql.append(" and gu.time_exchange <= ?");
-			params.add(end_time);
-		}
-
-		sql.append(" order by gu.id desc");
-		return projectDao.listUserGifts(sql.toString(),params.toArray(),pager);
-	}
-
-	/**
-	 * @throws SQLException
-	* @Title: deleteUserGift
-	* @Description:
-	* @param ids
-	* @return
-	* @return List<String>
-	* @throws
-	*/
-	public List<String> deleteUserGift(String ids) throws SQLException {
-
-		List<String> messages = null;
-		if(StringUtils.isBlank(ids)){
-			messages = new LinkedList<String>();
-			messages.add("请选择您要操作的数据!");
-		}
-		StringBuilder sql = new StringBuilder();
-		sql.append("update mf_gift_user set status = ").append(DataStatus.DISABLED);
-		sql.append(" where id in ("+ids.trim()+")");
-		projectDao.modifyUserGiftStatus(sql.toString());
-		return messages;
-	}
-
-	/**
-	 * @param exchange_status
-	 * @throws SQLException
-	* @Title: modifyUserGiftStatus
-	* @Description:
-	* @param ids
-	* @return
-	* @return List<String>
-	* @throws
-	*/
-	public List<String> modifyUserGiftStatus(String ids, Integer exchange_status) throws SQLException {
-
-		List<String> messages = null;
-		if(StringUtils.isBlank(ids) || null == exchange_status){
-			messages = new LinkedList<String>();
-			messages.add("请选择您要操作的数据!");
-		}
-		StringBuilder sql = new StringBuilder();
-		sql.append("update mf_gift_user set status = ").append(exchange_status);
-		sql.append(" where id in ("+ids.trim()+")");
-		projectDao.modifyUserGiftStatus(sql.toString());
-		return messages;
-	}
-
-	/**
-	 * @throws SQLException
-	* @Title: getUserGiftDetail
-	* @Description:
+	* @MethodName: getProjectById 
+	* @Description: 根据Id查询工程信息
 	* @param id
 	* @return
-	* @return GiftDto
-	* @throws
+	* @throws SQLException
+	* @author WangJuZhu
 	*/
-	public GiftDto getUserGiftDetail(Integer id) throws SQLException {
-
-		StringBuilder sql = new StringBuilder();
-		sql.append("select gu.id exchange_id, gu.time_exchange exchange_time, gu.status exchange_status, u.nick_name user_name,u.telephone user_telephone,g.name gift_name,g.points,g.descr from mf_gift_user gu");
-		sql.append(" left join mf_user u on u.id = gu.user_id");
-		sql.append(" left join mf_gift g on gu.gift_id = g.id");
-		sql.append(" where gu.id = ").append(id);
-
-		return projectDao.getUserGiftDetail(sql.toString());
-	}
-
-	/**
-	 * @throws SQLException
-	 * @param pager
-	* @Title: listUserGifts
-	* @Description:
-	* @param user
-	* @param gift
-	* @return
-	* @return List<GiftDto>
-	* @throws
-	*/
-	public List<GiftDto> listUserGifts(UserDto user, GiftEntity gift, ListPager pager) throws SQLException {
-
-		StringBuilder sql = new StringBuilder();
-		List<Object> params = new LinkedList<Object>();
-		sql.append("select id, name, pic, points, status from mf_gift where 1 = 1");
-
-//		if(SystemGlobals.getIntPreference("super_dep_id", 0) != user.getDep_id()){
-//			sql.append(" and status <> ?");
-//			params.add(OrderStatus.INVALID);
-//		}
-
-		if(null != gift.getId()){
-			sql.append(" and id = ?");
-			params.add(gift.getId());
-		}
-
-		if(StringUtils.isNotEmpty(gift.getName())){
-			sql.append(" and name like '%").append(gift.getName()).append("%'");
-		}
-
-		if(null != gift.getPoints()){
-			sql.append(" and points = ?");
-			params.add(gift.getPoints());
-		}
-
-		if(null != gift.getStatus()){
-			sql.append(" and status = ?");
-			params.add(gift.getStatus());
-		}
-
-		sql.append(" order by id desc");
-		return projectDao.listUserGifts(sql.toString(), params.toArray(), pager);
-	}
-
-
-
-	/**
-	 * @throws SQLException
-	* @Title: getGiftDetail
-	* @Description:
-	* @param id
-	* @return
-	* @return GiftEntity
-	* @throws
-	*/
-	public GiftEntity getGiftDetail(Integer id) throws SQLException {
+	public ProjectEntity getProjectById(Integer id) throws SQLException {
 		if(null == id){
 			return null;
 		}
-
-		return projectDao.getGiftDetail(id);
+		return projectDao.getProjectById(id);
 	}
+	
+	public List<String> modifyProject(ProjectEntity project,MultipartHttpServletRequest multipartRequest) 
+			throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 
-	/**
-	 * @throws IOException
-	 * @throws IllegalStateException
-	 * @throws NoSuchMethodException
-	 * @throws InvocationTargetException
-	 * @throws IllegalAccessException
-	 * @throws SQLException
-	* @Title: modfiyGift
-	* @Description:
-	* @param gift
-	* @param multipartRequest
-	* @return
-	* @return List<String>
-	* @throws
-	*/
-	public List<String> modifyGift(GiftEntity gift,
-			MultipartHttpServletRequest multipartRequest) throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
-
-		List<String> messages = ValidateUtil.validate(gift);
-		if(messages.size() > 0 || null == gift.getId()){
-			messages.add(null == gift.getId() ? "由于，要修改的礼品ID为空，修改失败!" : "");
+		List<String> messages = ValidateUtil.validate(project);
+		if(messages.size() > 0 || null == project.getId()){
+			messages.add(null == project.getId() ? "由于，要修改的工程记录ID为空，修改失败!" : "");
 			return messages;
 		}
 
-		MultipartFile pic = multipartRequest.getFile("pic_modify");
+		MultipartFile pic = multipartRequest.getFile("gczp");   // 工程图片
 		if(null != pic && StringUtils.isNotBlank(pic.getOriginalFilename())){
-			String pic_location = SystemGlobals.getPreference("gift.pic.path");
-			long rest_maxPic = SystemGlobals.getLongPreference("gift.pic.maxSize", 102400);
+			String pic_location = SystemGlobals.getPreference("project.gczp.path");
 			//保存图片
-			String pic_name = FileUtils.savePic(pic, pic_location, rest_maxPic);
+			String pic_name = FileUtils.savePic(pic, pic_location, 102400000);
 			if(null != pic_name){
 				//删除原图片
-				FileUtils.clearPic(pic_location, gift.getPic());
-				//更新礼品图片
-				gift.setPic(pic_name);
+				FileUtils.clearPic(pic_location, project.getGczp());
+				//更新工程图片
+				project.setGczp(pic_name);
 			}else {
-				messages.add("店铺图片必须在 "+rest_maxPic/1024 +"k 以内!");
+				messages.add("工程图片必须在 "+ 102400000/1024 +"k 以内!");  // 100M
 				return messages;
 			}
 		}
+		
+		MultipartFile csfj = multipartRequest.getFile("jscsfj");   // 技术参数附件
+		if(null != csfj && StringUtils.isNotBlank(csfj.getOriginalFilename())){
+			String fj_location = SystemGlobals.getPreference("project.jscsfj.path");
+			//保存附件
+			String fj_name = FileUtils.savePic(csfj, fj_location, 1024000000);
+			if(null != fj_name){
+				//删除原附件
+				FileUtils.clearPic(fj_location, project.getJscsfj());
+				//更新附件
+				project.setJscsfj(fj_name);
+			}else {
+				messages.add("技术参数附件必须在 "+1024000000/1024 +"k 以内!");  // 100M
+				return messages;
+			}
+		}
+		
 		//修改
-		projectDao.modifyGift(gift);
+		projectDao.modifyProject(project);
 		return null;
 	}
 
 	/**
-	 * @throws SQLException
-	* @Title: deleteGift
-	* @Description:
+	* @MethodName: deleteProject 
+	* @Description: 批量删除工程（更改记录的状态为无效(status = -1)）
 	* @param ids
 	* @return
-	* @return List<String>
-	* @throws
+	* @throws SQLException
+	* @author WangJuZhu
 	*/
-	public List<String> deleteGift(String ids) throws SQLException {
+	public List<String> deleteProject(String ids) throws SQLException {
 
 		List<String> messages = null;
 		if(StringUtils.isBlank(ids)){
@@ -333,9 +217,14 @@ public class ProjectService {
 			messages.add("请选择您要操作的数据!");
 		}
 		StringBuilder sql = new StringBuilder();
-		sql.append("update mf_gift set status = ").append(DataStatus.DISABLED);
+		sql.append("update r_project set STATUS = ").append(DataStatus.DISABLED);
 		sql.append(" where id in ("+ids.trim()+")");
-		projectDao.deleteGift(sql.toString());
+		projectDao.deleteProject(sql.toString());
 		return messages;
 	}
+	
+	
+	
+
+	
 }
