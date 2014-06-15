@@ -82,7 +82,7 @@ if (toolbar.get("button_add")) {
 		  var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '80%',
-			height : 500,
+			height : 400,
 		    layout : 'fit',
 		    handler : saveHandler
 		  });
@@ -99,6 +99,19 @@ if (toolbar.get("button_add")) {
 	          fields : ['label', 'value'],
 	          data : [["代理商", "1"],["客户", "2"]]
 	        }),
+	        listeners : {
+	        	'change': function(combo,item,index){
+	        		
+	        		console.log(combo);
+	        		console.log(item);
+	        		console.log(index);
+	        		if(index == 1){
+	        			Ext.getCmp('combo_isshow').show();
+	        		}else {
+	        			Ext.getCmp('combo_isshow').hide();
+	        		}
+	        	}
+	        },
 	        displayField : 'label',
 	        valueField : 'value',
 	        hiddenName : 'KHLB',
@@ -176,7 +189,23 @@ if (toolbar.get("button_add")) {
 	        hiddenName : 'STATUS',
 	        mode : 'local',
 	        editable : false
-	      }]
+	      },{
+		        id : 'combo_isshow',
+		        xtype : 'combo',
+		        fieldLabel : '隐藏',
+		        emptyText : '隐藏或者显示',
+		        name : 'jibie',
+		        triggerAction : 'all',
+		        store : new Ext.data.SimpleStore({
+		          fields : ['label', 'value'],
+		          data : [["级别1", "1"],["级别2", "2"]]
+		        }),
+		        displayField : 'label',
+		        valueField : 'value',
+		        hiddenName : 'jibie',
+		        mode : 'local',
+		        editable : false
+		      }]
 	  });
 	  addWindow.add(formPanel);
 	  addWindow.show();

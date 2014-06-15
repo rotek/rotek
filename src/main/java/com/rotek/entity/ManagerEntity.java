@@ -8,15 +8,10 @@
 */
 package com.rotek.entity;
 
-import java.io.Serializable;
-
 import com.cta.platform.constant.StrategyType;
 import com.cta.platform.persistence.annotation.Column;
 import com.cta.platform.persistence.annotation.ID;
-import com.cta.platform.persistence.annotation.Length;
-import com.cta.platform.persistence.annotation.NotEmpty;
 import com.cta.platform.persistence.annotation.Table;
-import com.cta.platform.persistence.annotation.TelePhone;
 
 /**
  * @ClassName: ManagerEntity
@@ -25,83 +20,121 @@ import com.cta.platform.persistence.annotation.TelePhone;
  * @date 2013-6-22 下午06:13:46
  *
  */
-@Table(name="MF_MANAGER")
-public class ManagerEntity implements Serializable{
+@Table(name="R_MANAGER")
+public class ManagerEntity extends BaseEntity{
 
 	/**@Field the long serialVersionUID*/
 	private static final long serialVersionUID = -692961467321766317L;
 
-	@ID(strategy=StrategyType.IDENTITY)
-	@Column(name="id")
-	private Integer id;//
-	@Column(name="name")
-	@Length(maxLength=30,minLength=6,message="用户名长度必须在6-30之间")
-	private String name;//
-	@Column(name="real_name")
-	@Length(maxLength=30,minLength=1,message="真实姓名必须在1-30之间")
-	private String real_name;//
-	@Column(name="password")
-	@Length(maxLength=30,minLength=6,message="密码长度必须在6-30之间")
-	private String password;//
-	@Column(name="phone")
-	@TelePhone(message="请输入11位电话号码")
-	private String phone;//
-	@Column(name="question_secu")
-	@Length(maxLength=30,minLength=1,message="密保问题长度必须在1-30之间")
-	private String question_secu;//
-	@Column(name="answer")
-	@Length(maxLength=30,minLength=1,message="密保答案长度必须在1-30之间")
-	private String answer;//
-	@Column(name="status")
-	@NotEmpty
+	//
+	@ID(strategy = StrategyType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
+	//
+	@Column(name = "name")
+	private String name;
+	//
+	@Column(name = "r_role_id")
+	private Integer r_role_id;
+	//
+	@Column(name = "r_customer_id")
+	private Integer r_customer_id;
+	//
+	@Column(name = "password")
+	private String password;
+	//
+	@Column(name = "email")
+	private String email;
+	//
+	@Column(name = "telephone")
+	private String telephone;
+	//
+	@Column(name = "realname")
+	private String realname;
+	//
+	@Column(name = "companyname")
+	private String companyname;
+	// 用户的类型状态 -1 不可用 1代表管理员
+	@Column(name = "status")
 	private Integer status;
-
 
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getReal_name() {
-		return real_name;
+
+	public Integer getR_role_id() {
+		return r_role_id;
 	}
-	public void setReal_name(String real_name) {
-		this.real_name = real_name;
+
+	public void setR_role_id(Integer r_role_id) {
+		this.r_role_id = r_role_id;
 	}
+
+	
+	public Integer getR_customer_id() {
+		return r_customer_id;
+	}
+
+	public void setR_customer_id(Integer r_customer_id) {
+		this.r_customer_id = r_customer_id;
+	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getPhone() {
-		return phone;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getQuestion_secu() {
-		return question_secu;
+
+	public String getTelephone() {
+		return telephone;
 	}
-	public void setQuestion_secu(String question_secu) {
-		this.question_secu = question_secu;
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
-	public String getAnswer() {
-		return answer;
+
+	public String getRealname() {
+		return realname;
 	}
-	public void setAnswer(String answer) {
-		this.answer = answer;
+
+	public void setRealname(String realname) {
+		this.realname = realname;
 	}
+
+	public String getCompanyname() {
+		return companyname;
+	}
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
+	}
+
 	public Integer getStatus() {
 		return status;
 	}
+
 	public void setStatus(Integer status) {
 		this.status = status;
 	}

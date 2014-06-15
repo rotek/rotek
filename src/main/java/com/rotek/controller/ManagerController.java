@@ -10,7 +10,6 @@ package com.rotek.controller;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -68,10 +67,10 @@ public class ManagerController {
 			@RequestParam(value="id", defaultValue = "") Integer id,
 			@RequestParam(value="name", defaultValue = "") String name,
 			@RequestParam(value="password", defaultValue = "") String password,
-			@RequestParam(value="real_name", defaultValue = "") String real_name,
-			@RequestParam(value="phone", defaultValue = "") String phone,
-			@RequestParam(value="question_secu", defaultValue = "") String question_secu,
-			@RequestParam(value="answer", defaultValue = "") String answer,
+			@RequestParam(value="email", defaultValue = "") String email,
+			@RequestParam(value="telephone", defaultValue = "") String telephone,
+			@RequestParam(value="realname", defaultValue = "") String realname,
+			@RequestParam(value="companyname", defaultValue = "") String companyname,
 			@RequestParam(value="status", defaultValue = "") Integer status,
 			HttpServletRequest request,
 			UserDto user,
@@ -85,13 +84,13 @@ public class ManagerController {
 		manager.setId(id);
 		manager.setName(name);
 		manager.setPassword(password);
-		manager.setReal_name(real_name);
-		manager.setPhone(phone);
-		manager.setQuestion_secu(question_secu);
-		manager.setAnswer(answer);
+		manager.setRealname(realname);
+		manager.setTelephone(telephone);
+		manager.setCompanyname(companyname);
+		manager.setEmail(email);
 		manager.setStatus(status);
 
-		List<Map<String,Object>> managerList = managerService.listManagers(manager,pager);
+		List<ManagerDto> managerList = managerService.listManagers(manager,pager);
 		modelMap.put("dataList", managerList);
 		modelMap.put("totalCount", pager.getTotalRows());
 		return "jsonView";
@@ -107,29 +106,12 @@ public class ManagerController {
 	 */
 	@RequestMapping("addManager")
 	public String listManagers(
-			@RequestParam(value="name", defaultValue = "") String name,
-			@RequestParam(value="password", defaultValue = "") String password,
-			@RequestParam(value="real_name", defaultValue = "") String real_name,
-			@RequestParam(value="phone", defaultValue = "") String phone,
-			@RequestParam(value="question_secu", defaultValue = "") String question_secu,
-			@RequestParam(value="answer", defaultValue = "") String answer,
-			@RequestParam(value="status", defaultValue = "") Integer status,
-			@RequestParam(value="role_id", defaultValue = "") Integer role_id,
-			@RequestParam(value="dep_id", defaultValue = "") Integer dep_id,
 			HttpServletRequest request,
-			UserDto user,
+			ManagerEntity manager,
 			ModelMap model) throws Exception {
 
-		ManagerEntity manager = new ManagerEntity();
-		manager.setName(name);
-		manager.setPassword(password);
-		manager.setReal_name(real_name);
-		manager.setPhone(phone);
-		manager.setQuestion_secu(question_secu);
-		manager.setAnswer(answer);
-		manager.setStatus(status);
 
-		List<String> messages = managerService.addManager(manager,role_id,dep_id);
+		List<String> messages = managerService.addManager(manager);
 		model.put("success", null == messages ? true : false);
 		model.put("messages", messages);
 		return "jsonView";
@@ -167,10 +149,10 @@ public class ManagerController {
 			@RequestParam(value="id", defaultValue = "") Integer id,
 			@RequestParam(value="name", defaultValue = "") String name,
 			@RequestParam(value="password", defaultValue = "") String password,
-			@RequestParam(value="real_name", defaultValue = "") String real_name,
-			@RequestParam(value="phone", defaultValue = "") String phone,
-			@RequestParam(value="question_secu", defaultValue = "") String question_secu,
-			@RequestParam(value="answer", defaultValue = "") String answer,
+			@RequestParam(value="email", defaultValue = "") String email,
+			@RequestParam(value="telephone", defaultValue = "") String telephone,
+			@RequestParam(value="realname", defaultValue = "") String realname,
+			@RequestParam(value="companyname", defaultValue = "") String companyname,
 			@RequestParam(value="status", defaultValue = "") Integer status,
 			@RequestParam(value="role_id", defaultValue = "") Integer role_id,
 			@RequestParam(value="dep_id", defaultValue = "") Integer dep_id,
@@ -182,10 +164,8 @@ public class ManagerController {
 		manager.setId(id);
 		manager.setName(name);
 		manager.setPassword(password);
-		manager.setReal_name(real_name);
-		manager.setPhone(phone);
-		manager.setQuestion_secu(question_secu);
-		manager.setAnswer(answer);
+		manager.setRealname(realname);
+		manager.setTelephone(telephone);
 		manager.setStatus(status);
 
 		List<String> messages = managerService.modifyManager(manager, role_id,dep_id);
