@@ -60,7 +60,7 @@ public class CustomerDao extends BaseDaoImpl{
 	* @author Liusw
 	*/
 	public CustomerEntity getCustomerDetail_all(Integer id) throws SQLException {
-		String sql = "select id, KHLB, MC, TXDZ, LXFS， LXR, LXDH, DLQY, SSJB, JWDDZ, STATUS from r_customer where id = ?";
+		String sql = "select id, KHLB, MC, TXDZ, LXFS， LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where id = ?";
 
 		return this.selectOne(sql, new Object[] { id }, CustomerEntity.class);
 	}
@@ -136,7 +136,6 @@ public class CustomerDao extends BaseDaoImpl{
 	public List<Map<String, Object>> listAgents(HttpServletRequest request) throws SQLException {
 		Map params = request.getParameterMap();
 		String khlb = (String) params.get("khlb");  
-		String ssjb = (String) params.get("ssjb");  
 		
 		String sql = "select id, mc from r_customer where (status = 1) and (khlb=1)";
 		return this.executeQuery(sql, null);

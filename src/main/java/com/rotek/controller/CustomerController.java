@@ -107,7 +107,6 @@ public class CustomerController {
 	* @param LXR
 	* @param LXDH
 	* @param DLQY
-	* @param SSJB
 	* @param JWDDZ
 	* @param STATUS
 	* @param model
@@ -124,7 +123,6 @@ public class CustomerController {
 			@RequestParam(value = "lxr", defaultValue = "") String LXR,
 			@RequestParam(value = "lxdh", defaultValue = "") String LXDH,
 			@RequestParam(value = "dlqy", defaultValue = "") String DLQY,
-			@RequestParam(value = "ssjb", defaultValue = "0") Integer SSJB,
 			@RequestParam(value = "jwddz", defaultValue = "") String JWDDZ,
 			@RequestParam(value="status", defaultValue="1") Integer STATUS,
 			ModelMap model ) throws Exception {
@@ -145,7 +143,6 @@ public class CustomerController {
 		customer.setLxr(LXR);
 		customer.setLxdh(LXDH);
 		customer.setDlqy(DLQY);
-		customer.setSsjb(SSJB);
 		customer.setJwddz(JWDDZ);
 		customer.setStatus(STATUS);
 
@@ -168,7 +165,6 @@ public class CustomerController {
 	* @param LXR
 	* @param LXDH
 	* @param DLQY
-	* @param SSJB
 	* @param JWDDZ
 	* @param STATUS
 	* @param model
@@ -186,7 +182,6 @@ public class CustomerController {
 			@RequestParam(value = "LXR", defaultValue = "") String LXR,
 			@RequestParam(value = "LXDH", defaultValue = "") String LXDH,
 			@RequestParam(value = "DLQY", defaultValue = "") String DLQY,
-			@RequestParam(value = "SSJB", defaultValue = "0") int SSJB,
 			@RequestParam(value = "JWDDZ", defaultValue = "") String JWDDZ,
 			@RequestParam(value="STATUS", defaultValue="1") Integer STATUS,
 			ModelMap model) throws Exception{
@@ -200,7 +195,6 @@ public class CustomerController {
 		customer.setLxr(LXR);
 		customer.setLxdh(LXDH);
 		customer.setDlqy(DLQY);
-		customer.setSsjb(SSJB);
 		customer.setJwddz(JWDDZ);
 		customer.setStatus(STATUS);
 		List<String> messages = customerService.modifyCustomer(customer);

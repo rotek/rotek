@@ -47,7 +47,7 @@ public class CustomerService {
 	public List<CustomerEntity> listRoles(CustomerEntity customer, ListPager pager) throws SQLException{
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append("select id, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, SSJB, JWDDZ, STATUS from r_customer where 1 = 1");
+		sql.append("select id, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where 1 = 1");
 		List<Object> params = new ArrayList<Object>();
 		if(null != customer.getId()){
 			sql.append(" and id = ?");

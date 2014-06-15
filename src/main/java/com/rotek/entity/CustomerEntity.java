@@ -29,7 +29,7 @@ public class CustomerEntity implements Serializable {
 	@Column(name = "R_CUSTOMER_ID")
 	private Integer r_customer_id ;     // 客户ID外键
 
-	@Column(name = "KHLB")             // 客户类别：1-代理商，2-客户
+	@Column(name = "KHLB")             // 客户类别：1-一级代理商，2-二级代理商，3-客户
 	private Integer khlb ;    
 
 	@Column(name = "MC")
@@ -50,8 +50,6 @@ public class CustomerEntity implements Serializable {
 	@Column(name = "DLQY")
 	private String	dlqy ;    		  // 代理区域	
 
-	@Column(name = "SSJB")			   // 所属级别:1,2,3:一二三级代理商	
-	private Integer ssjb ;     
 
 	@Column(name = "JWDDZ")
 	private String	jwddz ;  		  // 经纬度地址	
@@ -121,14 +119,6 @@ public class CustomerEntity implements Serializable {
 
 	public void setDlqy(String dlqy) {
 		this.dlqy = dlqy;
-	}
-
-	public Integer getSsjb() {
-		return ssjb;
-	}
-
-	public void setSsjb(Integer ssjb) {
-		this.ssjb = ssjb;
 	}
 
 	public String getJwddz() {
