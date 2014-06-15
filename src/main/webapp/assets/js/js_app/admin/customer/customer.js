@@ -8,6 +8,9 @@ ROTEK.CUSTOMER.params = {
 		          index:'id',
 		          header:'客户ID'
 		      },{
+		          index:'mc',
+		          header:'客户名称'
+		      },{
 		    	  index:'khlb',
 		          header:'客户类别',
 			      renderer:function(value){
@@ -21,10 +24,12 @@ ROTEK.CUSTOMER.params = {
 				  }
 		      },{
 		          index:'r_customer_id',
-		          header:'所属上级'
-		      },{
-		          index:'mc',
-		          header:'客户名称'
+		          header:'所属上级',
+		          renderer:function(value){
+				  	  if(0==value){
+				   		  return "";
+					  }
+					}
 		      },{
 		          index:'txdz',
 		          header:'通信地址'
@@ -100,49 +105,49 @@ if (toolbar.get("button_add")) {
 	        triggerAction : 'all',
 	        store : new Ext.data.SimpleStore({
 	          fields : ['label', 'value'],
-	          data : [["代理商", "1"],["客户", "2"]]
+	          data : [["一级代理商", "1"],["二级代理商", "2"],["三级代理商", "2"]]
 	        }),
 	        listeners : {
 	        	'change': function(combo,item,index){
 	        		
 	        		//Ext.getCmp('combo_test').getStore().loadData([["11",2],["22",2],["33",2]]);
 	        		
-	        			Ext.Ajax.request({
-		        		    url : ROTEK.CUSTOMER.params.url.listAgentsUrl,
-		        		    success : function(response) {
-		        			      var firstAgentList = Ext.util.JSON.decode(response.responseText).firstAgentList;
-		        			      var secondAgentList = Ext.util.JSON.decode(response.responseText).secondAgentList;
-		        			      customerCache.firstAgentList = [];
-		        			      customerCache.secondAgentList = [];
-		        			      Ext.each(firstAgentList, function(item) {
-	      			    			  var arr = new Array();
-	      			    			  arr.push(item.mc + "");
-	      			    			  arr.push(item.id);
-		        			    	  customerCache.firstAgentList.push(arr);
-	        			    	  });
-		        			      
-		        			      Ext.each(secondAgentList, function(item) {
-	      			    			  var arr = new Array();
-	      			    			  arr.push(item.mc);
-	      			    			  arr.push(item.id);
-		        			    	  customerCache.secondAgentList.push(arr);
-	        			    	  });
-		        			      
-		        			      if(item == 1){
-		        			    	  Ext.getCmp('agents_isshow').setDisabled(false);// 所属代理商
-		      	        			//Ext.getCmp('ssjb_isedit').setDisabled(false); // 所属级别
-		      	        			Ext.getCmp('agentarea').setDisabled(false);   // 代理区域
-		      	        			
-		        			    	  Ext.getCmp('agents_isshow').getStore().loadData(customerCache.firstAgentList);
-		        			      }else {
-		        			    	  Ext.getCmp('agents_isshow').setDisabled(false);
-//		      	        			Ext.getCmp('ssjb_isedit').setDisabled(true);
-		      	        			Ext.getCmp('agentarea').setDisabled(false);
-		      	        			
-		        			    	  Ext.getCmp('agents_isshow').getStore().loadData(customerCache.secondAgentList);
-		        			      }
-		        		    }
-		        	    });
+        			Ext.Ajax.request({
+	        		    url : ROTEK.CUSTOMER.params.url.listAgentsUrl,
+	        		    success : function(response) {
+	        			      var firstAgentList = Ext.util.JSON.decode(response.responseText).firstAgentList;
+	        			      var secondAgentList = Ext.util.JSON.decode(response.responseText).secondAgentList;
+	        			      customerCache.firstAgentList = [];
+	        			      customerCache.secondAgentList = [];
+	        			      Ext.each(firstAgentList, function(item) {
+      			    			  var arr = new Array();
+      			    			  arr.push(item.mc + "");
+      			    			  arr.push(item.id);
+	        			    	  customerCache.firstAgentList.push(arr);
+        			    	  });
+	        			      
+	        			      Ext.each(secondAgentList, function(item) {
+      			    			  var arr = new Array();
+      			    			  arr.push(item.mc);
+      			    			  arr.push(item.id);
+	        			    	  customerCache.secondAgentList.push(arr);
+        			    	  });
+	        			      
+	        			      if(item == 1){
+	        			    	  Ext.getCmp('agents_isshow').setDisabled(false);// 所属代理商
+	      	        			//Ext.getCmp('ssjb_isedit').setDisabled(false); // 所属级别
+	      	        			Ext.getCmp('agentarea').setDisabled(false);   // 代理区域
+	      	        			
+	        			    	  Ext.getCmp('agents_isshow').getStore().loadData(customerCache.firstAgentList);
+	        			      }else {
+	        			    	  Ext.getCmp('agents_isshow').setDisabled(false);
+//	      	        			Ext.getCmp('ssjb_isedit').setDisabled(true);
+	      	        			Ext.getCmp('agentarea').setDisabled(false);
+	      	        			
+	        			    	  Ext.getCmp('agents_isshow').getStore().loadData(customerCache.secondAgentList);
+	        			      }
+	        		    }
+	        	    });
 	        	}
 	        },
 	        displayField : 'label',
@@ -197,7 +202,7 @@ if (toolbar.get("button_add")) {
 	        disabled : true,
             allowBlank : true
 	     },{
-		     id : 'agents_isshow',
+		     id : 'agentlist',
 		     xtype : 'combo',
 		     fieldLabel : '所属代理商',
 		     emptyText : '请选择所属代理商',
