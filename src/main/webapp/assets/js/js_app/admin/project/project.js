@@ -209,6 +209,9 @@ if(toolbar.get("button_modify")){
 			success : function(response) {
 				var data = Ext.util.JSON.decode(response.responseText).data;
 	
+//				if(data.azsj){
+//					data.azsj = Ext.util.Format.date(new Date(data.azsj), 'Y-m-d');
+//				}
 				var formPanel = new CTA.common.SFormPanel({
 					fileUpload : true,
 					items : [ {
@@ -257,9 +260,9 @@ if(toolbar.get("button_modify")){
 					}, {
 						fieldLabel : '工程图片',
 						name : 'gczp',
-						text : "点击上传工程图片",
-						inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
-						blankText : '请上传工程图片'
+						//text : "点击上传工程图片"
+						//inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
+						//blankText : '请上传工程图片'
 					}, {
 						xtype : 'textarea',
 						fieldLabel : '技术参数简介',
@@ -269,10 +272,10 @@ if(toolbar.get("button_modify")){
 						width : 230
 					}, {
 						fieldLabel : '技术参数附件',
-						name : 'jscsfj',
-						text : "点击上传技术参数附件",
-						inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
-						blankText : '请上传技术参数附件'
+						name : 'jscsfj'
+						//text : "点击上传技术参数附件",
+						//inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
+						//blankText : '请上传技术参数附件'
 					}, {
 						fieldLabel : '工程零件',
 						emptyText : '请输入工程零件',
