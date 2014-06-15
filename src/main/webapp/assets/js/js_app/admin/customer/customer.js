@@ -60,8 +60,8 @@ ROTEK.CUSTOMER.params = {
 		addUrl : basePath + "/admin/customer/addCustomer",
 		detailUrl : basePath + "/admin/customer/getCustomerDetail",
 		modifyUrl : basePath + "/admin/customer/modifyCustomer",
-		dropUrl : basePath + "/admin/customer/deleteCustomer"
-		listAgents : basePath + "/admin/customer/listAgents_combo",
+		dropUrl : basePath + "/admin/customer/deleteCustomer",
+		listAgents : basePath + "/admin/customer/listAgents_combo"
 	}
 };
 
@@ -107,13 +107,10 @@ if (toolbar.get("button_add")) {
 	        		console.log(item);
 	        		console.log(index);
 	        		if(index == 1){
-	        			//Ext.getCmp('combo_isshow').show();
-	        			disabled: false;
+	        			Ext.getCmp('agents_isshow').setDisabled(false);
 	        		}else {
-	        			//Ext.getCmp('combo_isshow').hide();
-	        			disabled: true;
+	        			Ext.getCmp('agents_isshow').setDisabled(false);
 	        		}
-	        	// 默认初始化的时候不显示
 	        	}
 	        },
 	        displayField : 'label',
@@ -194,7 +191,7 @@ if (toolbar.get("button_add")) {
 	        mode : 'local',
 	        editable : false
 	      },{
-		        id : 'combo_isshow',
+		        id : 'agents_isshow',
 		        xtype : 'combo',
 		        fieldLabel : '所属代理商',
 		        emptyText : '请选择所属代理商',
@@ -211,16 +208,15 @@ if (toolbar.get("button_add")) {
 						fields : [ {
 							name : 'id'
 						}, {
-							name : 'name'
+							name : 'mc'
 						} ]
 					}),
 					proxy : new Ext.data.HttpProxy({
 						url : ROTEK.CUSTOMER.params.url.listAgents
 					})
-				})
-		        
+				}),		        
 		        mode : 'local',
-		        editable : false
+		        editable : false,
 		        disabled : true
 		      }]
 	  });
