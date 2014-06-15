@@ -126,10 +126,13 @@ public class DBHelper {
 				} else if (param instanceof java.sql.Time) {
 					ps.setTimestamp(i,
 							new Timestamp(((java.sql.Time) param).getTime()));
-				} else {
-					SQLException e = new SQLException("SQLException",
+				} else if(param == null){
+					ps.setTimestamp(i,null);
+				}else {
+					SQLException e = new SQLException("SQLException:unknown data type : ",
 							"unknown data type : " + param);
 					logger.error(e);
+					e.printStackTrace();
 					throw e;
 				}
 			}

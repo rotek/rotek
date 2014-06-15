@@ -82,9 +82,9 @@ if (toolbar.get("button_add")) {
 		var saveHandler = function() {
 			//检查表单是否填写好
 			if (formPanel.getForm().isValid()) {
-				CTA.common.Mask.showMask({
-					target : 'addWindow'
-				});
+//				CTA.common.Mask.showMask({
+//					target : 'addWindow'
+//				});
 				formPanel.commit({
 					url : ROTEK.Project.params.url.addUrl
 				});
