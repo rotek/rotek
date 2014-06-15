@@ -99,6 +99,7 @@ public class CustomerController {
 	* @param request
 	* @param response
 	* @param KHLB
+	* @param R_CUSTOMER_ID
 	* @param MC
 	* @param TXDZ
 	* @param LXFS
@@ -114,29 +115,38 @@ public class CustomerController {
 	*/
 	@RequestMapping("addCustomer")
 	public String addCustomer(HttpServletRequest request,HttpServletResponse response,
-			@RequestParam(value = "KHLB", defaultValue = "0") int KHLB,
-			@RequestParam(value = "MC", defaultValue = "") String MC,
-			@RequestParam(value = "TXDZ", defaultValue = "") String TXDZ,
-			@RequestParam(value = "LXFS", defaultValue = "1") String LXFS,
-			@RequestParam(value = "LXR", defaultValue = "") String LXR,
-			@RequestParam(value = "LXDH", defaultValue = "") String LXDH,
-			@RequestParam(value = "DLQY", defaultValue = "") String DLQY,
-			@RequestParam(value = "SSJB", defaultValue = "0") int SSJB,
-			@RequestParam(value = "JWDDZ", defaultValue = "") String JWDDZ,
-			@RequestParam(value="STATUS", defaultValue="1") Integer STATUS,
+			@RequestParam(value = "khlb", defaultValue = "0") Integer KHLB,
+			@RequestParam(value = "r_customer_id", defaultValue = "0") Integer R_CUSTOMER_ID,
+			@RequestParam(value = "mc", defaultValue = "") String MC,
+			@RequestParam(value = "txdz", defaultValue = "") String TXDZ,
+			@RequestParam(value = "lxfs", defaultValue = "") String LXFS,
+			@RequestParam(value = "lxr", defaultValue = "") String LXR,
+			@RequestParam(value = "lxdh", defaultValue = "") String LXDH,
+			@RequestParam(value = "dlqy", defaultValue = "") String DLQY,
+			@RequestParam(value = "ssjb", defaultValue = "0") Integer SSJB,
+			@RequestParam(value = "jwddz", defaultValue = "") String JWDDZ,
+			@RequestParam(value="status", defaultValue="1") Integer STATUS,
 			ModelMap model ) throws Exception {
 
 		CustomerEntity customer = new CustomerEntity();
-		//customer.setKHLB(KHLB); // 枚举如何处理
-		customer.setMC(MC);
-		customer.setTXDZ(TXDZ);
-		customer.setLXFS(LXFS);
-		customer.setLXR(LXR);
-		customer.setLXDH(LXDH);
-		customer.setDLQY(DLQY);
-		//customer.setSSJB(SSJB);
-		customer.setJWDDZ(JWDDZ);
-		customer.setJWDDZ(JWDDZ);
+		customer.setKhlb(KHLB);
+		if (KHLB == 1)
+		{
+			customer.setR_customer_id(0);
+		}
+		else
+		{
+			customer.setR_customer_id(R_CUSTOMER_ID);
+		}
+		customer.setMc(MC);
+		customer.setTxdz(TXDZ);
+		customer.setLxfs(LXFS);
+		customer.setLxr(LXR);
+		customer.setLxdh(LXDH);
+		customer.setDlqy(DLQY);
+		customer.setSsjb(SSJB);
+		customer.setJwddz(JWDDZ);
+		customer.setStatus(STATUS);
 
 		List<String> messages = customerService.addCustomer(customer);
 		JSONObject json = new JSONObject();
@@ -182,16 +192,16 @@ public class CustomerController {
 		
 		CustomerEntity customer = new CustomerEntity();
 		customer.setId(ID);
-		//customer.setKHLB(KHLB); // 枚举如何处理
-		customer.setMC(MC);
-		customer.setTXDZ(TXDZ);
-		customer.setLXFS(LXFS);
-		customer.setLXR(LXR);
-		customer.setLXDH(LXDH);
-		customer.setDLQY(DLQY);
-		//customer.setSSJB(SSJB);
-		customer.setJWDDZ(JWDDZ);
-		customer.setJWDDZ(JWDDZ);
+		customer.setKhlb(KHLB);
+		customer.setMc(MC);
+		customer.setTxdz(TXDZ);
+		customer.setLxfs(LXFS);
+		customer.setLxr(LXR);
+		customer.setLxdh(LXDH);
+		customer.setDlqy(DLQY);
+		customer.setSsjb(SSJB);
+		customer.setJwddz(JWDDZ);
+		customer.setStatus(STATUS);
 		List<String> messages = customerService.modifyCustomer(customer);
 		model.put("success", null == messages ? true : false);
 		model.put("messages", messages);
@@ -200,7 +210,7 @@ public class CustomerController {
 
 
 	/**
-	* @MethodName: addCustomer 
+	* @MethodName: deleteCustomer 
 	* @Description: 删除一个或多个客户信息
 	* @param ids
 	* @param model
@@ -209,7 +219,7 @@ public class CustomerController {
 	* @author Liusw
 	*/
 	@RequestMapping("deleteCustomer")
-	public String addCustomer(
+	public String deleteCustomer(
 			@RequestParam(value="ids", defaultValue="") String ids,
 			ModelMap model) throws SQLException{
 

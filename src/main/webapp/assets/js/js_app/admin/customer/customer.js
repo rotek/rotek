@@ -5,10 +5,10 @@ ROTEK.CUSTOMER.params = {
 	gridParam : {
 			url :   basePath + "/admin/customer/listCustomers",
 		    dataList:[{
-		          index:'ID',
+		          index:'id',
 		          header:'客户ID'
 		      },{
-		    	  index:'KHLB',
+		    	  index:'khlb',
 		          header:'客户类别',
 			      renderer:function(value){
 			    	  if(1==value){
@@ -18,34 +18,34 @@ ROTEK.CUSTOMER.params = {
 				      }
 				  }
 		      },{
-		          index:'R_CUSTOMER_ID',
+		          index:'r_customer_id',
 		          header:'所属上级'
 		      },{
-		          index:'MC',
+		          index:'mc',
 		          header:'客户名称'
 		      },{
-		          index:'TXDZ',
+		          index:'txdz',
 		          header:'通信地址'
 		      },{
-		          index:'LXFS',
+		          index:'lxfs',
 		          header:'联系方式'
 		      },{
-		          index:'LXR',
+		          index:'lxr',
 		          header:'联系人'
 		      },{
-		          index:'LXDH',
+		          index:'lxdh',
 		          header:'联系电话'
 		      },{
-		          index:'DLQY',
+		          index:'dlqy',
 		          header:'代理区域'
 		      },{
-		          index:'SSJB',
+		          index:'ssjb',
 		          header:'所属级别'
 		      },{
-		          index:'JWDDZ',
+		          index:'jwddz',
 		          header:'经纬度地址'
 		      },{
-		        index:'STATUS',
+		        index:'status',
 		        header:'角色状态',
 		        renderer:function(value){
 		          if(1==value){
@@ -93,7 +93,7 @@ if (toolbar.get("button_add")) {
 	        xtype : 'combo',
 	        fieldLabel : '客户类别',
 	        emptyText : '请选择客户类别',
-	        name : 'KHLB',
+	        name : 'khlb',
 	        triggerAction : 'all',
 	        store : new Ext.data.SimpleStore({
 	          fields : ['label', 'value'],
@@ -101,50 +101,50 @@ if (toolbar.get("button_add")) {
 	        }),
 	        displayField : 'label',
 	        valueField : 'value',
-	        hiddenName : 'KHLB',
+	        hiddenName : 'khlb',
 	        mode : 'local',
 	        editable : false
 	      },{
 	        fieldLabel : '客户名称',
 	        emptyText : '请输入客户名称',
-	        name : 'MC',
+	        name : 'mc',
 	        minLength : 1,
 	        maxLength: 100
 	      },{
 	        fieldLabel : '通信地址',
 	        emptyText : '请输入通信地址',
-	        name : 'TXDZ',
+	        name : 'txdz',
 	        minLength : 1,
 	        maxLength: 200
 	      },{
 	        fieldLabel : '联系方式',
 	        emptyText : '请输入联系方式',
-	        name : 'LXFS',
+	        name : 'lxfs',
 	        minLength : 1,
 	        maxLength: 50
 	      },{
 	        fieldLabel : '联系人',
 	        emptyText : '请输入联系人',
-	        name : 'LXR',
+	        name : 'lxr',
 	        minLength : 1,
 	        maxLength: 50
 	     },{
 	        fieldLabel : '联系电话',
 	        emptyText : '请输入联系电话',
-	        name : 'LXDH',
+	        name : 'lxdh',
 	        minLength : 1,
 	        maxLength: 50
 	     },{
 	        fieldLabel : '代理区域',
 	        emptyText : '请输入代理区域',
-	        name : 'DLQY',
+	        name : 'dlqy',
 	        minLength : 1,
 	        maxLength: 50
 	     },{
 	    	 xtype : 'combo',
 	         fieldLabel : '所属级别',
 	         emptyText : '请选择所属级别',
-	         name : 'SSJB',
+	         name : 'ssjb',
 	         triggerAction : 'all',
 	         store : new Ext.data.SimpleStore({
 	           fields : ['label', 'value'],
@@ -152,20 +152,20 @@ if (toolbar.get("button_add")) {
 	         }),
 	         displayField : 'label',
 	         valueField : 'value',
-	         hiddenName : '所属级别',
+	         hiddenName : 'ssjb',
 	         mode : 'local',
 	         editable : false
 	     },{
 	         fieldLabel : '经纬度地址',
 	         emptyText : '请输入经纬度地址',
-	         name : 'JWDDZ',
+	         name : 'jwddz',
 	         minLength : 1,
 	         maxLength: 50    	 
 	     },{
 	        xtype : 'combo',
 	        fieldLabel : '角色状态',
 	        emptyText : '请选择角色状态',
-	        name : 'STATUS',
+	        name : 'status',
 	        triggerAction : 'all',
 	        store : new Ext.data.SimpleStore({
 	          fields : ['label', 'value'],
@@ -173,7 +173,7 @@ if (toolbar.get("button_add")) {
 	        }),
 	        displayField : 'label',
 	        valueField : 'value',
-	        hiddenName : 'STATUS',
+	        hiddenName : 'status',
 	        mode : 'local',
 	        editable : false
 	      }]
@@ -202,46 +202,46 @@ if(toolbar.get("button_modify")){
 	        items : [{
 	          xtype : 'hidden',
 	          fieldLabel : '客户ID',
-	          name : 'ID',
+	          name : 'id',
 	          readOnly:true
 	        },{
 	          xtype : 'hidden',
 	          fieldLabel : '客户类别',
-	          name : 'KHLB',
+	          name : 'khlb',
 	          readOnly:true
 	        },{
 	          fieldLabel : '客户名称',
 	          emptyText : '请输入客户名称',
-	          name : 'MC',
+	          name : 'mc',
 	          allowBlank : false       	
 	        },{
 	          fieldLabel : '通信地址',
 	          emptyText : '请输入通信地址',
-	          name : 'TXDZ',
+	          name : 'txdz',
 	          allowBlank : false
 	        },{
 	          fieldLabel : '联系方式',
 	          emptyText : '请输入联系方式',
-	          name : 'LXFS',
+	          name : 'lxfs',
 	          allowBlank : false
 	        },{
 	          fieldLabel : '联系人',
 	          emptyText : '请输入联系人姓名',
-	          name : 'LXR',
+	          name : 'lxr',
 	          allowBlank : false
 	        },{
 	          fieldLabel : '联系电话',
 	          emptyText : '请输入联系电话',
-	          name : 'LXDH',
+	          name : 'lxdh',
 	          allowBlank : false
 	        },{
 	          fieldLabel : '代理区域',
 	          emptyText : '请输入代理区域',
-	          name : 'DLQY',
+	          name : 'dlqy',
 	          allowBlank : false
 	        },{
 	          xtype : 'combo',
-	          name : 'SSJB',
+	          name : 'ssjb',
 	          triggerAction : 'all',
 	          fieldLabel : '所属级别',
 	          emptyText : '请选择所属级别',
@@ -251,7 +251,7 @@ if(toolbar.get("button_modify")){
 	          }),
 	          displayField : 'label',
 	          valueField : 'value',
-	          hiddenName : 'SSJB',
+	          hiddenName : 'ssjb',
 	          editable : false,
 	          mode : 'local',
 	          renderer : function(value){
@@ -259,11 +259,11 @@ if(toolbar.get("button_modify")){
 	        },{
 	          fieldLabel : '经纬度地址',
 	          emptyText : '请输入经纬度地址',
-	          name : 'JWDDZ',
+	          name : 'jwddz',
 	          allowBlank : false
 	        },{
 	          xtype : 'combo',
-	          name : 'STATUS',
+	          name : 'status',
 	          triggerAction : 'all',
 	          fieldLabel : '角色状态',
 	          emptyText : '请选择角色状态',
@@ -273,7 +273,7 @@ if(toolbar.get("button_modify")){
 	          }),
 	          displayField : 'label',
 	          valueField : 'value',
-	          hiddenName : 'STATUS',
+	          hiddenName : 'status',
 	          editable : false,
 	          mode : 'local',
 	          renderer : function(value){
@@ -318,7 +318,7 @@ if(toolbar.get("button_query")){
 			items : [ {
 				fieldLabel : '客户名称',
 				emptyText : '请输入客户名称',
-				name : 'KHMC',
+				name : 'mc',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 100
@@ -326,7 +326,7 @@ if(toolbar.get("button_query")){
 				xtype : 'combo',
 				fieldLabel : '客户类别',
 				emptyText : '请选择客户类别',
-				name : 'KHLB',
+				name : 'khlb',
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
@@ -335,7 +335,7 @@ if(toolbar.get("button_query")){
 			}, {
 				fieldLabel : '联系人',
 				emptyText : '请输入联系人',
-				name : 'LXR',
+				name : 'lxr',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
@@ -343,7 +343,7 @@ if(toolbar.get("button_query")){
 				xtype : 'combo',
 				fieldLabel : '客户状态',
 				emptyText : '请选择客户状态',
-				name : 'STATUS',
+				name : 'status',
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
@@ -351,7 +351,7 @@ if(toolbar.get("button_query")){
 				}),
 				displayField : 'label',
 				valueField : 'value',
-				hiddenName : 'STATUS',
+				hiddenName : 'status',
 				mode : 'local',
 				allowBlank : true,
 				editable : false

@@ -50,12 +50,12 @@ public class CustomerService {
 			sql.append(" and id = ?");
 			params.add(customer.getId());
 		}
-		if(StringUtils.isNotEmpty(customer.getMC())){
-			sql.append(" and name like '%"+customer.getMC().trim()+"%'");
+		if(StringUtils.isNotEmpty(customer.getMc())){
+			sql.append(" and name like '%"+customer.getMc().trim()+"%'");
 		}
-		if(null != customer.getSTATUS()){
+		if(null != customer.getStatus()){
 			sql.append(" and status = ?");
-			params.add(customer.getSTATUS());
+			params.add(customer.getStatus());
 		}
 
 		sql.append(" order by status,id desc");
