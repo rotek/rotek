@@ -118,10 +118,8 @@ public class ProjectController {
 			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,
 			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,
 			@RequestParam(value = "gclb", defaultValue = "1") Integer gclb,
-			@RequestParam(value = "gcjj", defaultValue = "") String gcjj,
+			@RequestParam(value = "gcjs", defaultValue = "") String gcjs,
 			@RequestParam(value = "jscsjj", defaultValue = "") String jscsjj,
-//			@RequestParam(value = "gczp", defaultValue = "") String gczp,
-//			@RequestParam(value = "jscsfj", defaultValue = "") String jscsfj,
 			@RequestParam(value = "gclj", defaultValue = "") String gclj,
 			@RequestParam(value = "azsj", defaultValue = "") Date azsj,
 			@RequestParam(value = "tysj", defaultValue = "") Date tysj,ModelMap model ) throws Exception {
@@ -134,9 +132,7 @@ public class ProjectController {
 		project.setGcxh(gcxh);
 		project.setJscsjj(jscsjj);
 		project.setGclb(gclb);
-		project.setGcjs(gcjj);
-//		project.setGczp(gczp);
-//		project.setJscsfj(jscsfj);
+		project.setGcjs(gcjs);
 		project.setGclj(gclj);
 		project.setAzsj(azsj);
 		project.setTysj(tysj);
@@ -187,7 +183,7 @@ public class ProjectController {
 			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,
 			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,
 			@RequestParam(value = "gclb", defaultValue = "1") int gclb,
-			@RequestParam(value = "gcjj", defaultValue = "") String gcjj,
+			@RequestParam(value = "gcjs", defaultValue = "") String gcjs,
 			@RequestParam(value = "gczp", defaultValue = "") String gczp,
 			@RequestParam(value = "jscsjj", defaultValue = "") String jscsjj,
 			@RequestParam(value = "jscsfj", defaultValue = "") String jscsfj,
@@ -206,7 +202,7 @@ public class ProjectController {
 		project.setGcxh(gcxh);
 		project.setJscsjj(jscsjj);
 		project.setGclb(gclb);
-		project.setGcjs(gcjj);
+		project.setGcjs(gcjs);
 		project.setGczp(gczp);
 		project.setJscsfj(jscsfj);
 		project.setGclj(gclj);
