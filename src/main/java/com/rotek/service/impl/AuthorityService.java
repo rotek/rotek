@@ -10,7 +10,6 @@ package com.rotek.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -23,7 +22,6 @@ import com.rotek.dao.impl.AuthorityDao;
 import com.rotek.dao.impl.ButtonDao;
 import com.rotek.entity.ButtonEntity;
 import com.rotek.entity.MenuEntity;
-import com.rotek.entity.UserEntity;
 
 /**
  * @ClassName: AuthorityService

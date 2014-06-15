@@ -1,18 +1,17 @@
 /**
-* @FileName: ManagerService.java
-* @Package com.rotek.service.impl
-* @Description: TODO
-* @author chenwenpeng
-* @date 2013-6-22 下午05:28:36
-* @version V1.0
-*/
+ * @FileName: ManagerService.java
+ * @Package com.rotek.service.impl
+ * @Description: TODO
+ * @author chenwenpeng
+ * @date 2013-6-22 下午05:28:36
+ * @version V1.0
+ */
 package com.rotek.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ import com.rotek.entity.ManagerEntity;
  * @Description: 后台管理者
  * @author chenwenpeng
  * @date 2013-6-22 下午05:28:36
- *
+ * 
  */
 @Service
 public class ManagerService {
@@ -40,40 +39,41 @@ public class ManagerService {
 
 	/**
 	 * @throws SQLException
-	* @Title: listManagers
-	* @Description:
-	* @param @param manager
-	* @param @param pager
-	* @param @return
-	* @return List<ManagerEntity>
-	* @throws
-	*/
-	public List<Map<String,Object>> listManagers(ManagerEntity manager, ListPager pager) throws SQLException {
+	 * @Title: listManagers
+	 * @Description:
+	 * @param @param manager
+	 * @param @param pager
+	 * @param @return
+	 * @return List<ManagerEntity>
+	 * @throws
+	 */
+	public List<ManagerDto> listManagers(ManagerEntity manager, ListPager pager)
+			throws SQLException {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select id, name, real_name, phone,status from mf_manager where 1 =1");
+		sql.append("select rm.id,rm.r_role_id,rm.r_customer_id,rm.name,rm.password,rm.email,rm.telephone,rm.realname,rm.companyname,rm.status,rr.name rolename from r_manager rm,r_role rr where rm.r_role_id = rr.id ");
 		List<Object> params = new LinkedList<Object>();
-		if(null != manager.getId()){
-			sql.append(" and id = ?");
+		if (null != manager.getId()) {
+			sql.append(" and rm.id = ?");
 			params.add(manager.getId());
 		}
-		if(StringUtils.isNotEmpty(manager.getName())){
-			sql.append(" and name like '%"+manager.getName()+"%'");
+		if (StringUtils.isNotEmpty(manager.getName())) {
+			sql.append(" and rm.name like '%" + manager.getName() + "%'");
 		}
 
-		if(StringUtils.isNotEmpty(manager.getReal_name())){
-			sql.append(" and real_name like '%"+manager.getReal_name()+"%'");
+		if (StringUtils.isNotEmpty(manager.getRealname())) {
+			sql.append(" and rm.realname like '%" + manager.getRealname() + "%'");
 		}
 
-		if(StringUtils.isNotEmpty(manager.getPhone())){
-			sql.append(" and phone like '%"+manager.getPhone()+"%'");
+		if (StringUtils.isNotEmpty(manager.getTelephone())) {
+			sql.append(" and rm.telephone like '%" + manager.getTelephone() + "%'");
 		}
-		if(null != manager.getStatus()){
-			sql.append(" and status = ?");
+		if (null != manager.getStatus()) {
+			sql.append(" and rm.status = ?");
 			params.add(manager.getStatus());
 		}
 
-		sql.append(" order by status,id desc");
-		return managerDao.listManagers(sql.toString(),params.toArray(),pager);
+		sql.append(" order by rm.status,rm.id desc");
+		return managerDao.listManagers(sql.toString(), params.toArray(), pager);
 	}
 
 	/**
@@ -83,39 +83,37 @@ public class ManagerService {
 	 * @throws NoSuchMethodException
 	 * @throws InvocationTargetException
 	 * @throws IllegalAccessException
-	* @Title: addManager
-	* @Description: 添加管理员信息
-	* @param @param manager
-	* @param @return
-	* @return List<String>
-	* @throws
-	*/
-	public List<String> addManager(ManagerEntity manager, Integer role_id, Integer dep_id) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SQLException {
+	 * @Title: addManager
+	 * @Description: 添加管理员信息
+	 * @param @param manager
+	 * @param @return
+	 * @return List<String>
+	 * @throws
+	 */
+	public List<String> addManager(ManagerEntity manager)
+			throws IllegalAccessException, InvocationTargetException,
+			NoSuchMethodException, SQLException {
 		List<String> messages = ValidateUtil.validate(manager);
-		if(messages.size()>0 || null == role_id || null == dep_id){
+		if (messages.size() > 0) {
 			return messages;
 		}
-		//添加用户
-		Integer id = managerDao.addManager(manager);
-		//添加用户的角色的关联
-		managerDao.addManager_role(id,role_id);
-		//保存用户和部门的关联
-		managerDao.addManager_dep(id,dep_id);
+		// 添加用户
+		managerDao.addManager(manager);
 		return null;
 	}
 
 	/**
 	 * @throws SQLException
-	* @Title: getManagerDetail
-	* @Description:
-	* @param @param id
-	* @param @return
-	* @return ManagerEntity
-	* @throws
-	*/
+	 * @Title: getManagerDetail
+	 * @Description:
+	 * @param @param id
+	 * @param @return
+	 * @return ManagerEntity
+	 * @throws
+	 */
 	public ManagerDto getManagerDetail(Integer id) throws SQLException {
 
-		if(null == id){
+		if (null == id) {
 			return null;
 		}
 		return managerDao.getManagerDetail(id);
@@ -126,47 +124,51 @@ public class ManagerService {
 	 * @throws NoSuchMethodException
 	 * @throws InvocationTargetException
 	 * @throws IllegalAccessException
-	* @Title: modifyManager
-	* @Description: 修改
-	* @param @param manager
-	* @param @return
-	* @return List<String>
-	* @throws
-	*/
-	public List<String> modifyManager(ManagerEntity manager, Integer role_id, Integer dep_id) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SQLException {
+	 * @Title: modifyManager
+	 * @Description: 修改
+	 * @param @param manager
+	 * @param @return
+	 * @return List<String>
+	 * @throws
+	 */
+	public List<String> modifyManager(ManagerEntity manager, Integer role_id,
+			Integer dep_id) throws IllegalAccessException,
+			InvocationTargetException, NoSuchMethodException, SQLException {
 		List<String> messages = ValidateUtil.validate(manager);
-		if(messages.size()>0 || null == manager.getId() || null == role_id || null == dep_id){
+		if (messages.size() > 0 || null == manager.getId() || null == role_id
+				|| null == dep_id) {
 			return messages;
 		}
 		managerDao.modifyManager(manager);
-		//清除用户对应的角色信息
+		// 清除用户对应的角色信息
 		managerDao.clearManager_role(manager.getId());
-		managerDao.addManager_role(manager.getId(),role_id);
-		//清除用户对应的部门信息
+		managerDao.addManager_role(manager.getId(), role_id);
+		// 清除用户对应的部门信息
 		managerDao.clearManagerDepartment(manager.getId());
-		managerDao.addManager_dep(manager.getId(),dep_id);
+		managerDao.addManager_dep(manager.getId(), dep_id);
 
 		return null;
 	}
 
 	/**
 	 * @throws SQLException
-	* @Title: managerService
-	* @Description: 删除
-	* @param @param ids
-	* @param @return
-	* @return List<String>
-	* @throws
-	*/
+	 * @Title: managerService
+	 * @Description: 删除
+	 * @param @param ids
+	 * @param @return
+	 * @return List<String>
+	 * @throws
+	 */
 	public List<String> deleteManager(String ids) throws SQLException {
 		List<String> messages = null;
-		if(StringUtils.isBlank(ids)){
+		if (StringUtils.isBlank(ids)) {
 			messages = new LinkedList<String>();
 			messages.add("请选择您要操作的数据!");
 		}
 		StringBuilder sql = new StringBuilder();
-		sql.append("update mf_manager set status = ").append(DataStatus.DISABLED);
-		sql.append(" where id in ("+ids.trim()+")");
+		sql.append("update mf_manager set status = ").append(
+				DataStatus.DISABLED);
+		sql.append(" where id in (" + ids.trim() + ")");
 		managerDao.deleteManager(sql.toString());
 		return messages;
 	}

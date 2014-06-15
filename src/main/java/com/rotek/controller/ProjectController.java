@@ -68,7 +68,7 @@ public class ProjectController {
 	* @throws Exception
 	* @author WangJuZhu
 	*/
-	@RequestMapping("projectList")
+	@RequestMapping("listProjects")
 	public String projectList(
 			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "limit", defaultValue = "10") Integer limit,
@@ -76,12 +76,12 @@ public class ProjectController {
 			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,  // 工程名称
 			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,  // 工程编号
 			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,  // 工程型号
-			@RequestParam(value = "gclb", defaultValue = "1") int gclb,  // 工程类别
+			@RequestParam(value = "gclb", defaultValue = "") Integer gclb,  // 工程类别
 			@RequestParam(value = "start_azsj", defaultValue = "") Date start_azsj,  // 安装时间
 			@RequestParam(value = "end_azsj", defaultValue = "") Date end_azsj,
 			@RequestParam(value = "start_tysj", defaultValue = "") Date start_tysj, // 投运时间
 			@RequestParam(value = "end_tysj", defaultValue = "") Date end_tysj,
-			@RequestParam(value = "status", defaultValue = "") int status,  // 状态
+			@RequestParam(value = "status", defaultValue = "") Integer status,  // 状态
 			HttpServletRequest request, UserDto user, ModelMap modelMap)throws Exception {
 		
 		ListPager pager = new ListPager();
@@ -94,7 +94,7 @@ public class ProjectController {
 		project.setGcmc(gcmc);
 		project.setGcbh(gcbh);
 		project.setGcxh(gcxh);
-		project.setGcfl(gclb);
+		project.setGclb(gclb);
 		project.setStatus(status);
 
 		List<ProjectEntity> projects = projectService.listProeject(user, project,start_azsj,end_azsj,start_tysj,end_tysj, pager);
@@ -117,11 +117,11 @@ public class ProjectController {
 			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
 			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,
 			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,
-			@RequestParam(value = "gclb", defaultValue = "1") int gclb,
+			@RequestParam(value = "gclb", defaultValue = "1") Integer gclb,
 			@RequestParam(value = "gcjj", defaultValue = "") String gcjj,
-			@RequestParam(value = "gczp", defaultValue = "") String gczp,
 			@RequestParam(value = "jscsjj", defaultValue = "") String jscsjj,
-			@RequestParam(value = "jscsfj", defaultValue = "") String jscsfj,
+//			@RequestParam(value = "gczp", defaultValue = "") String gczp,
+//			@RequestParam(value = "jscsfj", defaultValue = "") String jscsfj,
 			@RequestParam(value = "gclj", defaultValue = "") String gclj,
 			@RequestParam(value = "azsj", defaultValue = "") Date azsj,
 			@RequestParam(value = "tysj", defaultValue = "") Date tysj,ModelMap model ) throws Exception {
@@ -133,10 +133,10 @@ public class ProjectController {
 		project.setGcbh(gcbh);
 		project.setGcxh(gcxh);
 		project.setJscsjj(jscsjj);
-		project.setGcfl(gclb);
+		project.setGclb(gclb);
 		project.setGcjs(gcjj);
-		project.setGczp(gczp);
-		project.setJscsfj(jscsfj);
+//		project.setGczp(gczp);
+//		project.setJscsfj(jscsfj);
 		project.setGclj(gclj);
 		project.setAzsj(azsj);
 		project.setTysj(tysj);
@@ -205,7 +205,7 @@ public class ProjectController {
 		project.setGcbh(gcbh);
 		project.setGcxh(gcxh);
 		project.setJscsjj(jscsjj);
-		project.setGcfl(gclb);
+		project.setGclb(gclb);
 		project.setGcjs(gcjj);
 		project.setGczp(gczp);
 		project.setJscsfj(jscsfj);

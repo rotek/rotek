@@ -10,7 +10,6 @@ package com.rotek.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -40,10 +39,9 @@ public class ManagerDao extends BaseDaoImpl {
 	* @return void
 	* @throws
 	*/
-	public List<Map<String,Object>> listManagers(String sql, Object[] parameters, ListPager pager) throws SQLException {
+	public List<ManagerDto> listManagers(String sql, Object[] parameters, ListPager pager) throws SQLException {
 		
-		return this.executeQueryPage(sql, parameters, pager);
-//		return this.selectPage(sql, parameters, ManagerEntity.class,pager);
+		return this.selectPage(sql, parameters, ManagerDto.class,pager);
 	}
 
 	/**

@@ -67,9 +67,9 @@ public class ProjectService {
 			params.add(project.getId());
 		}
 		
-		if(null != project.getGcfl()){
+		if(null != project.getGclb()){
 			sql.append(" and GCFL = ?");
-			params.add(project.getGcfl());
+			params.add(project.getGclb());
 		}
 
 		if(null != project.getStatus()){

@@ -10,8 +10,7 @@ package com.rotek.dto;
 
 import java.io.Serializable;
 
-import com.cta.platform.persistence.annotation.Column;
-import com.rotek.entity.UserEntity;
+import com.rotek.entity.ManagerEntity;
 
 /**
  * @ClassName: UserDto
@@ -20,7 +19,7 @@ import com.rotek.entity.UserEntity;
  * @date 2013-6-1 下午12:56:26
  *
  */
-public class UserDto extends UserEntity implements Serializable{
+public class UserDto extends ManagerEntity implements Serializable{
 	
 	
 	

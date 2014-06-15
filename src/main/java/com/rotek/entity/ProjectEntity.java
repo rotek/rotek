@@ -36,7 +36,7 @@ public class ProjectEntity implements Serializable {
 	private Integer locale_project_id ;   	// 现场的工程ID
 	
 	@Column(name = "LOCALE_GCBH")
-	private Integer locale_gcbh ;   	// 现场工程编号
+	private String locale_gcbh ;   	// 现场工程编号
 	
 	@Column(name = "R_CUSTOMER_ID")
 	private Integer r_customer_id ;   	// 客户ID
@@ -50,8 +50,8 @@ public class ProjectEntity implements Serializable {
 	@Column(name = "GCXH")
 	private String gcxh ;    	// 工程型号
 
-	@Column(name = "GCFL")
-	private Integer gcfl ;  	// 工程类别（1、普通工程；2、EMC工程）
+	@Column(name = "GCLB")
+	private Integer gclb ;  	// 工程类别（1、普通工程；2、EMC工程）
 
 	@Column(name = "GCJS")
 	private String gcjs ;   	// 工程介绍
@@ -107,12 +107,12 @@ public class ProjectEntity implements Serializable {
 	}
 
 	/** @return locale_gcbh */
-	public Integer getLocale_gcbh() {
+	public String getLocale_gcbh() {
 		return locale_gcbh;
 	}
 
 	/** @param locale_gcbh locale_gcbh to set */
-	public void setLocale_gcbh(Integer locale_gcbh) {
+	public void setLocale_gcbh(String locale_gcbh) {
 		this.locale_gcbh = locale_gcbh;
 	}
 
@@ -156,14 +156,14 @@ public class ProjectEntity implements Serializable {
 		this.gcxh = gcxh;
 	}
 
-	/** @return gcfl */
-	public Integer getGcfl() {
-		return gcfl;
+	/** @return gclb */
+	public Integer getGclb() {
+		return gclb;
 	}
 
-	/** @param gcfl gcfl to set */
-	public void setGcfl(Integer gcfl) {
-		this.gcfl = gcfl;
+	/** @param gclb gclb to set */
+	public void setGclb(Integer gclb) {
+		this.gclb = gclb;
 	}
 
 	/** @return gcjs */

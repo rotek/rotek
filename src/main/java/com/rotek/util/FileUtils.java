@@ -43,11 +43,10 @@ public class FileUtils {
 		if(!pic_folder.exists()){
 			pic_folder.mkdir();
 		}
-		String pic_type = pic.getOriginalFilename().substring(pic.getOriginalFilename().lastIndexOf("."),pic.getOriginalFilename().length());
-		String pic_name = SysUtils.getRandom(8)+pic_type;
-		File pic_file = new File(pic_folder+"/"+pic_name);
+		String fileileName = SysUtils.getRandom(4) + pic.getOriginalFilename();
+		File pic_file = new File(pic_folder+"/" + fileileName);
 		pic.transferTo(pic_file);
-		return pic_name;
+		return fileileName;
 	}
 
 	/**
