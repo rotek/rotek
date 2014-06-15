@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.cta.platform.persistence.dao.BaseDaoImpl;
 import com.cta.platform.util.ListPager;
-import com.rotek.dto.GiftDto;
-import com.rotek.entity.GiftEntity;
 import com.rotek.entity.ProjectEntity;
 
 /**
@@ -22,6 +20,20 @@ import com.rotek.entity.ProjectEntity;
 public class ProjectDao extends BaseDaoImpl{
 
 	/**
+	* @MethodName: listProject 
+	* @Description: 根据条件分页查询工程信息
+	* @param sql
+	* @param params
+	* @param pager
+	* @return List<ProjectEntity>
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public List<ProjectEntity> listProject(String sql,Object[] params, ListPager pager) throws SQLException {
+		return this.selectPage(sql, params, ProjectEntity.class, pager);
+	}
+	
+	/**
 	* @MethodName: addProject 
 	* @Description: 添加工程信息
 	* @param project
@@ -32,98 +44,41 @@ public class ProjectDao extends BaseDaoImpl{
 		this.insert(project);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
-	 * @throws SQLException
-	* @Title: listUserGifts
-	* @Description:
-	* @param string
-	* @param params
-	* @param pager
-	* @return
-	* @return List<RegistUserEntity>
-	* @throws
-	*/
-	public List<GiftDto> listUserGifts(String sql,Object[] params, ListPager pager) throws SQLException {
-
-		return this.selectPage(sql, params, GiftDto.class, pager);
-	}
-
-	/**
-	 * @throws SQLException
-	* @Title: deleteUserGift
-	* @Description:
-	* @param string
-	* @return void
-	* @throws
-	*/
-	public void modifyUserGiftStatus(String sql) throws SQLException {
-
-		this.executeUpdate(sql);
-	}
-
-	/**
-	 * @throws SQLException
-	* @Title: getUserGiftDetail
-	* @Description:
-	* @param string
-	* @return
-	* @return GiftDto
-	* @throws
-	*/
-	public GiftDto getUserGiftDetail(String sql) throws SQLException {
-
-		return this.selectOne(sql, GiftDto.class);
-	}
-
-	
-
-	/**
-	 * @throws SQLException
-	* @Title: getGiftDetail
-	* @Description:
+	* @MethodName: getProjectById 
+	* @Description: 根据ID查询工程详情
 	* @param id
 	* @return
-	* @return GiftEntity
-	* @throws
+	* @throws SQLException
+	* @author WangJuZhu
 	*/
-	public GiftEntity getGiftDetail(Integer id) throws SQLException {
-
-		String sql = "select id, name, pic, descr, points, status from mf_gift where id = ?";
-		return this.selectOne(sql,new Integer[]{id},GiftEntity.class);
+	public ProjectEntity getProjectById(Integer id) throws SQLException {
+		String sql = "select * from r_project where id = ?";
+		return this.selectOne(sql,new Integer[]{id},ProjectEntity.class);
+	}
+	
+	/**
+	* @MethodName: modifyProject 
+	* @Description: 修改工程信息
+	* @param project
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public void modifyProject(ProjectEntity project) throws SQLException {
+		this.update(project);
 	}
 
 	/**
-	 * @throws SQLException
-	* @Title: modfiyGift
-	* @Description:
-	* @param gift
-	* @return void
-	* @throws
+	* @MethodName: deleteProject 
+	* @Description: 删除工程信息
+	* @param sql
+	* @throws SQLException
+	* @author WangJuZhu
 	*/
-	public void modifyGift(GiftEntity gift) throws SQLException {
-
-		this.update(gift);
-	}
-
-	/**
-	 * @throws SQLException
-	* @Title: deleteGift
-	* @Description:
-	* @param string
-	* @return void
-	* @throws
-	*/
-	public void deleteGift(String sql) throws SQLException {
-
+	public void deleteProject(String sql) throws SQLException {
 		this.executeUpdate(sql);
 	}
+	
+	
+	
 }
