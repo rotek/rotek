@@ -106,9 +106,9 @@ if (toolbar.get("button_add")) {
 	        		console.log(item);
 	        		console.log(index);
 	        		if(index == 1){
-	        			Ext.getCmp('combo_isshow').show();
+	        			Ext.getCmp('combo_isshow').setDisabled(true);
 	        		}else {
-	        			Ext.getCmp('combo_isshow').hide();
+	        			Ext.getCmp('combo_isshow').setDisabled(false);
 	        		}
 	        	}
 	        },
@@ -204,6 +204,7 @@ if (toolbar.get("button_add")) {
 		        valueField : 'value',
 		        hiddenName : 'jibie',
 		        mode : 'local',
+		        disabled : true,
 		        editable : false
 		      }]
 	  });

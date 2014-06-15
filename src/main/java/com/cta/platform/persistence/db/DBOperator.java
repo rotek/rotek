@@ -127,7 +127,8 @@ public class DBOperator {
 			}
 
 		} catch (SQLException e) {
-			logger.error("SQLException",e.fillInStackTrace());
+			logger.error("SQLException",e);
+			e.printStackTrace();
 			throw new SQLException(e);
 		}finally{
 			DBHelper.close(ps,rs);
@@ -249,7 +250,8 @@ public class DBOperator {
 				records.add(record);
 			}
 		}catch (Exception e) {
-			logger.error("SQLException",e);
+			logger.error("Exception",e);
+			e.printStackTrace();
 			throw new SQLException(e);
 		}finally{
 			DBHelper.close(ps, rs);
@@ -394,6 +396,7 @@ public class DBOperator {
 			}
 		}catch (Exception e) {
 			logger.error("Exception",e);
+			e.printStackTrace();
 			throw new SQLException(e);
 		}finally{
 			DBHelper.close(ps, rs);
@@ -429,6 +432,7 @@ public class DBOperator {
 			ps.executeUpdate();
 		}catch (Exception e) {
 			logger.error("Exception",e);
+			e.printStackTrace();
 			throw new SQLException(e);
 		}finally{
 			DBHelper.close(ps, rs);
@@ -465,7 +469,8 @@ public class DBOperator {
 				return rs.getInt(1);
 			}
 		}catch (Exception e) {
-			logger.error("Exception",e);
+			logger.error("SQLException",e);
+			e.printStackTrace();
 			throw new SQLException(e);
 		}finally{
 			DBHelper.close(ps, rs);
@@ -505,6 +510,7 @@ public class DBOperator {
 
 		}catch (Exception e) {
 			logger.error("Exception", e);
+			e.printStackTrace();
 			throw new SQLException(e);
 		}finally{
 			DBHelper.close(ps, null);
@@ -541,6 +547,7 @@ public class DBOperator {
 
 		}catch (Exception e) {
 			logger.error("Exception", e);
+			e.printStackTrace();
 			throw new SQLException(e);
 		}finally{
 			DBHelper.close(ps, null);
@@ -579,6 +586,7 @@ public class DBOperator {
 
 		}catch (SQLException e) {
 			logger.error("SQLException", e);
+			e.printStackTrace();
 			throw new SQLException(e);
 		}finally{
 			DBHelper.close(ps, null);
@@ -603,7 +611,8 @@ public class DBOperator {
 		    DBHelper.setPreparedParameters(ps, parameters);
 		    ps.executeUpdate();
 		}catch (Exception e) {
-			logger.error("SQLException", e);
+			logger.error("Exception", e);
+			e.printStackTrace();
 			throw new SQLException(e);
 		} finally {
 		    DBHelper.close(ps,null);

@@ -44,10 +44,6 @@ public class DBHelper {
 	 * 打印sql
 	 */
 	private static final int PRINT_SQL_TRUE = 1;
-	/**
-	 * 不打印sql
-	 */
-	private static final int PRINT_SQL_FALSE = 2;
 
 	public static Logger logger = Logger.getLogger(DBHelper.class);
 
