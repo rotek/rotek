@@ -25,7 +25,7 @@ import com.rotek.entity.CustomerEntity;
 public class CustomerDao extends BaseDaoImpl{
 	
 	/**
-	* @MethodName: listRoles 
+	* @MethodName: listCustomers 
 	* @Description:
 	* @param sql
 	* @param params
@@ -60,7 +60,7 @@ public class CustomerDao extends BaseDaoImpl{
 	* @author Liusw
 	*/
 	public CustomerEntity getCustomerDetail_all(Integer id) throws SQLException {
-		String sql = "select id, KHLB, MC, TXDZ, LXFS， LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where id = ?";
+		String sql = "select ID, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where id = ?";
 
 		return this.selectOne(sql, new Object[] { id }, CustomerEntity.class);
 	}
@@ -74,7 +74,7 @@ public class CustomerDao extends BaseDaoImpl{
 	* @author Liusw
 	*/
 	public CustomerEntity getCustomerDetail(Integer id) throws SQLException {
-		String sql = "select distinct id, MC, DXTZ, LXR, STATUS from r_customer where id = ?";
+		String sql = "select distinct ID, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where id = ?";
 
 		return this.selectOne(sql, new Object[] { id }, CustomerEntity.class);
 	}

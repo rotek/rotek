@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cta.platform.util.ListPager;
 import com.rotek.constant.Status;
+import com.rotek.dto.ManagerDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.CustomerEntity;
 import com.rotek.service.impl.CustomerService;
@@ -87,7 +88,7 @@ public class CustomerController {
 		pager.setRowsPerPage(limit);
 		pager.setPageNo(pageNo);
 
-		List<CustomerEntity> customerList = customerService.listRoles(customer, pager);
+		List<CustomerEntity> customerList = customerService.listCustomers(customer, pager);
 		modelMap.put("dataList", customerList);
 		modelMap.put("totalCount", pager.getTotalRows());
 
@@ -174,16 +175,16 @@ public class CustomerController {
 	*/
 	@RequestMapping("modifyCustomer")
 	public String modifyCustomer(
-			@RequestParam(value="ID",defaultValue="0") Integer ID,
-			@RequestParam(value = "KHLB", defaultValue = "0") int KHLB,
-			@RequestParam(value = "MC", defaultValue = "") String MC,
-			@RequestParam(value = "TXDZ", defaultValue = "") String TXDZ,
-			@RequestParam(value = "LXFS", defaultValue = "1") String LXFS,
-			@RequestParam(value = "LXR", defaultValue = "") String LXR,
-			@RequestParam(value = "LXDH", defaultValue = "") String LXDH,
-			@RequestParam(value = "DLQY", defaultValue = "") String DLQY,
-			@RequestParam(value = "JWDDZ", defaultValue = "") String JWDDZ,
-			@RequestParam(value="STATUS", defaultValue="1") Integer STATUS,
+			@RequestParam(value = "id", defaultValue = "0") Integer ID,
+			@RequestParam(value = "khlb", defaultValue = "0") Integer KHLB,
+			@RequestParam(value = "mc", defaultValue = "") String MC,
+			@RequestParam(value = "txdz", defaultValue = "") String TXDZ,
+			@RequestParam(value = "lxfs", defaultValue = "") String LXFS,
+			@RequestParam(value = "lxr", defaultValue = "") String LXR,
+			@RequestParam(value = "lxdh", defaultValue = "") String LXDH,
+			@RequestParam(value = "dlqy", defaultValue = "") String DLQY,
+			@RequestParam(value = "jwddz", defaultValue = "") String JWDDZ,
+			@RequestParam(value="status", defaultValue="1") Integer STATUS,
 			ModelMap model) throws Exception{
 		
 		CustomerEntity customer = new CustomerEntity();
@@ -194,7 +195,8 @@ public class CustomerController {
 		customer.setLxfs(LXFS);
 		customer.setLxr(LXR);
 		customer.setLxdh(LXDH);
-		customer.setDlqy(DLQY);
+		if (KHLB == 3)
+			customer.setDlqy("");
 		customer.setJwddz(JWDDZ);
 		customer.setStatus(STATUS);
 		List<String> messages = customerService.modifyCustomer(customer);
@@ -239,6 +241,25 @@ public class CustomerController {
 		
 		List<Map<String,Object>> roleList = customerService.listAgents(khlb);
 		modelMap.put("dataList", roleList);
+		return "jsonView";
+	}
+	
+	/**
+	* @Title: getCustomerDetail
+	* @Description: 根据id 获取客户信息详情
+	* @param @param modelMap
+	* @param @param id
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	*/
+	@RequestMapping("getCustomerDetail")
+	public String getCustomerDetail(ModelMap modelMap,
+			@RequestParam(value="id", defaultValue = "") Integer id) throws Exception{
+
+		CustomerEntity customerEntity = customerService.getCustomerDetail(id);
+		modelMap.put("data", customerEntity);
 		return "jsonView";
 	}
 }

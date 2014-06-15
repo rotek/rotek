@@ -36,7 +36,7 @@ public class CustomerService {
 	private CustomerDao customerDao;
 	
 	/**
-	* @MethodName: listRoles 
+	* @MethodName: listCustomers 
 	* @Description: 列出所有客户信息
 	* @param customer
 	* @param pager
@@ -44,10 +44,10 @@ public class CustomerService {
 	* @throws SQLException
 	* @author Liusw
 	*/
-	public List<CustomerEntity> listRoles(CustomerEntity customer, ListPager pager) throws SQLException{
+	public List<CustomerEntity> listCustomers(CustomerEntity customer, ListPager pager) throws SQLException{
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append("select ID, R_CUSTOMER_ID, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where 1 = 1");
+		sql.append("select ID, R_CUSTOMER_ID, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where STATUS = 1");
 		List<Object> params = new ArrayList<Object>();
 		if(null != customer.getId()){
 			sql.append(" and id = ?");

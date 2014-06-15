@@ -237,14 +237,14 @@ if(toolbar.get("button_modify")){
 	    Ext.Msg.alert('提示', '请选择您要操作的数据，如果选择多条，只修改第一条!');
 	    return;
 	  }
-	  var roleId = selections[0].get("ID");
+	  var ID = selections[0].get("id");
 	  Ext.Ajax.request({
 	    url : ROTEK.CUSTOMER.params.url.detailUrl,
 	    params : {id : ID},
 	    success : function(response) {
 	      var data = Ext.util.JSON.decode(response.responseText).data;
 	
-	      var role_info_formPanel = new CTA.common.SFormPanel({
+	      var customer_info_formPanel = new CTA.common.SFormPanel({
 	        items : [{
 	          xtype : 'hidden',
 	          fieldLabel : '客户ID',
@@ -254,7 +254,19 @@ if(toolbar.get("button_modify")){
 	          xtype : 'hidden',
 	          fieldLabel : '客户类别',
 	          name : 'khlb',
-	          readOnly:true
+	          readOnly:true,
+	          renderer:function(value){
+		    	  if(1==value){
+		    		  Ext.getCmp('agentarea').setVisible(false);
+		    		  return "<span style='color:green;'>一级代理商</span>";
+			      }else if(2==value){
+			    	  Ext.getCmp('agentarea').setVisible(false);
+		    		  return "<span style='color:green;'>二级代理商</span>";
+			      }else{
+			    	  Ext.getCmp('agentarea').setVisible(true);
+			    	  return "<span style='color:red'>客户</span>";
+			      }
+			  }
 	        },{
 	          fieldLabel : '客户名称',
 	          emptyText : '请输入客户名称',
@@ -281,6 +293,7 @@ if(toolbar.get("button_modify")){
 	          name : 'lxdh',
 	          allowBlank : false
 	        },{
+	          id : 'agentarea',
 	          fieldLabel : '代理区域',
 	          emptyText : '请输入代理区域',
 	          name : 'dlqy',
@@ -289,7 +302,7 @@ if(toolbar.get("button_modify")){
 	          fieldLabel : '经纬度地址',
 	          emptyText : '请输入经纬度地址',
 	          name : 'jwddz',
-	          allowBlank : false
+	          allowBlank : true
 	        },{
 	          xtype : 'combo',
 	          name : 'status',
@@ -313,18 +326,18 @@ if(toolbar.get("button_modify")){
 	
 	      var updateWindow = new CTA.common.UpdateWindow({
 	    	  id : 'updateWindow',
-			  width : '80%',
+			  width : '40%',
 			  height : 500,
 			  layout : 'border',
-			  items : [ formPanel ],
+			  items : [ customer_info_formPanel ],
 				handler : function() {
 					//检查表单是否填写好
-					if (formPanel.getForm().isValid()) {
+					if (customer_info_formPanel.getForm().isValid()) {
 						CTA.common.Mask.showMask({
 							target : 'updateWindow'
 						});
-						formPanel.commit({
-							url : ROTEK.Project.params.url.modifyUrl
+						customer_info_formPanel.commit({
+							url : ROTEK.CUSTOMER.params.url.modifyUrl
 						});
 					}
 				}
@@ -359,8 +372,14 @@ if(toolbar.get("button_query")){
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [ [ "代理商", "1" ], [ "客户", "2" ] ]
-				})
+					data : [ [ "一级代理商", "1" ], [ "二级代理商", "2" ], [ "客户", "3" ] ]
+				}),
+				displayField : 'label',
+				valueField : 'value',
+				hiddenName : 'khlb',
+				allowBlank : true,
+				editable : false,
+				mode : 'local'
 			}, {
 				fieldLabel : '联系人',
 				emptyText : '请输入联系人',
@@ -391,7 +410,7 @@ if(toolbar.get("button_query")){
 		var queryHandler = function(){
 			var params = formPanel.getForm().getFieldValues() ;
 			CTA.common.Constant.queryParams = {};
-			Ext.apply(CTA.common.Constant.queryParams,params);
+			Ext.apply(CTA.common.Constant.queryParams, params);
 			gridPanel.getStore().reload();
 		};
 		// 查询窗口
@@ -419,7 +438,7 @@ if(toolbar.get("button_drop")){
 		}
 		var ids = [];
 		Ext.each(selections,function(item){
-			ids.push(item.get("ID"));
+			ids.push(item.get("id"));
 		});
 	
 		Ext.Msg.confirm("警告","您确定删除这  "+ids.length+" 条数据吗？",function(button){
