@@ -71,8 +71,12 @@ CTA.common.SFormPanel = Ext.extend(Ext.FormPanel,{
 		//赋值
 		if(config.data){
 			Ext.each(config.items,function(item){
-				if(item.name && undefined != config.data[item.name]){
-					item.value = config.data[item.name];
+				if(item.name && undefined != config.data[item.name] && !item.value){
+					if(item.xtype == "datefield"){
+						item.value = Ext.util.Format.date(new Date(config.data[item.name]), 'Y-m-d');
+					}else {
+						item.value = config.data[item.name];
+					}
 				}
 			});
 		}
