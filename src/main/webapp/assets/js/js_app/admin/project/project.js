@@ -28,7 +28,7 @@ ROTEK.Project.params = {
 			header : '安装时间',
 			width : 50,
 			renderer : function(value){
-				return new Date(parseFloat(value)).format("Y-m-d H:i:s");
+				return new Date(parseFloat(value)).format("Y-m-d");
 			},
 			align : 'center'
 		}, {
@@ -36,7 +36,7 @@ ROTEK.Project.params = {
 			header : '投运时间',
 			width : 50,
 			renderer : function(value){
-				return new Date(parseFloat(value)).format("Y-m-d H:i:s");
+				return new Date(parseFloat(value)).format("Y-m-d");
 			},
 			align : 'center'
 		}, {
@@ -142,26 +142,26 @@ if (toolbar.get("button_add")) {
 				name : 'gcjj',
 				height : 70,
 				width : 230
-			}/*, {
+			}, {
 				fieldLabel : '工程图片',
 				name : 'gczp',
 				text : "点击上传工程图片",
 				inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
 				blankText : '请上传工程图片'
-			}*/, {
+			}, {
 				xtype : 'textarea',
 				fieldLabel : '技术参数简介',
 				emptyText : '请输入技术参数简介',
 				name : 'jscsjj',
 				height : 70,
 				width : 230
-			}, /*{
+			}, {
 				fieldLabel : '技术参数附件',
 				name : 'jscsfj',
 				text : "点击上传技术参数附件",
 				inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
 				blankText : '请上传技术参数附件'
-			}, */{
+			}, {
 				fieldLabel : '工程零件',
 				emptyText : '请输入工程零件',
 				name : 'gclj',
@@ -252,26 +252,26 @@ if(toolbar.get("button_modify")){
 						name : 'gcjj',
 						height : 70,
 						width : 230
-					}/*, {
+					}, {
 						fieldLabel : '工程图片',
 						name : 'gczp',
 						text : "点击上传工程图片",
 						inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
 						blankText : '请上传工程图片'
-					}*/, {
+					}, {
 						xtype : 'textarea',
 						fieldLabel : '技术参数简介',
 						emptyText : '请输入技术参数简介',
 						name : 'jscsjj',
 						height : 70,
 						width : 230
-					}, /*{
+					}, {
 						fieldLabel : '技术参数附件',
 						name : 'jscsfj',
 						text : "点击上传技术参数附件",
 						inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
 						blankText : '请上传技术参数附件'
-					}, */{
+					}, {
 						fieldLabel : '工程零件',
 						emptyText : '请输入工程零件',
 						name : 'gclj',
