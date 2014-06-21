@@ -135,8 +135,17 @@ public class CustomerDao extends BaseDaoImpl{
 	 */
 	public List<Map<String, Object>> listAgentsByType(Integer khlb) throws SQLException {
 		
-		String sql = "select id, mc from r_customer where status = ? and khlb= ?";
-		return this.executeQuery(sql, new Integer[]{CustomerEntity.STATUS_ENABLED,khlb});
+		if (khlb == 1) {
+			String sql = "select id, mc from r_customer where status = ? and khlb= ?";
+			return this.executeQuery(sql, new Integer[]{CustomerEntity.STATUS_ENABLED,khlb});		
+		}
+		else if (khlb == 2) {
+			String sql = "select id, mc from r_customer where (status = ?) and ((khlb= 1) or (khlb=?)) ";
+			return this.executeQuery(sql, new Integer[]{CustomerEntity.STATUS_ENABLED,khlb});					
+		}
+		else {
+			return null;
+		}
 	}
 
 }

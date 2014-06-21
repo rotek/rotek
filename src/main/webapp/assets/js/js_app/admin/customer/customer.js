@@ -29,6 +29,9 @@ ROTEK.CUSTOMER.params = {
 				  	  if(0==value){
 				   		  return "";
 					  }
+				  	  else {
+				  		  
+				  	  }
 					}
 		      },{
 		          index:'txdz',
@@ -105,13 +108,13 @@ if (toolbar.get("button_add")) {
 	        triggerAction : 'all',
 	        store : new Ext.data.SimpleStore({
 	          fields : ['label', 'value'],
-	          data : [["一级代理商", "1"],["二级代理商", "2"],["三级代理商", "2"]]
+	          data : [["一级代理商", "1"],["二级代理商", "2"],["客户", "3"]]
 	        }),
 	        listeners : {
 	        	'change': function(combo,item,index){
 	        		
-	        		//Ext.getCmp('combo_test').getStore().loadData([["11",2],["22",2],["33",2]]);
-	        		
+	        		console.log(item);
+	        		console.log(index);
         			Ext.Ajax.request({
 	        		    url : ROTEK.CUSTOMER.params.url.listAgentsUrl,
 	        		    success : function(response) {
@@ -133,19 +136,22 @@ if (toolbar.get("button_add")) {
 	        			    	  customerCache.secondAgentList.push(arr);
         			    	  });
 	        			      
-	        			      if(item == 1){
-	        			    	  Ext.getCmp('agents_isshow').setDisabled(false);// 所属代理商
-	      	        			//Ext.getCmp('ssjb_isedit').setDisabled(false); // 所属级别
-	      	        			Ext.getCmp('agentarea').setDisabled(false);   // 代理区域
-	      	        			
-	        			    	  Ext.getCmp('agents_isshow').getStore().loadData(customerCache.firstAgentList);
-	        			      }else {
-	        			    	  Ext.getCmp('agents_isshow').setDisabled(false);
-//	      	        			Ext.getCmp('ssjb_isedit').setDisabled(true);
-	      	        			Ext.getCmp('agentarea').setDisabled(false);
-	      	        			
-	        			    	  Ext.getCmp('agents_isshow').getStore().loadData(customerCache.secondAgentList);
+	        			      if(item == 2){
+	        			    	  Ext.getCmp('agentlist').setDisabled(false);// 所属代理商
+          	        			  Ext.getCmp('agentarea').setDisabled(false);   // 代理区域	      	        			
+	        			    	  Ext.getCmp('agentlist').getStore().loadData(customerCache.firstAgentList);
+	        			      }else if (item == 3) {
+	        			    	  Ext.getCmp('agentlist').setDisabled(false);
+	      	        			  Ext.getCmp('agentarea').setDisabled(true);	      	        			
+	        			    	  Ext.getCmp('agentlist').getStore().loadData(customerCache.secondAgentList);
 	        			      }
+	        			      else {
+	        			    	  Ext.getCmp('agentlist').setDisabled(true);
+	      	        			  Ext.getCmp('agentarea').setDisabled(false);
+	      	        			  return false;
+	        			      }
+
+	        			      return true;
 	        		    }
 	        	    });
 	        	}
@@ -218,7 +224,7 @@ if (toolbar.get("button_add")) {
 		    }),
 		    mode : 'local',
 		    editable : false,
-		    disabled : false
+		    disabled : true
 		},{
 		        xtype : 'combo',
 		        fieldLabel : '角色状态',
