@@ -253,7 +253,7 @@ if(toolbar.get("button_modify")){
 	    params : {id : ID},
 	    success : function(response) {
 	      var data = Ext.util.JSON.decode(response.responseText).data;
-	
+	      console.log(data);
 	      var customer_info_formPanel = new CTA.common.SFormPanel({
 	        items : [{
 	          xtype : 'hidden',
@@ -266,14 +266,15 @@ if(toolbar.get("button_modify")){
 	          name : 'khlb',
 	          readOnly:true,
 	          renderer:function(value){
+	        	  console.log(value);
 		    	  if(1==value){
-		    		  Ext.getCmp('agentarea').setVisible(false);
+		    		  Ext.getCmp('agentarea').setVisible(true);
 		    		  return "<span style='color:green;'>一级代理商</span>";
 			      }else if(2==value){
-			    	  Ext.getCmp('agentarea').setVisible(false);
+			    	  Ext.getCmp('agentarea').setVisible(true);
 		    		  return "<span style='color:green;'>二级代理商</span>";
 			      }else{
-			    	  Ext.getCmp('agentarea').setVisible(true);
+			    	  Ext.getCmp('agentarea').setVisible(false);
 			    	  return "<span style='color:red'>客户</span>";
 			      }
 			  }
