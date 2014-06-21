@@ -23,6 +23,7 @@ import com.cta.platform.util.ListPager;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.CustomerEntity;
 import com.rotek.service.impl.CustomerService;
+import com.rotek.dto.CustomerDto;
 
 
 /**
@@ -77,7 +78,7 @@ public class CustomerController {
 		pager.setRowsPerPage(limit);
 		pager.setPageNo(pageNo);
 
-		List<CustomerEntity> customerList = customerService.listCustomers(customer, pager);
+		List<CustomerDto> customerList = customerService.listCustomers(customer, pager);
 		modelMap.put("dataList", customerList);
 		modelMap.put("totalCount", pager.getTotalRows());
 

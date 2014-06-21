@@ -12,6 +12,7 @@ import com.cta.platform.persistence.dao.BaseDaoImpl;
 import com.cta.platform.util.ListPager;
 import com.rotek.entity.ButtonEntity;
 import com.rotek.entity.CustomerEntity;
+import com.rotek.dto.CustomerDto;
 
 
 /**
@@ -34,10 +35,10 @@ public class CustomerDao extends BaseDaoImpl{
 	* @throws SQLException
 	* @author Liusw
 	*/
-	public List<CustomerEntity> listCustomers(String sql, Object[] params,
+	public List<CustomerDto> listCustomers(String sql, Object[] params,
 			ListPager pager) throws SQLException {
 
-		return this.selectPage(sql, params, CustomerEntity.class, pager);
+		return this.selectPage(sql, params, CustomerDto.class, pager);
 	}
 	
 	/**

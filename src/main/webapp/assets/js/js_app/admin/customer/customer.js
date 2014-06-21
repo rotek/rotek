@@ -23,16 +23,8 @@ ROTEK.CUSTOMER.params = {
 				      }
 				  }
 		      },{
-		          index:'r_customer_id',
-		          header:'所属上级',
-		          renderer:function(value){
-				  	  if(0==value){
-				   		  return "";
-					  }
-				  	  else {
-				  		  
-				  	  }
-					}
+		    	  index:'super_mc',
+		          header:'所属上级'
 		      },{
 		          index:'txdz',
 		          header:'通信地址'

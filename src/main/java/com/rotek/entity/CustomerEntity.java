@@ -47,6 +47,9 @@ public class CustomerEntity extends BaseEntity {
 	@Column(name = "MC")
 	private String mc ;    			   // 客户名称
 
+	@Column(name = "SUPER_MC")
+	private String super_mc ;          // 客户名称
+
 	@Column(name = "TXDZ")
 	private String txdz ;    		   // 通信地址
 

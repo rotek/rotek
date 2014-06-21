@@ -21,6 +21,7 @@ import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.CustomerDao;
 import com.rotek.entity.CustomerEntity;
 import com.rotek.util.FileUtils;
+import com.rotek.dto.CustomerDto;
 
 
 /**
@@ -44,25 +45,29 @@ public class CustomerService {
 	* @throws SQLException
 	* @author Liusw
 	*/
-	public List<CustomerEntity> listCustomers(CustomerEntity customer, ListPager pager) throws SQLException{
+	public List<CustomerDto> listCustomers(CustomerEntity customer, ListPager pager) throws SQLException{
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append("select ID, R_CUSTOMER_ID, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where STATUS = 1");
+		//sql.append("select ID, R_CUSTOMER_ID, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where STATUS = 1");
+		sql.append("SELECT R.ID, R.R_CUSTOMER_ID, R.KHLB, R.MC,RC.MC AS SUPER_MC, R.TXDZ, R.LXFS, R.LXR, R.LXDH, R.DLQY, R.JWDDZ, R.STATUS FROM R_CUSTOMER R ");
+		sql.append(" LEFT JOIN R_CUSTOMER RC ON RC.ID = R.R_CUSTOMER_ID");
+		sql.append("  WHERE R.STATUS = 1 ");
+
 		List<Object> params = new ArrayList<Object>();
 		if(null != customer.getId()){
-			sql.append(" and id = ?");
+			sql.append(" and r.id = ?");
 			params.add(customer.getId());
 		}
 		if(StringUtils.isNotEmpty(customer.getMc())){
-			sql.append(" and name like '%"+customer.getMc().trim()+"%'");
+			sql.append(" and r.mc like '%"+customer.getMc().trim()+"%'");
 		}
 		if(null != customer.getStatus()){
-			sql.append(" and status = ?");
+			sql.append(" and r.status = ?");
 			params.add(customer.getStatus());
 		}
 
-		sql.append(" order by status,id asc");
-		List<CustomerEntity> customers = customerDao.listCustomers(sql.toString(),params.toArray(),pager);
+		sql.append(" order by r.status,r.id asc");
+		List<CustomerDto> customers = customerDao.listCustomers(sql.toString(),params.toArray(),pager);
 		return customers;
 	}
 	
