@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.cta.platform.util.ListPager;
 import com.rotek.dto.UserDto;
@@ -107,20 +108,19 @@ public class CustomerDocController {
 			@RequestParam(value = "khzlmc", defaultValue = "") String KHZLMC,
 			@RequestParam(value = "khzllb", defaultValue = "0") Integer KHZLLB,
 			@RequestParam(value = "r_customer_id", defaultValue = "0") Integer R_CUSTOMER_ID,
-			@RequestParam(value = "khzlfj", defaultValue = "") String KHZLFJ,
 			@RequestParam(value = "dlszjyxq", defaultValue = "") Date DLSZJYXQ,  
 			@RequestParam(value="status", defaultValue="1") Integer STATUS,
 			ModelMap model ) throws Exception {
-
+		
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		CustomerDocEntity customerdoc = new CustomerDocEntity();
 		customerdoc.setKhzlmc(KHZLMC);
 		customerdoc.setKhzllb(KHZLLB);
 		customerdoc.setR_customer_id(R_CUSTOMER_ID);
-		customerdoc.setKhzlfj(KHZLFJ);
 		customerdoc.setDlszjyxq(DLSZJYXQ);
 		customerdoc.setStatus(STATUS);
 
-		List<String> messages = customerdocService.addCustomerDoc(customerdoc);
+		List<String> messages = customerdocService.addCustomerDoc(customerdoc, multipartRequest);
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
 		json.put("messages", messages);

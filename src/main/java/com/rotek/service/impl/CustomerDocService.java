@@ -10,13 +10,17 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.cta.platform.config.SystemGlobals;
 import com.cta.platform.util.ListPager;
 import com.cta.platform.util.ValidateUtil;
 import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.CustomerDocDao;
 import com.rotek.dto.CustomerDocDto;
 import com.rotek.entity.CustomerDocEntity;
+import com.rotek.util.FileUtils;
 
 /**
 * @ClassName:CustomerDocService
@@ -80,11 +84,22 @@ public class CustomerDocService {
 	* @throws NoSuchMethodException
 	* @author liusw
 	*/
-	public List<String> addCustomerDoc(CustomerDocEntity customerdocEntity) throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+	public List<String> addCustomerDoc(CustomerDocEntity customerdocEntity, MultipartHttpServletRequest multipartRequest) throws Exception{
 //		List<String> messages = ValidateUtil.validate(customerdocEntity);
 //		if(messages.size()>0){
 //			return messages;
 //		}
+		
+		MultipartFile KHZLFJ = multipartRequest.getFile("khzlfj");   // 客户资料附件
+		
+		//保存附件
+		if(null != KHZLFJ && StringUtils.isNotBlank(KHZLFJ.getOriginalFilename())){
+			String file_location = SystemGlobals.getPreference("project.jscsfj.path");
+			String file_name = FileUtils.savePic(KHZLFJ, file_location, 1024000000);
+			if(null != file_name){
+				customerdocEntity.setKhzlfj(file_name);
+			}
+		}		
 		customerDocDao.addCustomerDoc(customerdocEntity);
 		return null;
 	}
