@@ -40,11 +40,13 @@ ROTEK.CUSTOMERDOC.params = {
 		          width : 50,
 		  		  align : 'center'
 		      },{
-		    	  xtype : 'datefield',
 		          index:'dlszjyxq',
 		          header:'资料有效期',
 		          width : 50,
-		  		  align : 'center'
+		  		  align : 'center',
+		  		  renderer : function(value){
+					 return new Date(parseFloat(value)).format("Y-m-d");
+				  }
 		      },{
 		        index:'status',
 		        header:'资料状态',

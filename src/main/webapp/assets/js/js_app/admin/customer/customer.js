@@ -254,6 +254,7 @@ if(toolbar.get("button_modify")){
 	    success : function(response) {
 	      var data = Ext.util.JSON.decode(response.responseText).data;
 	      console.log(data);
+	      console.log(data.khlb);
 	      var customer_info_formPanel = new CTA.common.SFormPanel({
 	        items : [{
 	          xtype : 'hidden',
@@ -264,20 +265,8 @@ if(toolbar.get("button_modify")){
 	          xtype : 'hidden',
 	          fieldLabel : '客户类别',
 	          name : 'khlb',
-	          readOnly:true,
-	          renderer:function(value){
-	        	  console.log(value);
-		    	  if(1==value){
-		    		  Ext.getCmp('agentarea').setVisible(true);
-		    		  return "<span style='color:green;'>一级代理商</span>";
-			      }else if(2==value){
-			    	  Ext.getCmp('agentarea').setVisible(true);
-		    		  return "<span style='color:green;'>二级代理商</span>";
-			      }else{
-			    	  Ext.getCmp('agentarea').setVisible(false);
-			    	  return "<span style='color:red'>客户</span>";
-			      }
-			  }
+	          editable : false, 
+	          readOnly:true
 	        },{
 	          fieldLabel : '客户名称',
 	          emptyText : '请输入客户名称',
@@ -308,7 +297,9 @@ if(toolbar.get("button_modify")){
 	          fieldLabel : '代理区域',
 	          emptyText : '请输入代理区域',
 	          name : 'dlqy',
-	          allowBlank : false
+	          //editable : data.khlb == 3 ? false : true,// 下拉框用
+	          readOnly : data.khlb == 3 ? true : false,
+	          allowBlank : true
 	        },{
 	          fieldLabel : '经纬度地址',
 	          emptyText : '请输入经纬度地址',

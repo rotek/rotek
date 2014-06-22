@@ -83,10 +83,10 @@ public class CustomerService {
 	* @author Liusw
 	*/
 	public List<String> addCustomer(CustomerEntity customerEntity) throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
-		List<String> messages = ValidateUtil.validate(customerEntity);
-		if(messages.size()>0){
-			return messages;
-		}
+//		List<String> messages = ValidateUtil.validate(customerEntity);
+//		if(messages.size()>0){
+//			return messages;
+//		}
 		customerDao.addCustomer(customerEntity);
 		return null;
 	}

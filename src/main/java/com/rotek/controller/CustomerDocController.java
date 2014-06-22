@@ -141,7 +141,7 @@ public class CustomerDocController {
 		
 		List<Map<String,Object>> customerList = customerdocService.listCustomers();
 		
-		modelMap.put("customerList", customerList);
+		modelMap.put("dataList", customerList);
 		return "jsonView";
 	}
 	

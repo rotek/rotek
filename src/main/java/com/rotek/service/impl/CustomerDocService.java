@@ -81,10 +81,10 @@ public class CustomerDocService {
 	* @author liusw
 	*/
 	public List<String> addCustomerDoc(CustomerDocEntity customerdocEntity) throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
-		List<String> messages = ValidateUtil.validate(customerdocEntity);
-		if(messages.size()>0){
-			return messages;
-		}
+//		List<String> messages = ValidateUtil.validate(customerdocEntity);
+//		if(messages.size()>0){
+//			return messages;
+//		}
 		customerDocDao.addCustomerDoc(customerdocEntity);
 		return null;
 	}
