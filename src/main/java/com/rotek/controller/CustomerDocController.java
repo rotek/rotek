@@ -4,6 +4,7 @@
  */
 package com.rotek.controller;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -143,6 +144,82 @@ public class CustomerDocController {
 		modelMap.put("customerList", customerList);
 		return "jsonView";
 	}
+	
+	/**
+	* @MethodName: getCustomerDocDetail 
+	* @Description:
+	* @param modelMap
+	* @param id
+	* @return
+	* @throws Exception
+	* @author liusw
+	*/
+	@RequestMapping("getCustomerDocDetail")
+	public String getCustomerDocDetail(ModelMap modelMap,
+			@RequestParam(value="id", defaultValue = "") Integer id) throws Exception{
 
+		CustomerDocDto customerdocdto = customerdocService.getCustomerDocDetail(id);
+		modelMap.put("data", customerdocdto);
+		return "jsonView";
+	}
+	
+	/**
+	* @MethodName: deleteCustomerDoc 
+	* @Description:
+	* @param ids
+	* @param model
+	* @return
+	* @throws SQLException
+	* @author liusw
+	*/
+	@RequestMapping("deleteCustomerDoc")
+	public String deleteCustomerDoc(
+			@RequestParam(value="ids", defaultValue="") String ids,
+			ModelMap model) throws SQLException{
 
+		List<String> messages = customerdocService.deleteCustomerDoc(ids);
+		model.put("success", null == messages ? true : false);
+		model.put("messages", messages);
+		return "jsonView";
+	}
+	
+	/**
+	* @MethodName: modifyCustomerDoc 
+	* @Description:
+	* @param ID
+	* @param KHZLMC
+	* @param KHZLLB
+	* @param R_CUSTOMER_ID
+	* @param KHZLFJ
+	* @param DLSZJYXQ
+	* @param STATUS
+	* @param model
+	* @return
+	* @throws Exception
+	* @author liusw
+	*/
+	@RequestMapping("modifyCustomerDoc")
+	public String modifyCustomerDoc(
+			@RequestParam(value = "id", defaultValue = "0") Integer ID,
+			@RequestParam(value = "khzlmc", defaultValue = "") String KHZLMC,
+			@RequestParam(value = "khzllb", defaultValue = "0") Integer KHZLLB,
+			@RequestParam(value = "r_customer_id", defaultValue = "0") Integer R_CUSTOMER_ID,
+			@RequestParam(value = "khzlfj", defaultValue = "") String KHZLFJ,
+			@RequestParam(value = "dlszjyxq", defaultValue = "") Date DLSZJYXQ,  
+			@RequestParam(value="status", defaultValue="1") Integer STATUS,
+			ModelMap model) throws Exception{
+		
+		CustomerDocEntity customerdoc = new CustomerDocEntity();
+		customerdoc.setId(ID);
+		customerdoc.setKhzlmc(KHZLMC);
+		customerdoc.setKhzllb(KHZLLB);
+		customerdoc.setR_customer_id(R_CUSTOMER_ID);
+		customerdoc.setKhzlfj(KHZLFJ);
+		customerdoc.setDlszjyxq(DLSZJYXQ);
+		customerdoc.setStatus(STATUS);
+		List<String> messages = customerdocService.modifyCustomerDoc(customerdoc);
+		model.put("success", null == messages ? true : false);
+		model.put("messages", messages);
+		return "jsonView";
+	}
 }

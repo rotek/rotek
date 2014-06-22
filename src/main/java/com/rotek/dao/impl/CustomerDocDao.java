@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+
 import com.cta.platform.persistence.dao.BaseDaoImpl;
 import com.cta.platform.util.ListPager;
 import com.rotek.entity.CustomerDocEntity;
@@ -60,6 +61,45 @@ public class CustomerDocDao extends BaseDaoImpl {
 			String sql = "select id, mc from r_customer where status = 1";
 			return this.executeQuery(sql, null);		
 	}
+	
+	/**
+	* @MethodName: getCustomerDocDetail 
+	* @Description:
+	* @param id
+	* @return
+	* @throws SQLException
+	* @author liusw
+	*/
+	public CustomerDocDto getCustomerDocDetail(Integer id) throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT distinct R.ID, R.R_CUSTOMER_ID, R.KHZLLB, R.KHZLFJ, R.KHZLMC, R.DLSZJYXQ, R.STATUS, RC.MC AS SUPER_MC FROM R_CUSTOMERDOCINFO R ");
+		sql.append(" LEFT JOIN R_CUSTOMER RC ON RC.ID = R.R_CUSTOMER_ID");
+		sql.append("  WHERE R.STATUS = 1 ");
+		sql.append("  AND R.ID = ? ");
+		return this.selectOne(sql.toString(), new Object[] { id }, CustomerDocDto.class);
+	}
+	
+	/**
+	* @MethodName: modifyCustomerDoc 
+	* @Description:
+	* @param customerdocEntity
+	* @throws SQLException
+	* @author liusw
+	*/
+	public void modifyCustomerDoc(CustomerDocEntity customerdocEntity) throws SQLException {
+		this.update(customerdocEntity);
+	}
 
+	/**
+	* @MethodName: deleteCustomerDoc 
+	* @Description:
+	* @param sql
+	* @throws SQLException
+	* @author liusw
+	*/
+	public void deleteCustomerDoc(String sql) throws SQLException {
+
+		this.executeUpdate(sql);
+	}
 
 }
