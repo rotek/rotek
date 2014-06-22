@@ -256,13 +256,14 @@ if(toolbar.get("button_modify")){
 			  editable : false,
 			  allowBlank : false,
 			  mode : 'local'
-		    },{        	  	
+		    },{    
+		      id : 'khzlsyr',
 		      xtype : 'combo',
 		      fieldLabel : '客户资料所有人',
 		      labelAlign : 'left',
 		      labelWidth : 120,
 		      emptyText : '请选择客户资料所有人',
-		      name : 'super_mc',
+		      name : 'r_customer_id',
 		      hiddenName : 'r_customer_id',
 		      triggerAction : 'all',
 		      displayField : 'mc',
@@ -281,13 +282,20 @@ if(toolbar.get("button_modify")){
 				proxy : new Ext.data.HttpProxy({
 					url : ROTEK.CUSTOMERDOC.params.url.listCustomersUrl
 				}),
-				autoLoad : true
+				autoLoad : true,
+				listeners : {
+					load : function (){
+						Ext.getCmp('khzlsyr').setValue(data.r_customer_id);
+					}
+				}
+
 				})
 		   },{
 			 fieldLabel : '客户资料附件',
 			 labelAlign : 'left',
 			 labelWidth : 120,
-			 name : 'khzlfj'
+			 name : 'khzlfj',
+			 readonly : true
 		   },{
 			 xtype : 'datefield',
 			 fieldLabel : '客户资料有效期',
