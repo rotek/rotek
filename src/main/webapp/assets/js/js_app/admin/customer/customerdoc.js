@@ -295,7 +295,7 @@ if(toolbar.get("button_modify")){
 			 labelAlign : 'left',
 			 labelWidth : 120,
 			 name : 'khzlfj',
-			 readonly : true
+			 readOnly : true
 		   },{
 			 xtype : 'datefield',
 			 fieldLabel : '客户资料有效期',
