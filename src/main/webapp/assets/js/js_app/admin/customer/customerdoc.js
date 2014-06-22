@@ -159,7 +159,8 @@ if (toolbar.get("button_add")) {
 			text : "点击上传客户资料附件",
 			inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
 			blankText : '请上传客户资料附件',
-			allowBlank : true
+			allowBlank : true,
+			fileUpload : true
 		  },{
 			xtype : 'datefield',
 			fieldLabel : '客户资料有效期',
