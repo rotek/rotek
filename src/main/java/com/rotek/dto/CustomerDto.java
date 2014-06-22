@@ -17,7 +17,7 @@ public class CustomerDto extends CustomerEntity {
 	 */
 	private static final long serialVersionUID = 8555827003338251372L;
 	
-	//@Column(name = "SUPER_MC") 不要
+	@Column(name = "SUPER_MC")
 	private String super_mc;// 上级名称
 
 	public String getSuper_mc() {

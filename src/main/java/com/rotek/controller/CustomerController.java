@@ -42,7 +42,7 @@ public class CustomerController {
 
 
 	/**
-	* @MethodName: toProjectList 
+	* @MethodName: toCustomerList 
 	* @Description: 转到客户信息管理列表页面
 	* @return
 	* @author Liusw

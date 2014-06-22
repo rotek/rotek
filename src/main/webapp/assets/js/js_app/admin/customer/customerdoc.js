@@ -1,51 +1,54 @@
-//设置客户信息
-Ext.ns("ROTEK.CUSTOMER");
-ROTEK.CUSTOMER.params = {
+//设置客户资料信息
+Ext.ns("ROTEK.CUSTOMERDOC");
+ROTEK.CUSTOMERDOC.params = {
 	//全局gridpanel的参数
 	gridParam : {
-			url :   basePath + "/admin/customer/listCustomers",
+			url :   basePath + "/admin/customerdoc/listCustomerDocs",
 		    dataList:[{
 		          index:'id',
-		          header:'客户ID'
-		      },{
-		          index:'mc',
-		          header:'客户名称'
-		      },{
-		    	  index:'khlb',
-		          header:'客户类别',
-			      renderer:function(value){
-			    	  if(1==value){
-			    		  return "<span style='color:green;'>一级代理商</span>";
-				      }else if(2==value){
-			    		  return "<span style='color:green;'>二级代理商</span>";
-				      }else{
-				    	  return "<span style='color:black'>客户</span>";
-				      }
-				  }
+		          header:'资料ID',
+		          width : 30,
+				  align : 'center'
 		      },{
 		    	  index:'super_mc',
-		          header:'所属上级'
+		          header:'客户资料所有人',
+		          width : 50,
+		  		  align : 'center'
 		      },{
-		          index:'txdz',
-		          header:'通信地址'
+		          index:'khzlmc',
+		          header:'客户资料名称',
+     	          width : 50,
+		  		  align : 'center'
 		      },{
-		          index:'lxfs',
-		          header:'联系方式'
+		    	  index:'khzllb',
+		          header:'客户资料类别',
+			      renderer:function(value){
+			    	  if(1==value){
+			    		  return "<span style='color:black;'>文档</span>";
+				      }else if(2==value){
+			    		  return "<span style='color:black;'>演示稿</span>";
+				      }else if(3==value){
+			    		  return "<span style='color:black;'>图片</span>";
+				      }else if(4==value){
+			    		  return "<span style='color:black;'>视频</span>";
+				      }else if(5==value){
+				    	  return "<span style='color:black'>监测图</span>";
+				      }else if(6==value){
+				    	  return "<span style='color:black'>代理商证件</span>";
+				      }
+				  },
+		          width : 50,
+		  		  align : 'center'
 		      },{
-		          index:'lxr',
-		          header:'联系人'
-		      },{
-		          index:'lxdh',
-		          header:'联系电话'
-		      },{
-		          index:'dlqy',
-		          header:'代理区域'
-		      },{
-		          index:'jwddz',
-		          header:'经纬度地址'
+		          index:'dlszjyxq',
+		          header:'资料有效期',
+		          width : 50,
+		  		  align : 'center'
 		      },{
 		        index:'status',
-		        header:'角色状态',
+		        header:'资料状态',
+                width : 30,
+		        align : 'center',
 		        renderer:function(value){
 		          if(1==value){
 		            return "<span style='color:green;'>有效</span>";
@@ -56,15 +59,15 @@ ROTEK.CUSTOMER.params = {
 		      }]
 	},
 	url : {
-		addUrl : basePath + "/admin/customer/addCustomer",
-		detailUrl : basePath + "/admin/customer/getCustomerDetail",
-		modifyUrl : basePath + "/admin/customer/modifyCustomer",
-		dropUrl : basePath + "/admin/customer/deleteCustomer",
-		listAgentsUrl : basePath + "/admin/customer/listAgents"
+		addUrl : basePath + "/admin/customerdoc/addCustomerDoc",
+		detailUrl : basePath + "/admin/customerdoc/getCustomerDocDetail",
+		modifyUrl : basePath + "/admin/customerdoc/modifyCustomerDoc",
+		dropUrl : basePath + "/admin/customerdoc/deleteCustomerDoc",
+		listCustomersUrl : basePath + "/admin/customerdoc/listCustomers"
 	}
 };
 
-var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.CUSTOMER.params.gridParam);
+var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.CUSTOMERDOC.params.gridParam);
 var toolbar = new CTA.common.Toolbar();
 //添加
 if (toolbar.get("button_add")) {
@@ -76,7 +79,7 @@ if (toolbar.get("button_add")) {
 	        if(formPanel.getForm().isValid()){
 	          CTA.common.Mask.showMask({target:'addWindow'});
 	          formPanel.commit({
-	            url : ROTEK.CUSTOMER.params.url.addUrl
+	            url : ROTEK.CUSTOMERDOC.params.url.addUrl
 	          });
 	        }
 	    };
@@ -92,147 +95,97 @@ if (toolbar.get("button_add")) {
 	  //定义添加窗口中的form
 	  var formPanel = new CTA.common.SFormPanel({
 	    items : [{
-	    	id : 'khlb_combo',
-	        xtype : 'combo',
-	        fieldLabel : '客户类别',
-	        emptyText : '请选择客户类别',
-	        name : 'khlb',
-	        triggerAction : 'all',
-	        store : new Ext.data.SimpleStore({
-	          fields : ['label', 'value'],
-	          data : [["一级代理商", "1"],["二级代理商", "2"],["客户", "3"]]
-	        }),
-	        listeners : {
-	        	'change': function(combo,item,index){
-	        		
-	        		console.log(item);
-	        		console.log(index);
-        			Ext.Ajax.request({
-	        		    url : ROTEK.CUSTOMER.params.url.listAgentsUrl,
-	        		    success : function(response) {
-	        			      var firstAgentList = Ext.util.JSON.decode(response.responseText).firstAgentList;
-	        			      var secondAgentList = Ext.util.JSON.decode(response.responseText).secondAgentList;
-	        			      customerCache.firstAgentList = [];
-	        			      customerCache.secondAgentList = [];
-	        			      Ext.each(firstAgentList, function(item) {
-      			    			  var arr = new Array();
-      			    			  arr.push(item.mc + "");
-      			    			  arr.push(item.id);
-	        			    	  customerCache.firstAgentList.push(arr);
-        			    	  });
-	        			      
-	        			      Ext.each(secondAgentList, function(item) {
-      			    			  var arr = new Array();
-      			    			  arr.push(item.mc);
-      			    			  arr.push(item.id);
-	        			    	  customerCache.secondAgentList.push(arr);
-        			    	  });
-	        			      
-	        			      if(item == 2){
-	        			    	  Ext.getCmp('agentlist').setDisabled(false);// 所属代理商
-          	        			  Ext.getCmp('agentarea').setDisabled(false);   // 代理区域	      	        			
-	        			    	  Ext.getCmp('agentlist').getStore().loadData(customerCache.firstAgentList);
-	        			      }else if (item == 3) {
-	        			    	  Ext.getCmp('agentlist').setDisabled(false);
-	      	        			  Ext.getCmp('agentarea').setDisabled(true);	      	        			
-	        			    	  Ext.getCmp('agentlist').getStore().loadData(customerCache.secondAgentList);
-	        			      }
-	        			      else {
-	        			    	  Ext.getCmp('agentlist').setDisabled(true);
-	      	        			  Ext.getCmp('agentarea').setDisabled(false);
-	      	        			  return false;
-	        			      }
-
-	        			      return true;
-	        		    }
-	        	    });
-	        	}
-	        },
-	        displayField : 'label',
-	        valueField : 'value',
-	        hiddenName : 'khlb',
-	        mode : 'local',
-	        editable : false
+	        fieldLabel : '客户资料名称',
+	        labelAlign : 'left',
+	        labelWidth : 120,
+	        emptyText : '请输入客户资料名称',
+	        name : 'khzlmc',
+	        minLength : 1,
+	        maxLength: 100,
+	        allowBlank : false
 	      },{
-	        fieldLabel : '客户名称',
-	        emptyText : '请输入客户名称',
-	        name : 'mc',
-	        minLength : 1,
-	        maxLength: 100
-	      },{
-	        fieldLabel : '通信地址',
-	        emptyText : '请输入通信地址',
-	        name : 'txdz',
-	        minLength : 1,
-	        maxLength: 200
-	      },{
-	        fieldLabel : '联系方式',
-	        emptyText : '请输入联系方式',
-	        name : 'lxfs',
-	        minLength : 1,
-	        maxLength: 50
-	      },{
-	        fieldLabel : '联系人',
-	        emptyText : '请输入联系人',
-	        name : 'lxr',
-	        minLength : 1,
-	        maxLength: 50
-	     },{
-	        fieldLabel : '联系电话',
-	        emptyText : '请输入联系电话',
-	        name : 'lxdh',
-	        minLength : 1,
-	        maxLength: 50
-	     },{
-	         fieldLabel : '经纬度地址',
-	         emptyText : '请输入经纬度地址',
-	         name : 'jwddz',
-	         minLength : 1,
-	         maxLength: 50,  
-	         allowBlank : true
-	     },{
-	    	id : 'agentarea',
-	        fieldLabel : '代理区域',
-	        emptyText : '请输入代理区域',
-	        name : 'dlqy',
-	        minLength : 1,
-	        maxLength: 50,
-	        disabled : true,
-            allowBlank : true
-	     },{
-		     id : 'agentlist',
 		     xtype : 'combo',
-		     fieldLabel : '所属代理商',
-		     emptyText : '请选择所属代理商',
-		     name : 'r_customer_id',
+		     fieldLabel : '客户资料类别',
+		     labelAlign : 'left',
+             labelWidth : 120,
+		     emptyText : '请选择客户资料类别',
+		     name : 'khzllb',
 		     triggerAction : 'all',
-		     displayField : 'mc',
-			 valueField : 'id',
-			 hiddenName : 'r_customer_id',
-			 allowBlank : true,
-			 store : new Ext.data.SimpleStore({
-		            fields : ['mc', 'id'],
-		            data : []
-		    }),
-		    mode : 'local',
-		    editable : false,
-		    disabled : true
-		},{
-		        xtype : 'combo',
-		        fieldLabel : '角色状态',
-		        emptyText : '请选择角色状态',
-		        name : 'status',
-		        triggerAction : 'all',
-		        store : new Ext.data.SimpleStore({
+		     store : new Ext.data.SimpleStore({
+		       fields : ['label', 'value'],
+		       data : [["文档", "1"],["演示稿", "2"],["图片", "3"],["视频", "4"],["监测图", "5"],["代理商证件", "6"]]
+		     }),
+		     displayField : 'label',
+		     valueField : 'value',
+		     hiddenName : 'khzllb',
+		     editable : false,
+		     allowBlank : false,
+		     mode : 'local'
+	      },{        	  	
+	        xtype : 'combo',
+	        fieldLabel : '客户资料所有人',
+	        labelAlign : 'left',
+	        labelWidth : 120,
+	        emptyText : '请选择客户资料所有人',
+	        name : 'r_customer_id',
+	        hiddenName : 'r_customer_id',
+	        triggerAction : 'all',
+	        displayField : 'mc',
+	        valueField : 'id',
+	        editable : false,
+	        allowBlank : false,
+	        store : new Ext.data.Store({
+				reader : new Ext.data.JsonReader({
+					root : 'dataList',
+					fields : [ {
+						name : 'id'
+					}, {
+						name : 'mc'
+					} ]
+				}),
+				proxy : new Ext.data.HttpProxy({
+					url : ROTEK.CUSTOMERDOC.params.url.listCustomersUrl
+				}),
+				autoLoad : true
+			})
+	      	},{
+				fieldLabel : '客户资料附件',
+				labelAlign : 'left',
+				labelWidth : 120,
+				name : 'khzlfj',
+				text : "点击上传客户资料附件",
+				inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
+				blankText : '请上传客户资料附件',
+				allowBlank : true
+			},{
+				xtype : 'datefield',
+				fieldLabel : '客户资料有效期',
+				labelAlign : 'left',
+				labelWidth : 120,
+				emptyText : '若资料类型为证件，请选择证件资料有效期',
+				name : 'dlszjyxq',
+				format:'Y-m-d',
+				editable : false,
+				allowBlank : true
+		     },{
+		     xtype : 'combo',
+		     fieldLabel : '资料状态',
+		     labelAlign : 'left',
+		     labelWidth : 120,
+		     emptyText : '请选择资料状态',
+		     name : 'status',
+		     triggerAction : 'all',
+		     store : new Ext.data.SimpleStore({
 		          fields : ['label', 'value'],
 		          data : [["启用", "1"],["禁用", "-1"]]
-		        }),
-		        displayField : 'label',
-		        valueField : 'value',
-		        hiddenName : 'status',
-		        mode : 'local',
-		        editable : false
-		   }]
+		     }),
+		     displayField : 'label',
+		     valueField : 'value',
+		     hiddenName : 'status',
+		     mode : 'local',
+		     allowBlank : false,
+		     editable : false
+		  }]
 	  });
 	  addWindow.add(formPanel);
 	  addWindow.show();
