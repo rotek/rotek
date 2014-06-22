@@ -97,6 +97,7 @@ if (toolbar.get("button_add")) {
 	
 	  //定义添加窗口中的form
 	  var formPanel = new CTA.common.SFormPanel({
+		fileUpload : true,
 	    items : [{
 	        fieldLabel : '客户资料名称',
 	        labelAlign : 'left',
@@ -159,8 +160,7 @@ if (toolbar.get("button_add")) {
 			text : "点击上传客户资料附件",
 			inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
 			blankText : '请上传客户资料附件',
-			allowBlank : true,
-			fileUpload : true
+			allowBlank : true
 		  },{
 			xtype : 'datefield',
 			fieldLabel : '客户资料有效期',
@@ -210,9 +210,9 @@ if(toolbar.get("button_modify")){
 	    params : {id : ID},
 	    success : function(response) {
 	      var data = Ext.util.JSON.decode(response.responseText).data;
-	      console.log(data);
 	      var customerdoc_info_formPanel = new CTA.common.SFormPanel({
-	        items : [{
+	    	fileUpload : true,
+	    	items : [{
 	          xtype : 'hidden',
 	          fieldLabel : '客户资料ID',
 	          name : 'id',
@@ -287,11 +287,7 @@ if(toolbar.get("button_modify")){
 			 fieldLabel : '客户资料附件',
 			 labelAlign : 'left',
 			 labelWidth : 120,
-			 name : 'khzlfj',
-			 text : "点击上传客户资料附件",
-			 inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
-			 blankText : '请上传客户资料附件',
-			 allowBlank : true
+			 name : 'khzlfj'
 		   },{
 			 xtype : 'datefield',
 			 fieldLabel : '客户资料有效期',
@@ -336,7 +332,7 @@ if(toolbar.get("button_modify")){
 							target : 'updateWindow'
 						});
 						customerdoc_info_formPanel.commit({
-							url : ROTEK.CUSTOMER.params.url.modifyUrl
+							url : ROTEK.CUSTOMERDOC.params.url.modifyUrl
 						});
 					}
 				}

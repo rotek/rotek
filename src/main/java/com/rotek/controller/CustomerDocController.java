@@ -5,9 +5,12 @@
 package com.rotek.controller;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.io.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -104,7 +110,7 @@ public class CustomerDocController {
 	* @author liusw
 	*/
 	@RequestMapping("addCustomerDoc")
-	public String addCustomerDoc(HttpServletRequest request,HttpServletResponse response,
+	public void addCustomerDoc(HttpServletRequest request,HttpServletResponse response,
 			@RequestParam(value = "khzlmc", defaultValue = "") String KHZLMC,
 			@RequestParam(value = "khzllb", defaultValue = "0") Integer KHZLLB,
 			@RequestParam(value = "r_customer_id", defaultValue = "0") Integer R_CUSTOMER_ID,
@@ -124,8 +130,12 @@ public class CustomerDocController {
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
 		json.put("messages", messages);
-		return "jsonView";
+		response.setStatus(200);
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.write(json.toString());
 	}
+
 	
 	/**
 	* @MethodName: listCustomers 
@@ -199,7 +209,7 @@ public class CustomerDocController {
 	* @author liusw
 	*/
 	@RequestMapping("modifyCustomerDoc")
-	public String modifyCustomerDoc(
+	public void modifyCustomerDoc(
 			@RequestParam(value = "id", defaultValue = "0") Integer ID,
 			@RequestParam(value = "khzlmc", defaultValue = "") String KHZLMC,
 			@RequestParam(value = "khzllb", defaultValue = "0") Integer KHZLLB,
@@ -207,8 +217,9 @@ public class CustomerDocController {
 			@RequestParam(value = "khzlfj", defaultValue = "") String KHZLFJ,
 			@RequestParam(value = "dlszjyxq", defaultValue = "") Date DLSZJYXQ,  
 			@RequestParam(value="status", defaultValue="1") Integer STATUS,
-			ModelMap model) throws Exception{
+			ModelMap model, HttpServletRequest request,HttpServletResponse response) throws Exception{
 		
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		CustomerDocEntity customerdoc = new CustomerDocEntity();
 		customerdoc.setId(ID);
 		customerdoc.setKhzlmc(KHZLMC);
@@ -217,9 +228,29 @@ public class CustomerDocController {
 		customerdoc.setKhzlfj(KHZLFJ);
 		customerdoc.setDlszjyxq(DLSZJYXQ);
 		customerdoc.setStatus(STATUS);
-		List<String> messages = customerdocService.modifyCustomerDoc(customerdoc);
-		model.put("success", null == messages ? true : false);
-		model.put("messages", messages);
-		return "jsonView";
+		List<String> messages = customerdocService.modifyCustomerDoc(customerdoc, multipartRequest);
+		JSONObject json = new JSONObject();
+		json.put("success", null == messages ? true : false);
+		json.put("messages", messages);
+		response.setStatus(200);
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.write(json.toString());
+	}
+	
+	/**
+	* @MethodName: initBinder 
+	* @Description: 对绑定的时间进行格式化处理
+	* @param request
+	* @param binder
+	* @throws Exception
+	* @author WangJuZhu
+	*/
+	@InitBinder
+	protected void initBinder(HttpServletRequest request,
+			ServletRequestDataBinder binder) throws Exception {
+		DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
+		binder.registerCustomEditor(Date.class, dateEditor);
 	}
 }

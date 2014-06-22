@@ -1,5 +1,6 @@
 package com.rotek.service.impl;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -94,7 +95,7 @@ public class CustomerDocService {
 		
 		//保存附件
 		if(null != KHZLFJ && StringUtils.isNotBlank(KHZLFJ.getOriginalFilename())){
-			String file_location = SystemGlobals.getPreference("project.jscsfj.path");
+			String file_location = SystemGlobals.getPreference("rotek.khzl.path");
 			String file_name = FileUtils.savePic(KHZLFJ, file_location, 1024000000);
 			if(null != file_name){
 				customerdocEntity.setKhzlfj(file_name);
@@ -140,11 +141,29 @@ public class CustomerDocService {
 	* @throws SQLException
 	* @author liusw
 	*/
-	public List<String> modifyCustomerDoc(CustomerDocEntity customerdocEntity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SQLException {
+	public List<String> modifyCustomerDoc(CustomerDocEntity customerdocEntity,MultipartHttpServletRequest multipartRequest) 
+			throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 		List<String> messages = ValidateUtil.validate(customerdocEntity);
 		if(messages.size()>0 || null == customerdocEntity.getId()){
 			return messages;
 		}
+		
+		MultipartFile KHZLFJ = multipartRequest.getFile("khzlfj");   // 客户资料附件
+		if(null != KHZLFJ && StringUtils.isNotBlank(KHZLFJ.getOriginalFilename())){
+			String fj_location = SystemGlobals.getPreference("rotek.khzl.path");
+			//保存附件
+			String fj_name = FileUtils.savePic(KHZLFJ, fj_location, 1024000000);
+			if(null != fj_name){
+				//删除原附件
+				FileUtils.clearPic(fj_location, customerdocEntity.getKhzlfj());
+				//更新附件
+				customerdocEntity.setKhzlfj(fj_name);
+			}else {
+				messages.add("技术参数附件必须在 "+1024000000/1024 +"k 以内!");  // 100M
+				return messages;
+			}
+		}
+
 		//修改角色基本信息
 		customerDocDao.modifyCustomerDoc(customerdocEntity);
 
