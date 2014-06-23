@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>threenoodles_alipay_admin</groupId>
-  <artifactId>threenoodles_alipay_admin</artifactId>
+  <groupId>rotek</groupId>
+  <artifactId>rotek</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>threenoodles_alipay_admin Maven Webapp</name>
+  <name>rotek Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
