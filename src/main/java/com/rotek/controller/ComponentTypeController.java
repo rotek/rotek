@@ -52,7 +52,7 @@ public class ComponentTypeController {
 	 * @return
 	 * @author WangJuZhu
 	 */
-	@RequestMapping("toComponentType")
+	@RequestMapping("toComponentTypes")
 	public String toComponentType() {
 		return "admin/project/componenttype_index";
 	}

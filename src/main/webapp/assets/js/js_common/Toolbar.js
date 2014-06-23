@@ -14,17 +14,20 @@ CTA.common.Toolbar = Ext.extend(Ext.Toolbar,{
 		
 		CTA.common.Toolbar.superclass.constructor.call(this,config);
 		var self = this;
-		Ext.each(buttonInfoList,function(buttonInfo){
-			self.add({
-				id : "button_" + buttonInfo.action,
-				icon : basePath+"/assets/images/toolbar/"+ buttonInfo.icon,
-				cls : 'x-btn-text-icon',
-				style : 'margin:0px 10px 0px 0px',
-				text : buttonInfo.name,
-				isVisible : true,
-				handler : function(){}
+		
+		if(buttonInfoList && buttonInfoList.length>0){
+			Ext.each(buttonInfoList,function(buttonInfo){
+				self.add({
+					id : "button_" + buttonInfo.action,
+					icon : basePath+"/assets/images/toolbar/"+ buttonInfo.icon,
+					cls : 'x-btn-text-icon',
+					style : 'margin:0px 10px 0px 0px',
+					text : buttonInfo.name,
+					isVisible : true,
+					handler : function(){}
+				});
 			});
-		});
+		}
 		
 	},
 	regAddHandler : function(func){

@@ -43,6 +43,8 @@ ROTEK.ComType.params = {
 var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.ComType.params.gridParam);
 var toolbar = new CTA.common.Toolbar();
 
+console.log(toolbar);
+
 //添加零件类别信息
 if (toolbar.get("button_add")) {
 	toolbar.get("button_add").setHandler(function() {
