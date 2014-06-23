@@ -34,8 +34,8 @@ public class ComponentTypeEntity implements Serializable {
 	@Column(name = "NAME")
 	private String name ;   	// 类别名称
 	
-	@Column(name = "DESCRIBE")
-	private String describe ;   	// 类别的说明
+	@Column(name = "DESCRIPTION")
+	private String description ;   	// 类别的说明
 	
 	@Column(name = "STATUS")
 	private Integer status ; 		// 状态
@@ -60,14 +60,14 @@ public class ComponentTypeEntity implements Serializable {
 		this.name = name;
 	}
 
-	/** @return describe */
-	public String getDescribe() {
-		return describe;
+	/** @return description */
+	public String getDescription() {
+		return description;
 	}
 
-	/** @param describe describe to set */
-	public void setDescribe(String describe) {
-		this.describe = describe;
+	/** @param description description to set */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/** @return status */

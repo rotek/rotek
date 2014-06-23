@@ -72,7 +72,7 @@ public class ComponentTypeController {
 			@RequestParam(value = "limit", defaultValue = "10") Integer limit,
 			@RequestParam(value = "id", defaultValue = "") Integer id,
 			@RequestParam(value = "name", defaultValue = "") String name,  // 名称
-			@RequestParam(value = "describe", defaultValue = "") String describe,  // 描述说明
+			@RequestParam(value = "description", defaultValue = "") String description,  // 描述说明
 			@RequestParam(value = "status", defaultValue = "") Integer status,  // 状态
 			HttpServletRequest request, ModelMap modelMap)throws Exception {
 		
@@ -84,7 +84,7 @@ public class ComponentTypeController {
 		ComponentTypeEntity ctype = new ComponentTypeEntity();
 		ctype.setId(id);
 		ctype.setName(name);
-		ctype.setDescribe(describe);
+		ctype.setDescription(description);
 		ctype.setStatus(status);
 
 		List<ComponentTypeEntity> types = ctypeService.listComponentType(ctype, pager);
@@ -105,11 +105,11 @@ public class ComponentTypeController {
 	@RequestMapping("addComponentType")
 	public void addComponentType(HttpServletRequest request,HttpServletResponse response,
 			@RequestParam(value = "name", defaultValue = "") String name,
-			@RequestParam(value = "describe", defaultValue = "") String describe,ModelMap model ) throws Exception {
+			@RequestParam(value = "description", defaultValue = "") String description,ModelMap model ) throws Exception {
 
 		ComponentTypeEntity ctype = new ComponentTypeEntity();
 		ctype.setName(name);
-		ctype.setDescribe(describe);
+		ctype.setDescription(description);
 		ctype.setStatus(Status.NEW.getCode());
 
 		List<String> messages = ctypeService.addComponentType(ctype);
@@ -152,14 +152,14 @@ public class ComponentTypeController {
 	public void modifyComponentType(
 			@RequestParam(value = "id", defaultValue = "") Integer id,
 			@RequestParam(value = "name", defaultValue = "") String name,
-			@RequestParam(value = "describe", defaultValue = "") String describe,
+			@RequestParam(value = "description", defaultValue = "") String description,
 			ModelMap model, HttpServletRequest request,HttpServletResponse response) throws SQLException,
 			IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 
 		ComponentTypeEntity ctype = new ComponentTypeEntity();
 		ctype.setId(id);
 		ctype.setName(name);
-		ctype.setDescribe(describe);
+		ctype.setDescription(description);
 		ctype.setStatus(Status.NEW.getCode());
 
 		List<String> messages = ctypeService.modifyComponentType(ctype);

@@ -14,7 +14,7 @@ ROTEK.ComType.params = {
 			width : 100,
 			align : 'center'
 		}, {
-			index : 'describe',
+			index : 'description',
 			header : '零件类别说明',
 			width : 80,
 			align : 'center'
@@ -60,7 +60,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '80%',
-			height : 500,
+			height : 300,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -77,7 +77,7 @@ if (toolbar.get("button_add")) {
 			}, {
 				fieldLabel : '零件类别说明',
 				emptyText : '请输入零件类别说明',
-				name : 'describe',
+				name : 'description',
 				minLength : 1,
 				maxLength : 100
 			}]
@@ -117,7 +117,7 @@ if(toolbar.get("button_modify")){
 					}, {
 						fieldLabel : '零件类别说明',
 						emptyText : '请输入零件类别说明',
-						name : 'describe',
+						name : 'description',
 						minLength : 1,
 						maxLength : 100
 					}],
@@ -127,7 +127,7 @@ if(toolbar.get("button_modify")){
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '80%',
-					height : 500,
+					height : 300,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -185,8 +185,8 @@ if(toolbar.get("button_query")){
 		
 		// 查询窗口
 		var queryWindow = new CTA.common.QueryWindow({
-			width : 500,
-			height : 250,
+			width : 400,
+			height : 200,
 			layout : 'border',
 			closeAction : 'hide',
 			items : [ formPanel ],

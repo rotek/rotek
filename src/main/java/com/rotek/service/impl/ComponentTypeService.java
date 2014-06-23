@@ -45,11 +45,15 @@ public class ComponentTypeService {
 		List<Object> params = new LinkedList<Object>();
 		sql.append("select * from r_component_type where 1 = 1");
 		
+		if(ctype.getId() != null){
+			sql.append(" and ID = " + ctype.getId() );
+		}
+		
 		if(StringUtils.isNotEmpty(ctype.getName())){
 			sql.append(" and NAME like '%").append(ctype.getName()).append("%'");
 		}
-		if(StringUtils.isNotEmpty(ctype.getDescribe())){
-			sql.append(" and DESCRIBE like '%").append(ctype.getDescribe()).append("%'");
+		if(StringUtils.isNotEmpty(ctype.getDescription())){
+			sql.append(" and DESCRIPTION like '%").append(ctype.getDescription()).append("%'");
 		}
 
 		if(null != ctype.getStatus()){
