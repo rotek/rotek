@@ -34,7 +34,7 @@ public class ProjectService {
 
 	@Autowired
 	private ProjectDao projectDao;
-
+	
 	/**
 	* @MethodName: listProeject 
 	* @Description: 工程列表查询
@@ -97,6 +97,10 @@ public class ProjectService {
 		
 		sql.append(" order by id desc");
 		return projectDao.listProject(sql.toString(), params.toArray(), pager);
+	}
+	
+	public List<ProjectEntity> listProjectByStatus(Integer status) throws SQLException{
+		return projectDao.listProjectByStatus(status);
 	}
 	
 	/**

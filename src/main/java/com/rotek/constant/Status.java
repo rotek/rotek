@@ -11,8 +11,8 @@ public enum Status {
 	
 	ALL(-2, "全部"),
 	INVALID(-1, "无效"),
-	NEW(1, "有效"),
-	VALID(2, "待审核");
+	VALID(1, "有效"),
+	NEW(2, "待审核");
 
 	private  int code;
 	private  String lable;

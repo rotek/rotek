@@ -43,8 +43,6 @@ ROTEK.ComType.params = {
 var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.ComType.params.gridParam);
 var toolbar = new CTA.common.Toolbar();
 
-console.log(toolbar);
-
 //添加零件类别信息
 if (toolbar.get("button_add")) {
 	toolbar.get("button_add").setHandler(function() {
@@ -59,8 +57,8 @@ if (toolbar.get("button_add")) {
 		//定义添加的窗口
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
-			width : '80%',
-			height : 300,
+			width : '50%',
+			height : 150,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -126,8 +124,8 @@ if(toolbar.get("button_modify")){
 	
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
-					width : '80%',
-					height : 300,
+					width : '50%',
+					height : 150,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -185,8 +183,8 @@ if(toolbar.get("button_query")){
 		
 		// 查询窗口
 		var queryWindow = new CTA.common.QueryWindow({
-			width : 400,
-			height : 200,
+			width : '50%',
+			height : 150,
 			layout : 'border',
 			closeAction : 'hide',
 			items : [ formPanel ],

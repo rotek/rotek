@@ -34,6 +34,19 @@ public class ProjectDao extends BaseDaoImpl{
 	}
 	
 	/**
+	* @MethodName: listProjectByStatus 
+	* @Description: 根据状态查询工程信息
+	* @param status
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public List<ProjectEntity> listProjectByStatus(Integer status) throws SQLException{
+		String sql = "select * from r_project where status = " + status;
+		return selectAll(sql, ProjectEntity.class);
+	}
+	
+	/**
 	* @MethodName: addProject 
 	* @Description: 添加工程信息
 	* @param project

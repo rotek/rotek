@@ -3,12 +3,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>零件类别管理</title>
+<title>工程资料管理</title>
 <%@include file="/assets/jsp/common.jsp"%>
 </head>
 <body>
 
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/project/componenttype.js">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/project/projectinfo.js">
 </script>
 </html>
