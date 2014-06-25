@@ -21,11 +21,8 @@ import com.cta.platform.persistence.annotation.Table;
 @Table(name = "r_pump_group")
 public class PumpGroupEntity implements Serializable {
 
-	/** 
-	 * @Fields serialVersionUID 
-	 * @Description: 
-	 */
-	private static final long serialVersionUID = 4628046027257788856L;
+	/**  @Fields serialVersionUID   @Description:  */
+	private static final long serialVersionUID = -593695256461404617L;
 
 	@Column(name="ID")
 	@ID(strategy=StrategyType.IDENTITY)
@@ -34,11 +31,11 @@ public class PumpGroupEntity implements Serializable {
 	@Column(name = "R_PROJECT_ID")
 	private Integer r_project_id ;   	// 工程ID
 	
-	@Column(name = "LJBH")
-	private String ljbh ;   	// 零件编号
+	@Column(name = "PUMP_BH")
+	private String pump_bh ;   	// 泵组的组编号，如1号泵组的编号是  001
 	
-	@Column(name = "LJBM")
-	private String ljbm ;   	// 零件别名
+	@Column(name = "PUMP_MC")
+	private String pump_mc ;   	// 泵组的组名称，如 1号泵
 
 	@Column(name = "PUMP_PP")
 	private String pump_pp ;    	// 泵品牌
@@ -72,24 +69,24 @@ public class PumpGroupEntity implements Serializable {
 		this.r_project_id = r_project_id;
 	}
 
-	/** @return ljbh */
-	public String getLjbh() {
-		return ljbh;
+	/** @return pump_bh */
+	public String getPump_bh() {
+		return pump_bh;
 	}
 
-	/** @param ljbh ljbh to set */
-	public void setLjbh(String ljbh) {
-		this.ljbh = ljbh;
+	/** @param pump_bh pump_bh to set */
+	public void setPump_bh(String pump_bh) {
+		this.pump_bh = pump_bh;
 	}
 
-	/** @return ljbm */
-	public String getLjbm() {
-		return ljbm;
+	/** @return pump_mc */
+	public String getPump_mc() {
+		return pump_mc;
 	}
 
-	/** @param ljbm ljbm to set */
-	public void setLjbm(String ljbm) {
-		this.ljbm = ljbm;
+	/** @param pump_mc pump_mc to set */
+	public void setPump_mc(String pump_mc) {
+		this.pump_mc = pump_mc;
 	}
 
 	/** @return pump_pp */

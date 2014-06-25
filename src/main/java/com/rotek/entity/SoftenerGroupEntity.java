@@ -12,17 +12,17 @@ import com.cta.platform.persistence.annotation.ID;
 import com.cta.platform.persistence.annotation.Table;
 
 /**
-* @ClassName: SandFilterGroupEntity
-* @Description: 砂滤器  组信息实体类
+* @ClassName: SoftenerGroupEntity
+* @Description: 软化器  组信息实体类
 * @Author WangJuZhu
-* @date 2014年6月25日 上午5:45:02
+* @date 2014年6月25日 下午10:15:25
 * @Version:1.1.0
 */
-@Table(name = "r_sandfilter_group")
-public class SandFilterGroupEntity implements Serializable {
+@Table(name = "r_softener_group")
+public class SoftenerGroupEntity implements Serializable {
 
 	/**  @Fields serialVersionUID   @Description:  */
-	private static final long serialVersionUID = 4289841996353396702L;
+	private static final long serialVersionUID = 7083932437694991071L;
 
 	@Column(name="ID")
 	@ID(strategy=StrategyType.IDENTITY)
@@ -31,23 +31,23 @@ public class SandFilterGroupEntity implements Serializable {
 	@Column(name = "R_PROJECT_ID")
 	private Integer r_project_id ;   	// 工程ID
 	
-	@Column(name = "SAND_BH")
-	private String sand_bh ;   	// 砂滤器组的组编号
+	@Column(name = "SOFTENER_BH")
+	private String softener_bh ;   	// 软化器组的组编号
 	
-	@Column(name = "SAND_MC")
-	private String sand_mc ;   	// 砂滤器组的组名称
+	@Column(name = "SOFTENER_MC")
+	private String softener_mc ;   	// 软化器组的组名称
 
-	@Column(name = "SAND_GG")
-	private String sand_gg ;    	// 规格
+	@Column(name = "SOFTENER_GG")
+	private String softener_gg ;    	// 规格
 	
-	@Column(name = "SAND_CLL")
-	private Integer sand_cll ;    	// 处理量
+	@Column(name = "SOFTENER_CLL")
+	private Integer softener_cll ;    	// 处理量
 	
 	@Column(name = "TLGD")
 	private Integer tlgd ;    	// 填料高度
 	
-	@Column(name = "SAND_CZ")
-	private String sand_cz ;    	// 材质
+	@Column(name = "SOFTENER_CZ")
+	private String softener_cz ;    	// 材质
 	
 	@Column(name = "LLSL")
 	private Integer llsl ;    	// 滤料数量
@@ -84,44 +84,44 @@ public class SandFilterGroupEntity implements Serializable {
 		this.r_project_id = r_project_id;
 	}
 
-	/** @return sand_bh */
-	public String getSand_bh() {
-		return sand_bh;
+	/** @return softener_bh */
+	public String getSoftener_bh() {
+		return softener_bh;
 	}
 
-	/** @param sand_bh sand_bh to set */
-	public void setSand_bh(String sand_bh) {
-		this.sand_bh = sand_bh;
+	/** @param softener_bh softener_bh to set */
+	public void setSoftener_bh(String softener_bh) {
+		this.softener_bh = softener_bh;
 	}
 
-	/** @return sand_mc */
-	public String getSand_mc() {
-		return sand_mc;
+	/** @return softener_mc */
+	public String getSoftener_mc() {
+		return softener_mc;
 	}
 
-	/** @param sand_mc sand_mc to set */
-	public void setSand_mc(String sand_mc) {
-		this.sand_mc = sand_mc;
+	/** @param softener_mc softener_mc to set */
+	public void setSoftener_mc(String softener_mc) {
+		this.softener_mc = softener_mc;
 	}
 
-	/** @return sand_gg */
-	public String getSand_gg() {
-		return sand_gg;
+	/** @return softener_gg */
+	public String getSoftener_gg() {
+		return softener_gg;
 	}
 
-	/** @param sand_gg sand_gg to set */
-	public void setSand_gg(String sand_gg) {
-		this.sand_gg = sand_gg;
+	/** @param softener_gg softener_gg to set */
+	public void setSoftener_gg(String softener_gg) {
+		this.softener_gg = softener_gg;
 	}
 
-	/** @return sand_cll */
-	public Integer getSand_cll() {
-		return sand_cll;
+	/** @return softener_cll */
+	public Integer getSoftener_cll() {
+		return softener_cll;
 	}
 
-	/** @param sand_cll sand_cll to set */
-	public void setSand_cll(Integer sand_cll) {
-		this.sand_cll = sand_cll;
+	/** @param softener_cll softener_cll to set */
+	public void setSoftener_cll(Integer softener_cll) {
+		this.softener_cll = softener_cll;
 	}
 
 	/** @return tlgd */
@@ -134,14 +134,14 @@ public class SandFilterGroupEntity implements Serializable {
 		this.tlgd = tlgd;
 	}
 
-	/** @return sand_cz */
-	public String getSand_cz() {
-		return sand_cz;
+	/** @return softener_cz */
+	public String getSoftener_cz() {
+		return softener_cz;
 	}
 
-	/** @param sand_cz sand_cz to set */
-	public void setSand_cz(String sand_cz) {
-		this.sand_cz = sand_cz;
+	/** @param softener_cz softener_cz to set */
+	public void setSoftener_cz(String softener_cz) {
+		this.softener_cz = softener_cz;
 	}
 
 	/** @return llsl */

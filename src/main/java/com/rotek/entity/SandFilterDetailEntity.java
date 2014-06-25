@@ -21,11 +21,8 @@ import com.cta.platform.persistence.annotation.Table;
 @Table(name = "r_sandfilter_detail")
 public class SandFilterDetailEntity implements Serializable {
 
-	/** 
-	 * @Fields serialVersionUID 
-	 * @Description: 
-	 */
-	private static final long serialVersionUID = 4628046027257788856L;
+	/**  @Fields serialVersionUID   @Description:  */
+	private static final long serialVersionUID = -4825377593907029855L;
 
 	@Column(name="ID")
 	@ID(strategy=StrategyType.IDENTITY)
@@ -36,6 +33,9 @@ public class SandFilterDetailEntity implements Serializable {
 	
 	@Column(name = "SPECIFIC_PART")
 	private String specific_part ;   	// 具体的零件名称，比如1号砂滤器前，1号砂滤器后
+	
+	@Column(name = "SPECIFIC_BH")
+	private String specific_bh ;   	// 具体的零件编号，比如1号砂滤器前编号  000201，1号砂滤器后   000202 等
 	
 	@Column(name = "EDGHSJ")
 	private Double edycll ;   	// 额定更换时间
@@ -77,6 +77,16 @@ public class SandFilterDetailEntity implements Serializable {
 	/** @param specific_part specific_part to set */
 	public void setSpecific_part(String specific_part) {
 		this.specific_part = specific_part;
+	}
+
+	/** @return specific_bh */
+	public String getSpecific_bh() {
+		return specific_bh;
+	}
+
+	/** @param specific_bh specific_bh to set */
+	public void setSpecific_bh(String specific_bh) {
+		this.specific_bh = specific_bh;
 	}
 
 	/** @return edycll */

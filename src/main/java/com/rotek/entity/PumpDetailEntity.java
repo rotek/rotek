@@ -21,11 +21,8 @@ import com.cta.platform.persistence.annotation.Table;
 @Table(name = "r_pump_detail")
 public class PumpDetailEntity implements Serializable {
 
-	/** 
-	 * @Fields serialVersionUID 
-	 * @Description: 
-	 */
-	private static final long serialVersionUID = 4628046027257788856L;
+	/**  @Fields serialVersionUID   @Description:  */
+	private static final long serialVersionUID = 2843425794297136575L;
 
 	@Column(name="ID")
 	@ID(strategy=StrategyType.IDENTITY)
@@ -36,6 +33,9 @@ public class PumpDetailEntity implements Serializable {
 	
 	@Column(name = "SPECIFIC_PART")
 	private String specific_part ;   	// 具体的零件名称，比如1号泵前，1号泵后
+	
+	@Column(name = "SPECIFIC_BH")
+	private String specific_bh ;   	// 具体的零件编号，比如1号泵前的编号   000101，1号泵后  000102
 	
 	@Column(name = "EDYCLL")
 	private Double edycll ;   	// 额定扬程流量
@@ -128,6 +128,16 @@ public class PumpDetailEntity implements Serializable {
 	/** @param specific_part specific_part to set */
 	public void setSpecific_part(String specific_part) {
 		this.specific_part = specific_part;
+	}
+
+	/** @return specific_bh */
+	public String getSpecific_bh() {
+		return specific_bh;
+	}
+
+	/** @param specific_bh specific_bh to set */
+	public void setSpecific_bh(String specific_bh) {
+		this.specific_bh = specific_bh;
 	}
 
 	/** @return edycll */
