@@ -5,6 +5,7 @@
 package com.rotek.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.cta.platform.constant.StrategyType;
 import com.cta.platform.persistence.annotation.Column;
@@ -38,7 +39,7 @@ public class SoftenerDetailEntity implements Serializable {
 	private String specific_bh ;   	// 具体的零件编号，比如1号软化器前编号  000301，1号软化器后   000302 等
 	
 	@Column(name = "EDGHSJ")
-	private Double edghsj ;    	// 额定更换时间
+	private Date edghsj ;    	// 额定更换时间
 	
 	@Column(name = "STATUS")
 	private Integer status ; 		// 状态
@@ -84,12 +85,12 @@ public class SoftenerDetailEntity implements Serializable {
 	}
 
 	/** @return edghsj */
-	public Double getEdghsj() {
+	public Date getEdghsj() {
 		return edghsj;
 	}
 
 	/** @param edghsj edghsj to set */
-	public void setEdghsj(Double edghsj) {
+	public void setEdghsj(Date edghsj) {
 		this.edghsj = edghsj;
 	}
 

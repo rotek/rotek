@@ -5,6 +5,7 @@
 package com.rotek.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.cta.platform.constant.StrategyType;
 import com.cta.platform.persistence.annotation.Column;
@@ -41,7 +42,7 @@ public class PumpDetailEntity implements Serializable {
 	private Double edycll ;   	// 额定扬程流量
 
 	@Column(name = "EDWHBYSJ")
-	private Double edwhbysj ;    	// 额定维护保养时间
+	private Date edwhbysj ;    	// 额定维护保养时间
 	
 	@Column(name = "EDDDL")
 	private Double edddl ;    	// 额定电导率
@@ -151,12 +152,12 @@ public class PumpDetailEntity implements Serializable {
 	}
 
 	/** @return edwhbysj */
-	public Double getEdwhbysj() {
+	public Date getEdwhbysj() {
 		return edwhbysj;
 	}
 
 	/** @param edwhbysj edwhbysj to set */
-	public void setEdwhbysj(Double edwhbysj) {
+	public void setEdwhbysj(Date edwhbysj) {
 		this.edwhbysj = edwhbysj;
 	}
 
