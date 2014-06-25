@@ -8,8 +8,6 @@
  */
 package com.rotek.entity;
 
-import java.io.Serializable;
-
 import com.cta.platform.constant.StrategyType;
 import com.cta.platform.persistence.annotation.Column;
 import com.cta.platform.persistence.annotation.ID;
@@ -24,7 +22,7 @@ import com.cta.platform.persistence.annotation.Table;
  * @date 2013-6-1 上午11:05:16
  * 
  */
-@Table(name = "R_MENU")
+@Table(name = "r_menu")
 public class MenuEntity extends BaseEntity {
 
 	/** @Field the long serialVersionUID */

@@ -20,7 +20,7 @@ import com.cta.platform.persistence.annotation.Table;
  * @date 2013-6-22 下午06:13:46
  *
  */
-@Table(name="R_MANAGER")
+@Table(name="r_manager")
 public class ManagerEntity extends BaseEntity{
 
 	/**@Field the long serialVersionUID*/

@@ -8,8 +8,6 @@
 */
 package com.rotek.entity;
 
-import java.io.Serializable;
-
 import com.cta.platform.constant.StrategyType;
 import com.cta.platform.persistence.annotation.Column;
 import com.cta.platform.persistence.annotation.ID;

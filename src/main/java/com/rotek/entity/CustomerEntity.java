@@ -4,8 +4,6 @@
 */
 package com.rotek.entity;
 
-import java.io.Serializable;
-
 import com.cta.platform.constant.StrategyType;
 import com.cta.platform.persistence.annotation.Column;
 import com.cta.platform.persistence.annotation.ID;
@@ -21,6 +19,8 @@ import com.cta.platform.persistence.annotation.Table;
 @Table(name = "r_customer")
 public class CustomerEntity extends BaseEntity {
 
+	/**  @Fields serialVersionUID   @Description:  */
+	private static final long serialVersionUID = -7796845272759051624L;
 	/**
 	 * 一级代理商
 	 */
