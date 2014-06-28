@@ -319,8 +319,8 @@ if(toolbar.get("button_query")){
 		        editable : false
 		    },{
 				xtype : 'combo',
-				fieldLabel : '客户状态',
-				emptyText : '请选择客户状态',
+				fieldLabel : '评价信息状态',
+				emptyText : '请选择评价信息状态',
 				name : 'status',
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({

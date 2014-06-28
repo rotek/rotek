@@ -61,6 +61,11 @@ public class ComplaintService {
 			sql.append(" and r.tssx like '%"+complaintinfo.getTssx().trim()+"%'");
 		}
 
+		if(null != complaintinfo.getStatus()){
+			sql.append(" and r.status = ?");
+			params.add(complaintinfo.getStatus());
+		}
+
 		sql.append(" order by r.status,r.id asc");
 		List<ComplaintInfoDto> complaintinfos = complaintinfoDao.listComplaintInfos(sql.toString(), params.toArray(), pager);
 		return complaintinfos;

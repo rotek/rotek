@@ -287,26 +287,20 @@ if(toolbar.get("button_query")){
 
 		var formPanel = new CTA.common.SFormPanel({
 			items : [{
-		    	xtype : 'combo',
-		        fieldLabel : '代理商星级分数',
-		        labelAlign : 'left',
-		        labelWidth : 120,
-		        emptyText : '请选择代理商星级分数',
-		        triggerAction : 'all',
-		        store : new Ext.data.SimpleStore({
-				   fields : ['label', 'value'],
-				   data : [["1", "1"],["2", "2"],["3", "3"],["4", "4"],["5", "5"],["6", "6"],["7", "7"],["8", "8"],["9", "9"],["10", "10"]]
-				}),
-				displayField : 'label',
-			    valueField : 'value',
-			    hiddenName : 'dlsxjpj',
-			    mode : 'local',
-		        name : 'dlsxjpj',
-		        minLength : 1,
-		        maxLength: 100,
-		        allowBlank : false,
-		        editable : false
-		    },{
+				fieldLabel : '投诉单位',
+				emptyText : '请输入投诉单位名称',
+				name : 'tsdw',
+				allowBlank : true,
+				minLength : 1,
+				maxLength : 100
+			},{
+				fieldLabel : '投诉事项',
+				emptyText : '请输入投诉事项',
+				name : 'tssx',
+				allowBlank : true,
+				minLength : 1,
+				maxLength : 100
+			},{
 				xtype : 'combo',
 				fieldLabel : '投诉信息状态',
 				emptyText : '请选择投诉信息状态',
