@@ -26,10 +26,22 @@
 	src="${pageContext.request.contextPath }/assets/front/bootstrap.js"></script>
 
 
-
 <link
 	href="${pageContext.request.contextPath }/assets/front/select2/select2.css"
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/front/select2/select2.js"></script>
+
+	
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/front/highchats/highstock.js"></script>
+	
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/front/highchats/exporting.js"></script>
+
+
+
+
+
+
 
