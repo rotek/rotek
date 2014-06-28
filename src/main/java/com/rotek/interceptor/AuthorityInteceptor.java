@@ -40,7 +40,7 @@ public class AuthorityInteceptor extends BaseInterceptor{
 			HttpServletResponse response, Object handler) throws Exception {
 		String requestURI = request.getRequestURI();
 		//如果这个请求的链接是打开一个菜单的，那么访问库，找出这个用户在这个模块下面的 按钮权限信息
-		if(StringUtils.isNotEmpty(requestURI) && requestURI.matches("^[\\S]*/to[\\S]*s[\\S]*")){
+		if(StringUtils.isNotEmpty(requestURI) && requestURI.matches("^[\\S]*/to.*")){
 			//用户信息
 			UserDto user = (UserDto) request.getSession().getAttribute(SessionParams.USER);
 			//菜单在库中的url

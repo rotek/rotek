@@ -43,4 +43,15 @@ public class LoginDao extends BaseDaoImpl {
 				UserDto.STATUS_ENABLED }, UserDto.class);
 	}
 
+	/**
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public UserDto getUserById(Integer id) throws SQLException {
+		String sql = "select  id , r_role_id , r_customer_id , name , password , email , telephone , realname , companyname , status from r_manager where id = ? and status = ?";
+		return this.selectOne(sql, new Object[] {id,
+				UserDto.STATUS_ENABLED }, UserDto.class);
+	}
+
 }

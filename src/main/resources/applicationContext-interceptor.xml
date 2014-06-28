@@ -21,6 +21,11 @@
 		<mvc:mapping path="/admin/**" />
 			<bean class="com.rotek.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
+		
+		<mvc:interceptor>
+		<mvc:mapping path="/front/**" />
+			<bean class="com.rotek.interceptor.FrontLoginInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 
