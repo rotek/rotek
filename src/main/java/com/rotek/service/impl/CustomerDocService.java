@@ -86,10 +86,6 @@ public class CustomerDocService {
 	* @author liusw
 	*/
 	public List<String> addCustomerDoc(CustomerDocEntity customerdocEntity, MultipartHttpServletRequest multipartRequest) throws Exception{
-//		List<String> messages = ValidateUtil.validate(customerdocEntity);
-//		if(messages.size()>0){
-//			return messages;
-//		}
 		
 		MultipartFile KHZLFJ = multipartRequest.getFile("khzlfj");   // 客户资料附件
 		
