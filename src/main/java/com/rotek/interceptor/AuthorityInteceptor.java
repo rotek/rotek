@@ -8,14 +8,10 @@
 */
 package com.rotek.interceptor;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +31,7 @@ public class AuthorityInteceptor extends BaseInterceptor{
 
 	@Autowired
 	private AuthorityService authorityService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
@@ -49,9 +46,11 @@ public class AuthorityInteceptor extends BaseInterceptor{
 			if(requestURI.length()>1){
 				url_inDB = requestURI.substring(basePath.length(),requestURI.length());
 			}
-			//加载用户权限 
-			JSONArray buttonList = authorityService.getButtonList(user.getR_role_id(), url_inDB);
-			request.setAttribute("buttonInfoList", buttonList);
+			if(user != null){
+				//加载用户权限 
+				JSONArray buttonList = authorityService.getButtonList(user.getR_role_id(), url_inDB);
+				request.setAttribute("buttonInfoList", buttonList);
+			}
 		}
 		return true;
 	}
