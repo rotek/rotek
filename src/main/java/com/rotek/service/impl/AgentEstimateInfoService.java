@@ -50,7 +50,7 @@ public class AgentEstimateInfoService {
 	public List<AgentEstimateInfoDto> listAgentEstimateInfos(AgentEstimateInfoEntity agentestimateinfo, ListPager pager) throws SQLException{
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT R.ID, R.R_CUSTOMER_ID, R.DLSXJPJ, R.DLSGLXZ, R.STATUS, RC.MC AS CUSTOMER_MC FROM R_AgentEstimateInfo R ");
+		sql.append("SELECT R.ID, R.R_CUSTOMER_ID, R.DLSXJPJ, R.DLSGLXZ, R.STATUS, RC.MC AS CUSTOMER_MC FROM R_AGENTESTIMATEINFO R ");
 		sql.append(" LEFT JOIN R_CUSTOMER RC ON RC.ID = R.R_CUSTOMER_ID");
 		sql.append("  WHERE R.STATUS = 1 ");
 
@@ -58,6 +58,16 @@ public class AgentEstimateInfoService {
 		if(null != agentestimateinfo.getId()){
 			sql.append(" and r.id = ?");
 			params.add(agentestimateinfo.getId());
+		}
+
+		if(null != agentestimateinfo.getDlsxjpj()){
+			sql.append(" and r.dlsxjpj = ?");
+			params.add(agentestimateinfo.getDlsxjpj());
+		}
+		
+		if(null != agentestimateinfo.getStatus()){
+			sql.append(" and r.status = ?");
+			params.add(agentestimateinfo.getStatus());
 		}
 
 		sql.append(" order by r.status,r.id asc");
