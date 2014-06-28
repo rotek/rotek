@@ -105,6 +105,17 @@ public class UnProcessInfoController {
 		return "jsonView";
 	}
 	
+	@RequestMapping("listProject")
+	public String listProject (ModelMap modelMap, HttpServletRequest request,
+			@RequestParam(value="r_customer_id", defaultValue="") Integer R_CUSTOMER_ID,
+			@RequestParam(value="id", defaultValue="") Integer ID) throws Exception {
+		
+		List<Map<String,Object>> projectList = unprocessinfoService.listProjects(R_CUSTOMER_ID);
+		
+		modelMap.put("projectList", projectList);
+		return "jsonView";
+	}
+	
 	/**
 	* @MethodName: getUnProcessInfoDetail 
 	* @Description:
