@@ -110,14 +110,14 @@ if (toolbar.get("button_add")) {
 				autoLoad : true
 			})
 	      },{
-		        fieldLabel : '投诉单位',
-		        labelAlign : 'left',
-		        labelWidth : 120,
-		        emptyText : '请输入投诉单位名称',
-		        name : 'tsdw',
-		        minLength : 1,
-		        maxLength: 100,
-		        allowBlank : false
+		    fieldLabel : '投诉单位',
+		    labelAlign : 'left',
+		    labelWidth : 120,
+		    emptyText : '请输入投诉单位名称',
+		    name : 'tsdw',
+		    minLength : 1,
+		    maxLength: 100,
+		    allowBlank : false
 		  },{
 			xtype : 'textarea',
 			fieldLabel : '投诉事项',
@@ -125,22 +125,22 @@ if (toolbar.get("button_add")) {
 			name : 'tssx',
 			height : 70,
 			width : 230
-		   },{
-				xtype : 'datefield',
-				fieldLabel : '投诉时间',
-				labelAlign : 'left',
-				labelWidth : 120,
-				emptyText : '请选择投诉时间',
-				name : 'tssj',
-				format:'Y-m-d',
-				editable : false,
-				allowBlank : true
+		  },{
+			xtype : 'datefield',
+			fieldLabel : '投诉时间',
+			labelAlign : 'left',
+			labelWidth : 120,
+			emptyText : '请选择投诉时间',
+			name : 'tssj',
+			format:'Y-m-d',
+			editable : false,
+			allowBlank : true
 		   },{
 		     xtype : 'combo',
-		     fieldLabel : '资料状态',
+		     fieldLabel : '投诉信息状态',
 		     labelAlign : 'left',
 		     labelWidth : 120,
-		     emptyText : '请选择资料状态',
+		     emptyText : '请选择投诉信息状态',
 		     name : 'status',
 		     triggerAction : 'all',
 		     store : new Ext.data.SimpleStore({
@@ -177,13 +177,13 @@ if(toolbar.get("button_modify")){
 	      var customerdoc_info_formPanel = new CTA.common.SFormPanel({
 	    	items : [{
 		          xtype : 'hidden',
-		          fieldLabel : '代理商评价ID',
+		          fieldLabel : '投诉信息ID',
 		          name : 'id',
 		          readOnly:true
 		        },{    
 			      id : 'dlsmc',
 			      xtype : 'combo',
-			      fieldLabel : '代理商名称',
+			      fieldLabel : '投诉代理商名称',
 			      labelAlign : 'left',
 			      labelWidth : 120,
 			      emptyText : '请选择代理商',
@@ -213,36 +213,31 @@ if(toolbar.get("button_modify")){
 						}
 	    			}
      			})
-			},{
-		    	xtype : 'combo',
-		        fieldLabel : '代理商星级分数',
-		        labelAlign : 'left',
-		        labelWidth : 120,
-		        emptyText : '请选择代理商星级分数',
-		        triggerAction : 'all',
-		        store : new Ext.data.SimpleStore({
-				   fields : ['label', 'value'],
-				   data : [["1", "1"],["2", "2"],["3", "3"],["4", "4"],["5", "5"],["6", "6"],["7", "7"],["8", "8"],["9", "9"],["10", "10"]]
-				}),
-				displayField : 'label',
-			    valueField : 'value',
-			    hiddenName : 'dlsxjpj',
-			    mode : 'local',
-		        name : 'dlsxjpj',
-		        minLength : 1,
-		        maxLength: 100,
-		        allowBlank : false,
-		        editable : false
-		    },{
-				xtype : 'textarea',
-				fieldLabel : '代理商管理细则',
-				name : 'dlsglxz'
+		  },{
+			fieldLabel : '投诉单位',
+			emptyText : '请输入投诉单位名称',
+			name : 'tsdw',
+			allowBlank : false       	
+		  },{
+			xtype : 'textarea',
+			fieldLabel : '投诉事项',
+			name : 'tssx'
+		  },{
+			 xtype : 'datefield',
+			 fieldLabel : '投诉时间',
+			 labelAlign : 'left',
+			 labelWidth : 120,
+			 emptyText : '请选择投诉时间',
+			 name : 'tssj',
+			 format:'Y-m-d',
+			 editable : false,
+			 allowBlank : true
 		   },{
 	         xtype : 'combo',
 	         name : 'status',
 	         triggerAction : 'all',
-	         fieldLabel : '角色状态',
-	         emptyText : '请选择角色状态',
+	         fieldLabel : '投诉信息状态',
+	         emptyText : '请选择投诉信息状态',
 	         store : new Ext.data.SimpleStore({
 	           fields : ['label', 'value'],
 	           data : [["启用", "1"],["禁用", "-1"]]
@@ -313,8 +308,8 @@ if(toolbar.get("button_query")){
 		        editable : false
 		    },{
 				xtype : 'combo',
-				fieldLabel : '客户状态',
-				emptyText : '请选择客户状态',
+				fieldLabel : '投诉信息状态',
+				emptyText : '请选择投诉信息状态',
 				name : 'status',
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
