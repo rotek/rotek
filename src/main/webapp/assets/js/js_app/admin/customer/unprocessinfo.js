@@ -328,8 +328,13 @@ if(toolbar.get("button_modify")){
       			    			  arr.push(item.id);
 	        			    	  customerCache.projectList.push(arr);
         			    	  });  
-	        			      Ext.getCmp('projectlist').getStore().loadData(customerCache.projectList);
-//	        			      Ext.getCmp('projectlist').setValue("");
+	        			      if (projectList.length == 0){
+	        			    	  Ext.getCmp('projectlist').getStore().removeAll() ;  //清空缓存的数据
+	        			    	  Ext.getCmp('projectlist').setValue("");
+	        			      }
+	        			      else {
+	        			    	  Ext.getCmp('projectlist').getStore().loadData(customerCache.projectList);
+	        			      }
 	        			      return true;
 	        		    }
 	        	    });
@@ -361,7 +366,7 @@ if(toolbar.get("button_modify")){
 						autoLoad : true,
 						listeners : {
 							load : function (){
-								Ext.getCmp('projectlist').setValue(data.r_project_id);
+								Ext.getCmp('projectlist').setValue(data.r_project_id)								
 							}
 						}
 
