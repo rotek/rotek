@@ -39,7 +39,7 @@ ROTEK.AGENTESTIMATE.params = {
 		  		  align : 'center'
 		      },{
 		        index:'status',
-		        header:'评价状态',
+		        header:'评价信息状态',
                 width : 30,
 		        align : 'center',
 		        renderer:function(value){
@@ -143,15 +143,15 @@ if (toolbar.get("button_add")) {
 			width : 230
 		   },{
 		     xtype : 'combo',
-		     fieldLabel : '资料状态',
+		     fieldLabel : '评价信息状态',
 		     labelAlign : 'left',
 		     labelWidth : 120,
-		     emptyText : '请选择资料状态',
+		     emptyText : '请选择评价信息状态',
 		     name : 'status',
 		     triggerAction : 'all',
 		     store : new Ext.data.SimpleStore({
 		          fields : ['label', 'value'],
-		          data : [["启用", "1"],["禁用", "-1"]]
+		          data :  [ [ "有效", "1" ], [ "无效", "-1" ] ]
 		     }),
 		     displayField : 'label',
 		     valueField : 'value',
@@ -247,11 +247,11 @@ if(toolbar.get("button_modify")){
 	         xtype : 'combo',
 	         name : 'status',
 	         triggerAction : 'all',
-	         fieldLabel : '角色状态',
-	         emptyText : '请选择角色状态',
+	         fieldLabel : '评价信息状态',
+	         emptyText : '请选择评价信息状态',
 	         store : new Ext.data.SimpleStore({
 	           fields : ['label', 'value'],
-	           data : [["启用", "1"],["禁用", "-1"]]
+	           data :  [ [ "有效", "1" ], [ "无效", "-1" ] ]
 	         }),
 	         displayField : 'label',
 	         valueField : 'value',
@@ -325,7 +325,7 @@ if(toolbar.get("button_query")){
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [ [ "启用", "1" ], [ "禁用", "-1" ] ]
+					data :  [ [ "有效", "1" ], [ "无效", "-1" ] ]
 				}),
 				displayField : 'label',
 				valueField : 'value',

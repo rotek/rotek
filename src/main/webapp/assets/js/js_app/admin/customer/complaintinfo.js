@@ -34,7 +34,7 @@ ROTEK.COMPLAINTINFO.params = {
 				  }
 		      },{
 		        index:'status',
-		        header:'评价状态',
+		        header:'投诉信息状态',
                 width : 30,
 		        align : 'center',
 		        renderer:function(value){
@@ -145,7 +145,7 @@ if (toolbar.get("button_add")) {
 		     triggerAction : 'all',
 		     store : new Ext.data.SimpleStore({
 		          fields : ['label', 'value'],
-		          data : [["启用", "1"],["禁用", "-1"]]
+		          data : [["有效", "1"],["无效", "-1"]]
 		     }),
 		     displayField : 'label',
 		     valueField : 'value',
@@ -240,7 +240,7 @@ if(toolbar.get("button_modify")){
 	         emptyText : '请选择投诉信息状态',
 	         store : new Ext.data.SimpleStore({
 	           fields : ['label', 'value'],
-	           data : [["启用", "1"],["禁用", "-1"]]
+	           data : [["有效", "1"],["无效", "-1"]]
 	         }),
 	         displayField : 'label',
 	         valueField : 'value',
@@ -308,7 +308,7 @@ if(toolbar.get("button_query")){
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [ [ "启用", "1" ], [ "禁用", "-1" ] ]
+					data : [ [ "有效", "1" ], [ "无效", "-1" ] ]
 				}),
 				displayField : 'label',
 				valueField : 'value',

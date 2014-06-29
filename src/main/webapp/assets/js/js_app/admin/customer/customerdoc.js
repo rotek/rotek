@@ -181,7 +181,7 @@ if (toolbar.get("button_add")) {
 		     triggerAction : 'all',
 		     store : new Ext.data.SimpleStore({
 		          fields : ['label', 'value'],
-		          data : [["启用", "1"],["禁用", "-1"]]
+		          data :  [ [ "有效", "1" ], [ "无效", "-1" ] ]
 		     }),
 		     displayField : 'label',
 		     valueField : 'value',
@@ -310,11 +310,11 @@ if(toolbar.get("button_modify")){
 	         xtype : 'combo',
 	         name : 'status',
 	         triggerAction : 'all',
-	         fieldLabel : '角色状态',
-	         emptyText : '请选择角色状态',
+	         fieldLabel : '资料状态',
+	         emptyText : '请选择资料状态',
 	         store : new Ext.data.SimpleStore({
 	           fields : ['label', 'value'],
-	           data : [["启用", "1"],["禁用", "-1"]]
+	           data :  [ [ "有效", "1" ], [ "无效", "-1" ] ]
 	         }),
 	         displayField : 'label',
 	         valueField : 'value',
@@ -387,13 +387,13 @@ if(toolbar.get("button_query")){
 			     mode : 'local'
 			}, {
 				xtype : 'combo',
-				fieldLabel : '客户状态',
-				emptyText : '请选择客户状态',
+				fieldLabel : '资料状态',
+				emptyText : '请选择资料状态',
 				name : 'status',
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [ [ "启用", "1" ], [ "禁用", "-1" ] ]
+					data :  [ [ "有效", "1" ], [ "无效", "-1" ] ]
 				}),
 				displayField : 'label',
 				valueField : 'value',

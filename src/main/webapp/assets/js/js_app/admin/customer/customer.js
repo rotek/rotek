@@ -45,7 +45,7 @@ ROTEK.CUSTOMER.params = {
 		          header:'经纬度地址'
 		      },{
 		        index:'status',
-		        header:'角色状态',
+		        header:'客户状态',
 		        renderer:function(value){
 		          if(1==value){
 		            return "<span style='color:green;'>有效</span>";
@@ -219,13 +219,13 @@ if (toolbar.get("button_add")) {
 		    disabled : true
 		},{
 		        xtype : 'combo',
-		        fieldLabel : '角色状态',
-		        emptyText : '请选择角色状态',
+		        fieldLabel : '客户状态',
+		        emptyText : '请选择客户状态',
 		        name : 'status',
 		        triggerAction : 'all',
 		        store : new Ext.data.SimpleStore({
 		          fields : ['label', 'value'],
-		          data : [["启用", "1"],["禁用", "-1"]]
+		          data :  [ [ "有效", "1" ], [ "无效", "-1" ] ]
 		        }),
 		        displayField : 'label',
 		        valueField : 'value',
@@ -309,11 +309,11 @@ if(toolbar.get("button_modify")){
 	          xtype : 'combo',
 	          name : 'status',
 	          triggerAction : 'all',
-	          fieldLabel : '角色状态',
-	          emptyText : '请选择角色状态',
+	          fieldLabel : '客户状态',
+	          emptyText : '请选择客户状态',
 	          store : new Ext.data.SimpleStore({
 	            fields : ['label', 'value'],
-	            data : [["启用", "1"],["禁用", "-1"]]
+	            data :  [ [ "有效", "1" ], [ "无效", "-1" ] ]
 	          }),
 	          displayField : 'label',
 	          valueField : 'value',
@@ -397,7 +397,7 @@ if(toolbar.get("button_query")){
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [ [ "启用", "1" ], [ "禁用", "-1" ] ]
+					data :  [ [ "有效", "1" ], [ "无效", "-1" ] ]
 				}),
 				displayField : 'label',
 				valueField : 'value',
