@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- Le styles -->
 <link rel="stylesheet" type="text/css"
@@ -32,16 +33,21 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/front/select2/select2.js"></script>
 
-	
+
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/front/highchats/highstock.js"></script>
-	
+	src="${pageContext.request.contextPath }/assets/front/highcharts/highstock.js"></script>
+
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/front/highchats/exporting.js"></script>
+	src="${pageContext.request.contextPath }/assets/front/highcharts/exporting.js"></script>
 
 
-
-
+<link
+	href="${pageContext.request.contextPath }/assets/front/datepacker/daterangepicker-bs3.css"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/front/datepacker/moment.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/front/datepacker/daterangepicker.js"></script>
 
 
 

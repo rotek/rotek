@@ -9,17 +9,6 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/assets/front/main.css" />
 
-<style type="text/css">
-.r_top {
-	height: 5%;
-	text-align: left;
-}
-
-.r_center {
-	height: 95%
-}
-</style>
-
 <script type="text/javascript">
 	$(function() {
 
@@ -33,6 +22,10 @@
 
 		$("#ljxq").select2({
 			placeholder : "请选择您要查看的零件详情"
+		});
+		
+		$("#jcx").select2({
+			placeholder : "请选择您要查看的零件监测项"
 		});
 
 		$('#container')
@@ -163,24 +156,32 @@
 
 		<%@include file="/assets/jsp/common_front_left.jsp"%>
 		<div class="right">
-			<div class="r_top well">
+			<div class="r_top">
 
 				<select id="xc" style="width: 250px">
 					<option value=""></option>
 					<option value="0">现场1</option>
 					<option value="1">现场2</option>
 					<option value="2">现场3</option>
-				</select> <select id="lj" style="width: 250px; margin-left: 20px">
+				</select> 
+				
+				<select id="lj" style="width: 250px; margin-left: 20px">
 					<option value=""></option>
 					<option value="0">零件1</option>
 					<option value="1">零件2</option>
-				</select> <select id="ljxq" style="width: 250px; margin-left: 20px">
+				</select> 
+				
+				<select id="ljxq" style="width: 250px; margin-left: 20px">
 					<option value=""></option>
 					<option value="0">泵前</option>
 					<option value="1">泵后</option>
 				</select>
-
-
+				
+				<select id="jcx" style="width: 250px; margin-top: 20px">
+					<option value=""></option>
+					<option value="0">ph值</option>
+					<option value="1">温度</option>
+				</select>
 			</div>
 
 			<div class="r_center">
