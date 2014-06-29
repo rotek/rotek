@@ -297,6 +297,7 @@ if(toolbar.get("button_modify")){
 					autoLoad : true,
 					listeners : {
 						load : function (){
+							console.log(data.r_customer_id);
 							Ext.getCmp('khmc').setValue(data.r_customer_id);
 						}
 	    			}
@@ -374,6 +375,23 @@ if(toolbar.get("button_modify")){
 			 format:'Y-m-d',
 			 editable : false,
 			 allowBlank : true
+		   },,{
+		         xtype : 'combo',
+		         name : 'isdealed',
+		         triggerAction : 'all',
+		         fieldLabel : '处理状态',
+		         emptyText : '请选择投诉信息处理状态',
+		         store : new Ext.data.SimpleStore({
+		           fields : ['label', 'value'],
+		           data :  [ [ "处理完毕", "1" ], [ "未处理", "-1" ] ]
+		         }),
+		         displayField : 'label',
+		         valueField : 'value',
+		         hiddenName : 'isdealed',
+		         editable : false,
+		         mode : 'local',
+		         renderer : function(value){
+		         }
 		   },{
 	         xtype : 'combo',
 	         name : 'status',

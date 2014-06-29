@@ -179,7 +179,7 @@ public class UnProcessInfoController {
 			@RequestParam(value = "r_customer_id", defaultValue = "0") Integer R_CUSTOMER_ID,
 			@RequestParam(value = "r_project_id", defaultValue = "0") Integer R_PROJECT_ID,
 			@RequestParam(value = "jlrq", defaultValue = "") Date JLRQ,  
-			@RequestParam(value="isdealed", defaultValue="1") Integer ISDEALED,
+			@RequestParam(value="isdealed", defaultValue="-1") Integer ISDEALED,
 			@RequestParam(value="status", defaultValue="1") Integer STATUS,
 			ModelMap model ) throws Exception {
 		
