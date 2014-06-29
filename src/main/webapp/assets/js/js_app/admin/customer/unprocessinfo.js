@@ -156,6 +156,7 @@ if (toolbar.get("button_add")) {
       			    			  arr.push(item.id);
 	        			    	  customerCache.projectList.push(arr);
         			    	  }); 
+	        			      console.log(projectList);
 	        			      Ext.getCmp('projectlist').getStore().loadData(customerCache.projectList);
 	        			      return true;
 	        		    }
@@ -306,29 +307,34 @@ if(toolbar.get("button_modify")){
 					listeners : {
 						load : function (){
 							Ext.getCmp('khmc').setValue(data.r_customer_id);
-						},			      
-		        	    change: function(combo,item,index){		        		
-		        		console.log(item);
-		        		console.log(index);
-	        			Ext.Ajax.request({
-		        		    url : ROTEK.UNPROCESSINFO.params.url.listProjectUrl,
-		        		    success : function(response) {
-		        			      var projectList = Ext.util.JSON.decode(response.responseText).Data;
-		        			      console.log(projectList);
-		        			      customerCache.projectList = [];
-		        			      Ext.each(projectList, function(item) {
-	      			    			  var arr = new Array();
-	      			    			  arr.push(item.gcmc + "");
-	      			    			  arr.push(item.id);
-		        			    	  customerCache.projectList.push(arr);
-	        			    	  });  
-		        			      Ext.getCmp('projectlist').getStore().loadData(customerCache.projectList);
-		        			      return true;
-		        		    }
-		        	    });
-		        	}
+						}
 	    			}
-     			})
+     			}),
+     			listeners : {
+	        	    select: function(combo,item,index){		        		
+	        	    	console.log(item);
+	        	    	console.log(index);
+	        	    	var purl = basePath + "/admin/UnProcessInfo/listProject?r_customer_id=" + item.id;
+		        		console.log(purl);
+	        	    	Ext.Ajax.request({
+	        	    		url : purl,
+	        	    		success : function(response) {
+	        			      var projectList = Ext.util.JSON.decode(response.responseText).dataList;
+	        			      console.log(projectList);
+	        			      customerCache.projectList = [];
+	        			      Ext.each(projectList, function(item) {
+      			    			  var arr = new Array();
+      			    			  arr.push(item.gcmc + "");
+      			    			  arr.push(item.id);
+	        			    	  customerCache.projectList.push(arr);
+        			    	  });  
+	        			      Ext.getCmp('projectlist').getStore().loadData(customerCache.projectList);
+//	        			      Ext.getCmp('projectlist').setValue("");
+	        			      return true;
+	        		    }
+	        	    });
+	        	  }
+    			}
 		  },{
 				id : 'projectlist',
 			     xtype : 'combo',
@@ -340,10 +346,26 @@ if(toolbar.get("button_modify")){
 				 valueField : 'id',
 				 hiddenName : 'r_project_id',
 				 allowBlank : true,
-				 store : new Ext.data.SimpleStore({
-			            fields : ['gcmc', 'id'],
-			            data : []
-			    }),
+				 store : new Ext.data.Store({
+						reader : new Ext.data.JsonReader({
+							root : 'dataList',
+							fields : [ {
+								name : 'id'
+							}, {
+								name : 'gcmc'
+							} ]
+						}),
+						proxy : new Ext.data.HttpProxy({
+							url : basePath + "/admin/UnProcessInfo/listProject?r_customer_id=" + data.r_customer_id
+						}),
+						autoLoad : true,
+						listeners : {
+							load : function (){
+								Ext.getCmp('projectlist').setValue(data.r_project_id);
+							}
+						}
+
+				}),
 			    mode : 'local',
 			    editable : false
 		  },{
