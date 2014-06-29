@@ -375,7 +375,7 @@ if(toolbar.get("button_modify")){
 			 format:'Y-m-d',
 			 editable : false,
 			 allowBlank : true
-		   },,{
+		   },{
 		         xtype : 'combo',
 		         name : 'isdealed',
 		         triggerAction : 'all',
@@ -416,7 +416,7 @@ if(toolbar.get("button_modify")){
 	      var updateWindow = new CTA.common.UpdateWindow({
 	    	  id : 'updateWindow',
 			  width : '40%',
-			  height : 300,
+			  height : 400,
 			  layout : 'border',
 			  items : [ customerdoc_info_formPanel ],
 				handler : function() {
