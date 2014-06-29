@@ -45,7 +45,10 @@ public class AlgorithmsEntity extends BaseEntity {
 
 	@Column(name = "R_COMPONET_DETAIL_ID")   // 零件部位ID外键
 	private Integer r_component_detail_id ;  		     
-
+	
+	@Column(name = "MONITORTYPE")                      // 监测类型：1-水质监测，2-流量监测，3-压力监测，4-EMC水质监测，5-EMC流量监测，6-EMC压力监测
+	private Integer monitortype;
+	
 	@Column(name = "SPECIFICPARTPARAM")  // 零件部位的参数名称
 	private String	specificpartparam ;    		  
 
@@ -90,6 +93,12 @@ public class AlgorithmsEntity extends BaseEntity {
 
 	@Column(name = "MXTCSDDLBZ")                  // 膜系统产水电导率标准值[S]
 	private	Double	mxtcsddlbz ;      	  	
+	
+	@Column(name = "SITEREALDATATABLE")              // 现场实时数据表名称
+	private Integer siterealdatatable ;   	         
+
+	@Column(name = "SITEREALDATAField")                  // 现场实时数据字段名称
+	private	Double	siterealdatafield ;      	  	
 
 	@Column(name = "STATUS")                             // 是否可用
 	private Integer status ;
@@ -268,6 +277,30 @@ public class AlgorithmsEntity extends BaseEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Integer getMonitortype() {
+		return monitortype;
+	}
+
+	public void setMonitortype(Integer monitortype) {
+		this.monitortype = monitortype;
+	}
+
+	public Integer getSiterealdatatable() {
+		return siterealdatatable;
+	}
+
+	public void setSiterealdatatable(Integer siterealdatatable) {
+		this.siterealdatatable = siterealdatatable;
+	}
+
+	public Double getSiterealdatafield() {
+		return siterealdatafield;
+	}
+
+	public void setSiterealdatafield(Double siterealdatafield) {
+		this.siterealdatafield = siterealdatafield;
 	}      		 
 	
 	
