@@ -138,21 +138,24 @@ if (toolbar.get("button_add")) {
 				autoLoad : true
 			}),
 	        listeners : {
-	        	'change': function(combo,item,index){
+	        	select: function(combo,item,index){
 	        		
 	        		console.log(item);
 	        		console.log(index);
+	        		var purl = basePath + "/admin/UnProcessInfo/listProject?r_customer_id=" + item.id;
+	        		console.log(purl);
         			Ext.Ajax.request({
-	        		    url : ROTEK.UNPROCESSINFO.params.url.listProjectUrl,
+        				url : purl, 
 	        		    success : function(response) {
-	        			      var projectList = Ext.util.JSON.decode(response.responseText).projectList;
+	        			      var projectList = Ext.util.JSON.decode(response.responseText).dataList;
+	        			      console.log(projectList);
 	        			      customerCache.projectList = [];
 	        			      Ext.each(projectList, function(item) {
       			    			  var arr = new Array();
       			    			  arr.push(item.gcmc + "");
       			    			  arr.push(item.id);
 	        			    	  customerCache.projectList.push(arr);
-        			    	  });  
+        			    	  }); 
 	        			      Ext.getCmp('projectlist').getStore().loadData(customerCache.projectList);
 	        			      return true;
 	        		    }
@@ -166,7 +169,7 @@ if (toolbar.get("button_add")) {
 	        hiddenName : 'r_customer_id',
 	        mode : 'local'
 	      },{
-			id : 'projectlist',
+			     id : 'projectlist',
 			     xtype : 'combo',
 			     fieldLabel : '工程名称',
 			     emptyText : '请选择工程名称',
@@ -176,6 +179,7 @@ if (toolbar.get("button_add")) {
 				 valueField : 'id',
 				 hiddenName : 'r_project_id',
 				 allowBlank : true,
+				 readonly : true,
 				 store : new Ext.data.SimpleStore({
 			            fields : ['gcmc', 'id'],
 			            data : []
@@ -238,7 +242,13 @@ if (toolbar.get("button_add")) {
 		     mode : 'local',
 		     allowBlank : false,
 		     editable : false
-		  }]
+		  }],
+		  listeners: {
+		        click: {
+		            element: 'customer_combo', //bind to the underlying el property on the panel
+		            fn: function(){ console.log('click customer_combo'); }
+		        }
+		    }
 	  });
 	  addWindow.add(formPanel);
 	  addWindow.show();
@@ -303,7 +313,8 @@ if(toolbar.get("button_modify")){
 	        			Ext.Ajax.request({
 		        		    url : ROTEK.UNPROCESSINFO.params.url.listProjectUrl,
 		        		    success : function(response) {
-		        			      var projectList = Ext.util.JSON.decode(response.responseText).projectList;
+		        			      var projectList = Ext.util.JSON.decode(response.responseText).Data;
+		        			      console.log(projectList);
 		        			      customerCache.projectList = [];
 		        			      Ext.each(projectList, function(item) {
 	      			    			  var arr = new Array();
@@ -312,7 +323,6 @@ if(toolbar.get("button_modify")){
 		        			    	  customerCache.projectList.push(arr);
 	        			    	  });  
 		        			      Ext.getCmp('projectlist').getStore().loadData(customerCache.projectList);
-		        			      console.log(customerCache.projectList);
 		        			      return true;
 		        		    }
 		        	    });
