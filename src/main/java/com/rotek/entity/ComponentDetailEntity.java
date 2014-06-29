@@ -13,14 +13,14 @@ import com.cta.platform.persistence.annotation.ID;
 import com.cta.platform.persistence.annotation.Table;
 
 /**
-* @ClassName:PumpDetailEntity
-* @Description: 泵  详细信息（参数的额定值）实体类
+* @ClassName: ComponentDetailEntity
+* @Description: 组  详细信息（参数的额定值）实体类
 * @Author WangJuZhu
-* @date 2014年6月25日 上午6:02:02
+* @date 2014年6月30日 上午6:17:46
 * @Version:1.1.0
 */
-@Table(name = "r_pump_detail")
-public class PumpDetailEntity implements Serializable {
+@Table(name = "r_component_detail")
+public class ComponentDetailEntity implements Serializable {
 
 	/**  @Fields serialVersionUID   @Description:  */
 	private static final long serialVersionUID = 2843425794297136575L;
@@ -29,8 +29,8 @@ public class PumpDetailEntity implements Serializable {
 	@ID(strategy=StrategyType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "R_PUMP_GROUP_ID")
-	private Integer r_pump_group_id ;   	// 泵组ID
+	@Column(name = "R_COMPONENT_GROUP_ID")
+	private Integer r_component_group_id ;   	// 组ID
 	
 	@Column(name = "SPECIFIC_PART")
 	private String specific_part ;   	// 具体的零件名称，比如1号泵前，1号泵后
@@ -38,11 +38,11 @@ public class PumpDetailEntity implements Serializable {
 	@Column(name = "SPECIFIC_BH")
 	private String specific_bh ;   	// 具体的零件编号，比如1号泵前的编号   000101，1号泵后  000102
 	
-	@Column(name = "EDYCLL")
-	private Double edycll ;   	// 额定扬程流量
+	@Column(name = "EDLL")
+	private Double edll ;   	// 额定流量(额定扬程流量)
 
-	@Column(name = "EDWHBYSJ")
-	private Date edwhbysj ;    	// 额定维护保养时间
+	@Column(name = "EDGHSJ")
+	private Date edghsj ;    	// 额定维护保养时间(额定更换时间)
 	
 	@Column(name = "EDDDL")
 	private Double edddl ;    	// 额定电导率
@@ -67,6 +67,9 @@ public class PumpDetailEntity implements Serializable {
 	
 	@Column(name = "EDYL")
 	private Double edyl ;    	// 额定压力
+	
+	@Column(name = "EDSZYL")
+	private Double edszyl ;    	// 额定压力
 	
 	@Column(name = "EDSDI")
 	private Double edsdi ;    	// 额定SDI值
@@ -95,6 +98,24 @@ public class PumpDetailEntity implements Serializable {
 	@Column(name = "EDWNND")
 	private Double edwnnd ;    	// 额定污泥浓度
 	
+	@Column(name = "EDYC")
+	private Double edyc ;    	// 额定压差
+	
+	@Column(name = "EDSZ")
+	private Double edsz ;    	// 额定水质
+	
+	@Column(name = "EDQXSJ")
+	private Date edqxsj ;    	// 额定清洗时间
+	
+	@Column(name = "EDQXYC")
+	private Double edqxyc ;    	// 额定清洗压差
+	
+	@Column(name = "EDGHYC")
+	private Double edghyc ;    	// 额定更换压差
+	
+	@Column(name = "EDHSL")
+	private Double edhsl ;    	// 额定回收率
+		
 	@Column(name = "OTHER_INFO")
 	private String other_info ;    	// 其他信息
 	
@@ -111,14 +132,14 @@ public class PumpDetailEntity implements Serializable {
 		this.id = id;
 	}
 
-	/** @return r_pump_group_id */
-	public Integer getR_pump_group_id() {
-		return r_pump_group_id;
+	/** @return r_component_group_id */
+	public Integer getR_component_group_id() {
+		return r_component_group_id;
 	}
 
-	/** @param r_pump_group_id r_pump_group_id to set */
-	public void setR_pump_group_id(Integer r_pump_group_id) {
-		this.r_pump_group_id = r_pump_group_id;
+	/** @param r_component_group_id r_component_group_id to set */
+	public void setR_component_group_id(Integer r_component_group_id) {
+		this.r_component_group_id = r_component_group_id;
 	}
 
 	/** @return specific_part */
@@ -141,24 +162,24 @@ public class PumpDetailEntity implements Serializable {
 		this.specific_bh = specific_bh;
 	}
 
-	/** @return edycll */
-	public Double getEdycll() {
-		return edycll;
+	/** @return edll */
+	public Double getEdll() {
+		return edll;
 	}
 
-	/** @param edycll edycll to set */
-	public void setEdycll(Double edycll) {
-		this.edycll = edycll;
+	/** @param edll edll to set */
+	public void setEdll(Double edll) {
+		this.edll = edll;
 	}
 
-	/** @return edwhbysj */
-	public Date getEdwhbysj() {
-		return edwhbysj;
+	/** @return edghsj */
+	public Date getEdghsj() {
+		return edghsj;
 	}
 
-	/** @param edwhbysj edwhbysj to set */
-	public void setEdwhbysj(Date edwhbysj) {
-		this.edwhbysj = edwhbysj;
+	/** @param edghsj edghsj to set */
+	public void setEdghsj(Date edghsj) {
+		this.edghsj = edghsj;
 	}
 
 	/** @return edddl */
@@ -239,6 +260,16 @@ public class PumpDetailEntity implements Serializable {
 	/** @param edyl edyl to set */
 	public void setEdyl(Double edyl) {
 		this.edyl = edyl;
+	}
+
+	/** @return edszyl */
+	public Double getEdszyl() {
+		return edszyl;
+	}
+
+	/** @param edszyl edszyl to set */
+	public void setEdszyl(Double edszyl) {
+		this.edszyl = edszyl;
 	}
 
 	/** @return edsdi */
@@ -329,6 +360,66 @@ public class PumpDetailEntity implements Serializable {
 	/** @param edwnnd edwnnd to set */
 	public void setEdwnnd(Double edwnnd) {
 		this.edwnnd = edwnnd;
+	}
+
+	/** @return edyc */
+	public Double getEdyc() {
+		return edyc;
+	}
+
+	/** @param edyc edyc to set */
+	public void setEdyc(Double edyc) {
+		this.edyc = edyc;
+	}
+
+	/** @return edsz */
+	public Double getEdsz() {
+		return edsz;
+	}
+
+	/** @param edsz edsz to set */
+	public void setEdsz(Double edsz) {
+		this.edsz = edsz;
+	}
+
+	/** @return edqxsj */
+	public Date getEdqxsj() {
+		return edqxsj;
+	}
+
+	/** @param edqxsj edqxsj to set */
+	public void setEdqxsj(Date edqxsj) {
+		this.edqxsj = edqxsj;
+	}
+
+	/** @return edqxyc */
+	public Double getEdqxyc() {
+		return edqxyc;
+	}
+
+	/** @param edqxyc edqxyc to set */
+	public void setEdqxyc(Double edqxyc) {
+		this.edqxyc = edqxyc;
+	}
+
+	/** @return edghyc */
+	public Double getEdghyc() {
+		return edghyc;
+	}
+
+	/** @param edghyc edghyc to set */
+	public void setEdghyc(Double edghyc) {
+		this.edghyc = edghyc;
+	}
+
+	/** @return edhsl */
+	public Double getEdhsl() {
+		return edhsl;
+	}
+
+	/** @param edhsl edhsl to set */
+	public void setEdhsl(Double edhsl) {
+		this.edhsl = edhsl;
 	}
 
 	/** @return other_info */
