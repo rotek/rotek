@@ -93,7 +93,6 @@ var toolbar = new CTA.common.Toolbar();
 if (toolbar.get("button_add")) {
 	toolbar.get("button_add").setHandler(function() {
 		
-		var customerCache = {};
 		var saveHandler = function(){
 	        //检查表单是否填写好
 	        if(formPanel.getForm().isValid()){
@@ -139,25 +138,21 @@ if (toolbar.get("button_add")) {
 			}),
 	        listeners : {
 	        	select: function(combo,item,index){
-	        		
-	        		console.log(item);
-	        		console.log(index);
 	        		var purl = basePath + "/admin/UnProcessInfo/listProject?r_customer_id=" + item.id;
 	        		console.log(purl);
         			Ext.Ajax.request({
         				url : purl, 
 	        		    success : function(response) {
-	        			      var projectList = Ext.util.JSON.decode(response.responseText).dataList;
-	        			      console.log(projectList);
-	        			      customerCache.projectList = [];
-	        			      Ext.each(projectList, function(item) {
-      			    			  var arr = new Array();
-      			    			  arr.push(item.gcmc + "");
-      			    			  arr.push(item.id);
-	        			    	  customerCache.projectList.push(arr);
-        			    	  }); 
-	        			      console.log(projectList);
-	        			      Ext.getCmp('projectlist').getStore().loadData(customerCache.projectList);
+	        			      var projectData = Ext.util.JSON.decode(response.responseText).data;
+	        			      console.log(projectData);
+	        			      if (projectData != null){
+	        			    	  Ext.getCmp('projectname').setValue(projectData.gcmc);  
+	        			    	  Ext.getCmp('projectid').setValue(projectData.id);  
+	        			      }
+	        			      else {
+	        			    	  Ext.getCmp('projectname').setValue("");
+	        			    	  Ext.getCmp('projectid').setValue(-1);  
+	        			      }
 	        			      return true;
 	        		    }
 	        	    });
@@ -170,23 +165,20 @@ if (toolbar.get("button_add")) {
 	        hiddenName : 'r_customer_id',
 	        mode : 'local'
 	      },{
-			     id : 'projectlist',
-			     xtype : 'combo',
-			     fieldLabel : '工程名称',
-			     emptyText : '请选择工程名称',
+			  	id : 'projectname',
+		        fieldLabel : '工程名称',
+		        emptyText : '当前客户没有对应工程信息',
+		        name : 'project_mc',
+		        minLength : 1,
+		        editable : false,
+		        allowBlank : false,
+		        readOnly : true,
+		        maxLength: 100
+		  },{
+			     xtype : 'hidden',
+			     id : 'projectid',
+			     fieldLabel : '工程ID',
 			     name : 'r_project_id',
-			     triggerAction : 'all',
-			     displayField : 'gcmc',
-				 valueField : 'id',
-				 hiddenName : 'r_project_id',
-				 allowBlank : true,
-				 readonly : true,
-				 store : new Ext.data.SimpleStore({
-			            fields : ['gcmc', 'id'],
-			            data : []
-			    }),
-			    mode : 'local',
-			    editable : false
 		  },{
 				xtype : 'combo',
 				fieldLabel : '未处理信息类别',
@@ -259,7 +251,6 @@ if (toolbar.get("button_add")) {
 //修改信息
 if(toolbar.get("button_modify")){
 	toolbar.get("button_modify").setHandler(function() {
-	  var customerCache = {};
 	  var selections = gridPanel.getSelectionModel().getSelections();
 	  if(!selections || selections.length <= 0){
 	    Ext.Msg.alert('提示', '请选择您要操作的数据，如果选择多条，只修改第一条!');
@@ -312,67 +303,41 @@ if(toolbar.get("button_modify")){
      			}),
      			listeners : {
 	        	    select: function(combo,item,index){		        		
-	        	    	console.log(item);
-	        	    	console.log(index);
 	        	    	var purl = basePath + "/admin/UnProcessInfo/listProject?r_customer_id=" + item.id;
-		        		console.log(purl);
 	        	    	Ext.Ajax.request({
 	        	    		url : purl,
 	        	    		success : function(response) {
-	        			      var projectList = Ext.util.JSON.decode(response.responseText).dataList;
-	        			      console.log(projectList);
-	        			      customerCache.projectList = [];
-	        			      Ext.each(projectList, function(item) {
-      			    			  var arr = new Array();
-      			    			  arr.push(item.gcmc + "");
-      			    			  arr.push(item.id);
-	        			    	  customerCache.projectList.push(arr);
-        			    	  });  
-	        			      if (projectList.length == 0){
-	        			    	  Ext.getCmp('projectlist').getStore().removeAll() ;  //清空缓存的数据
-	        			    	  Ext.getCmp('projectlist').setValue("");
+	        			      var projectData = Ext.util.JSON.decode(response.responseText).data;
+	        			      console.log(projectData);
+	        			      if (projectData != null){
+	        			    	  Ext.getCmp('projectname').setValue(projectData.gcmc); 
+	        			    	  Ext.getCmp('projectid').setValue(projectData.id);  
 	        			      }
 	        			      else {
-	        			    	  Ext.getCmp('projectlist').getStore().loadData(customerCache.projectList);
+	        			    	  Ext.getCmp('projectname').setValue("");
+	        			    	  Ext.getCmp('projectid').setValue('-1');  
 	        			      }
+         			    	  
 	        			      return true;
 	        		    }
 	        	    });
 	        	  }
     			}
 		  },{
-				id : 'projectlist',
-			     xtype : 'combo',
-			     fieldLabel : '工程名称',
-			     emptyText : '请选择工程名称',
+			  	id : 'projectname',
+		        fieldLabel : '工程名称',
+		        name : 'project_mc',
+		        minLength : 1,
+		        editable : false,
+		        allowBlank : false,
+		        emptyText : '当前客户没有对应工程信息',
+		        readOnly : true,
+		        maxLength: 100
+		  },{
+			  	 id : 'projectid',
+			     xtype : 'hidden',
+			     fieldLabel : '工程ID',
 			     name : 'r_project_id',
-			     triggerAction : 'all',
-			     displayField : 'gcmc',
-				 valueField : 'id',
-				 hiddenName : 'r_project_id',
-				 allowBlank : true,
-				 store : new Ext.data.Store({
-						reader : new Ext.data.JsonReader({
-							root : 'dataList',
-							fields : [ {
-								name : 'id'
-							}, {
-								name : 'gcmc'
-							} ]
-						}),
-						proxy : new Ext.data.HttpProxy({
-							url : basePath + "/admin/UnProcessInfo/listProject?r_customer_id=" + data.r_customer_id
-						}),
-						autoLoad : true,
-						listeners : {
-							load : function (){
-								Ext.getCmp('projectlist').setValue(data.r_project_id)								
-							}
-						}
-
-				}),
-			    mode : 'local',
-			    editable : false
 		  },{
 				xtype : 'combo',
 				fieldLabel : '未处理信息类别',

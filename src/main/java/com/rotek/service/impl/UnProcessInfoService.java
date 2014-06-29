@@ -17,6 +17,7 @@ import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.UnProcessInfoDao;
 import com.rotek.dto.UnProcessInfoDto;
 import com.rotek.entity.UnProcessInfoEntity;
+import com.rotek.entity.ProjectEntity;
 
 /**
 * @ClassName:UnProcessInfoService
@@ -107,7 +108,7 @@ public class UnProcessInfoService {
 	* @throws SQLException
 	* @author liusw
 	*/
-	public List<Map<String, Object>> listProjects(Integer r_customer_id) throws SQLException {		
+	public ProjectEntity listProjects(Integer r_customer_id) throws SQLException {		
 		return unprocessinfoDao.listProjects(r_customer_id);
 	}
 	

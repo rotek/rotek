@@ -26,6 +26,7 @@ import com.rotek.dto.UserDto;
 import com.rotek.service.impl.UnProcessInfoService;
 import com.rotek.dto.UnProcessInfoDto;
 import com.rotek.entity.UnProcessInfoEntity;
+import com.rotek.entity.ProjectEntity;
 
 /**
 * @ClassName:UnProcessInfoController
@@ -109,9 +110,8 @@ public class UnProcessInfoController {
 	public String listProject (ModelMap modelMap, HttpServletRequest request,
 			@RequestParam(value="r_customer_id", defaultValue="") Integer R_CUSTOMER_ID) throws Exception {
 		
-		List<Map<String,Object>> projectList = unprocessinfoService.listProjects(R_CUSTOMER_ID);
-		
-		modelMap.put("dataList", projectList);
+		ProjectEntity projectdata = unprocessinfoService.listProjects(R_CUSTOMER_ID);
+		modelMap.put("data", projectdata);
 		return "jsonView";
 	}
 	
