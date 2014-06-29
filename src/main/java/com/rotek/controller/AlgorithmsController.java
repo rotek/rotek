@@ -14,7 +14,7 @@ import com.rotek.service.impl.AlgorithmsService;
 * @Version:1.1.0
 */
 @Controller
-@RequestMapping("/admin/Algorithm") // controller方法路径，每个Controller最好取不一样的路径名字
+@RequestMapping("/admin/Algorithms") // controller方法路径，每个Controller最好取不一样的路径名字
 public class AlgorithmsController {
 	@Autowired
 	private AlgorithmsService algorithmsService;
