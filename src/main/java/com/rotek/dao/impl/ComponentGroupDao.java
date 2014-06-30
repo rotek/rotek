@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.cta.platform.persistence.dao.BaseDaoImpl;
 import com.cta.platform.util.ListPager;
+import com.rotek.dto.ComponentGroupDto;
+import com.rotek.entity.ComponentGroupEntity;
 import com.rotek.entity.ProjectEntity;
 
 /**
@@ -20,17 +22,17 @@ import com.rotek.entity.ProjectEntity;
 public class ComponentGroupDao extends BaseDaoImpl{
 
 	/**
-	* @MethodName: listProject 
-	* @Description: 根据条件分页查询工程信息
+	* @MethodName: listComGroup 
+	* @Description: 根据条件分页查询组信息
 	* @param sql
 	* @param params
 	* @param pager
-	* @return List<ProjectEntity>
+	* @return List<ComponentGroupDto>
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public List<ProjectEntity> listProject(String sql,Object[] params, ListPager pager) throws SQLException {
-		return this.selectPage(sql, params, ProjectEntity.class, pager);
+	public List<ComponentGroupDto> listComGroup(String sql,Object[] params, ListPager pager) throws SQLException {
+		return this.selectPage(sql, params, ComponentGroupDto.class, pager);
 	}
 	
 	/**
@@ -47,48 +49,48 @@ public class ComponentGroupDao extends BaseDaoImpl{
 	}
 	
 	/**
-	* @MethodName: addProject 
-	* @Description: 添加工程信息
-	* @param project
+	* @MethodName: addComGroup 
+	* @Description: 添加组信息
+	* @param comgroup
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public void addProject(ProjectEntity project) throws SQLException {
-		this.insert(project);
+	public void addComGroup(ComponentGroupEntity comgroup) throws SQLException {
+		this.insert(comgroup);
 	}
 	
 	/**
-	* @MethodName: getProjectById 
-	* @Description: 根据ID查询工程详情
+	* @MethodName: getComGroupById 
+	* @Description: 根据ID查询组详情
 	* @param id
 	* @return
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public ProjectEntity getProjectById(Integer id) throws SQLException {
-		String sql = "select * from r_project where id = ?";
-		return this.selectOne(sql,new Integer[]{id},ProjectEntity.class);
+	public ComponentGroupEntity getComGroupById(Integer id) throws SQLException {
+		String sql = "select * from r_component_group where id = ?";
+		return this.selectOne(sql,new Integer[]{id},ComponentGroupEntity.class);
 	}
 	
 	/**
-	* @MethodName: modifyProject 
+	* @MethodName: modifyComGroup 
 	* @Description: 修改工程信息
 	* @param project
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public void modifyProject(ProjectEntity project) throws SQLException {
-		this.update(project);
+	public void modifyComGroup(ComponentGroupEntity comgroup) throws SQLException {
+		this.update(comgroup);
 	}
 
 	/**
-	* @MethodName: deleteProject 
-	* @Description: 删除工程信息
+	* @MethodName: deleteComGroup 
+	* @Description: 删除组信息
 	* @param sql
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public void deleteProject(String sql) throws SQLException {
+	public void deleteComGroup(String sql) throws SQLException {
 		this.executeUpdate(sql);
 	}
 	

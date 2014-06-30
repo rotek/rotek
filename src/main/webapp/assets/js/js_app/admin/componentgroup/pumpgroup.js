@@ -1,55 +1,42 @@
 /**  管理工程信息  */
-Ext.ns("ROTEK.Project");
-ROTEK.Project.params = {
+Ext.ns("ROTEK.COMPONENT.PUMP");
+ROTEK.COMPONENT.PUMP.params = {
 	gridParam : {
-		url : basePath + "/admin/componentgroup/listComGroup",
+		url : basePath + "/admin/componentgroup/listComGroup/1",
 		dataList : [ {
 			index : 'id',
-			header : '泵ID',
-			width : 30,
+			header : '组ID',
+			width : 40,
 			align : 'center'
 		}, {
-			index : 'gcmc',
+			index : 'project_name',
 			header : '工程名称',
-			width : 80,
+			width : 100,
 			align : 'center'
 		}, {
-			index : 'gcbh',
-			header : '工程编号',
+			index : 'group_bh',
+			header : '组编号',
 			width : 50,
 			align : 'center'
 		}, {
-			index : 'gcjs',
-			header : '工程介绍',
-			width : 130,
-			align : 'center'
-		}, {
-			index : 'azsj',
-			header : '安装时间',
+			index : 'group_mc',
+			header : '组名称',
 			width : 50,
-			renderer : function(value){
-				return new Date(parseFloat(value)).format("Y-m-d");
-			},
 			align : 'center'
 		}, {
-			index : 'tysj',
-			header : '投运时间',
+			index : 'pp',
+			header : '品牌',
 			width : 50,
-			renderer : function(value){
-				return new Date(parseFloat(value)).format("Y-m-d");
-			},
 			align : 'center'
 		}, {
-			index : 'gclb',
-			header : '工程类别',
-			renderer : function(value) {
-				if (1 == value) {
-					return "普通工程";
-				} else {
-					return "EMC工程";
-				}
-			},
-			width : 30,
+			index : 'xh',
+			header : '型号',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'gl',
+			header : '功率',
+			width : 50,
 			align : 'center'
 		}, {
 			index : 'status',
@@ -61,19 +48,20 @@ ROTEK.Project.params = {
 					return "<span style='color:red'>无效</span>";
 				}
 			},
-			width : 30,
+			width : 40,
 			align : 'center'
 		} ]
 	},
 	url : {
-		addUrl : basePath + "/admin/componentgroup/addComGroup",
+		addUrl : basePath + "/admin/componentgroup/addComGroup/1",
 		detailUrl : basePath + "/admin/componentgroup/getComGroupDetail",
-		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup",
-		dropUrl : basePath + "/admin/componentgroup/deleteComGroup"
+		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/1",
+		dropUrl : basePath + "/admin/componentgroup/deleteComGroup",
+		listProejctUrl : basePath + "/admin/componentgroup/listProjectByStatus"
 	}
 };
 
-var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.Project.params.gridParam);
+var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENT.PUMP.params.gridParam);
 var toolbar = new CTA.common.Toolbar();
 
 //添加工程信息
@@ -86,15 +74,15 @@ if (toolbar.get("button_add")) {
 //					target : 'addWindow'
 //				});
 				formPanel.commit({
-					url : ROTEK.Project.params.url.addUrl
+					url : ROTEK.COMPONENT.PUMP.params.url.addUrl
 				});
 			}
 		};
 		//定义添加的窗口
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
-			width : '80%',
-			height : 500,
+			width : '50%',
+			height : 270,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -103,89 +91,59 @@ if (toolbar.get("button_add")) {
 		var formPanel = new CTA.common.SFormPanel({
 			fileUpload : true,
 			items : [{
-				fieldLabel : '工程名称',
-				emptyText : '请输入工程名称',
-				name : 'gcmc',
+    			xtype : 'combo',
+    			fieldLabel : '所属工程',
+    			emptyText : '请选择工程',
+    			name : 'id',
+    			hiddenName : 'id',
+    			triggerAction : 'all',
+    			displayField : 'gcmc',
+    			valueField : 'id',
+    			editable : false,
+    			store : new Ext.data.Store({
+    				reader : new Ext.data.JsonReader({
+    					root : 'dataList',
+    					fields : [ {
+    						name : 'id'
+    					}, {
+    						name : 'gcmc'
+    					} ]
+    				}),
+    				proxy : new Ext.data.HttpProxy({
+    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+    				})
+    			})
+    		}, {
+				fieldLabel : '组编号',
+				emptyText : '请输入组编号',
+				name : 'group_bh',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '工程编号',
-				emptyText : '请输入工程编号',
-				name : 'gcbh',
+				fieldLabel : '组名称',
+				emptyText : '请输入组名称',
+				name : 'group_mc',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '工程型号',
-				emptyText : '请输入工程型号',
-				name : 'gcxh',
+				fieldLabel : '品牌',
+				emptyText : '请输入品牌',
+				name : 'pp',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				xtype : 'combo',
-				fieldLabel : '工程类别',
-				emptyText : '请选择工程类别',
-				name : 'gclb',
-				triggerAction : 'all',
-				store : new Ext.data.SimpleStore({
-					fields : [ 'label', 'value' ],
-					data : [[ "普通工程", "1" ], [ "EMC工程", "2" ]]
-				}),
-				displayField : 'label',
-				valueField : 'value',
-				hiddenName : 'gclb',
-				mode : 'local',
-				editable : false
-			}, {
-				xtype : 'textarea',
-				fieldLabel : '工程介绍',
-				emptyText : '请输入工程介绍',
-				name : 'gcjs',
-				height : 70,
-				width : 230
-			}, {
-				fieldLabel : '工程图片',
-				name : 'gczp',
-				text : "点击上传工程图片",
-				inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
-				blankText : '请上传工程图片',
-				allowBlank : true
-			}, {
-				xtype : 'textarea',
-				fieldLabel : '技术参数简介',
-				emptyText : '请输入技术参数简介',
-				name : 'jscsjj',
-				height : 70,
-				width : 230
-			}, {
-				fieldLabel : '技术参数附件',
-				name : 'jscsfj',
-				text : "点击上传技术参数附件",
-				inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
-				blankText : '请上传技术参数附件',
-				allowBlank : true
-			}, {
-				fieldLabel : '工程零件',
-				emptyText : '请输入工程零件',
-				name : 'gclj',
+				fieldLabel : '型号',
+				emptyText : '请输入型号',
+				name : 'xh',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				xtype : 'datefield',
-				fieldLabel : '安装时间',
-				emptyText : '请选择安装时间',
-				name : 'azsj',
-				format:'Y-m-d',
-				editable : false,
-				allowBlank : true
-			}, {
-				xtype : 'datefield',
-				fieldLabel : '投运时间',
-				emptyText : '请输入投运时间',
-				name : 'tysj',
-				format:'Y-m-d',
-				editable : false,
-				allowBlank : true
-			} ]
+				fieldLabel : '功率',
+				emptyText : '请输入功率',
+				name : 'gl',
+				minLength : 1,
+				maxLength : 100
+			}]
 		});
 		addWindow.add(formPanel);
 		addWindow.show();
@@ -202,110 +160,80 @@ if(toolbar.get("button_modify")){
 		}
 		var id = selections[0].get("id");
 		Ext.Ajax.request({
-			url : ROTEK.Project.params.url.detailUrl,
+			url : ROTEK.COMPONENT.PUMP.params.url.detailUrl,
 			params : {
 				id : id
 			},
 			success : function(response) {
 				var data = Ext.util.JSON.decode(response.responseText).data;
-	
-//				if(data.azsj){
-//					data.azsj = Ext.util.Format.date(new Date(data.azsj), 'Y-m-d');
-//				}
 				var formPanel = new CTA.common.SFormPanel({
 					fileUpload : true,
-					items : [ {
+					items : [{
 						xtype : 'hidden',
-						name : 'id'
+						fieldLabel : '组ID',
+						name : 'id',
+						readOnly : true
 					}, {
-						fieldLabel : '工程名称',
-						emptyText : '请输入工程名称',
-						name : 'gcmc',
+		    			xtype : 'combo',
+		    			fieldLabel : '所属工程',
+		    			emptyText : '请选择工程',
+		    			name : 'r_project_id',
+		    			hiddenName : 'r_project_id',
+		    			triggerAction : 'all',
+		    			displayField : 'gcmc',
+		    			valueField : 'id',
+		    			editable : false,
+		    			store : new Ext.data.Store({
+		    				reader : new Ext.data.JsonReader({
+		    					root : 'dataList',
+		    					fields : [ {
+		    						name : 'id'
+		    					}, {
+		    						name : 'gcmc'
+		    					} ]
+		    				}),
+		    				proxy : new Ext.data.HttpProxy({
+		    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+		    				})
+		    			})
+		    		}, {
+						fieldLabel : '组编号',
+						emptyText : '请输入组编号',
+						name : 'group_bh',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '工程编号',
-						emptyText : '请输入工程编号',
-						name : 'gcbh',
+						fieldLabel : '组名称',
+						emptyText : '请输入组名称',
+						name : 'group_mc',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '工程型号',
-						emptyText : '请输入工程型号',
-						name : 'gcxh',
+						fieldLabel : '品牌',
+						emptyText : '请输入品牌',
+						name : 'pp',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						xtype : 'combo',
-						fieldLabel : '工程类别',
-						emptyText : '请选择工程类别',
-						name : 'gclb',
-						triggerAction : 'all',
-						store : new Ext.data.SimpleStore({
-							fields : [ 'label', 'value' ],
-							data : [[ "普通工程", "1" ], [ "EMC工程", "2" ]]
-						}),
-						displayField : 'label',
-						valueField : 'value',
-						hiddenName : 'gclb',
-						mode : 'local',
-						editable : false
-					}, {
-						xtype : 'textarea',
-						fieldLabel : '工程介绍',
-						emptyText : '请输入工程介绍',
-						name : 'gcjs',
-						height : 70,
-						width : 230
-					}, {
-						fieldLabel : '工程图片',
-						name : 'gczp',
-						//text : "点击上传工程图片"
-						//inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
-						//blankText : '请上传工程图片'
-					}, {
-						xtype : 'textarea',
-						fieldLabel : '技术参数简介',
-						emptyText : '请输入技术参数简介',
-						name : 'jscsjj',
-						height : 70,
-						width : 230
-					}, {
-						fieldLabel : '技术参数附件',
-						name : 'jscsfj'
-						//text : "点击上传技术参数附件",
-						//inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
-						//blankText : '请上传技术参数附件'
-					}, {
-						fieldLabel : '工程零件',
-						emptyText : '请输入工程零件',
-						name : 'gclj',
+						fieldLabel : '型号',
+						emptyText : '请输入型号',
+						name : 'xh',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						xtype : 'datefield',
-						fieldLabel : '安装时间',
-						emptyText : '请选择安装时间',
-						name : 'azsj',
-						format:'Y-m-d',
-						editable : false,
-						allowBlank : true
-					}, {
-						xtype : 'datefield',
-						fieldLabel : '投运时间',
-						emptyText : '请输入投运时间',
-						name : 'tysj',
-						format:'Y-m-d',
-						editable : false,
-						allowBlank : true
-					} ],
+						fieldLabel : '功率',
+						emptyText : '请输入功率',
+						name : 'gl',
+						minLength : 1,
+						maxLength : 100
+					}],
 					data : data
 				});
 	
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
-					width : '80%',
-					height : 500,
+					width : '50%',
+					height : 270,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -315,7 +243,7 @@ if(toolbar.get("button_modify")){
 								target : 'updateWindow'
 							});
 							formPanel.commit({
-								url : ROTEK.Project.params.url.modifyUrl
+								url : ROTEK.COMPONENT.PUMP.params.url.modifyUrl
 							});
 						}
 					}
@@ -337,8 +265,8 @@ if(toolbar.get("button_query")){
 		var formPanel = new CTA.common.SFormPanel({
 			items : [ {
 				xtype : 'numberfield',
-				fieldLabel : '工程ID',
-				emptyText : '请输入工程ID',
+				fieldLabel : '组ID',
+				emptyText : '请输入组ID',
 				name : 'id',
 				allowBlank : true,
 				minLength : 1,
@@ -351,36 +279,34 @@ if(toolbar.get("button_query")){
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '工程编号',
-				emptyText : '请输入工程编号',
-				name : 'gcbh',
+				fieldLabel : '组编号',
+				emptyText : '请输入组编号',
+				name : 'group_bh',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '工程型号',
-				emptyText : '请输入工程型号',
-				name : 'gcxh',
+				fieldLabel : '组名称',
+				emptyText : '请输入组名称',
+				name : 'group_mc',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
 			}, {
-				xtype : 'combo',
-				fieldLabel : '工程类别',
-				emptyText : '请选择工程类别',
-				name : 'gclb',
-				triggerAction : 'all',
-				store : new Ext.data.SimpleStore({
-					fields : [ 'label', 'value' ],
-					data : [ [ "普通工程", "1" ], [ "EMC工程", "2" ] ]
-				}),
-				displayField : 'label',
-				valueField : 'value',
-				hiddenName : 'gclb',
-				mode : 'local',
+				fieldLabel : '品牌',
+				emptyText : '请输入品牌',
+				name : 'pp',
 				allowBlank : true,
-				editable : false
-			} ],
+				minLength : 1,
+				maxLength : 50
+			}, {
+				fieldLabel : '型号',
+				emptyText : '请输入组型号',
+				name : 'xh',
+				allowBlank : true,
+				minLength : 1,
+				maxLength : 50
+			}],
 			data : CTA.common.Constant.queryParams
 		});
 	
@@ -421,7 +347,7 @@ if(toolbar.get("button_drop")){
 			if ('yes' == button) {
 				CTA.common.Mask.showMask();
 				CTA.common.Ajax.request({
-					url : ROTEK.Project.params.url.dropUrl,
+					url : ROTEK.COMPONENT.PUMP.params.url.dropUrl,
 					params : {
 						ids : ids.toString()
 					}

@@ -3,24 +3,21 @@ package com.rotek.service.impl;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.cta.platform.config.SystemGlobals;
 import com.cta.platform.util.ListPager;
 import com.cta.platform.util.ValidateUtil;
 import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.ComponentGroupDao;
+import com.rotek.dto.ComponentGroupDto;
 import com.rotek.dto.UserDto;
+import com.rotek.entity.ComponentGroupEntity;
 import com.rotek.entity.ProjectEntity;
-import com.rotek.util.FileUtils;
 
 /**
 * @ClassName:ProjectService
@@ -36,67 +33,62 @@ public class ComponentGroupService {
 	private ComponentGroupDao comgroupDao;
 	
 	/**
-	* @MethodName: listProeject 
-	* @Description: 工程列表查询
+	* @MethodName: listComGroup 
+	* @Description: 组列表查询
 	* @param user
-	* @param project
+	* @param comgroup
 	* @param pager
 	* @return
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public List<ProjectEntity> listProeject(UserDto user, ProjectEntity project,
-			Date start_azsj, Date end_azsj, Date start_tysj, Date end_tysj, ListPager pager) throws SQLException {
+	public List<ComponentGroupDto> listComGroup(UserDto user, ComponentGroupDto comgroup,ListPager pager) throws SQLException {
 
 		StringBuilder sql = new StringBuilder();
 		List<Object> params = new LinkedList<Object>();
-		sql.append("select * from r_project where 1 = 1");
+		sql.append("select cgroup.*,pro.GCMC as PROJECT_NAME from r_component_group cgroup ");
+		sql.append(" left join r_project pro on pro.id = cgroup.R_PROJECT_ID ");
+		sql.append(" where 1 = 1 ");
 		
-		if(StringUtils.isNotEmpty(project.getGcmc())){
-			sql.append(" and GCMC like '%").append(project.getGcmc()).append("%'");
+		if(StringUtils.isNotEmpty(comgroup.getProject_name())){
+			sql.append(" and pro.GCMC like '%").append(comgroup.getProject_name()).append("%'");
 		}
-		if(StringUtils.isNotEmpty(project.getGcbh())){
-			sql.append(" and GCBH like '%").append(project.getGcbh()).append("%'");
+		
+		if(null != comgroup.getGroup_lb()){
+			sql.append(" and cgroup.GROUP_LB = ?");
+			params.add(comgroup.getGroup_lb());
 		}
-		if(StringUtils.isNotEmpty(project.getGcxh())){
-			sql.append(" and GCXH like '%").append(project.getGcxh()).append("%'");
+		
+		if(null != comgroup.getId()){
+			sql.append(" and cgroup.ID = ?");
+			params.add(comgroup.getId());
+		}
+		
+		if(StringUtils.isNotEmpty(comgroup.getGroup_bh())){
+			sql.append(" and cgroup.GROUP_BH like '%").append(comgroup.getGroup_bh()).append("%'");
+		}
+		
+		if(StringUtils.isNotEmpty(comgroup.getGroup_mc())){
+			sql.append(" and cgroup.GROUP_MC like '%").append(comgroup.getGroup_mc()).append("%'");
+		}
+		
+		if(StringUtils.isNotEmpty(comgroup.getPp())){
+			sql.append(" and cgroup.PP like '%").append(comgroup.getPp()).append("%'");
+		}
+		
+		if(StringUtils.isNotEmpty(comgroup.getXh())){
+			sql.append(" and cgroup.XH like '%").append(comgroup.getXh()).append("%'");
+		}
+		
+		if(StringUtils.isNotEmpty(comgroup.getGl())){
+			sql.append(" and cgroup.GL like '%").append(comgroup.getGl()).append("%'");
 		}
 
-		if(null != project.getId()){
-			sql.append(" and id = ?");
-			params.add(project.getId());
-		}
 		
-		if(null != project.getGclb()){
-			sql.append(" and GCFL = ?");
-			params.add(project.getGclb());
-		}
-
-		if(null != project.getStatus()){
-			sql.append(" and status = ?");
-			params.add(project.getStatus());
-		}
-
-		if(null != start_azsj){
-			sql.append(" and AZSJ >= ?");
-			params.add(start_azsj);
-		}
-		if(null != end_azsj){
-			sql.append(" and AZSJ <= ?");
-			params.add(end_azsj);
-		}
 		
-		if(null != start_tysj){
-			sql.append(" and TYSJ >= ?");
-			params.add(start_tysj);
-		}
-		if(null != end_tysj){
-			sql.append(" and TYSJ <= ?");
-			params.add(end_tysj);
-		}
 		
-		sql.append(" order by id desc");
-		return comgroupDao.listProject(sql.toString(), params.toArray(), pager);
+		sql.append(" order by cgroup.ID ");
+		return comgroupDao.listComGroup(sql.toString(), params.toArray(), pager);
 	}
 	
 	public List<ProjectEntity> listProjectByStatus(Integer status) throws SQLException{
@@ -104,116 +96,68 @@ public class ComponentGroupService {
 	}
 	
 	/**
-	* @MethodName: addProject 
-	* @Description: 新增工程信息
-	* @param project
-	* @param multipartRequest
+	* @MethodName: addComGroup 
+	* @Description: 新增组信息
+	* @param comgroup
 	* @return
-	* @throws SQLException
+	* @throws Exception
 	* @author WangJuZhu
 	*/
-	public List<String> addProject(ProjectEntity project, MultipartHttpServletRequest multipartRequest) throws Exception {
-		List<String> messages = ValidateUtil.validate(project);
+	public List<String> addComGroup(ComponentGroupEntity comgroup) throws Exception {
+		
+		List<String> messages = ValidateUtil.validate(comgroup);
 		if(messages.size() > 0){
 			return messages;
 		}
-		MultipartFile proPic = multipartRequest.getFile("gczp");   // 工程图片
-		MultipartFile proParamAffix = multipartRequest.getFile("jscsfj");  // 技术参数附件
-		
-		//保存工程图片
-		if(null != proPic && StringUtils.isNotBlank(proPic.getOriginalFilename())){
-			String pic_location = SystemGlobals.getPreference("project.gczp.path");
-			String pic_name = FileUtils.savePic(proPic, pic_location, 1024000000);
-			if(null != pic_name){
-				project.setGczp(pic_name);
-			}else {
-				messages.add("工程图片必须在 "+1024000000/1024 +"k 以内!");  // 100M
-				return messages;
-			}
-		}
-		//保存工程技术参数附件
-		if(null != proParamAffix && StringUtils.isNotBlank(proParamAffix.getOriginalFilename())){
-			String paramAffix_location = SystemGlobals.getPreference("project.jscsfj.path");
-			String paramAffixName = FileUtils.savePic(proParamAffix, paramAffix_location, 1024000000);
-			if(null != paramAffixName){
-				project.setJscsfj(paramAffixName);
-			}
-		}
-		comgroupDao.addProject(project);
+		comgroupDao.addComGroup(comgroup);
 		
 		return null;
 	}
 	
 	/**
-	* @MethodName: getProjectById 
-	* @Description: 根据Id查询工程信息
+	* @MethodName: getComGroupById 
+	* @Description: 根据Id查询组信息
 	* @param id
 	* @return
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public ProjectEntity getProjectById(Integer id) throws SQLException {
+	public ComponentGroupEntity getComGroupById(Integer id) throws SQLException {
 		if(null == id){
 			return null;
 		}
-		return comgroupDao.getProjectById(id);
+		return comgroupDao.getComGroupById(id);
 	}
 	
-	public List<String> modifyProject(ProjectEntity project,MultipartHttpServletRequest multipartRequest) 
+	/**
+	* @MethodName: modifyComGroup 
+	* @Description: 修改组信息
+	* @param project
+	* @return
+	* @author WangJuZhu
+	*/
+	public List<String> modifyComGroup(ComponentGroupEntity comgroup) 
 			throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 
-		List<String> messages = ValidateUtil.validate(project);
-		if(messages.size() > 0 || null == project.getId()){
-			messages.add(null == project.getId() ? "由于，要修改的工程记录ID为空，修改失败!" : "");
+		List<String> messages = ValidateUtil.validate(comgroup);
+		if(messages.size() > 0 || null == comgroup.getId()){
+			messages.add(null == comgroup.getId() ? "修改组的记录ID为空，修改失败!" : "");
 			return messages;
 		}
-
-		MultipartFile pic = multipartRequest.getFile("gczp");   // 工程图片
-		if(null != pic && StringUtils.isNotBlank(pic.getOriginalFilename())){
-			String pic_location = SystemGlobals.getPreference("project.gczp.path");
-			//保存图片
-			String pic_name = FileUtils.savePic(pic, pic_location, 102400000);
-			if(null != pic_name){
-				//删除原图片
-				FileUtils.clearPic(pic_location, project.getGczp());
-				//更新工程图片
-				project.setGczp(pic_name);
-			}else {
-				messages.add("工程图片必须在 "+ 102400000/1024 +"k 以内!");  // 100M
-				return messages;
-			}
-		}
-		
-		MultipartFile csfj = multipartRequest.getFile("jscsfj");   // 技术参数附件
-		if(null != csfj && StringUtils.isNotBlank(csfj.getOriginalFilename())){
-			String fj_location = SystemGlobals.getPreference("project.jscsfj.path");
-			//保存附件
-			String fj_name = FileUtils.savePic(csfj, fj_location, 1024000000);
-			if(null != fj_name){
-				//删除原附件
-				FileUtils.clearPic(fj_location, project.getJscsfj());
-				//更新附件
-				project.setJscsfj(fj_name);
-			}else {
-				messages.add("技术参数附件必须在 "+1024000000/1024 +"k 以内!");  // 100M
-				return messages;
-			}
-		}
-		
 		//修改
-		comgroupDao.modifyProject(project);
+		comgroupDao.modifyComGroup(comgroup);
 		return null;
 	}
 
 	/**
-	* @MethodName: deleteProject 
-	* @Description: 批量删除工程（更改记录的状态为无效(status = -1)）
+	* @MethodName: deleteComGroup 
+	* @Description: 批量删除零件组（更改记录的状态为无效(status = -1)）
 	* @param ids
 	* @return
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public List<String> deleteProject(String ids) throws SQLException {
+	public List<String> deleteComGroup(String ids) throws SQLException {
 
 		List<String> messages = null;
 		if(StringUtils.isBlank(ids)){
@@ -221,9 +165,9 @@ public class ComponentGroupService {
 			messages.add("请选择您要操作的数据!");
 		}
 		StringBuilder sql = new StringBuilder();
-		sql.append("update r_project set STATUS = ").append(DataStatus.DISABLED);
+		sql.append("update r_component_group set STATUS = ").append(DataStatus.DISABLED);
 		sql.append(" where id in ("+ids.trim()+")");
-		comgroupDao.deleteProject(sql.toString());
+		comgroupDao.deleteComGroup(sql.toString());
 		return messages;
 	}
 	

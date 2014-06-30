@@ -17,8 +17,28 @@
 	<c:when test="${groupType eq 2 }">
 		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentgroup/sandfiltergroup.js"></script>
 	</c:when>
-	
-	<c:otherwise></c:otherwise>
+	<c:when test="${groupType eq 3 }">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentgroup/carbongroup.js"></script>
+	</c:when>
+	<c:when test="${groupType eq 4 }">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentgroup/softenergroup.js"></script>
+	</c:when>
+	<c:when test="${groupType eq 5 }">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentgroup/filtergroup.js"></script>
+	</c:when>
+	<c:when test="${groupType eq 6 }">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentgroup/filmgroup.js"></script>
+	</c:when>
+	<c:when test="${groupType eq 7 }">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentgroup/uvsterilizergroup.js"></script>
+	</c:when>
+	<c:when test="${groupType eq 8 }">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentgroup/tankgroup.js"></script>
+	</c:when>
+	<c:when test="${groupType eq 9 }">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentgroup/dosesettinggroup.js"></script>
+	</c:when>
+	<c:otherwise><jsp:include page="../../error/404.jsp"></jsp:include></c:otherwise>
 </c:choose>
 
 

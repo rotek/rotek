@@ -24,16 +24,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.cta.platform.util.ListPager;
 import com.rotek.constant.ComponentType;
 import com.rotek.constant.Status;
+import com.rotek.dto.ComponentGroupDto;
 import com.rotek.dto.UserDto;
+import com.rotek.entity.ComponentGroupEntity;
 import com.rotek.entity.ProjectEntity;
 import com.rotek.service.impl.ComponentGroupService;
+import com.rotek.service.impl.ProjectService;
 
 /**
 * @ClassName:ComponentGroupController
@@ -48,38 +51,27 @@ public class ComponentGroupController {
 
 	@Autowired
 	private ComponentGroupService groupService;
+	
+	@Autowired
+	private ProjectService projectService;
 
 	/**
-	* @MethodName: toPumps 
+	* @MethodName: toComponentGroups 
 	* @Description: 转到泵组信息管理页面
+	* 1,泵 ;     2,砂滤器 ; 3,碳滤器 ;    4,软化器 ;
+	* 5,过滤器;  6,膜 ;    7,紫外杀菌器 ; 8,水箱 ;   9,加药装置 ;
 	* @param request
 	* @param response
 	* @param modelMap
 	* @return
 	* @author WangJuZhu
 	*/
-	@RequestMapping("toPumps")
-	public String toPumps( HttpServletRequest request,HttpServletResponse response,ModelMap modelMap) {
-		modelMap.put("groupType", ComponentType.PUMP.getCode());
+	@RequestMapping("/toComponentGroups/{groupType}")
+	public String toComponentGroups( HttpServletRequest request,HttpServletResponse response,
+			@PathVariable(value = "groupType") Integer groupType,ModelMap modelMap)throws Exception {
+		modelMap.put("groupType", groupType);
 		return "admin/componentgroup/componentgroup";
 	}
-	
-	/**
-	* @MethodName: toSandFilters 
-	* @Description: 转到砂滤器组信息管理页面
-	* @param request
-	* @param response
-	* @param modelMap
-	* @return
-	* @author WangJuZhu
-	*/
-	@RequestMapping("toSandFilters")
-	public String toSandFilters( HttpServletRequest request,HttpServletResponse response,ModelMap modelMap) {
-		modelMap.put("groupType", ComponentType.SAND_FILTER.getCode());
-		return "admin/componentgroup/componentgroup";
-	}
-	
-	
 	
 	/**
 	* @MethodName: projectList 
@@ -90,20 +82,20 @@ public class ComponentGroupController {
 	* @throws Exception
 	* @author WangJuZhu
 	*/
-	@RequestMapping("listComGroup")
-	public String projectList(
+	@RequestMapping("listComGroup/{groupType}")
+	public String listComGroup(
+			@PathVariable(value = "groupType") Integer groupType,
 			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "limit", defaultValue = "10") Integer limit,
 			@RequestParam(value = "id", defaultValue = "") Integer id,
-			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,  // 零件组名称
-			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,  // 零件组编号
-			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,  // 零件组型号
-			@RequestParam(value = "gclb", defaultValue = "") Integer gclb,  // 零件组类别
-			@RequestParam(value = "start_azsj", defaultValue = "") Date start_azsj,  // 安装时间
-			@RequestParam(value = "end_azsj", defaultValue = "") Date end_azsj,
-			@RequestParam(value = "start_tysj", defaultValue = "") Date start_tysj, // 投运时间
-			@RequestParam(value = "end_tysj", defaultValue = "") Date end_tysj,
-			@RequestParam(value = "status", defaultValue = "") Integer status,  // 状态
+			@RequestParam(value = "r_project_id", defaultValue = "") Integer project_id,
+			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
+			@RequestParam(value = "group_bh", defaultValue = "") String group_bh,
+			@RequestParam(value = "group_mc", defaultValue = "") String group_mc,
+			@RequestParam(value = "pp", defaultValue = "") String pp,
+			@RequestParam(value = "xh", defaultValue = "") String xh,
+			@RequestParam(value = "gl", defaultValue = "") String gl,
+			@RequestParam(value = "status", defaultValue = "1") Integer status,  // 状态
 			HttpServletRequest request, UserDto user, ModelMap modelMap)throws Exception {
 		
 		ListPager pager = new ListPager();
@@ -111,16 +103,21 @@ public class ComponentGroupController {
 		pager.setRowsPerPage(limit);
 		pager.setPageNo(pageNo);
 
-		ProjectEntity project = new ProjectEntity();
-		project.setId(id);
-		project.setGcmc(gcmc);
-		project.setGcbh(gcbh);
-		project.setGcxh(gcxh);
-		project.setGclb(gclb);
-		project.setStatus(status);
+		ComponentGroupDto comGroup = new ComponentGroupDto();
+		comGroup.setId(id);
+		comGroup.setR_project_id(project_id);  //工程ID
+		comGroup.setProject_name(gcmc);   // 工程名称
+		comGroup.setGroup_lb(groupType);  // 组类别
+		comGroup.setGroup_bh(group_bh);   // 组编号
+		comGroup.setGroup_mc(group_mc);   // 组名称
+		comGroup.setStatus(status);
+		
+		comGroup.setPp(pp);
+		comGroup.setXh(xh);
+		comGroup.setGl(gl);
 
-		List<ProjectEntity> projects = groupService.listProeject(user, project,start_azsj,end_azsj,start_tysj,end_tysj, pager);
-		modelMap.put("dataList", projects);
+		List<ComponentGroupDto> cgroup = groupService.listComGroup(user, comGroup, pager);
+		modelMap.put("dataList", cgroup);
 		modelMap.put("totalCount", pager.getTotalRows());
 		return "jsonView";
 	}
@@ -134,35 +131,33 @@ public class ComponentGroupController {
 	* @throws Exception
 	* @author WangJuZhu
 	*/
-	@RequestMapping("addComGroup")
+	@RequestMapping("addComGroup/{groupType}")
 	public void addProject(HttpServletRequest request,HttpServletResponse response,
+			@PathVariable(value = "groupType") Integer groupType,
+			@RequestParam(value = "id", defaultValue = "") Integer project_id,
 			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
-			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,
-			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,
-			@RequestParam(value = "gclb", defaultValue = "1") Integer gclb,
-			@RequestParam(value = "gcjs", defaultValue = "") String gcjs,
-			@RequestParam(value = "jscsjj", defaultValue = "") String jscsjj,
-			@RequestParam(value = "gclj", defaultValue = "") String gclj,
-			@RequestParam(value = "azsj", defaultValue = "") Date azsj,
-			@RequestParam(value = "tysj", defaultValue = "") Date tysj,ModelMap model ) throws Exception {
+			@RequestParam(value = "group_bh", defaultValue = "") String group_bh,
+			@RequestParam(value = "group_mc", defaultValue = "") String group_mc,
+			@RequestParam(value = "pp", defaultValue = "") String pp,
+			@RequestParam(value = "xh", defaultValue = "") String xh,
+			@RequestParam(value = "gl", defaultValue = "") String gl,
+			ModelMap model ) throws Exception {
 
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-
-		ProjectEntity project = new ProjectEntity();
-		project.setGcmc(gcmc);
-		project.setGcbh(gcbh);
-		project.setGcxh(gcxh);
-		project.setJscsjj(jscsjj);
-		project.setGclb(gclb);
-		project.setGcjs(gcjs);
-		project.setGclj(gclj);
-		project.setAzsj(azsj);
-		project.setTysj(tysj);
-		project.setStatus(Status.NEW.getCode());
-		project.setCjsj(new Date());
-		project.setCjr(0);
-
-		List<String> messages = groupService.addProject(project, multipartRequest);
+		ComponentGroupEntity comGroup = new ComponentGroupEntity();
+		comGroup.setR_project_id(project_id);  //工程ID
+		comGroup.setGroup_lb(groupType);  // 组类别
+		comGroup.setGroup_bh(group_bh);   // 组编号
+		comGroup.setGroup_mc(group_mc);   // 组名称
+		comGroup.setStatus(Status.VALID.getCode());
+		
+		// 保存 泵组信息
+		if(groupType == ComponentType.PUMP.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setGl(gl);
+		}
+		
+		List<String> messages = groupService.addComGroup(comGroup);
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
 		json.put("messages", messages);
@@ -173,8 +168,8 @@ public class ComponentGroupController {
 	}
 	
 	/**
-	* @MethodName: getProjectDetail 
-	* @Description: 根据零件组ID查询零件组详情
+	* @MethodName: getComGroupDetail 
+	* @Description: 根据组ID查询零件组详情
 	* @param id
 	* @param model
 	* @return
@@ -182,57 +177,51 @@ public class ComponentGroupController {
 	* @author WangJuZhu
 	*/
 	@RequestMapping("getComGroupDetail")
-	public String getProjectDetail(
+	public String getComGroupDetail(
 			@RequestParam(value = "id", defaultValue = "") Integer id,
 			ModelMap model) throws SQLException {
 
-		ProjectEntity project = groupService.getProjectById(id);
+		ComponentGroupEntity project = groupService.getComGroupById(id);
 		model.put("data", project);
 		return "jsonView";
 	}
 
 	/**
-	* @MethodName: modifyProject 
+	* @MethodName: modifyComGroup 
 	* @Description: 修改零件组信息
 	* @param id
 	* @throws IOException
 	* @author WangJuZhu
 	*/
-	@RequestMapping("modifyComGroup")
-	public void modifyProject(
+	@RequestMapping("modifyComGroup/{groupType}")
+	public void modifyComGroup(
+			@PathVariable(value = "groupType") Integer groupType,
 			@RequestParam(value = "id", defaultValue = "") Integer id,
+			@RequestParam(value = "r_project_id", defaultValue = "") Integer project_id,
 			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
-			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,
-			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,
-			@RequestParam(value = "gclb", defaultValue = "1") int gclb,
-			@RequestParam(value = "gcjs", defaultValue = "") String gcjs,
-			@RequestParam(value = "gczp", defaultValue = "") String gczp,
-			@RequestParam(value = "jscsjj", defaultValue = "") String jscsjj,
-			@RequestParam(value = "jscsfj", defaultValue = "") String jscsfj,
-			@RequestParam(value = "gclj", defaultValue = "") String gclj,
-			@RequestParam(value = "azsj", defaultValue = "") Date azsj,
-			@RequestParam(value = "tysj", defaultValue = "") Date tysj,
+			@RequestParam(value = "group_bh", defaultValue = "") String group_bh,
+			@RequestParam(value = "group_mc", defaultValue = "") String group_mc,
+			@RequestParam(value = "pp", defaultValue = "") String pp,
+			@RequestParam(value = "xh", defaultValue = "") String xh,
+			@RequestParam(value = "gl", defaultValue = "") String gl,
 			ModelMap model, HttpServletRequest request,HttpServletResponse response) throws SQLException,
 			IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		ComponentGroupEntity comGroup = groupService.getComGroupById(id);
+		comGroup.setR_project_id(project_id);  //工程ID
+		comGroup.setGroup_lb(comGroup.getGroup_lb());  // 组类别
+		comGroup.setGroup_bh(group_bh);   // 组编号
+		comGroup.setGroup_mc(group_mc);   // 组名称
+		comGroup.setStatus(Status.VALID.getCode());
+		
+		// 保存 泵组信息
+		if(groupType == ComponentType.PUMP.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setGl(gl);
+		}
 
-		ProjectEntity project = new ProjectEntity();
-		project.setId(id);
-		project.setGcmc(gcmc);
-		project.setGcbh(gcbh);
-		project.setGcxh(gcxh);
-		project.setJscsjj(jscsjj);
-		project.setGclb(gclb);
-		project.setGcjs(gcjs);
-		project.setGczp(gczp);
-		project.setJscsfj(jscsfj);
-		project.setGclj(gclj);
-		project.setAzsj(azsj);
-		project.setTysj(tysj);
-		project.setStatus(Status.NEW.getCode());
-
-		List<String> messages = groupService.modifyProject(project,multipartRequest);
+		List<String> messages = groupService.modifyComGroup(comGroup);
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
 		json.put("messages", messages);
@@ -243,7 +232,7 @@ public class ComponentGroupController {
 	}
 	
 	/**
-	* @MethodName: deleteProject 
+	* @MethodName: deleteComGroup 
 	* @Description: 批量删除零件组信息
 	* @param ids
 	* @param model
@@ -252,13 +241,28 @@ public class ComponentGroupController {
 	* @author WangJuZhu
 	*/
 	@RequestMapping("deleteComGroup")
-	public String deleteProject(
+	public String deleteComGroup(
 			@RequestParam(value = "ids", defaultValue = "") String ids,
 			ModelMap model) throws SQLException {
 
-		List<String> messages = groupService.deleteProject(ids);
+		List<String> messages = groupService.deleteComGroup(ids);
 		model.put("success", null == messages ? true : false);
 		model.put("messages", messages);
+		return "jsonView";
+	}
+	
+	/**
+	* @MethodName: listProjectByStatus 
+	* @Description: 查询所有有效的工程信息
+	* @param modelMap
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("listProjectByStatus")
+	public String listProjectByStatus(ModelMap modelMap) throws SQLException{
+		List<ProjectEntity> regions = projectService.listProjectByStatus(Status.VALID.getCode());
+		modelMap.put("dataList", regions);
 		return "jsonView";
 	}
 
