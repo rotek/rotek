@@ -3,7 +3,7 @@
  * @Package com.rotek.controller
  * @Description: TODO
  * @author chenwenpeng
- * @date 2013-5-31 上午10:33:55
+ * @date 2013531 上午10:33:55
  * @version V1.0
  */
 package com.rotek.controller.front;
@@ -134,7 +134,7 @@ public class FrontWaterController {
 		data.put("name", "PH值");
 		dataList.add(data);
 		Map<String, Object> data1 = new HashMap<String, Object>(2);
-		data1.put("id", 1);
+		data1.put("id", 2);
 		data1.put("name", "硬度");
 		dataList.add(data1);
 		
@@ -153,22 +153,50 @@ public class FrontWaterController {
 
 		List<List<Object>> subList = new ArrayList<List<Object>>();
 		List<Object> ssubList = new ArrayList<Object>(2);
-		ssubList.add(DateTimeUtil.getDateByDateAmount(now, -1).getTime());
+		ssubList.add(DateTimeUtil.getDateByDateAmount(now, 1).getTime());
 		ssubList.add(100);
 		subList.add(ssubList);
 		
 		List<Object> ssubList1 = new ArrayList<Object>();
-		ssubList1.add(DateTimeUtil.getDateByDateAmount(now, -2).getTime());
+		ssubList1.add(DateTimeUtil.getDateByDateAmount(now, 2).getTime());
 		ssubList1.add(10);
 		subList.add(ssubList1);
 		
 		List<List<Object>> subList2 = new ArrayList<List<Object>>();
 		List<Object> ssubList2 = new ArrayList<Object>();
-		ssubList2.add(DateTimeUtil.getDateByDateAmount(now, -3).getTime());
+		ssubList2.add(DateTimeUtil.getDateByDateAmount(now, 3).getTime());
 		ssubList2.add(120);
+		
+		List<Object> ssubList3 = new ArrayList<Object>();
+		ssubList3.add(DateTimeUtil.getDateByDateAmount(now, 4).getTime());
+		ssubList3.add(150);
+		
+		List<Object> ssubList4 = new ArrayList<Object>();
+		ssubList4.add(DateTimeUtil.getDateByDateAmount(now, 5).getTime());
+		ssubList4.add(130);
+		
+		List<Object> ssubList5 = new ArrayList<Object>();
+		ssubList5.add(DateTimeUtil.getDateByDateAmount(now, 6).getTime());
+		ssubList5.add(180);
+		
+		List<Object> ssubList6 = new ArrayList<Object>();
+		ssubList6.add(DateTimeUtil.getDateByDateAmount(now, 7).getTime());
+		ssubList6.add(200);
+		
+		List<Object> ssubList7 = new ArrayList<Object>();
+		ssubList7.add(DateTimeUtil.getDateByDateAmount(now, 8).getTime());
+		ssubList7.add(210);
+		
 		subList2.add(ssubList2);
 		subList2.add(ssubList1);
-		subList2.add(ssubList);
+		subList2.add(ssubList3);
+		subList2.add(ssubList4);
+		subList2.add(ssubList5);
+		subList2.add(ssubList6);
+		subList2.add(ssubList7);
+		
+		
+		
 		
 		Map<String,Object> data = new HashMap<String,Object>(2);
 		data.put("id", 1);

@@ -22,7 +22,7 @@
 <![endif]-->
 
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/front/jquery-1.7.2.js"></script>
+	src="${pageContext.request.contextPath }/assets/front/jquery-1.10.2.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/front/bootstrap.js"></script>
 
@@ -49,5 +49,9 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/front/datepacker/daterangepicker.js"></script>
 
+
+
+<!-- <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script> -->
 
 

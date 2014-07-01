@@ -136,6 +136,9 @@ function formatDate(date, format) {
 												 			
 												 			$("#jcx").select2({
 																placeholder : "请选择您要查看的零件监测项",
+																multiple: true,
+																allowClear: true,
+																maximumInputLength: 10,
 																data: monitorItemList
 															}).on("change", function(e) {
 																
@@ -162,7 +165,7 @@ function formatDate(date, format) {
 		$('#datepicker').daterangepicker({
 			format : 'YYYY-MM-DD',
 			startDate : '2014-05-06',
-			endDate : '2014-05-07'
+			endDate : '2014-05-12'
 		});
 
 		$("#query").click(function(){
@@ -260,7 +263,12 @@ function formatDate(date, format) {
 
 		<%@include file="/assets/jsp/common_front_left.jsp"%>
 		<div class="right">
-			<div class="r_top">
+			
+			
+			<div class="r_center">
+
+				
+				<div class="r_top">
 <form action="/test">
 					<select id="xc" style="width: 250px">
 						<option value=""></option>
@@ -296,10 +304,69 @@ function formatDate(date, format) {
 					</div>
 </form>
 			</div>
-			
-			<div class="r_center">
-
+				
+				
+				
+				
+				
+				
+				
 				<div id="container"></div>
+				
+         
+        <script type="text/javascript" charset="utf-8">
+
+            
+            $(document).ready(function(){
+                $('#dataTable').dataTable();
+            });
+        </script>
+
+
+<div style="margin:10px 0 0 0;border:solid 1px #dddddd">
+<table id="dataTable" class="display" style="width:100%;height: width:100%"> 
+<thead> <tr> <th>Column 1</th> <th>Column 2</th> </tr> </thead> 
+<tbody> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
+</tbody> </table>
+</div>
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			</div>
 		</div>
 	</div>
