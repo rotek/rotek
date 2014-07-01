@@ -883,323 +883,88 @@ var viewport = new Ext.Viewport({
 
 
 
-
-items: [ {
-	xtype : 'fieldset',
-	title : '',
-	autoWidth : true,
-	labelWidth : 65,
-	labelSeparator : ':',
-	autoHeight : true,
-	defaults : {
-		width : 150,
-		allowBlank : false,
-		xtype : 'textfield',
-		msgTarget : 'side'
-	},
-	labelAlign : 'left',
-	items : [ {
-		xtype : 'textfield',
-		fieldLabel : '單據類型'
-	}, {
-		xtype : 'textfield',
-		fieldLabel : '單據號碼'
-	} ]
-},
-
-{
-	xtype : 'fieldset',
-	title : '',
-	autoWidth : true,
-	labelWidth : 65,
-	labelSeparator : ':',
-	autoHeight : true,
-	defaults : {
-		width : 150,
-		allowBlank : false,
-		xtype : 'textfield',
-		msgTarget : 'side'
-	},
-	labelAlign : 'left',
-
-	items : [
-
-	{
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '客戶編號',
-				width : 150
-			} ]
-		}, {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'combo',
-				fieldLabel : '客戶分類',
-				width : 150,
-				store : newExt.data.SimpleStore({
-					fields : [ "value", "text" ],
-					data : [ [ '0', '一般客戶' ], [ '1', '經銷商' ] ]
-				}),
-				emptyText : '--請選擇--',
-				mode : 'local',
-				triggerAction : 'all',
-				valueField : 'value',
-				displayField : 'text',
-				readOnly : true
-			} ]
-		} ]
-	}, {
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '客戶名稱',
-				width : 150
-			} ]
-		}, {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '聯絡電話',
-				width : 150
-			} ]
-		} ]
-	}, {
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '聯絡人',
-				width : 150
-			} ]
-		}, {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '傳真號碼',
-				width : 150
-			} ]
-		} ]
-	}, {
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '電子郵件',
-				width : 367
-			} ]
-		} ]
-	}, {
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '地址',
-				width : 367
-			} ]
-		} ]
-	} //
-
-	]
-
+var projectData_fields = [ {
+	name : "ProjectID"
 }, {
-	xtype : 'fieldset',
-	title : '',
-	autoWidth : true,
-	labelWidth : 65,
-	labelSeparator : ':',
-	autoWidth : true,
-	autoHeight : true,
-	defaults : {
-		width : 150,
-		allowBlank : false,
-		xtype : 'textfield',
-		msgTarget : 'side'
-	},
-	labelAlign : 'left',
-	items : [
-
-	{
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : newExt.form.DateField({
-				autoCreate : {
-					tag : 'input',
-					type : 'text',
-					size : 20
-				},
-				fieldLabel : '需求日期',
-				format : 'Y-m-d',
-				value : '',
-				width : 150
-			})
-		}, {
-			layout : 'form',
-			border : false,
-			items : newExt.form.DateField({
-				autoCreate : {
-					tag : 'input',
-					type : 'text',
-					size : 20
-				},
-				fieldLabel : '指定時間',
-				format : 'Y-m-d',
-				value : '',
-				width : 150
-			})
-		} ]
-	}, {
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '裝機地點',
-				width : 150
-			} ]
-		}, {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '轉出單號',
-				width : 150
-			} ]
-		} ]
-	}, {
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '客戶環境',
-				width : 150
-			} ]
-		}, {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '訂單號碼',
-				width : 150
-			} ]
-		} ]
-	}, {
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '需求項目',
-				width : 150
-			} ]
-		}, {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textfield',
-				fieldLabel : '專案編號',
-				width : 150
-			} ]
-		} ]
-	}, {
-		xtype : 'container',
-		autoEl : {},
-		layout : 'column',
-		width : 900,
-		items : [ {
-			layout : 'form',
-			border : false,
-			items : [ {
-				xtype : 'textarea',
-				fieldLabel : '注意事項',
-				width : 367
-			} ]
-		} ]
-	} //
-	]
-
+	name : "ProjectName"
+} ];
+var project_store = new Ext.data.Store({
+	autoLoad : true,
+	proxy : new Ext.data.HttpProxy({
+		url : '../../WebUI/WorkLog/workLog_audit.aspx?AutoLoad=Project'
+	}),
+	reader : new Ext.data.JsonReader({
+		root : "Table",
+		idProperty : "ProjectID",
+		fields : projectData_fields
+	})
+});
+//根据选择的项目名称得到该项目的成员分配
+var MemberName_Fields = [ {
+	name : "UserID"
 }, {
-	xtype : 'fieldset',
-	title : '',
-	autoWidth : true,
-	labelWidth : 65,
-	labelSeparator : ':',
-	autoWidth : true,
-	autoHeight : true,
-	defaults : {
-		width : 150,
-		allowBlank : false,
-		xtype : 'textfield',
-		msgTarget : 'side'
-	},
-	labelAlign : 'left',
-	items : [ {
-		fieldLabel : '品號'
-	}, {
-		fieldLabel : '品名'
-	}, {
-		fieldLabel : '規格'
-	}
+	name : "UserName"
+} ];
 
-	]
+var MemberName = new Ext.data.Store(
+		{
+			autoLoad : true,
+			proxy : new Ext.data.HttpProxy(
+					{
 
-} ]
+						url : '../../WebUI/WorkLog/workLog_audit.aspx?AutoLoad=GetUserList&ProjectID='//+ (ProjectList.value+"")
+					}),
+			reader : new Ext.data.JsonReader({
+				root : "Table",
+				idProperty : "UserID",
+				fields : MemberName_Fields
+			})
+		});
 
-
-
-
-
-
-
-
-
+//加载该经理管理的项目 (添加，编辑使用)
+var ProjectList = new Ext.form.ComboBox(
+		{
+			id : 'ProjectList',
+			name : "ProjectList",
+			fieldLabel : "项目名称",
+			editable : false,
+			ItemIndex : 1,
+			store : project_store,
+			mode : 'local',
+			selectOnFocus : true,
+			triggerAction : "all",
+			displayField : "ProjectName",//显示的的值绑定
+			valueField : "ProjectID",//实际选取的值	
+			emptyText : '请选择项目...',//默认值  	   
+			width : 300,
+			listeners : {
+				//为项目(ComboBox)列表添加一个select 事件，当改变ProjectList的值的时候改变
+				//MemberName(该项目的成员名称)的URL中的参数ProjectID
+				select : function(ProjectCombox, record, index) {
+					//
+					MemberName.proxy = new Ext.data.HttpProxy(
+							{
+								url : '../../WebUI/WorkLog/workLog_audit.aspx?AutoLoad=GetUserList&ProjectID='
+										+ ProjectCombox.value
+							});
+					MemberName.load();
+				}
+			}
+		});
+//项目名称对应的成员名称
+var txtMan = new Ext.form.ComboBox({
+	id : "txtMan",
+	name : "txtMan",
+	fieldLabel : "责任人",
+	store : MemberName,
+	mode : 'local',
+	selectOnFocus : true,
+	editable : false,
+	triggerAction : "all",
+	displayField : "UserName",//显示的的值绑定
+	valueField : "UserID",//实际选取的值	
+	emptyText : '请选择责任人...',//默认值    	  
+	width : 200
+});
 
 
