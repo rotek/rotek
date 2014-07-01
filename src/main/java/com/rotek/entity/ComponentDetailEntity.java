@@ -29,6 +29,9 @@ public class ComponentDetailEntity implements Serializable {
 	@ID(strategy=StrategyType.IDENTITY)
 	private Integer id;
 	
+	@Column(name = "R_PROJECT_ID")
+	private Integer r_project_id ;   	// 工程ID
+	
 	@Column(name = "R_COMPONENT_GROUP_ID")
 	private Integer r_component_group_id ;   	// 组ID
 	

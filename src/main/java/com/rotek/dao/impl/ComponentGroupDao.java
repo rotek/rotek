@@ -99,6 +99,14 @@ public class ComponentGroupDao extends BaseDaoImpl{
 	public void deleteComGroup(String sql) throws SQLException {
 		this.executeUpdate(sql);
 	}
+
+	public List<ComponentGroupEntity> selectGroupByPid(Integer projectId,
+			Integer componentType, int code)throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "select t.ID, t.R_PROJECT_ID,t.GROUP_LB,t.GROUP_BH,t.GROUP_MC,t.STATUS from r_component_group t"
+				+ " where 1=1 and R_PROJECT_ID = ? and GROUP_LB = ? and STATUS = ? ";
+		return selectAll(sql, new Integer[]{projectId,componentType,code}, ComponentGroupEntity.class);
+	}
 	
 	
 	

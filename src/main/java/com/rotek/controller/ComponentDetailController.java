@@ -36,6 +36,7 @@ import com.rotek.dto.UserDto;
 import com.rotek.entity.ComponentGroupEntity;
 import com.rotek.entity.ProjectEntity;
 import com.rotek.service.impl.ComponentDetailService;
+import com.rotek.service.impl.ComponentGroupService;
 import com.rotek.service.impl.ProjectService;
 
 /**
@@ -50,10 +51,13 @@ import com.rotek.service.impl.ProjectService;
 public class ComponentDetailController {
 
 	@Autowired
-	private ComponentDetailService groupService;
+	private ComponentDetailService detailService;
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private ComponentGroupService groupService;
 
 	/**
 	* @MethodName: toComponentDetails 
@@ -121,7 +125,7 @@ public class ComponentDetailController {
 		comDetail.setCll(cll);
 		comDetail.setGg(gg);
 
-		List<ComponentGroupDto> cgroup = groupService.listComDetail(user, comDetail, pager);
+		List<ComponentGroupDto> cgroup = detailService.listComDetail(user, comDetail, pager);
 		modelMap.put("dataList", cgroup);
 		modelMap.put("totalCount", pager.getTotalRows());
 		return "jsonView";
@@ -140,9 +144,11 @@ public class ComponentDetailController {
 	public void addComDetail(HttpServletRequest request,HttpServletResponse response,
 			@PathVariable(value = "groupType") Integer groupType,
 			@RequestParam(value = "id", defaultValue = "") Integer project_id,
+			@RequestParam(value = "specific_part", defaultValue = "") String specific_part,
+			@RequestParam(value = "specific_bh", defaultValue = "") String specific_bh,
+			
+			/*
 			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
-			@RequestParam(value = "group_bh", defaultValue = "") String group_bh,
-			@RequestParam(value = "group_mc", defaultValue = "") String group_mc,
 			@RequestParam(value = "pp", defaultValue = "") String pp,
 			@RequestParam(value = "xh", defaultValue = "") String xh,
 			@RequestParam(value = "gl", defaultValue = "") String gl,
@@ -163,11 +169,11 @@ public class ComponentDetailController {
 			@RequestParam(value = "rj", defaultValue = "") String rj,
 			@RequestParam(value = "yjnd", defaultValue = "") String yjnd,
 			@RequestParam(value = "yjedtjl", defaultValue = "") String yjedtjl,
-			
+			*/
 			ModelMap model ) throws Exception {
 
 		ComponentGroupEntity comDetail = new ComponentGroupEntity();
-		comDetail.setR_project_id(project_id);  //工程ID
+		/*comDetail.setR_project_id(project_id);  //工程ID
 		comDetail.setGroup_lb(groupType);  // 组类别
 		comDetail.setGroup_bh(group_bh);   // 组编号
 		comDetail.setGroup_mc(group_mc);   // 组名称
@@ -254,9 +260,9 @@ public class ComponentDetailController {
 			comDetail.setGl(gl);
 			comDetail.setYjedtjl(yjedtjl);
 			comDetail.setCkdj(ckdj);
-		}
+		}*/
 		
-		List<String> messages = groupService.addComDetail(comDetail);
+		List<String> messages = detailService.addComDetail(comDetail);
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
 		json.put("messages", messages);
@@ -305,7 +311,7 @@ public class ComponentDetailController {
 			ModelMap model, HttpServletRequest request,HttpServletResponse response) throws SQLException,
 			IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 
-		ComponentGroupEntity comDetail = groupService.getComDetailById(id);
+		ComponentGroupEntity comDetail = detailService.getComDetailById(id);
 		comDetail.setR_project_id(project_id);  //工程ID
 		comDetail.setGroup_lb(comDetail.getGroup_lb());  // 组类别
 		comDetail.setGroup_bh(group_bh);   // 组编号
@@ -395,7 +401,7 @@ public class ComponentDetailController {
 			comDetail.setCkdj(ckdj);
 		}
 		
-		List<String> messages = groupService.modifyComDetail(comDetail);
+		List<String> messages = detailService.modifyComDetail(comDetail);
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
 		json.put("messages", messages);
@@ -419,7 +425,7 @@ public class ComponentDetailController {
 			@RequestParam(value = "ids", defaultValue = "") String ids,
 			ModelMap model) throws SQLException {
 
-		List<String> messages = groupService.deleteComDetail(ids);
+		List<String> messages = detailService.deleteComDetail(ids);
 		model.put("success", null == messages ? true : false);
 		model.put("messages", messages);
 		return "jsonView";
@@ -439,23 +445,45 @@ public class ComponentDetailController {
 			@RequestParam(value = "id", defaultValue = "") Integer id,
 			ModelMap model) throws SQLException {
 
-		ComponentGroupDto cgroup = groupService.getOneComDetail(id);
+		ComponentGroupDto cgroup = detailService.getOneComDetail(id);
 		model.put("data", cgroup);
 		return "jsonView";
 	}
 	
 	/**
-	* @MethodName: listProjectByStatus 
+	* @MethodName: selectProjectByType 
 	* @Description: 查询有效的工程信息
 	* @param modelMap
 	* @return
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	@RequestMapping("listProjectByStatus")
-	public String listProjectByStatus(ModelMap modelMap) throws SQLException{
-		List<ProjectEntity> projectList = projectService.listProjectByStatus(Status.VALID.getCode());
+	@RequestMapping("selectProjectByType")
+	public String selectProjectByType(ModelMap modelMap) throws SQLException{
+		//工程类别（1、普通工程；2、EMC工程）
+		List<ProjectEntity> projectList = projectService.selectProjectByType(Status.VALID.getCode(),1);
 		modelMap.put("dataList", projectList);
+		return "jsonView";
+	}
+	
+	/**
+	* @MethodName: selectGroupByPid 
+	* @Description: 由 工程ID和零件分组查询组信息
+	* @param projectId
+	* @param componentType
+	* @param modelMap
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("selectProjectByType/{projectId}/{componentType}")
+	public String selectGroupByPid(
+			@PathVariable(value="projectId") Integer projectId,
+			@PathVariable(value="componentType") Integer componentType,
+			ModelMap modelMap) throws SQLException{
+		
+		List<ComponentGroupEntity> grouptList = groupService.selectGroupByPid(projectId, componentType, Status.VALID.getCode());
+		modelMap.put("dataList", grouptList);
 		return "jsonView";
 	}
 
