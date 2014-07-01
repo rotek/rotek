@@ -1,8 +1,8 @@
 /** 管理泵组信息  */
-Ext.ns("ROTEK.COMPONENT.PUMP");
-ROTEK.COMPONENT.PUMP.params = {
+Ext.ns("ROTEK.COMPONENT.TANK");
+ROTEK.COMPONENT.TANK.params = {
 	gridParam : {
-		url : basePath + "/admin/componentgroup/listComGroup/1",
+		url : basePath + "/admin/componentgroup/listComGroup/8",
 		dataList : [ {
 			index : 'id',
 			header : '组ID',
@@ -24,18 +24,18 @@ ROTEK.COMPONENT.PUMP.params = {
 			width : 50,
 			align : 'center'
 		}, {
-			index : 'pp',
-			header : '品牌',
+			index : 'gg',
+			header : '水箱规格',
 			width : 50,
 			align : 'center'
 		}, {
-			index : 'xh',
-			header : '型号',
+			index : 'rj',
+			header : '水箱容积',
 			width : 50,
 			align : 'center'
 		}, {
-			index : 'gl',
-			header : '功率',
+			index : 'others',
+			header : '其它',
 			width : 50,
 			align : 'center'
 		}, {
@@ -53,15 +53,15 @@ ROTEK.COMPONENT.PUMP.params = {
 		} ]
 	},
 	url : {
-		addUrl : basePath + "/admin/componentgroup/addComGroup/1",
+		addUrl : basePath + "/admin/componentgroup/addComGroup/8",
 		detailUrl : basePath + "/admin/componentgroup/getComGroupDetail",
-		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/1",
+		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/8",
 		dropUrl : basePath + "/admin/componentgroup/deleteComGroup",
 		listProejctUrl : basePath + "/admin/componentgroup/listProjectByStatus"
 	}
 };
 
-var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENT.PUMP.params.gridParam);
+var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENT.TANK.params.gridParam);
 var toolbar = new CTA.common.Toolbar();
 
 //添加工程信息
@@ -74,7 +74,7 @@ if (toolbar.get("button_add")) {
 //					target : 'addWindow'
 //				});
 				formPanel.commit({
-					url : ROTEK.COMPONENT.PUMP.params.url.addUrl
+					url : ROTEK.COMPONENT.TANK.params.url.addUrl
 				});
 			}
 		};
@@ -110,7 +110,7 @@ if (toolbar.get("button_add")) {
     					} ]
     				}),
     				proxy : new Ext.data.HttpProxy({
-    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+    					url : ROTEK.COMPONENT.TANK.params.url.listProejctUrl
     				})
     			})
     		}, {
@@ -126,21 +126,21 @@ if (toolbar.get("button_add")) {
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '品牌',
-				emptyText : '请输入品牌',
-				name : 'pp',
+				fieldLabel : '水箱规格',
+				emptyText : '请输入水箱规格',
+				name : 'gg',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '型号',
-				emptyText : '请输入型号',
-				name : 'xh',
+				fieldLabel : '水箱容积',
+				emptyText : '请输入水箱容积',
+				name : 'rj',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '功率',
-				emptyText : '请输入功率',
-				name : 'gl',
+				fieldLabel : '其它',
+				emptyText : '请输入其它',
+				name : 'others',
 				minLength : 1,
 				maxLength : 100
 			}]
@@ -160,7 +160,7 @@ if(toolbar.get("button_modify")){
 		}
 		var id = selections[0].get("id");
 		Ext.Ajax.request({
-			url : ROTEK.COMPONENT.PUMP.params.url.detailUrl,
+			url : ROTEK.COMPONENT.TANK.params.url.detailUrl,
 			params : {
 				id : id
 			},
@@ -194,7 +194,7 @@ if(toolbar.get("button_modify")){
 		    					} ]
 		    				}),
 		    				proxy : new Ext.data.HttpProxy({
-		    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+		    					url : ROTEK.COMPONENT.TANK.params.url.listProejctUrl
 		    				})
 		    			})
 		    		}, {
@@ -210,21 +210,21 @@ if(toolbar.get("button_modify")){
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '品牌',
-						emptyText : '请输入品牌',
-						name : 'pp',
+						fieldLabel : '水箱规格',
+						emptyText : '请输入水箱规格',
+						name : 'gg',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '型号',
-						emptyText : '请输入型号',
-						name : 'xh',
+						fieldLabel : '水箱容积',
+						emptyText : '请输入水箱容积',
+						name : 'rj',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '功率',
-						emptyText : '请输入功率',
-						name : 'gl',
+						fieldLabel : '其它',
+						emptyText : '请输入其它',
+						name : 'others',
 						minLength : 1,
 						maxLength : 100
 					}],
@@ -244,7 +244,7 @@ if(toolbar.get("button_modify")){
 								target : 'updateWindow'
 							});
 							formPanel.commit({
-								url : ROTEK.COMPONENT.PUMP.params.url.modifyUrl
+								url : ROTEK.COMPONENT.TANK.params.url.modifyUrl
 							});
 						}
 					}
@@ -294,16 +294,16 @@ if(toolbar.get("button_query")){
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '品牌',
-				emptyText : '请输入品牌',
-				name : 'pp',
+				fieldLabel : '水箱规格',
+				emptyText : '请输入水箱规格',
+				name : 'gg',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '型号',
-				emptyText : '请输入组型号',
-				name : 'xh',
+				fieldLabel : '水箱容积',
+				emptyText : '请输入水箱容积',
+				name : 'rj',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
@@ -348,7 +348,7 @@ if(toolbar.get("button_drop")){
 			if ('yes' == button) {
 				CTA.common.Mask.showMask();
 				CTA.common.Ajax.request({
-					url : ROTEK.COMPONENT.PUMP.params.url.dropUrl,
+					url : ROTEK.COMPONENT.TANK.params.url.dropUrl,
 					params : {
 						ids : ids.toString()
 					}

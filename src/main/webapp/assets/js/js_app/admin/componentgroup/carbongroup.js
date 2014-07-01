@@ -1,22 +1,22 @@
-/** 管理泵组信息  */
-Ext.ns("ROTEK.COMPONENT.PUMP");
-ROTEK.COMPONENT.PUMP.params = {
+/**  管理碳滤器组信息  */
+Ext.ns("ROTEK.COMPONENT.CARBON");
+ROTEK.COMPONENT.CARBON.params = {
 	gridParam : {
-		url : basePath + "/admin/componentgroup/listComGroup/1",
+		url : basePath + "/admin/componentgroup/listComGroup/3",
 		dataList : [ {
 			index : 'id',
 			header : '组ID',
-			width : 40,
+			width : 30,
 			align : 'center'
 		}, {
 			index : 'project_name',
 			header : '工程名称',
-			width : 100,
+			width : 80,
 			align : 'center'
 		}, {
 			index : 'group_bh',
 			header : '组编号',
-			width : 50,
+			width : 40,
 			align : 'center'
 		}, {
 			index : 'group_mc',
@@ -24,18 +24,23 @@ ROTEK.COMPONENT.PUMP.params = {
 			width : 50,
 			align : 'center'
 		}, {
-			index : 'pp',
-			header : '品牌',
+			index : 'gg',
+			header : '规格',
 			width : 50,
 			align : 'center'
 		}, {
-			index : 'xh',
-			header : '型号',
+			index : 'cll',
+			header : '处理量',
 			width : 50,
 			align : 'center'
 		}, {
-			index : 'gl',
-			header : '功率',
+			index : 'tlgd',
+			header : '填料高度',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'cz',
+			header : '材质',
 			width : 50,
 			align : 'center'
 		}, {
@@ -53,15 +58,15 @@ ROTEK.COMPONENT.PUMP.params = {
 		} ]
 	},
 	url : {
-		addUrl : basePath + "/admin/componentgroup/addComGroup/1",
+		addUrl : basePath + "/admin/componentgroup/addComGroup/3",
 		detailUrl : basePath + "/admin/componentgroup/getComGroupDetail",
-		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/1",
+		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/3",
 		dropUrl : basePath + "/admin/componentgroup/deleteComGroup",
 		listProejctUrl : basePath + "/admin/componentgroup/listProjectByStatus"
 	}
 };
 
-var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENT.PUMP.params.gridParam);
+var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENT.CARBON.params.gridParam);
 var toolbar = new CTA.common.Toolbar();
 
 //添加工程信息
@@ -74,7 +79,7 @@ if (toolbar.get("button_add")) {
 //					target : 'addWindow'
 //				});
 				formPanel.commit({
-					url : ROTEK.COMPONENT.PUMP.params.url.addUrl
+					url : ROTEK.COMPONENT.CARBON.params.url.addUrl
 				});
 			}
 		};
@@ -82,7 +87,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '50%',
-			height : 270,
+			height : 350,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -110,7 +115,7 @@ if (toolbar.get("button_add")) {
     					} ]
     				}),
     				proxy : new Ext.data.HttpProxy({
-    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+    					url : ROTEK.COMPONENT.CARBON.params.url.listProejctUrl
     				})
     			})
     		}, {
@@ -126,21 +131,27 @@ if (toolbar.get("button_add")) {
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '品牌',
-				emptyText : '请输入品牌',
-				name : 'pp',
+				fieldLabel : '规格',
+				emptyText : '请输入规格',
+				name : 'gg',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '型号',
-				emptyText : '请输入型号',
-				name : 'xh',
+				fieldLabel : '处理量',
+				emptyText : '请输入处理量',
+				name : 'cll',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '功率',
-				emptyText : '请输入功率',
-				name : 'gl',
+				fieldLabel : '填料高度',
+				emptyText : '请输入填料高度',
+				name : 'tlgd',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '材质',
+				emptyText : '请输入材质',
+				name : 'cz',
 				minLength : 1,
 				maxLength : 100
 			}]
@@ -160,7 +171,7 @@ if(toolbar.get("button_modify")){
 		}
 		var id = selections[0].get("id");
 		Ext.Ajax.request({
-			url : ROTEK.COMPONENT.PUMP.params.url.detailUrl,
+			url : ROTEK.COMPONENT.CARBON.params.url.detailUrl,
 			params : {
 				id : id
 			},
@@ -194,7 +205,7 @@ if(toolbar.get("button_modify")){
 		    					} ]
 		    				}),
 		    				proxy : new Ext.data.HttpProxy({
-		    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+		    					url : ROTEK.COMPONENT.CARBON.params.url.listProejctUrl
 		    				})
 		    			})
 		    		}, {
@@ -210,21 +221,27 @@ if(toolbar.get("button_modify")){
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '品牌',
-						emptyText : '请输入品牌',
-						name : 'pp',
+						fieldLabel : '规格',
+						emptyText : '请输入规格',
+						name : 'gg',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '型号',
-						emptyText : '请输入型号',
-						name : 'xh',
+						fieldLabel : '处理量',
+						emptyText : '请输入处理量',
+						name : 'cll',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '功率',
-						emptyText : '请输入功率',
-						name : 'gl',
+						fieldLabel : '填料高度',
+						emptyText : '请输入填料高度',
+						name : 'tlgd',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '材质',
+						emptyText : '请输入材质',
+						name : 'cz',
 						minLength : 1,
 						maxLength : 100
 					}],
@@ -234,7 +251,7 @@ if(toolbar.get("button_modify")){
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '50%',
-					height : 270,
+					height : 350,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -244,7 +261,7 @@ if(toolbar.get("button_modify")){
 								target : 'updateWindow'
 							});
 							formPanel.commit({
-								url : ROTEK.COMPONENT.PUMP.params.url.modifyUrl
+								url : ROTEK.COMPONENT.CARBON.params.url.modifyUrl
 							});
 						}
 					}
@@ -294,16 +311,16 @@ if(toolbar.get("button_query")){
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '品牌',
-				emptyText : '请输入品牌',
-				name : 'pp',
+				fieldLabel : '规格',
+				emptyText : '请输入规格',
+				name : 'gg',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '型号',
-				emptyText : '请输入组型号',
-				name : 'xh',
+				fieldLabel : '处理量',
+				emptyText : '请输入处理量',
+				name : 'cll',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
@@ -348,7 +365,7 @@ if(toolbar.get("button_drop")){
 			if ('yes' == button) {
 				CTA.common.Mask.showMask();
 				CTA.common.Ajax.request({
-					url : ROTEK.COMPONENT.PUMP.params.url.dropUrl,
+					url : ROTEK.COMPONENT.CARBON.params.url.dropUrl,
 					params : {
 						ids : ids.toString()
 					}

@@ -74,7 +74,7 @@ public class ComponentGroupController {
 	}
 	
 	/**
-	* @MethodName: projectList 
+	* @MethodName: listComGroup 
 	* @Description: 零件组信息列表
 	* @param start
 	* @param limit
@@ -84,17 +84,20 @@ public class ComponentGroupController {
 	*/
 	@RequestMapping("listComGroup/{groupType}")
 	public String listComGroup(
-			@PathVariable(value = "groupType") Integer groupType,
+			@PathVariable(value = "groupType") Integer groupType,  // 组分类
 			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "limit", defaultValue = "10") Integer limit,
-			@RequestParam(value = "id", defaultValue = "") Integer id,
-			@RequestParam(value = "r_project_id", defaultValue = "") Integer project_id,
-			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
-			@RequestParam(value = "group_bh", defaultValue = "") String group_bh,
-			@RequestParam(value = "group_mc", defaultValue = "") String group_mc,
-			@RequestParam(value = "pp", defaultValue = "") String pp,
-			@RequestParam(value = "xh", defaultValue = "") String xh,
-			@RequestParam(value = "gl", defaultValue = "") String gl,
+			@RequestParam(value = "id", defaultValue = "") Integer id, // 组Id
+			@RequestParam(value = "r_project_id", defaultValue = "") Integer project_id, // 工程ID
+			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,  // 工程名称
+			@RequestParam(value = "group_bh", defaultValue = "") String group_bh, //组编号
+			@RequestParam(value = "group_mc", defaultValue = "") String group_mc,  // 组名称
+			@RequestParam(value = "pp", defaultValue = "") String pp, // 品牌
+			@RequestParam(value = "xh", defaultValue = "") String xh,  // 型号
+			@RequestParam(value = "gl", defaultValue = "") String gl,  // 功率
+			@RequestParam(value = "gg", defaultValue = "") String gg,  // 规格
+			@RequestParam(value = "cll", defaultValue = "") String cll,  // 处理量
+			
 			@RequestParam(value = "status", defaultValue = "1") Integer status,  // 状态
 			HttpServletRequest request, UserDto user, ModelMap modelMap)throws Exception {
 		
@@ -115,6 +118,8 @@ public class ComponentGroupController {
 		comGroup.setPp(pp);
 		comGroup.setXh(xh);
 		comGroup.setGl(gl);
+		comGroup.setCll(cll);
+		comGroup.setGg(gg);
 
 		List<ComponentGroupDto> cgroup = groupService.listComGroup(user, comGroup, pager);
 		modelMap.put("dataList", cgroup);
@@ -123,7 +128,7 @@ public class ComponentGroupController {
 	}
 
 	/**
-	* @MethodName: addProject 
+	* @MethodName: addComGroup 
 	* @Description: 添加零件组信息
 	* @param request
 	* @param response
@@ -132,7 +137,7 @@ public class ComponentGroupController {
 	* @author WangJuZhu
 	*/
 	@RequestMapping("addComGroup/{groupType}")
-	public void addProject(HttpServletRequest request,HttpServletResponse response,
+	public void addComGroup(HttpServletRequest request,HttpServletResponse response,
 			@PathVariable(value = "groupType") Integer groupType,
 			@RequestParam(value = "id", defaultValue = "") Integer project_id,
 			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
@@ -141,6 +146,24 @@ public class ComponentGroupController {
 			@RequestParam(value = "pp", defaultValue = "") String pp,
 			@RequestParam(value = "xh", defaultValue = "") String xh,
 			@RequestParam(value = "gl", defaultValue = "") String gl,
+			@RequestParam(value = "gg", defaultValue = "") String gg,
+			@RequestParam(value = "cll", defaultValue = "") String cll,
+			@RequestParam(value = "tlgd", defaultValue = "") Integer tlgd,
+			@RequestParam(value = "cz", defaultValue = "") String cz,
+			@RequestParam(value = "sl", defaultValue = "") Integer sl,
+			@RequestParam(value = "ckdj", defaultValue = "") Double ckdj,
+			@RequestParam(value = "gljd", defaultValue = "") Double gljd,
+			@RequestParam(value = "lxcc", defaultValue = "") Double lxcc,
+			@RequestParam(value = "lxjkxs", defaultValue = "") String lxjkxs,
+			@RequestParam(value = "others", defaultValue = "") String others,
+			@RequestParam(value = "csl", defaultValue = "") String csl,
+			@RequestParam(value = "hsl", defaultValue = "") Double hsl,
+			@RequestParam(value = "plfs", defaultValue = "") String plfs,
+			@RequestParam(value = "dgsm", defaultValue = "") Integer dgsm,
+			@RequestParam(value = "rj", defaultValue = "") String rj,
+			@RequestParam(value = "yjnd", defaultValue = "") String yjnd,
+			@RequestParam(value = "yjedtjl", defaultValue = "") String yjedtjl,
+			
 			ModelMap model ) throws Exception {
 
 		ComponentGroupEntity comGroup = new ComponentGroupEntity();
@@ -157,6 +180,82 @@ public class ComponentGroupController {
 			comGroup.setGl(gl);
 		}
 		
+		//保存 砂滤器 和 软化器 组信息
+		if(groupType == ComponentType.SAND_FILTER.getCode() || groupType == ComponentType.SOFTENER.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setCll(cll);
+			comGroup.setGg(gg);
+			comGroup.setSl(sl);
+			comGroup.setTlgd(tlgd);
+			comGroup.setCkdj(ckdj);
+			comGroup.setCz(cz);
+		}
+		
+		//保存 碳滤器 组信息
+		if(groupType == ComponentType.CARBON_FILTE.getCode()){
+			comGroup.setCll(cll);
+			comGroup.setGg(gg);
+			comGroup.setTlgd(tlgd);
+			comGroup.setCz(cz);
+		}
+		
+		//保存 过滤器 组信息
+		if(groupType == ComponentType.FILTER_GROUP.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setCll(cll);
+			comGroup.setGg(gg);
+			comGroup.setSl(sl);
+			comGroup.setCkdj(ckdj);
+			comGroup.setCz(cz);
+			comGroup.setGljd(gljd);
+			comGroup.setLxcc(lxcc);
+			comGroup.setLxjkxs(lxjkxs);
+			comGroup.setOthers(others);
+		}
+		
+		//保存 膜 组信息
+		if(groupType == ComponentType.FILM_GROUP.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setCsl(csl);
+			comGroup.setGg(gg);
+			comGroup.setSl(sl);
+			comGroup.setCkdj(ckdj);
+			comGroup.setHsl(hsl);
+			comGroup.setPlfs(plfs);
+		}
+		
+		//保存 紫外杀菌器 组信息
+		if(groupType == ComponentType.UVSTERILIZER.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setCll(cll);
+			comGroup.setGl(gl);
+			comGroup.setSl(sl);
+			comGroup.setDgsm(dgsm);
+			comGroup.setHsl(hsl);
+			comGroup.setPlfs(plfs);
+		}
+		
+		// 保存 水箱 组信息
+		if(groupType == ComponentType.TANK_GROUP.getCode()){
+			comGroup.setGg(gg);
+			comGroup.setRj(rj);
+			comGroup.setOthers(others);
+		}
+		
+		//保存 加药装置器 组信息
+		if(groupType == ComponentType.DOSESETTING.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setYjnd(yjnd);
+			comGroup.setGl(gl);
+			comGroup.setYjedtjl(yjedtjl);
+			comGroup.setCkdj(ckdj);
+		}
+		
 		List<String> messages = groupService.addComGroup(comGroup);
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
@@ -165,25 +264,6 @@ public class ComponentGroupController {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.write(json.toString());
-	}
-	
-	/**
-	* @MethodName: getComGroupDetail 
-	* @Description: 根据组ID查询零件组详情
-	* @param id
-	* @param model
-	* @return
-	* @throws SQLException
-	* @author WangJuZhu
-	*/
-	@RequestMapping("getComGroupDetail")
-	public String getComGroupDetail(
-			@RequestParam(value = "id", defaultValue = "") Integer id,
-			ModelMap model) throws SQLException {
-
-		ComponentGroupDto cgroup = groupService.getOneComGroup(id);
-		model.put("data", cgroup);
-		return "jsonView";
 	}
 
 	/**
@@ -204,6 +284,24 @@ public class ComponentGroupController {
 			@RequestParam(value = "pp", defaultValue = "") String pp,
 			@RequestParam(value = "xh", defaultValue = "") String xh,
 			@RequestParam(value = "gl", defaultValue = "") String gl,
+			@RequestParam(value = "gg", defaultValue = "") String gg,
+			@RequestParam(value = "cll", defaultValue = "") String cll,
+			@RequestParam(value = "tlgd", defaultValue = "") Integer tlgd,
+			@RequestParam(value = "cz", defaultValue = "") String cz,
+			@RequestParam(value = "sl", defaultValue = "") Integer sl,
+			@RequestParam(value = "ckdj", defaultValue = "") Double ckdj,
+			@RequestParam(value = "gljd", defaultValue = "") Double gljd,
+			@RequestParam(value = "lxcc", defaultValue = "") Double lxcc,
+			@RequestParam(value = "lxjkxs", defaultValue = "") String lxjkxs,
+			@RequestParam(value = "others", defaultValue = "") String others,
+			@RequestParam(value = "csl", defaultValue = "") String csl,
+			@RequestParam(value = "hsl", defaultValue = "") Double hsl,
+			@RequestParam(value = "plfs", defaultValue = "") String plfs,
+			@RequestParam(value = "dgsm", defaultValue = "") Integer dgsm,
+			@RequestParam(value = "rj", defaultValue = "") String rj,
+			@RequestParam(value = "yjnd", defaultValue = "") String yjnd,
+			@RequestParam(value = "yjedtjl", defaultValue = "") String yjedtjl,
+			
 			ModelMap model, HttpServletRequest request,HttpServletResponse response) throws SQLException,
 			IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 
@@ -221,6 +319,82 @@ public class ComponentGroupController {
 			comGroup.setGl(gl);
 		}
 
+		//保存 砂滤器 和 软化器 组信息
+		if(groupType == ComponentType.SAND_FILTER.getCode() || groupType == ComponentType.SOFTENER.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setCll(cll);
+			comGroup.setGg(gg);
+			comGroup.setSl(sl);
+			comGroup.setTlgd(tlgd);
+			comGroup.setCkdj(ckdj);
+			comGroup.setCz(cz);
+		}
+
+		//保存 碳滤器 组信息
+		if(groupType == ComponentType.CARBON_FILTE.getCode()){
+			comGroup.setCll(cll);
+			comGroup.setGg(gg);
+			comGroup.setTlgd(tlgd);
+			comGroup.setCz(cz);
+		}
+		
+		//保存 过滤器 组信息
+		if(groupType == ComponentType.FILTER_GROUP.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setCll(cll);
+			comGroup.setGg(gg);
+			comGroup.setSl(sl);
+			comGroup.setCkdj(ckdj);
+			comGroup.setCz(cz);
+			comGroup.setGljd(gljd);
+			comGroup.setLxcc(lxcc);
+			comGroup.setLxjkxs(lxjkxs);
+			comGroup.setOthers(others);
+		}
+		
+		//保存 膜 组信息
+		if(groupType == ComponentType.FILM_GROUP.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setCsl(csl);
+			comGroup.setGg(gg);
+			comGroup.setSl(sl);
+			comGroup.setCkdj(ckdj);
+			comGroup.setHsl(hsl);
+			comGroup.setPlfs(plfs);
+		}
+		
+		//保存 紫外杀菌器 组信息
+		if(groupType == ComponentType.UVSTERILIZER.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setCll(cll);
+			comGroup.setGl(gl);
+			comGroup.setSl(sl);
+			comGroup.setDgsm(dgsm);
+			comGroup.setCkdj(ckdj);
+			comGroup.setOthers(others);
+		}
+		
+		// 保存 水箱 组信息
+		if(groupType == ComponentType.TANK_GROUP.getCode()){
+			comGroup.setGg(gg);
+			comGroup.setRj(rj);
+			comGroup.setOthers(others);
+		}
+		
+		//保存 加药装置器 组信息
+		if(groupType == ComponentType.DOSESETTING.getCode()){
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setYjnd(yjnd);
+			comGroup.setGl(gl);
+			comGroup.setYjedtjl(yjedtjl);
+			comGroup.setCkdj(ckdj);
+		}
+		
 		List<String> messages = groupService.modifyComGroup(comGroup);
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
@@ -233,7 +407,7 @@ public class ComponentGroupController {
 	
 	/**
 	* @MethodName: deleteComGroup 
-	* @Description: 批量删除零件组信息
+	* @Description: 删除零件组信息
 	* @param ids
 	* @param model
 	* @return
@@ -252,8 +426,27 @@ public class ComponentGroupController {
 	}
 	
 	/**
+	* @MethodName: getComGroupDetail 
+	* @Description: 根据组ID查询零件组详情
+	* @param id
+	* @param model
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("getComGroupDetail")
+	public String getComGroupDetail(
+			@RequestParam(value = "id", defaultValue = "") Integer id,
+			ModelMap model) throws SQLException {
+
+		ComponentGroupDto cgroup = groupService.getOneComGroup(id);
+		model.put("data", cgroup);
+		return "jsonView";
+	}
+	
+	/**
 	* @MethodName: listProjectByStatus 
-	* @Description: 查询所有有效的工程信息
+	* @Description: 查询有效的工程信息
 	* @param modelMap
 	* @return
 	* @throws SQLException
@@ -261,8 +454,8 @@ public class ComponentGroupController {
 	*/
 	@RequestMapping("listProjectByStatus")
 	public String listProjectByStatus(ModelMap modelMap) throws SQLException{
-		List<ProjectEntity> regions = projectService.listProjectByStatus(Status.VALID.getCode());
-		modelMap.put("dataList", regions);
+		List<ProjectEntity> projectList = projectService.listProjectByStatus(Status.VALID.getCode());
+		modelMap.put("dataList", projectList);
 		return "jsonView";
 	}
 

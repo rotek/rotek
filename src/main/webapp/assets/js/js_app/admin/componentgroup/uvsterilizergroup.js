@@ -1,22 +1,22 @@
-/** 管理泵组信息  */
-Ext.ns("ROTEK.COMPONENT.PUMP");
-ROTEK.COMPONENT.PUMP.params = {
+/**  管理紫外杀菌器组信息  */
+Ext.ns("ROTEK.COMPONENT.UVSTER");
+ROTEK.COMPONENT.UVSTER.params = {
 	gridParam : {
-		url : basePath + "/admin/componentgroup/listComGroup/1",
+		url : basePath + "/admin/componentgroup/listComGroup/7",
 		dataList : [ {
 			index : 'id',
 			header : '组ID',
-			width : 40,
+			width : 30,
 			align : 'center'
 		}, {
 			index : 'project_name',
 			header : '工程名称',
-			width : 100,
+			width : 80,
 			align : 'center'
 		}, {
 			index : 'group_bh',
 			header : '组编号',
-			width : 50,
+			width : 40,
 			align : 'center'
 		}, {
 			index : 'group_mc',
@@ -25,17 +25,42 @@ ROTEK.COMPONENT.PUMP.params = {
 			align : 'center'
 		}, {
 			index : 'pp',
-			header : '品牌',
-			width : 50,
+			header : '灯管品牌',
+			width : 40,
 			align : 'center'
 		}, {
 			index : 'xh',
-			header : '型号',
+			header : '灯管型号',
+			width : 40,
+			align : 'center'
+		}, {
+			index : 'dgsm',
+			header : '灯管寿命（小时）',
 			width : 50,
 			align : 'center'
 		}, {
 			index : 'gl',
-			header : '功率',
+			header : '灯管功率',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'sl',
+			header : '灯管数量',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'cll',
+			header : '处理量',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'ckdj',
+			header : '灯管参考单价',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'others',
+			header : '其它',
 			width : 50,
 			align : 'center'
 		}, {
@@ -53,15 +78,15 @@ ROTEK.COMPONENT.PUMP.params = {
 		} ]
 	},
 	url : {
-		addUrl : basePath + "/admin/componentgroup/addComGroup/1",
+		addUrl : basePath + "/admin/componentgroup/addComGroup/7",
 		detailUrl : basePath + "/admin/componentgroup/getComGroupDetail",
-		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/1",
+		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/7",
 		dropUrl : basePath + "/admin/componentgroup/deleteComGroup",
 		listProejctUrl : basePath + "/admin/componentgroup/listProjectByStatus"
 	}
 };
 
-var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENT.PUMP.params.gridParam);
+var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENT.UVSTER.params.gridParam);
 var toolbar = new CTA.common.Toolbar();
 
 //添加工程信息
@@ -74,7 +99,7 @@ if (toolbar.get("button_add")) {
 //					target : 'addWindow'
 //				});
 				formPanel.commit({
-					url : ROTEK.COMPONENT.PUMP.params.url.addUrl
+					url : ROTEK.COMPONENT.UVSTER.params.url.addUrl
 				});
 			}
 		};
@@ -82,7 +107,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '50%',
-			height : 270,
+			height : 450,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -110,7 +135,7 @@ if (toolbar.get("button_add")) {
     					} ]
     				}),
     				proxy : new Ext.data.HttpProxy({
-    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+    					url : ROTEK.COMPONENT.UVSTER.params.url.listProejctUrl
     				})
     			})
     		}, {
@@ -126,21 +151,51 @@ if (toolbar.get("button_add")) {
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '品牌',
-				emptyText : '请输入品牌',
+				fieldLabel : '灯管品牌',
+				emptyText : '请输入灯管品牌',
 				name : 'pp',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '型号',
-				emptyText : '请输入型号',
+				fieldLabel : '灯管型号',
+				emptyText : '请输入灯管型号',
 				name : 'xh',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '功率',
-				emptyText : '请输入功率',
+				fieldLabel : '灯管功率',
+				emptyText : '请输入灯管功率',
 				name : 'gl',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '灯管处理量',
+				emptyText : '请输入处理量',
+				name : 'cll',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '灯管寿命（小时）',
+				emptyText : '请输入灯管寿命',
+				name : 'dgsm',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '灯管数量',
+				emptyText : '请输入灯管数量',
+				name : 'sl',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '灯管参考单价',
+				emptyText : '请输入灯管参考单价',
+				name : 'ckdj',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '其它',
+				emptyText : '请输入其它',
+				name : 'others',
 				minLength : 1,
 				maxLength : 100
 			}]
@@ -160,7 +215,7 @@ if(toolbar.get("button_modify")){
 		}
 		var id = selections[0].get("id");
 		Ext.Ajax.request({
-			url : ROTEK.COMPONENT.PUMP.params.url.detailUrl,
+			url : ROTEK.COMPONENT.UVSTER.params.url.detailUrl,
 			params : {
 				id : id
 			},
@@ -194,7 +249,7 @@ if(toolbar.get("button_modify")){
 		    					} ]
 		    				}),
 		    				proxy : new Ext.data.HttpProxy({
-		    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+		    					url : ROTEK.COMPONENT.UVSTER.params.url.listProejctUrl
 		    				})
 		    			})
 		    		}, {
@@ -210,21 +265,51 @@ if(toolbar.get("button_modify")){
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '品牌',
-						emptyText : '请输入品牌',
+						fieldLabel : '灯管品牌',
+						emptyText : '请输入灯管品牌',
 						name : 'pp',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '型号',
-						emptyText : '请输入型号',
+						fieldLabel : '灯管型号',
+						emptyText : '请输入灯管型号',
 						name : 'xh',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '功率',
-						emptyText : '请输入功率',
+						fieldLabel : '灯管功率',
+						emptyText : '请输入灯管功率',
 						name : 'gl',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '灯管处理量',
+						emptyText : '请输入处理量',
+						name : 'cll',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '灯管寿命（小时）',
+						emptyText : '请输入灯管寿命',
+						name : 'dgsm',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '灯管数量',
+						emptyText : '请输入灯管数量',
+						name : 'sl',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '灯管参考单价',
+						emptyText : '请输入灯管参考单价',
+						name : 'ckdj',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '其它',
+						emptyText : '请输入其它',
+						name : 'others',
 						minLength : 1,
 						maxLength : 100
 					}],
@@ -234,7 +319,7 @@ if(toolbar.get("button_modify")){
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '50%',
-					height : 270,
+					height : 450,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -244,7 +329,7 @@ if(toolbar.get("button_modify")){
 								target : 'updateWindow'
 							});
 							formPanel.commit({
-								url : ROTEK.COMPONENT.PUMP.params.url.modifyUrl
+								url : ROTEK.COMPONENT.UVSTER.params.url.modifyUrl
 							});
 						}
 					}
@@ -294,15 +379,15 @@ if(toolbar.get("button_query")){
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '品牌',
-				emptyText : '请输入品牌',
+				fieldLabel : '灯管品牌',
+				emptyText : '请输入灯管品牌',
 				name : 'pp',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '型号',
-				emptyText : '请输入组型号',
+				fieldLabel : '灯管型号',
+				emptyText : '请输入灯管型号',
 				name : 'xh',
 				allowBlank : true,
 				minLength : 1,
@@ -348,7 +433,7 @@ if(toolbar.get("button_drop")){
 			if ('yes' == button) {
 				CTA.common.Mask.showMask();
 				CTA.common.Ajax.request({
-					url : ROTEK.COMPONENT.PUMP.params.url.dropUrl,
+					url : ROTEK.COMPONENT.UVSTER.params.url.dropUrl,
 					params : {
 						ids : ids.toString()
 					}

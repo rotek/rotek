@@ -1,22 +1,22 @@
-/** 管理泵组信息  */
-Ext.ns("ROTEK.COMPONENT.PUMP");
-ROTEK.COMPONENT.PUMP.params = {
+/**  管理过滤器组信息  */
+Ext.ns("ROTEK.COMPONENT.FILTER");
+ROTEK.COMPONENT.FILTER.params = {
 	gridParam : {
-		url : basePath + "/admin/componentgroup/listComGroup/1",
+		url : basePath + "/admin/componentgroup/listComGroup/5",
 		dataList : [ {
 			index : 'id',
 			header : '组ID',
-			width : 40,
+			width : 30,
 			align : 'center'
 		}, {
 			index : 'project_name',
 			header : '工程名称',
-			width : 100,
+			width : 80,
 			align : 'center'
 		}, {
 			index : 'group_bh',
 			header : '组编号',
-			width : 50,
+			width : 40,
 			align : 'center'
 		}, {
 			index : 'group_mc',
@@ -25,17 +25,57 @@ ROTEK.COMPONENT.PUMP.params = {
 			align : 'center'
 		}, {
 			index : 'pp',
-			header : '品牌',
-			width : 50,
+			header : '滤芯品牌',
+			width : 40,
 			align : 'center'
 		}, {
 			index : 'xh',
-			header : '型号',
+			header : '滤芯型号',
+			width : 40,
+			align : 'center'
+		}, {
+			index : 'gg',
+			header : '规格',
 			width : 50,
 			align : 'center'
 		}, {
-			index : 'gl',
-			header : '功率',
+			index : 'cll',
+			header : '处理量',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'gljd',
+			header : '过滤精度',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'lxcc',
+			header : '滤芯尺寸',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'cz',
+			header : '滤芯材质',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'sl',
+			header : '滤芯数量',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'ckdj',
+			header : '滤芯参考单价',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'lxjkxs',
+			header : '滤芯接口形式',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'others',
+			header : '其他',
 			width : 50,
 			align : 'center'
 		}, {
@@ -53,15 +93,15 @@ ROTEK.COMPONENT.PUMP.params = {
 		} ]
 	},
 	url : {
-		addUrl : basePath + "/admin/componentgroup/addComGroup/1",
+		addUrl : basePath + "/admin/componentgroup/addComGroup/5",
 		detailUrl : basePath + "/admin/componentgroup/getComGroupDetail",
-		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/1",
+		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/5",
 		dropUrl : basePath + "/admin/componentgroup/deleteComGroup",
 		listProejctUrl : basePath + "/admin/componentgroup/listProjectByStatus"
 	}
 };
 
-var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENT.PUMP.params.gridParam);
+var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENT.FILTER.params.gridParam);
 var toolbar = new CTA.common.Toolbar();
 
 //添加工程信息
@@ -74,7 +114,7 @@ if (toolbar.get("button_add")) {
 //					target : 'addWindow'
 //				});
 				formPanel.commit({
-					url : ROTEK.COMPONENT.PUMP.params.url.addUrl
+					url : ROTEK.COMPONENT.FILTER.params.url.addUrl
 				});
 			}
 		};
@@ -82,7 +122,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '50%',
-			height : 270,
+			height : 530,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -110,7 +150,7 @@ if (toolbar.get("button_add")) {
     					} ]
     				}),
     				proxy : new Ext.data.HttpProxy({
-    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+    					url : ROTEK.COMPONENT.FILTER.params.url.listProejctUrl
     				})
     			})
     		}, {
@@ -126,21 +166,69 @@ if (toolbar.get("button_add")) {
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '品牌',
-				emptyText : '请输入品牌',
+				fieldLabel : '滤芯品牌',
+				emptyText : '请输入滤芯品牌',
 				name : 'pp',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '型号',
-				emptyText : '请输入型号',
+				fieldLabel : '滤芯型号',
+				emptyText : '请输入滤芯型号',
 				name : 'xh',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '功率',
-				emptyText : '请输入功率',
-				name : 'gl',
+				fieldLabel : '规格',
+				emptyText : '请输入规格',
+				name : 'gg',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '处理量',
+				emptyText : '请输入处理量',
+				name : 'cll',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '过滤精度',
+				emptyText : '请输入过滤精度',
+				name : 'gljd',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '滤芯材质',
+				emptyText : '请输入滤芯材质',
+				name : 'cz',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '滤芯数量',
+				emptyText : '请输入滤芯数量',
+				name : 'sl',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '滤芯尺寸',
+				emptyText : '请输入滤芯尺寸',
+				name : 'lxcc',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '滤芯参考单价',
+				emptyText : '请输入滤芯参考单价',
+				name : 'ckdj',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '滤芯接口形式',
+				emptyText : '请输入滤芯接口形式',
+				name : 'lxjkxs',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '其他',
+				emptyText : '请输入其他',
+				name : 'others',
 				minLength : 1,
 				maxLength : 100
 			}]
@@ -160,7 +248,7 @@ if(toolbar.get("button_modify")){
 		}
 		var id = selections[0].get("id");
 		Ext.Ajax.request({
-			url : ROTEK.COMPONENT.PUMP.params.url.detailUrl,
+			url : ROTEK.COMPONENT.FILTER.params.url.detailUrl,
 			params : {
 				id : id
 			},
@@ -194,7 +282,7 @@ if(toolbar.get("button_modify")){
 		    					} ]
 		    				}),
 		    				proxy : new Ext.data.HttpProxy({
-		    					url : ROTEK.COMPONENT.PUMP.params.url.listProejctUrl
+		    					url : ROTEK.COMPONENT.FILTER.params.url.listProejctUrl
 		    				})
 		    			})
 		    		}, {
@@ -210,21 +298,69 @@ if(toolbar.get("button_modify")){
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '品牌',
-						emptyText : '请输入品牌',
+						fieldLabel : '滤芯品牌',
+						emptyText : '请输入滤芯品牌',
 						name : 'pp',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '型号',
-						emptyText : '请输入型号',
+						fieldLabel : '滤芯型号',
+						emptyText : '请输入滤芯型号',
 						name : 'xh',
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '功率',
-						emptyText : '请输入功率',
-						name : 'gl',
+						fieldLabel : '规格',
+						emptyText : '请输入规格',
+						name : 'gg',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '处理量',
+						emptyText : '请输入处理量',
+						name : 'cll',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '过滤精度',
+						emptyText : '请输入过滤精度',
+						name : 'gljd',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '滤芯材质',
+						emptyText : '请输入滤芯材质',
+						name : 'cz',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '滤芯数量',
+						emptyText : '请输入滤芯数量',
+						name : 'sl',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '滤芯尺寸',
+						emptyText : '请输入滤芯尺寸',
+						name : 'lxcc',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '滤芯参考单价',
+						emptyText : '请输入滤芯参考单价',
+						name : 'ckdj',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '滤芯接口形式',
+						emptyText : '请输入滤芯接口形式',
+						name : 'lxjkxs',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '其他',
+						emptyText : '请输入其他',
+						name : 'others',
 						minLength : 1,
 						maxLength : 100
 					}],
@@ -234,7 +370,7 @@ if(toolbar.get("button_modify")){
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '50%',
-					height : 270,
+					height : 530,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -244,7 +380,7 @@ if(toolbar.get("button_modify")){
 								target : 'updateWindow'
 							});
 							formPanel.commit({
-								url : ROTEK.COMPONENT.PUMP.params.url.modifyUrl
+								url : ROTEK.COMPONENT.FILTER.params.url.modifyUrl
 							});
 						}
 					}
@@ -294,15 +430,15 @@ if(toolbar.get("button_query")){
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '品牌',
-				emptyText : '请输入品牌',
+				fieldLabel : '滤料品牌',
+				emptyText : '请输入滤料品牌',
 				name : 'pp',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '型号',
-				emptyText : '请输入组型号',
+				fieldLabel : '滤料型号',
+				emptyText : '请输入滤料型号',
 				name : 'xh',
 				allowBlank : true,
 				minLength : 1,
@@ -348,7 +484,7 @@ if(toolbar.get("button_drop")){
 			if ('yes' == button) {
 				CTA.common.Mask.showMask();
 				CTA.common.Ajax.request({
-					url : ROTEK.COMPONENT.PUMP.params.url.dropUrl,
+					url : ROTEK.COMPONENT.FILTER.params.url.dropUrl,
 					params : {
 						ids : ids.toString()
 					}
