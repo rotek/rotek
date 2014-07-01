@@ -136,7 +136,7 @@ public class ProjectController {
 		project.setGclj(gclj);
 		project.setAzsj(azsj);
 		project.setTysj(tysj);
-		project.setStatus(Status.NEW.getCode());
+		project.setStatus(Status.VALID.getCode());
 		project.setCjsj(new Date());
 		project.setCjr(0);
 
@@ -208,7 +208,7 @@ public class ProjectController {
 		project.setGclj(gclj);
 		project.setAzsj(azsj);
 		project.setTysj(tysj);
-		project.setStatus(Status.NEW.getCode());
+		project.setStatus(Status.VALID.getCode());
 
 		List<String> messages = projectService.modifyProject(project,multipartRequest);
 		JSONObject json = new JSONObject();

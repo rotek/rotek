@@ -181,8 +181,8 @@ public class ComponentGroupController {
 			@RequestParam(value = "id", defaultValue = "") Integer id,
 			ModelMap model) throws SQLException {
 
-		ComponentGroupEntity project = groupService.getComGroupById(id);
-		model.put("data", project);
+		ComponentGroupDto cgroup = groupService.getOneComGroup(id);
+		model.put("data", cgroup);
 		return "jsonView";
 	}
 

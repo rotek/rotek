@@ -177,11 +177,12 @@ if(toolbar.get("button_modify")){
 		    			xtype : 'combo',
 		    			fieldLabel : '所属工程',
 		    			emptyText : '请选择工程',
-		    			name : 'r_project_id',
+		    			name : 'project_name',
 		    			hiddenName : 'r_project_id',
 		    			triggerAction : 'all',
 		    			displayField : 'gcmc',
 		    			valueField : 'id',
+		    			allowBlank : true,
 		    			editable : false,
 		    			store : new Ext.data.Store({
 		    				reader : new Ext.data.JsonReader({

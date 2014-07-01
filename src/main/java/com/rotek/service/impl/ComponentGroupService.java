@@ -118,7 +118,7 @@ public class ComponentGroupService {
 	* @MethodName: getComGroupById 
 	* @Description: 根据Id查询组信息
 	* @param id
-	* @return
+	* @return ComponentGroupEntity
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
@@ -127,6 +127,21 @@ public class ComponentGroupService {
 			return null;
 		}
 		return comgroupDao.getComGroupById(id);
+	}
+	
+	/**
+	* @MethodName: getOneComGroup 
+	* @Description:
+	* @param id
+	* @return ComponentGroupDto
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public ComponentGroupDto getOneComGroup(Integer id) throws SQLException {
+		if(null == id){
+			return null;
+		}
+		return comgroupDao.getOneComGroup(id);
 	}
 	
 	/**

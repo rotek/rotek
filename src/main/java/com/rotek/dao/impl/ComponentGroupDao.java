@@ -72,6 +72,12 @@ public class ComponentGroupDao extends BaseDaoImpl{
 		return this.selectOne(sql,new Integer[]{id},ComponentGroupEntity.class);
 	}
 	
+	public ComponentGroupDto getOneComGroup(Integer id) throws SQLException {
+		String sql = "select cgro.*,pro.GCMC as PROJECT_NAME from r_component_group cgro "
+				+ " left join r_project pro on pro.id = cgro.r_project_id where cgro.id = ?";
+		return this.selectOne(sql,new Integer[]{id},ComponentGroupDto.class);
+	}
+	
 	/**
 	* @MethodName: modifyComGroup 
 	* @Description: 修改工程信息
