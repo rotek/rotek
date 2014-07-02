@@ -92,7 +92,6 @@ public class ComponentDetailController {
 			@PathVariable(value = "groupType") Integer groupType,  // 组分类
 			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "limit", defaultValue = "10") Integer limit,
-			//@RequestParam(value = "r_project_id", defaultValue = "") Integer project_id, // 工程ID
 			@RequestParam(value = "project_name", defaultValue = "") String project_name,  // 工程名称
 			@RequestParam(value = "group_name", defaultValue = "") String group_name, //组名称
 			@RequestParam(value = "specific_part", defaultValue = "") String specific_part,  // 零件名称
@@ -149,6 +148,7 @@ public class ComponentDetailController {
 			addDetail.setEdylv(comDetail.getEdylv());
 			addDetail.setEdwd(comDetail.getEdwd());
 			addDetail.setEdyd(comDetail.getEdyd());
+			addDetail.setEdywj(comDetail.getEdywj());
 			addDetail.setEdtds(comDetail.getEdtds());
 			addDetail.setEdzdu(comDetail.getEdzdu());
 			addDetail.setEdyl(comDetail.getEdyl());
@@ -224,11 +224,35 @@ public class ComponentDetailController {
 
 		ComponentDetailEntity editDetail = detailService.getComDetailById(comDetail.getId());
 		
+		editDetail.setId(comDetail.getId());
+		editDetail.setR_project_id(comDetail.getR_project_id());
+		editDetail.setR_component_group_id(comDetail.getR_component_group_id());
+		editDetail.setSpecific_part(comDetail.getSpecific_part());
+		editDetail.setSpecific_bh(comDetail.getSpecific_bh());
 		editDetail.setStatus(Status.VALID.getCode());
 		
-		// 保存 泵明细信息
+		//保存 泵组零件明细信息
 		if(groupType == ComponentType.PUMP.getCode()){
-			
+			editDetail.setEdll(comDetail.getEdll());
+			editDetail.setEdghsj(comDetail.getEdghsj());
+			editDetail.setEdddl(comDetail.getEdddl());
+			editDetail.setEdph(comDetail.getEdph());
+			editDetail.setEdylv(comDetail.getEdylv());
+			editDetail.setEdwd(comDetail.getEdwd());
+			editDetail.setEdyd(comDetail.getEdyd());
+			editDetail.setEdywj(comDetail.getEdywj());
+			editDetail.setEdtds(comDetail.getEdtds());
+			editDetail.setEdzdu(comDetail.getEdzdu());
+			editDetail.setEdyl(comDetail.getEdyl());
+			editDetail.setEdsdi(comDetail.getEdsdi());
+			editDetail.setEdcod(comDetail.getEdcod());
+			editDetail.setEdbod(comDetail.getEdbod());
+			editDetail.setEdad(comDetail.getEdad());
+			editDetail.setEdzd(comDetail.getEdzd());
+			editDetail.setEdzl(comDetail.getEdzl());
+			editDetail.setEdxfw(comDetail.getEdxfw());
+			editDetail.setEdwnnd(comDetail.getEdwnnd());
+			editDetail.setOther_info(comDetail.getOther_info());
 		}
 
 		//保存 砂滤器 和 软化器 明细信息
