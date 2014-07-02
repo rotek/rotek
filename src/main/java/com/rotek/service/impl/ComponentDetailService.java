@@ -66,6 +66,10 @@ public class ComponentDetailService {
 		if(StringUtils.isNotEmpty(comgroup.getSpecific_bh())){
 			sql.append(" and cdetail.SPECIFIC_BH like '%").append(comgroup.getSpecific_bh()).append("%'");
 		}
+		
+		if(comgroup.getR_component_group_type() != null && comgroup.getR_component_group_type() != 0){
+			sql.append(" and cdetail.R_COMPONENT_GROUP_TYPE = " + comgroup.getR_component_group_type());
+		}
 
 		sql.append(" order by cdetail.ID ");
 		return comgroupDao.listComDetail(sql.toString(), params.toArray(), pager);

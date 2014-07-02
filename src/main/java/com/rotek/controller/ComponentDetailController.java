@@ -106,6 +106,7 @@ public class ComponentDetailController {
 		pager.setPageNo(pageNo);
 
 		ComponentDetailDto comDetail = new ComponentDetailDto();
+		comDetail.setR_component_group_type(groupType);
 		comDetail.setProject_name(project_name);   // 工程名称
 		comDetail.setGroup_name(group_name);  // 组名称
 		comDetail.setSpecific_part(specific_part);  // 零件名称
@@ -134,7 +135,15 @@ public class ComponentDetailController {
 
 		ComponentDetailEntity addDetail = new ComponentDetailEntity();
 		addDetail.setR_project_id(comDetail.getR_project_id());
+		addDetail.setR_component_group_type(groupType);
 		addDetail.setR_component_group_id(comDetail.getR_component_group_id());
+		
+		if(groupType == 0){ // EMC工程
+			ComponentGroupEntity groupEntity = groupService.getComGroupById(comDetail.getR_component_group_id());
+			addDetail.setR_component_group_type(groupEntity.getGroup_lb());
+		}else{
+			addDetail.setR_component_group_type(groupType);
+		}
 		addDetail.setSpecific_part(comDetail.getSpecific_part());
 		addDetail.setSpecific_bh(comDetail.getSpecific_bh());
 		addDetail.setStatus(Status.VALID.getCode());
@@ -163,39 +172,53 @@ public class ComponentDetailController {
 			addDetail.setOther_info(comDetail.getOther_info());
 		}
 		
-		//保存 砂滤器 和 软化器 明细信息
-		if(groupType == ComponentType.SAND_FILTER.getCode() || groupType == ComponentType.SOFTENER.getCode()){
-			
+		//保存 砂滤器明细信息
+		if(groupType == ComponentType.SAND_FILTER.getCode()){
+			addDetail.setEdghsj(comDetail.getEdghsj());
+			addDetail.setEdyc(comDetail.getEdyc());
+			addDetail.setEdsz(comDetail.getEdsz());
 		}
 		
 		//保存 碳滤器 明细信息
 		if(groupType == ComponentType.CARBON_FILTE.getCode()){
-			
+			addDetail.setEdghsj(comDetail.getEdghsj());
+		}
+		
+		//保存 软化器 明细信息
+		if(groupType == ComponentType.SOFTENER.getCode()){
+			addDetail.setEdghsj(comDetail.getEdghsj());
 		}
 		
 		//保存 过滤器 明细信息
 		if(groupType == ComponentType.FILTER_GROUP.getCode()){
-			
+			addDetail.setEdghsj(comDetail.getEdghsj());
+			addDetail.setEdyc(comDetail.getEdyc());
 		}
 		
 		//保存 膜 明细信息
 		if(groupType == ComponentType.FILM_GROUP.getCode()){
-			
+			addDetail.setEdghsj(comDetail.getEdghsj());
+			addDetail.setEdqxsj(comDetail.getEdqxsj());
+			addDetail.setEdqxyc(comDetail.getEdqxyc());
+			addDetail.setEdghyc(comDetail.getEdghyc());
+			addDetail.setEdll(comDetail.getEdll());
+			addDetail.setEdddl(comDetail.getEdddl());
+			addDetail.setEdhsl(comDetail.getEdhsl());
 		}
 		
 		//保存 紫外杀菌器 明细信息
 		if(groupType == ComponentType.UVSTERILIZER.getCode()){
-			
+			addDetail.setEdghsj(comDetail.getEdghsj());
 		}
 		
 		// 保存 水箱 明细信息
 		if(groupType == ComponentType.TANK_GROUP.getCode()){
-			
+			addDetail.setEdghsj(comDetail.getEdghsj());
 		}
 		
 		//保存 加药装置器 明细信息
 		if(groupType == ComponentType.DOSESETTING.getCode()){
-			
+			addDetail.setEdghsj(comDetail.getEdghsj());
 		}
 		
 		List<String> messages = detailService.addComDetail(addDetail);
@@ -225,8 +248,13 @@ public class ComponentDetailController {
 		ComponentDetailEntity editDetail = detailService.getComDetailById(comDetail.getId());
 		
 		editDetail.setId(comDetail.getId());
-		editDetail.setR_project_id(comDetail.getR_project_id());
 		editDetail.setR_component_group_id(comDetail.getR_component_group_id());
+		if(groupType == 0){ // EMC工程
+			ComponentGroupEntity groupEntity = groupService.getComGroupById(comDetail.getR_component_group_id());
+			editDetail.setR_component_group_type(groupEntity.getGroup_lb());
+		}else{
+			editDetail.setR_component_group_type(groupType);
+		}
 		editDetail.setSpecific_part(comDetail.getSpecific_part());
 		editDetail.setSpecific_bh(comDetail.getSpecific_bh());
 		editDetail.setStatus(Status.VALID.getCode());
@@ -255,39 +283,53 @@ public class ComponentDetailController {
 			editDetail.setOther_info(comDetail.getOther_info());
 		}
 
-		//保存 砂滤器 和 软化器 明细信息
-		if(groupType == ComponentType.SAND_FILTER.getCode() || groupType == ComponentType.SOFTENER.getCode()){
-			
+		//保存 砂滤器明细信息
+		if(groupType == ComponentType.SAND_FILTER.getCode()){
+			editDetail.setEdghsj(comDetail.getEdghsj());
+			editDetail.setEdyc(comDetail.getEdyc());
+			editDetail.setEdsz(comDetail.getEdsz());
 		}
 
 		//保存 碳滤器 明细信息
 		if(groupType == ComponentType.CARBON_FILTE.getCode()){
-			
+			editDetail.setEdghsj(comDetail.getEdghsj());
 		}
 		
+		//保存 软化器 明细信息
+		if(groupType == ComponentType.SOFTENER.getCode()){
+			editDetail.setEdghsj(comDetail.getEdghsj());
+		}
+				
 		//保存 过滤器 明细信息
 		if(groupType == ComponentType.FILTER_GROUP.getCode()){
-			
+			editDetail.setEdghsj(comDetail.getEdghsj());
+			editDetail.setEdyc(comDetail.getEdyc());
 		}
 		
 		//保存 膜 明细信息
 		if(groupType == ComponentType.FILM_GROUP.getCode()){
-			
+			editDetail.setEdghsj(comDetail.getEdghsj());
+			editDetail.setEdqxsj(comDetail.getEdqxsj());
+			editDetail.setEdqxyc(comDetail.getEdqxyc());
+			editDetail.setEdghyc(comDetail.getEdghyc());
+			editDetail.setEdll(comDetail.getEdll());
+			editDetail.setEdddl(comDetail.getEdddl());
+			editDetail.setEdhsl(comDetail.getEdhsl());
 		}
 		
 		//保存 紫外杀菌器 明细信息
 		if(groupType == ComponentType.UVSTERILIZER.getCode()){
-			
+			editDetail.setEdghsj(comDetail.getEdghsj());
 		}
 		
 		// 保存 水箱 明细信息
 		if(groupType == ComponentType.TANK_GROUP.getCode()){
-			
+			editDetail.setEdghsj(comDetail.getEdghsj());
 		}
 		
 		//保存 加药装置器 明细信息
 		if(groupType == ComponentType.DOSESETTING.getCode()){
-			
+			editDetail.setEdghsj(comDetail.getEdghsj());
 		}
 		
 		List<String> messages = detailService.modifyComDetail(editDetail);
@@ -347,17 +389,19 @@ public class ComponentDetailController {
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	@RequestMapping("selectProjectByType")
-	public String selectProjectByType(ModelMap modelMap) throws SQLException{
+	@RequestMapping("selectProjectByType/{projectType}")
+	public String selectProjectByType(
+			@PathVariable(value="projectType") Integer projectType,
+			ModelMap modelMap) throws SQLException{
 		//工程类别（1、普通工程；2、EMC工程）
-		List<ProjectEntity> projectList = projectService.selectProjectByType(Status.VALID.getCode(),1);
+		List<ProjectEntity> projectList = projectService.selectProjectByType(Status.VALID.getCode(),projectType);
 		modelMap.put("projectList", projectList);
 		return "jsonView";
 	}
 	
 	/**
 	* @MethodName: selectGroupByPid 
-	* @Description: 由 工程ID和零件分组查询组信息
+	* @Description: 由 工程ID和零件分组类型   查询分组信息
 	* @param projectId
 	* @param componentType
 	* @param modelMap

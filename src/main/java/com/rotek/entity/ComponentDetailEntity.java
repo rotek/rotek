@@ -35,6 +35,9 @@ public class ComponentDetailEntity implements Serializable {
 	@Column(name = "R_COMPONENT_GROUP_ID")
 	private Integer r_component_group_id ;   	// 组ID
 	
+	@Column(name = "R_COMPONENT_GROUP_TYPE")
+	private Integer r_component_group_type ;   	// 零件类别（属于哪个组）
+	
 	@Column(name = "SPECIFIC_PART")
 	private String specific_part ;   	// 具体的零件名称，比如1号泵前，1号泵后
 	
@@ -143,6 +146,16 @@ public class ComponentDetailEntity implements Serializable {
 	/** @param r_component_group_id r_component_group_id to set */
 	public void setR_component_group_id(Integer r_component_group_id) {
 		this.r_component_group_id = r_component_group_id;
+	}
+
+	/** @return r_component_group_type */
+	public Integer getR_component_group_type() {
+		return r_component_group_type;
+	}
+
+	/** @param r_component_group_type r_component_group_type to set */
+	public void setR_component_group_type(Integer r_component_group_type) {
+		this.r_component_group_type = r_component_group_type;
 	}
 
 	/** @return r_project_id */

@@ -1,8 +1,8 @@
-/** 管理泵组信息  */
-Ext.ns("ROTEK.COMPONENTD.PUMP");
-ROTEK.COMPONENTD.PUMP.params = {
+/** 管理EMC工程的组信息  */
+Ext.ns("ROTEK.COMPONENTD.EMC");
+ROTEK.COMPONENTD.EMC.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/1",
+		url : basePath + "/admin/componentdetail/listComDetail/0",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',
@@ -48,15 +48,15 @@ ROTEK.COMPONENTD.PUMP.params = {
 		} ]
 	},
 	url : {
-		addUrl : basePath + "/admin/componentdetail/addComDetail/1",
+		addUrl : basePath + "/admin/componentdetail/addComDetail/0",
 		detailUrl : basePath + "/admin/componentdetail/getComDetail",
-		modifyUrl : basePath + "/admin/componentdetail/modifyComDetail/1",
+		modifyUrl : basePath + "/admin/componentdetail/modifyComDetail/0",
 		dropUrl : basePath + "/admin/componentdetail/deleteComDetail",
-		listProejctUrl : basePath + "/admin/componentdetail/selectProjectByType/1"
+		listProejctUrl : basePath + "/admin/componentdetail/selectProjectByType/2"
 	}
 };
 
-var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENTD.PUMP.params.gridParam);
+var gridPanel = CTA.common.GridPanel.createGridPanel(ROTEK.COMPONENTD.EMC.params.gridParam);
 var toolbar = new CTA.common.Toolbar();
 
 //添加工程信息
@@ -66,7 +66,7 @@ if (toolbar.get("button_add")) {
 			//检查表单是否填写好
 			if (formPanel.getForm().isValid()) {
 				formPanel.commit({
-					url : ROTEK.COMPONENTD.PUMP.params.url.addUrl
+					url : ROTEK.COMPONENTD.EMC.params.url.addUrl
 				});
 			}
 		};
@@ -89,7 +89,7 @@ if (toolbar.get("button_add")) {
 				} ]
 			}),
 			proxy : new Ext.data.HttpProxy({
-				url : ROTEK.COMPONENTD.PUMP.params.url.listProejctUrl
+				url : ROTEK.COMPONENTD.EMC.params.url.listProejctUrl
 			})
 		})
 		var GroupStore = new Ext.data.Store({
@@ -203,26 +203,22 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定扬程流量',
-						emptyText : '请输入额定扬程流量',
+						fieldLabel : '额定累计流量',
+						emptyText : '请输入额定累计流量',
 						name : 'edll',
 						width : 150
 					} ]
-				}, {
+				},{
 					layout : 'form',
 					border : false,
-					items : [{
-						xtype : 'datefield',
-						fieldLabel : '维护保养时间',
-						emptyText : '请输入保养时间',
-						name : 'edghsj',
-						format:'Y-m-d',
-						editable : false,
-						allowBlank : true,
+					items : [ {
+						xtype : 'numberfield',
+						fieldLabel : '额定电流',
+						emptyText : '请输入额定电流',
+						name : 'eddl',
 						width : 150
-					}]
-				} ]
-			}, {
+					} ]
+				}, {
 				xtype : 'container',
 				layout : 'column',
 				width : 900,
@@ -231,8 +227,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定电导率',
-						emptyText : '请输入额定电导率',
+						fieldLabel : '额定水质电导率',
+						emptyText : '请输入额定水质电导率',
 						name : 'edddl',
 						width : 180
 					} ]
@@ -465,7 +461,7 @@ if(toolbar.get("button_modify")){
 		}
 		var id = selections[0].get("id");
 		Ext.Ajax.request({
-			url : ROTEK.COMPONENTD.PUMP.params.url.detailUrl,
+			url : ROTEK.COMPONENTD.EMC.params.url.detailUrl,
 			params : {
 				id : id
 			},
@@ -481,7 +477,7 @@ if(toolbar.get("button_modify")){
 						} ]
 					}),
 					proxy : new Ext.data.HttpProxy({
-						url : ROTEK.COMPONENTD.PUMP.params.url.listProejctUrl
+						url : ROTEK.COMPONENTD.EMC.params.url.listProejctUrl
 					})
 				})
 				var GroupStore = new Ext.data.Store({
@@ -888,7 +884,7 @@ if(toolbar.get("button_modify")){
 								target : 'updateWindow'
 							});
 							formPanel.commit({
-								url : ROTEK.COMPONENTD.PUMP.params.url.modifyUrl
+								url : ROTEK.COMPONENTD.EMC.params.url.modifyUrl
 							});
 						}
 					}
@@ -970,7 +966,7 @@ if(toolbar.get("button_viewDetail")){
 	  }
 	  var id = selections[0].get("id");
 	  Ext.Ajax.request({
-		    url : ROTEK.COMPONENTD.PUMP.params.url.detailUrl,
+		    url : ROTEK.COMPONENTD.EMC.params.url.detailUrl,
 			params : {
 				id : id
 			},
@@ -986,7 +982,7 @@ if(toolbar.get("button_viewDetail")){
 							} ]
 						}),
 						proxy : new Ext.data.HttpProxy({
-							url : ROTEK.COMPONENTD.PUMP.params.url.listProejctUrl
+							url : ROTEK.COMPONENTD.EMC.params.url.listProejctUrl
 						})
 					})
 					var GroupStore = new Ext.data.Store({
@@ -1432,7 +1428,7 @@ if(toolbar.get("button_drop")){
 			if ('yes' == button) {
 				CTA.common.Mask.showMask();
 				CTA.common.Ajax.request({
-					url : ROTEK.COMPONENTD.PUMP.params.url.dropUrl,
+					url : ROTEK.COMPONENTD.EMC.params.url.dropUrl,
 					params : {
 						ids : ids.toString()
 					}

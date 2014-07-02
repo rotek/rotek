@@ -11,6 +11,9 @@
 <body></body>
 
 <c:choose>
+	<c:when test="${groupType eq 0 }">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentdetail/emcdetail.js"></script>
+	</c:when>
 	<c:when test="${groupType eq 1 }">
 		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/componentdetail/pumpdetail.js"></script>
 	</c:when>
