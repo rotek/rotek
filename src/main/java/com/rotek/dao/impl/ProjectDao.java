@@ -46,6 +46,11 @@ public class ProjectDao extends BaseDaoImpl{
 		return selectAll(sql, ProjectEntity.class);
 	}
 	
+	public List<ProjectEntity> selectProjectByType(Integer status,Integer type) throws SQLException{
+		String sql = "select * from r_project where status = " + status + " and GCLB = " + type ;
+		return selectAll(sql, ProjectEntity.class);
+	}
+	
 	/**
 	* @MethodName: addProject 
 	* @Description: 添加工程信息

@@ -103,6 +103,10 @@ public class ProjectService {
 		return projectDao.listProjectByStatus(status);
 	}
 	
+	public List<ProjectEntity> selectProjectByType(Integer status,Integer type) throws SQLException{
+		return projectDao.selectProjectByType(status,type);
+	}
+	
 	/**
 	* @MethodName: addProject 
 	* @Description: 新增工程信息

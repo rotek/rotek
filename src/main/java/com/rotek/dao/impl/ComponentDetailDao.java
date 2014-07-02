@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.cta.platform.persistence.dao.BaseDaoImpl;
 import com.cta.platform.util.ListPager;
-import com.rotek.dto.ComponentGroupDto;
-import com.rotek.entity.ComponentGroupEntity;
+import com.rotek.dto.ComponentDetailDto;
+import com.rotek.entity.ComponentDetailEntity;
 import com.rotek.entity.ProjectEntity;
 
 /**
@@ -31,8 +31,8 @@ public class ComponentDetailDao extends BaseDaoImpl{
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public List<ComponentGroupDto> listComDetail(String sql,Object[] params, ListPager pager) throws SQLException {
-		return this.selectPage(sql, params, ComponentGroupDto.class, pager);
+	public List<ComponentDetailDto> listComDetail(String sql,Object[] params, ListPager pager) throws SQLException {
+		return this.selectPage(sql, params, ComponentDetailDto.class, pager);
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class ComponentDetailDao extends BaseDaoImpl{
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public void addComDetail(ComponentGroupEntity comgroup) throws SQLException {
+	public void addComDetail(ComponentDetailEntity comgroup) throws SQLException {
 		this.insert(comgroup);
 	}
 	
@@ -67,15 +67,17 @@ public class ComponentDetailDao extends BaseDaoImpl{
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public ComponentGroupEntity getComDetailById(Integer id) throws SQLException {
-		String sql = "select * from r_component_group where id = ?";
-		return this.selectOne(sql,new Integer[]{id},ComponentGroupEntity.class);
+	public ComponentDetailEntity getComDetailById(Integer id) throws SQLException {
+		String sql = "select * from r_component_detail where id = ?";
+		return this.selectOne(sql,new Integer[]{id},ComponentDetailEntity.class);
 	}
 	
-	public ComponentGroupDto getOneComDetail(Integer id) throws SQLException {
-		String sql = "select cgro.*,pro.GCMC as PROJECT_NAME from r_component_group cgro "
-				+ " left join r_project pro on pro.id = cgro.r_project_id where cgro.id = ?";
-		return this.selectOne(sql,new Integer[]{id},ComponentGroupDto.class);
+	public ComponentDetailDto getOneComDetail(Integer id) throws SQLException {
+		String sql = "select cgro.*,pro.GCMC as PROJECT_NAME,cgrop.GROUP_MC AS GROUP_NAME from r_component_detail cgro "
+				+ " left join r_project pro on pro.id = cgro.r_project_id"
+				+ " left join r_component_group cgrop on cgrop.id = cgro.R_COMPONENT_GROUP_ID "
+				+ " where cgro.id = ?";
+		return this.selectOne(sql,new Integer[]{id},ComponentDetailDto.class);
 	}
 	
 	/**
@@ -85,7 +87,7 @@ public class ComponentDetailDao extends BaseDaoImpl{
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public void modifyComDetail(ComponentGroupEntity comgroup) throws SQLException {
+	public void modifyComDetail(ComponentDetailEntity comgroup) throws SQLException {
 		this.update(comgroup);
 	}
 

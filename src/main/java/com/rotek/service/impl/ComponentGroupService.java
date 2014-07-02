@@ -185,6 +185,12 @@ public class ComponentGroupService {
 		comgroupDao.deleteComGroup(sql.toString());
 		return messages;
 	}
+
+	public List<ComponentGroupEntity> selectGroupByPid(Integer projectId,
+			Integer componentType, int code)throws SQLException {
+		// TODO Auto-generated method stub
+		return comgroupDao.selectGroupByPid(projectId, componentType, code);
+	}
 	
 	
 	

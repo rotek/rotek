@@ -29,8 +29,14 @@ public class ComponentDetailEntity implements Serializable {
 	@ID(strategy=StrategyType.IDENTITY)
 	private Integer id;
 	
+	@Column(name = "R_PROJECT_ID")
+	private Integer r_project_id ;   	// 工程ID
+	
 	@Column(name = "R_COMPONENT_GROUP_ID")
 	private Integer r_component_group_id ;   	// 组ID
+	
+	@Column(name = "R_COMPONENT_GROUP_TYPE")
+	private Integer r_component_group_type ;   	// 零件类别（属于哪个组）
 	
 	@Column(name = "SPECIFIC_PART")
 	private String specific_part ;   	// 具体的零件名称，比如1号泵前，1号泵后
@@ -69,7 +75,7 @@ public class ComponentDetailEntity implements Serializable {
 	private Double edyl ;    	// 额定压力
 	
 	@Column(name = "EDSZYL")
-	private Double edszyl ;    	// 额定压力
+	private Double edszyl ;    	// 额定水质压力
 	
 	@Column(name = "EDSDI")
 	private Double edsdi ;    	// 额定SDI值
@@ -140,6 +146,26 @@ public class ComponentDetailEntity implements Serializable {
 	/** @param r_component_group_id r_component_group_id to set */
 	public void setR_component_group_id(Integer r_component_group_id) {
 		this.r_component_group_id = r_component_group_id;
+	}
+
+	/** @return r_component_group_type */
+	public Integer getR_component_group_type() {
+		return r_component_group_type;
+	}
+
+	/** @param r_component_group_type r_component_group_type to set */
+	public void setR_component_group_type(Integer r_component_group_type) {
+		this.r_component_group_type = r_component_group_type;
+	}
+
+	/** @return r_project_id */
+	public Integer getR_project_id() {
+		return r_project_id;
+	}
+
+	/** @param r_project_id r_project_id to set */
+	public void setR_project_id(Integer r_project_id) {
+		this.r_project_id = r_project_id;
 	}
 
 	/** @return specific_part */

@@ -24,6 +24,26 @@ ROTEK.COMPONENT.CARBON.params = {
 			width : 50,
 			align : 'center'
 		}, {
+			index : 'pp',
+			header : '品牌',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'xh',
+			header : '型号',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'sl',
+			header : '滤料数量',
+			width : 50,
+			align : 'center'
+		}, {
+			index : 'ckdj',
+			header : '参考单价',
+			width : 50,
+			align : 'center'
+		}, {
 			index : 'gg',
 			header : '规格',
 			width : 50,
@@ -149,6 +169,30 @@ if (toolbar.get("button_add")) {
 				minLength : 1,
 				maxLength : 100
 			}, {
+				fieldLabel : '品牌',
+				emptyText : '请输入品牌',
+				name : 'pp',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '型号',
+				emptyText : '请输入型号',
+				name : 'xh',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '滤料数量',
+				emptyText : '请输入滤料数量',
+				name : 'sl',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '参考单价',
+				emptyText : '请输入参考单价',
+				name : 'ckdj',
+				minLength : 1,
+				maxLength : 100
+			}, {
 				fieldLabel : '材质',
 				emptyText : '请输入材质',
 				name : 'cz',
@@ -236,6 +280,30 @@ if(toolbar.get("button_modify")){
 						fieldLabel : '填料高度',
 						emptyText : '请输入填料高度',
 						name : 'tlgd',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '品牌',
+						emptyText : '请输入品牌',
+						name : 'pp',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '型号',
+						emptyText : '请输入型号',
+						name : 'xh',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '滤料数量',
+						emptyText : '请输入滤料数量',
+						name : 'sl',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '参考单价',
+						emptyText : '请输入参考单价',
+						name : 'ckdj',
 						minLength : 1,
 						maxLength : 100
 					}, {

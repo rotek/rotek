@@ -198,6 +198,10 @@ public class ComponentGroupController {
 			comGroup.setGg(gg);
 			comGroup.setTlgd(tlgd);
 			comGroup.setCz(cz);
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setSl(sl);
+			comGroup.setCkdj(ckdj);
 		}
 		
 		//保存 过滤器 组信息
@@ -337,6 +341,10 @@ public class ComponentGroupController {
 			comGroup.setGg(gg);
 			comGroup.setTlgd(tlgd);
 			comGroup.setCz(cz);
+			comGroup.setPp(pp);
+			comGroup.setXh(xh);
+			comGroup.setSl(sl);
+			comGroup.setCkdj(ckdj);
 		}
 		
 		//保存 过滤器 组信息
