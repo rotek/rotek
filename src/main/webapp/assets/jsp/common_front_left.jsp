@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<div class="left well">
-			<ul class="nav nav-list">
-				<li class="nav-big-font nav-header">水质监测</li>
-				<li class="active"><a href="#">水质监测1</a></li>
-				<li><a href="#">水质监测12</a></li>
-				<li><a href="#">水质监测13</a></li>
-				<li class="nav-big-font nav-header">流量监测</li>
-				<li><a href="#">流量监测1</a></li>
-				<li><a href="#">流量监测2</a></li>
-				<li class="divider"></li>
-			</ul>
+	
+<div class="left">
+	<div style="background-color: #2ac1f2">
+		<div class="l_box">
+			<div class="l_header">水质监测</div>
+
+			<div class="active l_menu">
+				<a href="#">水质报警查询</a>
+			</div>
+			<div class="l_menu">
+				<a href="#">历史监测查询</a>
+			</div>
 		</div>
+
+	</div>
+</div>

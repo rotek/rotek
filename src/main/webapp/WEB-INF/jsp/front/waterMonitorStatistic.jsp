@@ -64,6 +64,9 @@ function formatDate(date, format) {
  
 	$(document).ready(function(){
   
+		//初始化图表
+		createCharts([{name:'请选择参数',data:[]}]);
+		
 		$("#xc").select2({
 			placeholder : "请选择您要查看的现场"
 		}).on("change", function(e) {
@@ -184,7 +187,6 @@ function formatDate(date, format) {
 							}); 	
 			 			});
 			 			
-			 			console.log(serises);
 			 			createCharts(serises);
 			 		}
 			 	}
@@ -314,57 +316,7 @@ function formatDate(date, format) {
 				<div id="container"></div>
 				
          
-        <script type="text/javascript" charset="utf-8">
 
-            
-            $(document).ready(function(){
-                $('#dataTable').dataTable();
-            });
-        </script>
-
-
-<div style="margin:10px 0 0 0;border:solid 1px #dddddd">
-<table id="dataTable" class="display" style="width:100%;height: width:100%"> 
-<thead> <tr> <th>Column 1</th> <th>Column 2</th> </tr> </thead> 
-<tbody> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-<tr> <td>Row 1 Data 1</td> <td>Row 1 Data 2</td> </tr> <tr> <td>Row 2 Data 1</td> <td>Row 2 Data 2</td> </tr> 
-</tbody> </table>
-</div>
-
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				
 				
 			</div>

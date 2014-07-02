@@ -2,9 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- Le styles -->
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/assets/front/bootstrap.css">
+
 <!--[if lte IE 6]>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/front/bootstrap-ie6.css">
     <![endif]-->
@@ -22,7 +23,7 @@
 <![endif]-->
 
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/front/jquery-1.10.2.js"></script>
+	src="${pageContext.request.contextPath }/assets/front/jquery-1.7.2.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/front/bootstrap.js"></script>
 
@@ -51,7 +52,7 @@
 
 
 
-<!-- <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script> -->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/assets/front/datatable/datatables.css">
+<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath }/assets/front/datatable/datatables.js"></script>
 
 
