@@ -1,7 +1,7 @@
 package com.rotek.dto;
 
 import com.cta.platform.persistence.annotation.Column;
-import com.rotek.entity.ComponentGroupEntity;
+import com.rotek.entity.ComponentDetailEntity;
 
 /**
 * @ClassName: ComponentDetailDto
@@ -10,7 +10,7 @@ import com.rotek.entity.ComponentGroupEntity;
 * @date 2014年7月1日 下午8:57:44
 * @Version:1.1.0
 */
-public class ComponentDetailDto extends ComponentGroupEntity {
+public class ComponentDetailDto extends ComponentDetailEntity {
 
 	/** 
 	 * @Fields serialVersionUID 

@@ -11,10 +11,10 @@ ROTEK.COMPONENTD.PUMP.params = {
 		}, {
 			index : 'project_name',
 			header : '工程名称',
-			width : 100,
+			width : 50,
 			align : 'center'
 		}, {
-			index : 'group_mc',
+			index : 'group_name',
 			header : '组名称',
 			width : 50,
 			align : 'center'
@@ -28,102 +28,7 @@ ROTEK.COMPONENTD.PUMP.params = {
 			header : '零件编号',
 			width : 50,
 			align : 'center'
-		},/* {
-			index : 'edll',
-			header : '额定扬程流量',
-			width : 25,
-			align : 'center'
 		}, {
-			index : 'edghsj',
-			header : '额定维护保养时间',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edddl',
-			header : '额定电导率',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edph',
-			header : '额定PH值',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edylv',
-			header : '额定余氯',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edwd',
-			header : '额定温度',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edyd',
-			header : '额定硬度',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edtds',
-			header : '额定TDS值',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edzdu',
-			header : '额定浊度',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edyl',
-			header : '额定压力',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edsdi',
-			header : '额定SDI值',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edcod',
-			header : '额定COD值',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edbod',
-			header : '额定BOD值',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edad',
-			header : '额定氨氮',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edzd',
-			header : '额定总氮',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edzl',
-			header : '额定总磷',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edxfw',
-			header : '额定悬浮物',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edywj',
-			header : '额定液位计',
-			width : 25,
-			align : 'center'
-		}, {
-			index : 'edwnnd',
-			header : '额定污泥浓度',
-			width : 25,
-			align : 'center'
-		},*/{
 			index : 'other_info',
 			header : '其他信息',
 			width : 25,
@@ -169,10 +74,37 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '50%',
-			height : 470,
+			height : 437,
 			layout : 'fit',
 			handler : saveHandler
 		});
+
+		var ProjectStore = new Ext.data.Store({
+			reader : new Ext.data.JsonReader({
+				root : 'projectList',
+				fields : [ {
+					name : 'id'
+				}, {
+					name : 'gcmc'
+				} ]
+			}),
+			proxy : new Ext.data.HttpProxy({
+				url : ROTEK.COMPONENTD.PUMP.params.url.listProejctUrl
+			})
+		})
+		var GroupStore = new Ext.data.Store({
+			reader : new Ext.data.JsonReader({
+				root : 'grouptList',
+				fields : [ {
+					name : 'id'
+				}, {
+					name : 'group_mc'
+				} ]
+			}),
+			proxy : new Ext.data.HttpProxy({
+				url : basePath + "/admin/componentdetail/selectGroupByPid/0/1"
+			})
+		})		
 
 		//定义添加窗口中的form
 		var formPanel = new CTA.common.SFormPanel({
@@ -190,25 +122,25 @@ if (toolbar.get("button_add")) {
 	        			fieldLabel : '工程',
 	        			emptyText : '请选择工程',
 	        			name : 'id',
-	        			hiddenName : 'id',
+	        			hiddenName : 'r_project_id',
 	        			triggerAction : 'all',
 	        			displayField : 'gcmc',
 	        			valueField : 'id',
 	        			editable : false,
-	        			store : new Ext.data.Store({
-	        				reader : new Ext.data.JsonReader({
-	        					root : 'dataList',
-	        					fields : [ {
-	        						name : 'id'
-	        					}, {
-	        						name : 'gcmc'
-	        					} ]
-	        				}),
-	        				proxy : new Ext.data.HttpProxy({
-	        					url : ROTEK.COMPONENTD.PUMP.params.url.listProejctUrl
-	        				})
-	        			}),
-	     				width : 445
+	        			allowBlank : false,
+	        			store : ProjectStore,
+	     				width : 445,
+	     				listeners : {
+	     					select : function(ProjectCombox, record, index) {
+	     						GroupStore.proxy = new Ext.data.HttpProxy({
+ 									url : basePath + "/admin/componentdetail/selectGroupByPid/" + ProjectCombox.value + "/1"
+ 								});
+	     						GroupStore.removeAll() ;  //清空缓存的数据
+	     						Ext.getCmp('GROUPCOMB').setValue("");
+	     						Ext.getCmp('GROUPCOMB').setRawValue("");
+	     						GroupStore.load();
+	     					}
+	     				}
 	     			} ]
 	     		} ]
 	     	}, {
@@ -221,27 +153,17 @@ if (toolbar.get("button_add")) {
 	     			border : false,
 	     			items : [ {
 	     				xtype : 'combo',
+	     				id : 'GROUPCOMB',
 	        			fieldLabel : '组',
 	        			emptyText : '请选择组',
 	        			name : 'id',
-	        			hiddenName : 'id',
+	        			hiddenName : 'r_component_group_id',
 	        			triggerAction : 'all',
 	        			displayField : 'group_mc',
 	        			valueField : 'id',
 	        			editable : false,
-	        			store : new Ext.data.Store({
-	        				reader : new Ext.data.JsonReader({
-	        					root : 'dataList',
-	        					fields : [ {
-	        						name : 'id'
-	        					}, {
-	        						name : 'group_mc'
-	        					} ]
-	        				}),
-	        				proxy : new Ext.data.HttpProxy({
-	        					url : ROTEK.COMPONENTD.PUMP.params.url.listProejctUrl
-	        				})
-	        			}),
+	        			allowBlank : false,
+	        			store : GroupStore,
 	     				width : 445
 	     			} ]
 	     		} ]
@@ -257,6 +179,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '零件名称',
 						emptyText : '请输入零件名称',
 						name : 'specific_part',
+						allowBlank : false,
 						width : 180
 					} ]
 				}, {
@@ -267,6 +190,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '零件编号',
 						emptyText : '请输入零件编号',
 						name : 'specific_bh',
+						allowBlank : false,
 						width : 180
 					} ]
 				} ]
@@ -278,7 +202,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定扬程流量',
 						emptyText : '请输入额定扬程流量',
 						name : 'edll',
@@ -306,7 +230,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定电导率',
 						emptyText : '请输入额定电导率',
 						name : 'edddl',
@@ -316,7 +240,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定PH值',
 						emptyText : '请输入额定PH值',
 						name : 'edph',
@@ -331,7 +255,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定余氯',
 						emptyText : '请输入额定余氯',
 						name : 'edylv',
@@ -341,7 +265,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定温度',
 						emptyText : '请输入额定温度',
 						name : 'edwd',
@@ -356,7 +280,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定硬度',
 						emptyText : '请输入额定硬度',
 						name : 'edyd',
@@ -366,10 +290,10 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
-						fieldLabel : '额定硬度',
-						emptyText : '请输入额定硬度',
-						name : 'edyd',
+						xtype : 'numberfield',
+						fieldLabel : '额定液位计',
+						emptyText : '请输入额定液位计',
+						name : 'edywj',
 						minLength : 1,
 						width : 180
 					} ]
@@ -382,7 +306,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定TDS值',
 						emptyText : '请输入额定TDS值',
 						name : 'edtds',
@@ -392,7 +316,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定压力',
 						emptyText : '请输入额定压力',
 						name : 'edyl',
@@ -407,7 +331,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定浊度',
 						emptyText : '请输入额定浊度',
 						name : 'edzdu',
@@ -417,7 +341,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定SDI值',
 						emptyText : '请输入额定SDI值',
 						name : 'edsdi',
@@ -432,7 +356,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定COD值',
 						emptyText : '请输入额定COD值',
 						name : 'edcod',
@@ -442,7 +366,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定BOD值',
 						emptyText : '请输入额定BOD值',
 						name : 'edbod',
@@ -457,7 +381,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定氨氮',
 						emptyText : '请输入额定氨氮',
 						name : 'edad',
@@ -467,7 +391,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定总氮',
 						emptyText : '请输入额定总氮',
 						name : 'edzd',
@@ -482,7 +406,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定总磷',
 						emptyText : '请输入额定总磷',
 						name : 'edzl',
@@ -492,7 +416,7 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
+						xtype : 'numberfield',
 						fieldLabel : '额定悬浮物',
 						emptyText : '请输入额定悬浮物',
 						name : 'edxfw',
@@ -507,10 +431,10 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
-						fieldLabel : '额定液位计',
-						emptyText : '请输入额定液位计',
-						name : 'edywj',
+						xtype : 'numberfield',
+						fieldLabel : '额定污泥浓度',
+						emptyText : '请输入额定污泥浓度',
+						name : 'edwnnd',
 						width : 180
 					} ]
 				}, {
@@ -518,29 +442,13 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'textfield',
-						fieldLabel : '额定污泥浓度',
-						emptyText : '请输入额定污泥浓度',
-						name : 'edwnnd',
+						fieldLabel : '其他信息',
+	    				emptyText : '请输入其他信息',
+	    				name : 'other_info',
 						width : 180
 					} ]
 				} ]
-			}, {
-	     		xtype : 'container',
-	     		autoEl : {},
-	     		layout : 'column',
-	     		width : 900,
-	     		items : [ {
-	     			layout : 'form',
-	     			border : false,
-	     			items : [ {
-	     				xtype : 'textfield',
-	     				fieldLabel : '其他信息',
-	    				emptyText : '请输入其他信息',
-	    				name : 'others',
-	    				width : 445
-	     		    } ]
-	     		} ]
-	     	}]
+			}]
 		});
 		addWindow.add(formPanel);
 		addWindow.show();
@@ -577,7 +485,7 @@ if(toolbar.get("button_modify")){
 		    			editable : false,
 		    			store : new Ext.data.Store({
 		    				reader : new Ext.data.JsonReader({
-		    					root : 'dataList',
+		    					root : 'projectList',
 		    					fields : [ {
 		    						name : 'id'
 		    					}, {
@@ -600,7 +508,7 @@ if(toolbar.get("button_modify")){
 		    			editable : false,
 		    			store : new Ext.data.Store({
 		    				reader : new Ext.data.JsonReader({
-		    					root : 'dataList',
+		    					root : 'groupList',
 		    					fields : [ {
 		    						name : 'id'
 		    					}, {
@@ -781,45 +689,30 @@ if(toolbar.get("button_query")){
 	toolbar.get("button_query").setHandler(function() {
 		var formPanel = new CTA.common.SFormPanel({
 			items : [ {
-				xtype : 'numberfield',
-				fieldLabel : '组ID',
-				emptyText : '请输入组ID',
-				name : 'id',
-				allowBlank : true,
-				minLength : 1,
-				maxLength : 50
-			}, {
 				fieldLabel : '工程名称',
 				emptyText : '请输入工程名称',
-				name : 'gcmc',
-				allowBlank : true,
-				minLength : 1,
-				maxLength : 50
-			}, {
-				fieldLabel : '组编号',
-				emptyText : '请输入组编号',
-				name : 'group_bh',
+				name : 'project_name',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
 			}, {
 				fieldLabel : '组名称',
 				emptyText : '请输入组名称',
-				name : 'group_mc',
+				name : 'group_name',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '品牌',
-				emptyText : '请输入品牌',
-				name : 'pp',
+				fieldLabel : '零件名称',
+				emptyText : '请输入零件名称',
+				name : 'specific_part',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '型号',
-				emptyText : '请输入组型号',
-				name : 'xh',
+				fieldLabel : '零件编号',
+				emptyText : '请输入零件编号',
+				name : 'specific_bh',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
@@ -837,7 +730,7 @@ if(toolbar.get("button_query")){
 		// 查询窗口
 		var queryWindow = new CTA.common.QueryWindow({
 			width : 500,
-			height : 250,
+			height : 220,
 			layout : 'border',
 			closeAction : 'hide',
 			items : [ formPanel ],
@@ -878,93 +771,4 @@ var viewport = new Ext.Viewport({
 	layout : 'border',
 	items : [ gridPanel, toolbar ]
 });
-
-
-
-
-
-var projectData_fields = [ {
-	name : "ProjectID"
-}, {
-	name : "ProjectName"
-} ];
-var project_store = new Ext.data.Store({
-	autoLoad : true,
-	proxy : new Ext.data.HttpProxy({
-		url : '../../WebUI/WorkLog/workLog_audit.aspx?AutoLoad=Project'
-	}),
-	reader : new Ext.data.JsonReader({
-		root : "Table",
-		idProperty : "ProjectID",
-		fields : projectData_fields
-	})
-});
-//根据选择的项目名称得到该项目的成员分配
-var MemberName_Fields = [ {
-	name : "UserID"
-}, {
-	name : "UserName"
-} ];
-
-var MemberName = new Ext.data.Store(
-		{
-			autoLoad : true,
-			proxy : new Ext.data.HttpProxy(
-					{
-
-						url : '../../WebUI/WorkLog/workLog_audit.aspx?AutoLoad=GetUserList&ProjectID='//+ (ProjectList.value+"")
-					}),
-			reader : new Ext.data.JsonReader({
-				root : "Table",
-				idProperty : "UserID",
-				fields : MemberName_Fields
-			})
-		});
-
-//加载该经理管理的项目 (添加，编辑使用)
-var ProjectList = new Ext.form.ComboBox(
-		{
-			id : 'ProjectList',
-			name : "ProjectList",
-			fieldLabel : "项目名称",
-			editable : false,
-			ItemIndex : 1,
-			store : project_store,
-			mode : 'local',
-			selectOnFocus : true,
-			triggerAction : "all",
-			displayField : "ProjectName",//显示的的值绑定
-			valueField : "ProjectID",//实际选取的值	
-			emptyText : '请选择项目...',//默认值  	   
-			width : 300,
-			listeners : {
-				//为项目(ComboBox)列表添加一个select 事件，当改变ProjectList的值的时候改变
-				//MemberName(该项目的成员名称)的URL中的参数ProjectID
-				select : function(ProjectCombox, record, index) {
-					//
-					MemberName.proxy = new Ext.data.HttpProxy(
-							{
-								url : '../../WebUI/WorkLog/workLog_audit.aspx?AutoLoad=GetUserList&ProjectID='
-										+ ProjectCombox.value
-							});
-					MemberName.load();
-				}
-			}
-		});
-//项目名称对应的成员名称
-var txtMan = new Ext.form.ComboBox({
-	id : "txtMan",
-	name : "txtMan",
-	fieldLabel : "责任人",
-	store : MemberName,
-	mode : 'local',
-	selectOnFocus : true,
-	editable : false,
-	triggerAction : "all",
-	displayField : "UserName",//显示的的值绑定
-	valueField : "UserID",//实际选取的值	
-	emptyText : '请选择责任人...',//默认值    	  
-	width : 200
-});
-
 

@@ -14,9 +14,9 @@ import com.cta.platform.util.ListPager;
 import com.cta.platform.util.ValidateUtil;
 import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.ComponentDetailDao;
-import com.rotek.dto.ComponentGroupDto;
+import com.rotek.dto.ComponentDetailDto;
 import com.rotek.dto.UserDto;
-import com.rotek.entity.ComponentGroupEntity;
+import com.rotek.entity.ComponentDetailEntity;
 import com.rotek.entity.ProjectEntity;
 
 /**
@@ -42,52 +42,32 @@ public class ComponentDetailService {
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public List<ComponentGroupDto> listComDetail(UserDto user, ComponentGroupDto comgroup,ListPager pager) throws SQLException {
+	public List<ComponentDetailDto> listComDetail(UserDto user, ComponentDetailDto comgroup,ListPager pager) throws SQLException {
 
 		StringBuilder sql = new StringBuilder();
 		List<Object> params = new LinkedList<Object>();
-		sql.append("select cgroup.*,pro.GCMC as PROJECT_NAME from r_component_group cgroup ");
-		sql.append(" left join r_project pro on pro.id = cgroup.R_PROJECT_ID ");
+		sql.append("select cdetail.*,pro.GCMC as PROJECT_NAME,cgrop.GROUP_MC AS GROUP_NAME from r_component_detail cdetail ");
+		sql.append(" left join r_project pro on pro.id = cdetail.R_PROJECT_ID ");
+		sql.append(" left join r_component_group cgrop on cgrop.id = cdetail.R_COMPONENT_GROUP_ID ");
 		sql.append(" where 1 = 1 ");
 		
 		if(StringUtils.isNotEmpty(comgroup.getProject_name())){
 			sql.append(" and pro.GCMC like '%").append(comgroup.getProject_name()).append("%'");
 		}
 		
-		if(null != comgroup.getGroup_lb()){
-			sql.append(" and cgroup.GROUP_LB = ?");
-			params.add(comgroup.getGroup_lb());
+		if(StringUtils.isNotEmpty(comgroup.getGroup_name())){
+			sql.append(" and cgrop.GROUP_MC like '%").append(comgroup.getGroup_name()).append("%'");
 		}
 		
-		if(null != comgroup.getId()){
-			sql.append(" and cgroup.ID = ?");
-			params.add(comgroup.getId());
+		if(StringUtils.isNotEmpty(comgroup.getSpecific_part())){
+			sql.append(" and cdetail.SPECIFIC_PART like '%").append(comgroup.getSpecific_part()).append("%'");
 		}
 		
-		if(StringUtils.isNotEmpty(comgroup.getGroup_bh())){
-			sql.append(" and cgroup.GROUP_BH like '%").append(comgroup.getGroup_bh()).append("%'");
-		}
-		
-		if(StringUtils.isNotEmpty(comgroup.getGroup_mc())){
-			sql.append(" and cgroup.GROUP_MC like '%").append(comgroup.getGroup_mc()).append("%'");
-		}
-		
-		if(StringUtils.isNotEmpty(comgroup.getPp())){
-			sql.append(" and cgroup.PP like '%").append(comgroup.getPp()).append("%'");
-		}
-		
-		if(StringUtils.isNotEmpty(comgroup.getXh())){
-			sql.append(" and cgroup.XH like '%").append(comgroup.getXh()).append("%'");
-		}
-		
-		if(StringUtils.isNotEmpty(comgroup.getGl())){
-			sql.append(" and cgroup.GL like '%").append(comgroup.getGl()).append("%'");
+		if(StringUtils.isNotEmpty(comgroup.getSpecific_bh())){
+			sql.append(" and cdetail.SPECIFIC_BH like '%").append(comgroup.getSpecific_bh()).append("%'");
 		}
 
-		
-		
-		
-		sql.append(" order by cgroup.ID ");
+		sql.append(" order by cdetail.ID ");
 		return comgroupDao.listComDetail(sql.toString(), params.toArray(), pager);
 	}
 	
@@ -103,7 +83,7 @@ public class ComponentDetailService {
 	* @throws Exception
 	* @author WangJuZhu
 	*/
-	public List<String> addComDetail(ComponentGroupEntity comgroup) throws Exception {
+	public List<String> addComDetail(ComponentDetailEntity comgroup) throws Exception {
 		
 		List<String> messages = ValidateUtil.validate(comgroup);
 		if(messages.size() > 0){
@@ -122,7 +102,7 @@ public class ComponentDetailService {
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public ComponentGroupEntity getComDetailById(Integer id) throws SQLException {
+	public ComponentDetailEntity getComDetailById(Integer id) throws SQLException {
 		if(null == id){
 			return null;
 		}
@@ -137,7 +117,7 @@ public class ComponentDetailService {
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public ComponentGroupDto getOneComDetail(Integer id) throws SQLException {
+	public ComponentDetailDto getOneComDetail(Integer id) throws SQLException {
 		if(null == id){
 			return null;
 		}
@@ -151,7 +131,7 @@ public class ComponentDetailService {
 	* @return
 	* @author WangJuZhu
 	*/
-	public List<String> modifyComDetail(ComponentGroupEntity comgroup) 
+	public List<String> modifyComDetail(ComponentDetailEntity comgroup) 
 			throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 
 		List<String> messages = ValidateUtil.validate(comgroup);
@@ -180,7 +160,7 @@ public class ComponentDetailService {
 			messages.add("请选择您要操作的数据!");
 		}
 		StringBuilder sql = new StringBuilder();
-		sql.append("update r_component_group set STATUS = ").append(DataStatus.DISABLED);
+		sql.append("update r_component_detail set STATUS = ").append(DataStatus.DISABLED);
 		sql.append(" where id in ("+ids.trim()+")");
 		comgroupDao.deleteComDetail(sql.toString());
 		return messages;
