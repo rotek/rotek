@@ -73,7 +73,7 @@ public class ComponentDetailDao extends BaseDaoImpl{
 	}
 	
 	public ComponentDetailDto getOneComDetail(Integer id) throws SQLException {
-		String sql = "select cgro.*,pro.GCMC as PROJECT_NAME from r_component_detail cgro "
+		String sql = "select cgro.*,pro.GCMC as PROJECT_NAME,cgrop.GROUP_MC AS GROUP_NAME from r_component_detail cgro "
 				+ " left join r_project pro on pro.id = cgro.r_project_id"
 				+ " left join r_component_group cgrop on cgrop.id = cgro.R_COMPONENT_GROUP_ID "
 				+ " where cgro.id = ?";
