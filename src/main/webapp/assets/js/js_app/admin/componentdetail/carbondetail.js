@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.CARBON");
 ROTEK.COMPONENTD.CARBON.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/3",
+		url : basePath + "/admin/componentdetail/listComDetail/3/1",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',

@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.UVSTER");
 ROTEK.COMPONENTD.UVSTER.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/7",
+		url : basePath + "/admin/componentdetail/listComDetail/7/1",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',

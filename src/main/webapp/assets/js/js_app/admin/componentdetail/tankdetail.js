@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.TANK");
 ROTEK.COMPONENTD.TANK.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/8",
+		url : basePath + "/admin/componentdetail/listComDetail/8/1",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',

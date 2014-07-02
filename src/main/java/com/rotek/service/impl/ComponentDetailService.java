@@ -42,7 +42,7 @@ public class ComponentDetailService {
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public List<ComponentDetailDto> listComDetail(UserDto user, ComponentDetailDto comgroup,ListPager pager) throws SQLException {
+	public List<ComponentDetailDto> listComDetail(UserDto user, ComponentDetailDto comgroup,Integer ptype , ListPager pager) throws SQLException {
 
 		StringBuilder sql = new StringBuilder();
 		List<Object> params = new LinkedList<Object>();
@@ -69,6 +69,10 @@ public class ComponentDetailService {
 		
 		if(comgroup.getR_component_group_type() != null && comgroup.getR_component_group_type() != 0){
 			sql.append(" and cdetail.R_COMPONENT_GROUP_TYPE = " + comgroup.getR_component_group_type());
+		}
+		
+		if(ptype != 0){
+			sql.append(" and pro.GCLB = " + ptype );
 		}
 
 		sql.append(" order by cdetail.ID ");

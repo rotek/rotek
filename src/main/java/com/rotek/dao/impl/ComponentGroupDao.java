@@ -114,7 +114,7 @@ public class ComponentGroupDao extends BaseDaoImpl{
 		}
 		sql.append(" and STATUS = " + code );
 		
-		return selectAll(sql.toString(), new Integer[]{projectId,componentType,code}, ComponentGroupEntity.class);
+		return selectAll(sql.toString(), new Integer[]{}, ComponentGroupEntity.class);
 	}
 	
 	

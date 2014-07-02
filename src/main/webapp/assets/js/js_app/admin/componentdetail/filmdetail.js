@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.FILM");
 ROTEK.COMPONENTD.FILM.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/6",
+		url : basePath + "/admin/componentdetail/listComDetail/6/1",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',

@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.PUMP");
 ROTEK.COMPONENTD.PUMP.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/1",
+		url : basePath + "/admin/componentdetail/listComDetail/1/1",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',

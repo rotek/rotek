@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.SANDFILTER");
 ROTEK.COMPONENTD.SANDFILTER.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/2",
+		url : basePath + "/admin/componentdetail/listComDetail/2/1",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',

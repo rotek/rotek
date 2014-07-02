@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.EMC");
 ROTEK.COMPONENTD.EMC.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/0",
+		url : basePath + "/admin/componentdetail/listComDetail/0/2",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',
@@ -74,7 +74,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '50%',
-			height : 437,
+			height : 467,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -102,7 +102,7 @@ if (toolbar.get("button_add")) {
 				} ]
 			}),
 			proxy : new Ext.data.HttpProxy({
-				url : basePath + "/admin/componentdetail/selectGroupByPid/0/1"
+				url : basePath + "/admin/componentdetail/selectGroupByPid/0/0"
 			})
 		})		
 
@@ -133,7 +133,7 @@ if (toolbar.get("button_add")) {
 	     				listeners : {
 	     					select : function(ProjectCombox, record, index) {
 	     						GroupStore.proxy = new Ext.data.HttpProxy({
- 									url : basePath + "/admin/componentdetail/selectGroupByPid/" + ProjectCombox.value + "/1"
+ 									url : basePath + "/admin/componentdetail/selectGroupByPid/" + ProjectCombox.value + "/0"
  								});
 	     						GroupStore.removeAll() ;  //清空缓存的数据
 	     						Ext.getCmp('GROUPCOMB').setValue("");
@@ -206,7 +206,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定累计流量',
 						emptyText : '请输入额定累计流量',
 						name : 'edll',
-						width : 150
+						width : 180
 					} ]
 				},{
 					layout : 'form',
@@ -216,9 +216,10 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定电流',
 						emptyText : '请输入额定电流',
 						name : 'eddl',
-						width : 150
+						width : 180
 					} ]
-				}, {
+				}]
+			}, {
 				xtype : 'container',
 				layout : 'column',
 				width : 900,
@@ -227,8 +228,9 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定水质电导率',
+						fieldLabel : '水质电导率',
 						emptyText : '请输入额定水质电导率',
+						labelStyle: 'width:80px;',
 						name : 'edddl',
 						width : 180
 					} ]
@@ -237,8 +239,9 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定PH值',
-						emptyText : '请输入额定PH值',
+						fieldLabel : '额定水质PH值',
+						emptyText : '请输入额定水质PH值',
+						labelStyle: 'width:80px;',
 						name : 'edph',
 						width : 180
 					} ]
@@ -252,8 +255,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定余氯',
-						emptyText : '请输入额定余氯',
+						fieldLabel : '额定水质余氯',
+						emptyText : '请输入额定水质余氯',
 						name : 'edylv',
 						width : 180
 					} ]
@@ -262,8 +265,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定温度',
-						emptyText : '请输入额定温度',
+						fieldLabel : '额定水质温度',
+						emptyText : '请输入额定水质温度',
 						name : 'edwd',
 						width : 180
 					} ]
@@ -277,8 +280,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定硬度',
-						emptyText : '请输入额定硬度',
+						fieldLabel : '额定水质硬度',
+						emptyText : '请输入额定水质硬度',
 						name : 'edyd',
 						width : 180
 					} ]
@@ -287,8 +290,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定液位计',
-						emptyText : '请输入额定液位计',
+						fieldLabel : '水质液位计',
+						emptyText : '请输入额定水质液位计',
 						name : 'edywj',
 						minLength : 1,
 						width : 180
@@ -303,8 +306,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定TDS值',
-						emptyText : '请输入额定TDS值',
+						fieldLabel : '水质TDS值',
+						emptyText : '请输入额定水质TDS值',
 						name : 'edtds',
 						width : 180
 					} ]
@@ -313,9 +316,9 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定压力',
-						emptyText : '请输入额定压力',
-						name : 'edyl',
+						fieldLabel : '额定水质压力',
+						emptyText : '请输入额定水质压力',
+						name : 'edszyl',
 						width : 180
 					} ]
 				} ]
@@ -328,8 +331,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定浊度',
-						emptyText : '请输入额定浊度',
+						fieldLabel : '额定水质浊度',
+						emptyText : '请输入额定水质浊度',
 						name : 'edzdu',
 						width : 180
 					} ]
@@ -338,8 +341,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定SDI值',
-						emptyText : '请输入额定SDI值',
+						fieldLabel : '水质SDI值',
+						emptyText : '请输入额定水质SDI值',
 						name : 'edsdi',
 						width : 180
 					} ]
@@ -353,8 +356,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定COD值',
-						emptyText : '请输入额定COD值',
+						fieldLabel : '水质COD值',
+						emptyText : '请输入额定水质COD值',
 						name : 'edcod',
 						width : 180
 					} ]
@@ -363,8 +366,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定BOD值',
-						emptyText : '请输入额定BOD值',
+						fieldLabel : '水质BOD值',
+						emptyText : '请输入额定水质BOD值',
 						name : 'edbod',
 						width : 180
 					} ]
@@ -378,8 +381,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定氨氮',
-						emptyText : '请输入额定氨氮',
+						fieldLabel : '额定水质氨氮',
+						emptyText : '请输入额定水质氨氮',
 						name : 'edad',
 						width : 180
 					} ]
@@ -388,8 +391,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定总氮',
-						emptyText : '请输入额定总氮',
+						fieldLabel : '额定水质总氮',
+						emptyText : '请输入额定水质总氮',
 						name : 'edzd',
 						width : 180
 					} ]
@@ -403,8 +406,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定总磷',
-						emptyText : '请输入额定总磷',
+						fieldLabel : '额定水质总磷',
+						emptyText : '请输入额定水质总磷',
 						name : 'edzl',
 						width : 180
 					} ]
@@ -413,8 +416,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定悬浮物',
-						emptyText : '请输入额定悬浮物',
+						fieldLabel : '水质悬浮物',
+						emptyText : '请输入额定水质悬浮物',
 						name : 'edxfw',
 						width : 180
 					} ]
@@ -428,8 +431,8 @@ if (toolbar.get("button_add")) {
 					border : false,
 					items : [ {
 						xtype : 'numberfield',
-						fieldLabel : '额定污泥浓度',
-						emptyText : '请输入额定污泥浓度',
+						fieldLabel : '水质污泥浓度',
+						emptyText : '请输入额定水质污泥浓度',
 						name : 'edwnnd',
 						width : 180
 					} ]
@@ -437,13 +440,28 @@ if (toolbar.get("button_add")) {
 					layout : 'form',
 					border : false,
 					items : [ {
-						xtype : 'textfield',
-						fieldLabel : '其他信息',
-	    				emptyText : '请输入其他信息',
-	    				name : 'other_info',
+						xtype : 'numberfield',
+						fieldLabel : '额定压力',
+	    				emptyText : '请输入额定压力',
+	    				name : 'edyl',
 						width : 180
 					} ]
 				} ]
+			}, {
+				xtype : 'container',
+				layout : 'column',
+				width : 900,
+				items : [ {
+					layout : 'form',
+					border : false,
+					items : [ {
+						xtype : 'textfield',
+						fieldLabel : '其它信息',
+						emptyText : '请输入其它信息',
+						name : 'other_info',
+						width : 447
+					} ]
+				}]
 			}]
 		});
 		addWindow.add(formPanel);
@@ -490,7 +508,7 @@ if(toolbar.get("button_modify")){
 						} ]
 					}),
 					proxy : new Ext.data.HttpProxy({
-						url : basePath + "/admin/componentdetail/selectGroupByPid/0/1"
+						url : basePath + "/admin/componentdetail/selectGroupByPid/0/0"
 					})
 				})
 				
@@ -528,7 +546,7 @@ if(toolbar.get("button_modify")){
 			     				listeners : {
 			     					select : function(ProjectCombox, record, index) {
 			     						GroupStore.proxy = new Ext.data.HttpProxy({
-		 									url : basePath + "/admin/componentdetail/selectGroupByPid/" + ProjectCombox.value + "/1"
+		 									url : basePath + "/admin/componentdetail/selectGroupByPid/" + ProjectCombox.value + "/0"
 		 								});
 			     						GroupStore.removeAll() ;  //清空缓存的数据
 			     						Ext.getCmp('GROUPCOMB').setValue("");
@@ -602,28 +620,24 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定扬程流量',
-								emptyText : '请输入额定扬程流量',
+								fieldLabel : '额定累计流量',
+								emptyText : '请输入额定累计流量',
 								name : 'edll',
-								width : 150,
+								width : 180,
 								value : data.edll
-							} ],
-							data : data.edll
-						}, {
+							} ]
+						},{
 							layout : 'form',
 							border : false,
-							items : [{
-								xtype : 'datefield',
-								fieldLabel : '维护保养时间',
-								emptyText : '请输入保养时间',
-								name : 'edghsj',
-								format:'Y-m-d',
-								editable : false,
-								allowBlank : true,
-								width : 150,
-								value : new Date(parseFloat(data.edghsj)).format("Y-m-d")
-							}]
-						} ]
+							items : [ {
+								xtype : 'numberfield',
+								fieldLabel : '额定电流',
+								emptyText : '请输入额定电流',
+								name : 'eddl',
+								width : 180,
+								value : data.eddl
+							} ]
+						}]
 					}, {
 						xtype : 'container',
 						layout : 'column',
@@ -633,8 +647,9 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定电导率',
-								emptyText : '请输入额定电导率',
+								fieldLabel : '水质电导率',
+								emptyText : '请输入额定水质电导率',
+								labelStyle: 'width:80px;',
 								name : 'edddl',
 								width : 180,
 								value : data.edddl
@@ -644,8 +659,9 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定PH值',
-								emptyText : '请输入额定PH值',
+								fieldLabel : '额定水质PH值',
+								emptyText : '请输入额定水质PH值',
+								labelStyle: 'width:80px;',
 								name : 'edph',
 								width : 180,
 								value : data.edph
@@ -660,8 +676,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定余氯',
-								emptyText : '请输入额定余氯',
+								fieldLabel : '额定水质余氯',
+								emptyText : '请输入额定水质余氯',
 								name : 'edylv',
 								width : 180,
 								value : data.edylv
@@ -671,8 +687,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定温度',
-								emptyText : '请输入额定温度',
+								fieldLabel : '额定水质温度',
+								emptyText : '请输入额定水质温度',
 								name : 'edwd',
 								width : 180,
 								value : data.edwd
@@ -687,8 +703,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定硬度',
-								emptyText : '请输入额定硬度',
+								fieldLabel : '额定水质硬度',
+								emptyText : '请输入额定水质硬度',
 								name : 'edyd',
 								width : 180,
 								value : data.edyd
@@ -698,10 +714,9 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定液位计',
-								emptyText : '请输入额定液位计',
+								fieldLabel : '水质液位计',
+								emptyText : '请输入额定水质液位计',
 								name : 'edywj',
-								minLength : 1,
 								width : 180,
 								value : data.edywj
 							} ]
@@ -715,8 +730,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定TDS值',
-								emptyText : '请输入额定TDS值',
+								fieldLabel : '水质TDS值',
+								emptyText : '请输入额定水质TDS值',
 								name : 'edtds',
 								width : 180,
 								value : data.edtds
@@ -726,11 +741,11 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定压力',
-								emptyText : '请输入额定压力',
-								name : 'edyl',
+								fieldLabel : '额定水质压力',
+								emptyText : '请输入额定水质压力',
+								name : 'edszyl',
 								width : 180,
-								value : data.edyl
+								value : data.edszyl
 							} ]
 						} ]
 					}, {
@@ -742,8 +757,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定浊度',
-								emptyText : '请输入额定浊度',
+								fieldLabel : '额定水质浊度',
+								emptyText : '请输入额定水质浊度',
 								name : 'edzdu',
 								width : 180,
 								value : data.edzdu
@@ -753,8 +768,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定SDI值',
-								emptyText : '请输入额定SDI值',
+								fieldLabel : '水质SDI值',
+								emptyText : '请输入额定水质SDI值',
 								name : 'edsdi',
 								width : 180,
 								value : data.edsdi
@@ -769,8 +784,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定COD值',
-								emptyText : '请输入额定COD值',
+								fieldLabel : '水质COD值',
+								emptyText : '请输入额定水质COD值',
 								name : 'edcod',
 								width : 180,
 								value : data.edcod
@@ -780,8 +795,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定BOD值',
-								emptyText : '请输入额定BOD值',
+								fieldLabel : '水质BOD值',
+								emptyText : '请输入额定水质BOD值',
 								name : 'edbod',
 								width : 180,
 								value : data.edbod
@@ -796,8 +811,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定氨氮',
-								emptyText : '请输入额定氨氮',
+								fieldLabel : '额定水质氨氮',
+								emptyText : '请输入额定水质氨氮',
 								name : 'edad',
 								width : 180,
 								value : data.edad
@@ -807,8 +822,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定总氮',
-								emptyText : '请输入额定总氮',
+								fieldLabel : '额定水质总氮',
+								emptyText : '请输入额定水质总氮',
 								name : 'edzd',
 								width : 180,
 								value : data.edzd
@@ -823,8 +838,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定总磷',
-								emptyText : '请输入额定总磷',
+								fieldLabel : '额定水质总磷',
+								emptyText : '请输入额定水质总磷',
 								name : 'edzl',
 								width : 180,
 								value : data.edzl
@@ -834,8 +849,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定悬浮物',
-								emptyText : '请输入额定悬浮物',
+								fieldLabel : '水质悬浮物',
+								emptyText : '请输入额定水质悬浮物',
 								name : 'edxfw',
 								width : 180,
 								value : data.edxfw
@@ -850,8 +865,8 @@ if(toolbar.get("button_modify")){
 							border : false,
 							items : [ {
 								xtype : 'numberfield',
-								fieldLabel : '额定污泥浓度',
-								emptyText : '请输入额定污泥浓度',
+								fieldLabel : '水质污泥浓度',
+								emptyText : '请输入额定水质污泥浓度',
 								name : 'edwnnd',
 								width : 180,
 								value : data.edwnnd
@@ -860,21 +875,37 @@ if(toolbar.get("button_modify")){
 							layout : 'form',
 							border : false,
 							items : [ {
-								xtype : 'textfield',
-								fieldLabel : '其他信息',
-			    				emptyText : '请输入其他信息',
-			    				name : 'other_info',
+								xtype : 'numberfield',
+								fieldLabel : '额定压力',
+			    				emptyText : '请输入额定压力',
+			    				name : 'edyl',
 								width : 180,
-								value : data.other_info
+								value : data.edyl
 							} ]
 						} ]
+					}, {
+						xtype : 'container',
+						layout : 'column',
+						width : 900,
+						items : [ {
+							layout : 'form',
+							border : false,
+							items : [ {
+								xtype : 'textfield',
+								fieldLabel : '其它信息',
+								emptyText : '请输入其它信息',
+								name : 'other_info',
+								width : 447,
+								value : data.other_info
+							} ]
+						}]
 					}]
 				});
 	
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '50%',
-					height : 437,
+					height : 467,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -995,7 +1026,7 @@ if(toolbar.get("button_viewDetail")){
 							} ]
 						}),
 						proxy : new Ext.data.HttpProxy({
-							url : basePath + "/admin/componentdetail/selectGroupByPid/0/1"
+							url : basePath + "/admin/componentdetail/selectGroupByPid/0/0"
 						})
 					})
 					
@@ -1027,8 +1058,8 @@ if(toolbar.get("button_viewDetail")){
 				        			editable : false,
 				        			allowBlank : false,
 				        			store : ProjectStore,
-				        			disabled : true,
 				     				width : 445,
+				     				disabled : true,
 				     				value : data.project_name,
 				     				//value : data.r_project_id,
 				     				listeners : {
@@ -1063,11 +1094,11 @@ if(toolbar.get("button_viewDetail")){
 				        			displayField : 'group_mc',
 				        			valueField : 'id',
 				        			editable : false,
-				        			disabled : true,
 				        			allowBlank : false,
 				        			store : GroupStore,
 				     				width : 445,
-				     				value : data.group_name
+				     				disabled : true,
+				     				value : data.group_name,
 				     				//value : data.r_component_group_id
 				     			} ]
 				     		} ]
@@ -1097,8 +1128,8 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入零件编号',
 									name : 'specific_bh',
 									allowBlank : false,
-									disabled : true,
 									width : 180,
+									disabled : true,
 									value : data.specific_bh
 								} ],
 							} ]
@@ -1111,30 +1142,26 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定扬程流量',
-									emptyText : '请输入额定扬程流量',
+									fieldLabel : '额定累计流量',
+									emptyText : '请输入额定累计流量',
 									name : 'edll',
+									width : 180,
 									disabled : true,
-									width : 150,
 									value : data.edll
-								} ],
-								data : data.edll
-							}, {
+								} ]
+							},{
 								layout : 'form',
 								border : false,
-								items : [{
-									xtype : 'datefield',
-									fieldLabel : '维护保养时间',
-									emptyText : '请输入保养时间',
-									name : 'edghsj',
-									editable : false,
-									format:'Y-m-d',
-									allowBlank : true,
-									width : 150,
-									disabled : true ,
-									value : new Date(parseFloat(data.edghsj)).format("Y-m-d")
-								}]
-							} ]
+								items : [ {
+									xtype : 'numberfield',
+									fieldLabel : '额定电流',
+									emptyText : '请输入额定电流',
+									name : 'eddl',
+									width : 180,
+									disabled : true,
+									value : data.eddl
+								} ]
+							}]
 						}, {
 							xtype : 'container',
 							layout : 'column',
@@ -1144,11 +1171,12 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定电导率',
-									emptyText : '请输入额定电导率',
+									fieldLabel : '水质电导率',
+									emptyText : '请输入额定水质电导率',
+									labelStyle: 'width:80px;',
 									name : 'edddl',
-									disabled : true,
 									width : 180,
+									disabled : true,
 									value : data.edddl
 								} ]
 							}, {
@@ -1156,11 +1184,12 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定PH值',
-									emptyText : '请输入额定PH值',
-									disabled : true,
+									fieldLabel : '额定水质PH值',
+									emptyText : '请输入额定水质PH值',
+									labelStyle: 'width:80px;',
 									name : 'edph',
 									width : 180,
+									disabled : true,
 									value : data.edph
 								} ]
 							} ]
@@ -1173,11 +1202,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定余氯',
-									emptyText : '请输入额定余氯',
+									fieldLabel : '额定水质余氯',
+									emptyText : '请输入额定水质余氯',
 									name : 'edylv',
-									disabled : true,
 									width : 180,
+									disabled : true,
 									value : data.edylv
 								} ]
 							}, {
@@ -1185,11 +1214,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定温度',
-									emptyText : '请输入额定温度',
+									fieldLabel : '额定水质温度',
+									emptyText : '请输入额定水质温度',
 									name : 'edwd',
-									disabled : true,
 									width : 180,
+									disabled : true,
 									value : data.edwd
 								} ]
 							} ]
@@ -1202,11 +1231,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定硬度',
-									emptyText : '请输入额定硬度',
-									disabled : true,
+									fieldLabel : '额定水质硬度',
+									emptyText : '请输入额定水质硬度',
 									name : 'edyd',
 									width : 180,
+									disabled : true,
 									value : data.edyd
 								} ]
 							}, {
@@ -1214,12 +1243,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定液位计',
-									emptyText : '请输入额定液位计',
+									fieldLabel : '水质液位计',
+									emptyText : '请输入额定水质液位计',
 									name : 'edywj',
-									disabled : true,
-									minLength : 1,
 									width : 180,
+									disabled : true,
 									value : data.edywj
 								} ]
 							} ]
@@ -1232,11 +1260,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定TDS值',
-									emptyText : '请输入额定TDS值',
-									disabled : true,
+									fieldLabel : '水质TDS值',
+									emptyText : '请输入额定水质TDS值',
 									name : 'edtds',
 									width : 180,
+									disabled : true,
 									value : data.edtds
 								} ]
 							}, {
@@ -1244,12 +1272,12 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定压力',
-									emptyText : '请输入额定压力',
-									disabled : true,
-									name : 'edyl',
+									fieldLabel : '额定水质压力',
+									emptyText : '请输入额定水质压力',
+									name : 'edszyl',
 									width : 180,
-									value : data.edyl
+									disabled : true,
+									value : data.edszyl
 								} ]
 							} ]
 						}, {
@@ -1261,11 +1289,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定浊度',
-									emptyText : '请输入额定浊度',
-									disabled : true,
+									fieldLabel : '额定水质浊度',
+									emptyText : '请输入额定水质浊度',
 									name : 'edzdu',
 									width : 180,
+									disabled : true,
 									value : data.edzdu
 								} ]
 							}, {
@@ -1273,11 +1301,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定SDI值',
-									emptyText : '请输入额定SDI值',
-									disabled : true,
+									fieldLabel : '水质SDI值',
+									emptyText : '请输入额定水质SDI值',
 									name : 'edsdi',
 									width : 180,
+									disabled : true,
 									value : data.edsdi
 								} ]
 							} ]
@@ -1290,11 +1318,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定COD值',
-									emptyText : '请输入额定COD值',
-									disabled : true,
+									fieldLabel : '水质COD值',
+									emptyText : '请输入额定水质COD值',
 									name : 'edcod',
 									width : 180,
+									disabled : true,
 									value : data.edcod
 								} ]
 							}, {
@@ -1302,11 +1330,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定BOD值',
-									emptyText : '请输入额定BOD值',
-									disabled : true,
+									fieldLabel : '水质BOD值',
+									emptyText : '请输入额定水质BOD值',
 									name : 'edbod',
 									width : 180,
+									disabled : true,
 									value : data.edbod
 								} ]
 							} ]
@@ -1319,11 +1347,11 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定氨氮',
-									emptyText : '请输入额定氨氮',
-									disabled : true,
+									fieldLabel : '额定水质氨氮',
+									emptyText : '请输入额定水质氨氮',
 									name : 'edad',
 									width : 180,
+									disabled : true,
 									value : data.edad
 								} ]
 							}, {
@@ -1331,43 +1359,14 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定总氮',
-									emptyText : '请输入额定总氮',
-									disabled : true,
+									fieldLabel : '额定水质总氮',
+									emptyText : '请输入额定水质总氮',
 									name : 'edzd',
 									width : 180,
+									disabled : true,
 									value : data.edzd
 								} ]
 							} ]
-						}, {
-							xtype : 'container',
-							layout : 'column',
-							width : 900,
-							items : [{
-								layout : 'form',
-								border : false,
-								items : [{
-									xtype : 'numberfield',
-									fieldLabel : '额定总磷',
-									emptyText : '请输入额定总磷',
-									disabled : true,
-									name : 'edzl',
-									width : 180,
-									value : data.edzl
-								}]
-							}, {
-								layout : 'form',
-								border : false,
-								items : [ {
-									xtype : 'numberfield',
-									fieldLabel : '额定悬浮物',
-									emptyText : '请输入额定悬浮物',
-									disabled : true,
-									name : 'edxfw',
-									width : 180,
-									value : data.edxfw
-								}]
-							}]
 						}, {
 							xtype : 'container',
 							layout : 'column',
@@ -1377,32 +1376,78 @@ if(toolbar.get("button_viewDetail")){
 								border : false,
 								items : [ {
 									xtype : 'numberfield',
-									fieldLabel : '额定污泥浓度',
-									emptyText : '请输入额定污泥浓度',
+									fieldLabel : '额定水质总磷',
+									emptyText : '请输入额定水质总磷',
+									name : 'edzl',
+									width : 180,
 									disabled : true,
+									value : data.edzl
+								} ]
+							}, {
+								layout : 'form',
+								border : false,
+								items : [ {
+									xtype : 'numberfield',
+									fieldLabel : '水质悬浮物',
+									emptyText : '请输入额定水质悬浮物',
+									name : 'edxfw',
+									width : 180,
+									disabled : true,
+									value : data.edxfw
+								} ]
+							} ]
+						}, {
+							xtype : 'container',
+							layout : 'column',
+							width : 900,
+							items : [ {
+								layout : 'form',
+								border : false,
+								items : [ {
+									xtype : 'numberfield',
+									fieldLabel : '水质污泥浓度',
+									emptyText : '请输入额定水质污泥浓度',
 									name : 'edwnnd',
 									width : 180,
+									disabled : true,
 									value : data.edwnnd
 								} ]
 							}, {
 								layout : 'form',
 								border : false,
 								items : [ {
-									xtype : 'textfield',
-									fieldLabel : '其他信息',
-				    				emptyText : '请输入其他信息',
-									disabled : true,
-				    				name : 'other_info',
+									xtype : 'numberfield',
+									fieldLabel : '额定压力',
+				    				emptyText : '请输入额定压力',
+				    				name : 'edyl',
 									width : 180,
-									value : data.other_info
+									disabled : true,
+									value : data.edyl
 								} ]
 							} ]
+						}, {
+							xtype : 'container',
+							layout : 'column',
+							width : 900,
+							items : [ {
+								layout : 'form',
+								border : false,
+								items : [ {
+									xtype : 'textfield',
+									fieldLabel : '其它信息',
+									emptyText : '请输入其它信息',
+									name : 'other_info',
+									width : 447,
+									disabled : true,
+									value : data.other_info
+								} ]
+							}]
 						}]
 					});
 				  var detailWindow = new CTA.common.Window({
 				    	title : '查看零件详情',
 				    	width : '50%',
-						height : 437,
+						height : 467,
 						layout : 'border',
 				        items : [formPanel]
 			      });

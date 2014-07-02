@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.DOSE");
 ROTEK.COMPONENTD.DOSE.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/9",
+		url : basePath + "/admin/componentdetail/listComDetail/9/1",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',

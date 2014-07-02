@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.FILTER");
 ROTEK.COMPONENTD.FILTER.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/5",
+		url : basePath + "/admin/componentdetail/listComDetail/5/1",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',

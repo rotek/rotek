@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.SOFTER");
 ROTEK.COMPONENTD.SOFTER.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/4",
+		url : basePath + "/admin/componentdetail/listComDetail/4/1",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',

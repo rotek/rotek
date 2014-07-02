@@ -87,9 +87,10 @@ public class ComponentDetailController {
 	* @throws Exception
 	* @author WangJuZhu
 	*/
-	@RequestMapping("listComDetail/{groupType}")
+	@RequestMapping("listComDetail/{groupType}/{projectType}")
 	public String listComDetail(
 			@PathVariable(value = "groupType") Integer groupType,  // 组分类
+			@PathVariable(value = "projectType") Integer projectType,  // 工程分类  1、普通    2、EMC
 			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "limit", defaultValue = "10") Integer limit,
 			@RequestParam(value = "project_name", defaultValue = "") String project_name,  // 工程名称
@@ -113,7 +114,7 @@ public class ComponentDetailController {
 		comDetail.setSpecific_bh(specific_bh);  // 零件编号
 		comDetail.setStatus(status);
 
-		List<ComponentDetailDto> cgroup = detailService.listComDetail(user, comDetail, pager);
+		List<ComponentDetailDto> cgroup = detailService.listComDetail(user, comDetail,projectType, pager);
 		modelMap.put("dataList", cgroup);
 		modelMap.put("totalCount", pager.getTotalRows());
 		return "jsonView";
@@ -219,6 +220,31 @@ public class ComponentDetailController {
 		//保存 加药装置器 明细信息
 		if(groupType == ComponentType.DOSESETTING.getCode()){
 			addDetail.setEdghsj(comDetail.getEdghsj());
+		}
+		
+		//保存 EMC工程 组零件明细信息
+		if(groupType == 0){
+			addDetail.setEdll(comDetail.getEdll());
+			addDetail.setEddl(comDetail.getEddl());
+			addDetail.setEdyl(comDetail.getEdyl());
+			addDetail.setEdszyl(comDetail.getEdszyl());
+			addDetail.setEdddl(comDetail.getEdddl());
+			addDetail.setEdph(comDetail.getEdph());
+			addDetail.setEdylv(comDetail.getEdylv());
+			addDetail.setEdwd(comDetail.getEdwd());
+			addDetail.setEdyd(comDetail.getEdyd());
+			addDetail.setEdywj(comDetail.getEdywj());
+			addDetail.setEdtds(comDetail.getEdtds());
+			addDetail.setEdzdu(comDetail.getEdzdu());
+			addDetail.setEdsdi(comDetail.getEdsdi());
+			addDetail.setEdcod(comDetail.getEdcod());
+			addDetail.setEdbod(comDetail.getEdbod());
+			addDetail.setEdad(comDetail.getEdad());
+			addDetail.setEdzd(comDetail.getEdzd());
+			addDetail.setEdzl(comDetail.getEdzl());
+			addDetail.setEdxfw(comDetail.getEdxfw());
+			addDetail.setEdwnnd(comDetail.getEdwnnd());
+			addDetail.setOther_info(comDetail.getOther_info());
 		}
 		
 		List<String> messages = detailService.addComDetail(addDetail);
@@ -332,6 +358,31 @@ public class ComponentDetailController {
 			editDetail.setEdghsj(comDetail.getEdghsj());
 		}
 		
+		//保存 EMC工程 组零件明细信息
+		if(groupType == 0){
+			editDetail.setEdll(comDetail.getEdll());
+			editDetail.setEddl(comDetail.getEddl());
+			editDetail.setEdyl(comDetail.getEdyl());
+			editDetail.setEdszyl(comDetail.getEdszyl());
+			editDetail.setEdddl(comDetail.getEdddl());
+			editDetail.setEdph(comDetail.getEdph());
+			editDetail.setEdylv(comDetail.getEdylv());
+			editDetail.setEdwd(comDetail.getEdwd());
+			editDetail.setEdyd(comDetail.getEdyd());
+			editDetail.setEdywj(comDetail.getEdywj());
+			editDetail.setEdtds(comDetail.getEdtds());
+			editDetail.setEdzdu(comDetail.getEdzdu());
+			editDetail.setEdsdi(comDetail.getEdsdi());
+			editDetail.setEdcod(comDetail.getEdcod());
+			editDetail.setEdbod(comDetail.getEdbod());
+			editDetail.setEdad(comDetail.getEdad());
+			editDetail.setEdzd(comDetail.getEdzd());
+			editDetail.setEdzl(comDetail.getEdzl());
+			editDetail.setEdxfw(comDetail.getEdxfw());
+			editDetail.setEdwnnd(comDetail.getEdwnnd());
+			editDetail.setOther_info(comDetail.getOther_info());
+		}
+		
 		List<String> messages = detailService.modifyComDetail(editDetail);
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
@@ -414,9 +465,10 @@ public class ComponentDetailController {
 			@PathVariable(value="projectId") Integer projectId,
 			@PathVariable(value="componentType") Integer componentType,
 			ModelMap modelMap) throws SQLException{
-		
-		List<ComponentGroupEntity> grouptList = groupService.selectGroupByPid(projectId, componentType, Status.VALID.getCode());
-		modelMap.put("grouptList", grouptList);
+		if(projectId != 0 && projectId != null){
+			List<ComponentGroupEntity> grouptList = groupService.selectGroupByPid(projectId, componentType, Status.VALID.getCode());
+			modelMap.put("grouptList", grouptList);
+		}
 		return "jsonView";
 	}
 

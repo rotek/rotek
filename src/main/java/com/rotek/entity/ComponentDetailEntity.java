@@ -47,6 +47,9 @@ public class ComponentDetailEntity implements Serializable {
 	@Column(name = "EDLL")
 	private Double edll ;   	// 额定流量(额定扬程流量)
 
+	@Column(name = "EDDL")
+	private Double eddl ;   	// 额定电流
+	
 	@Column(name = "EDGHSJ")
 	private Date edghsj ;    	// 额定维护保养时间(额定更换时间)
 	
@@ -276,6 +279,16 @@ public class ComponentDetailEntity implements Serializable {
 	/** @param edzdu edzdu to set */
 	public void setEdzdu(Double edzdu) {
 		this.edzdu = edzdu;
+	}
+
+	/** @return eddl */
+	public Double getEddl() {
+		return eddl;
+	}
+
+	/** @param eddl eddl to set */
+	public void setEddl(Double eddl) {
+		this.eddl = eddl;
 	}
 
 	/** @return edyl */
