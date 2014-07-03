@@ -4,15 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Repository;
 
 import com.cta.platform.persistence.dao.BaseDaoImpl;
 import com.cta.platform.util.ListPager;
+import com.rotek.dto.CustomerDto;
 import com.rotek.entity.ButtonEntity;
 import com.rotek.entity.CustomerEntity;
-import com.rotek.dto.CustomerDto;
 
 
 /**
@@ -148,5 +146,28 @@ public class CustomerDao extends BaseDaoImpl{
 			return null;
 		}
 	}
+	
+	/**
+	* @MethodName: selectCustomers 
+	* @Description: 查询客户信息
+	* @param status
+	* @param khlb
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public List<CustomerEntity> selectCustomers(Integer status , Integer khlb)throws SQLException{
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select * from r_customer where 1=1 ");
+		if(status != null){
+			sql.append(" and status = " + status);
+		}
+		if(khlb != 0 && khlb != null ){
+			sql.append(" and khlb = " + khlb );
+		}
+		return selectAll(sql.toString(), CustomerEntity.class) ;
+	}
+	
+	
 
 }

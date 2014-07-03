@@ -30,8 +30,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.cta.platform.util.ListPager;
 import com.rotek.constant.Status;
+import com.rotek.dto.ProjectDto;
 import com.rotek.dto.UserDto;
+import com.rotek.entity.CustomerEntity;
 import com.rotek.entity.ProjectEntity;
+import com.rotek.service.impl.CustomerService;
 import com.rotek.service.impl.ProjectService;
 
 /**
@@ -47,6 +50,9 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private CustomerService customerService ;
 
 	/**
 	 * @MethodName: toProjectList
@@ -97,7 +103,7 @@ public class ProjectController {
 		project.setGclb(gclb);
 		project.setStatus(status);
 
-		List<ProjectEntity> projects = projectService.listProeject(user, project,start_azsj,end_azsj,start_tysj,end_tysj, pager);
+		List<ProjectDto> projects = projectService.listProeject(user, project,start_azsj,end_azsj,start_tysj,end_tysj, pager);
 		modelMap.put("dataList", projects);
 		modelMap.put("totalCount", pager.getTotalRows());
 		return "jsonView";
@@ -114,26 +120,28 @@ public class ProjectController {
 	*/
 	@RequestMapping("addProject")
 	public void addProject(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam(value = "r_customer_id", defaultValue = "0") Integer r_customer_id,
 			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
 			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,
 			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,
 			@RequestParam(value = "gclb", defaultValue = "1") Integer gclb,
 			@RequestParam(value = "gcjs", defaultValue = "") String gcjs,
 			@RequestParam(value = "jscsjj", defaultValue = "") String jscsjj,
-			@RequestParam(value = "gclj", defaultValue = "") String gclj,
+			//@RequestParam(value = "gclj", defaultValue = "") String gclj,
 			@RequestParam(value = "azsj", defaultValue = "") Date azsj,
 			@RequestParam(value = "tysj", defaultValue = "") Date tysj,ModelMap model ) throws Exception {
 
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 
 		ProjectEntity project = new ProjectEntity();
+		project.setR_customer_id(r_customer_id);
 		project.setGcmc(gcmc);
 		project.setGcbh(gcbh);
 		project.setGcxh(gcxh);
 		project.setJscsjj(jscsjj);
 		project.setGclb(gclb);
 		project.setGcjs(gcjs);
-		project.setGclj(gclj);
+		//project.setGclj(gclj);
 		project.setAzsj(azsj);
 		project.setTysj(tysj);
 		project.setStatus(Status.VALID.getCode());
@@ -179,6 +187,7 @@ public class ProjectController {
 	@RequestMapping("modifyProject")
 	public void modifyProject(
 			@RequestParam(value = "id", defaultValue = "") Integer id,
+			@RequestParam(value = "r_customer_id", defaultValue = "0") Integer r_customer_id,
 			@RequestParam(value = "gcmc", defaultValue = "") String gcmc,
 			@RequestParam(value = "gcbh", defaultValue = "") String gcbh,
 			@RequestParam(value = "gcxh", defaultValue = "") String gcxh,
@@ -197,6 +206,7 @@ public class ProjectController {
 
 		ProjectEntity project = new ProjectEntity();
 		project.setId(id);
+		project.setR_customer_id(r_customer_id);
 		project.setGcmc(gcmc);
 		project.setGcbh(gcbh);
 		project.setGcxh(gcxh);
@@ -237,6 +247,13 @@ public class ProjectController {
 		List<String> messages = projectService.deleteProject(ids);
 		model.put("success", null == messages ? true : false);
 		model.put("messages", messages);
+		return "jsonView";
+	}
+	
+	@RequestMapping("/selectCustomers")
+	public String selectCustomers(ModelMap modelMap) throws SQLException{
+		List<CustomerEntity> customerList = customerService.selectCustomers(Status.VALID.getCode(), 0);
+		modelMap.put("customerList", customerList);
 		return "jsonView";
 	}
 

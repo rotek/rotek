@@ -9,9 +9,14 @@ ROTEK.Project.params = {
 			width : 30,
 			align : 'center'
 		}, {
+			index : 'customer_name',
+			header : '用户名称',
+			width : 50,
+			align : 'center'
+		}, {
 			index : 'gcmc',
 			header : '工程名称',
-			width : 80,
+			width : 50,
 			align : 'center'
 		}, {
 			index : 'gcbh',
@@ -21,7 +26,7 @@ ROTEK.Project.params = {
 		}, {
 			index : 'gcjs',
 			header : '工程介绍',
-			width : 130,
+			width : 80,
 			align : 'center'
 		}, {
 			index : 'azsj',
@@ -69,7 +74,8 @@ ROTEK.Project.params = {
 		addUrl : basePath + "/admin/projectinfo/addProject",
 		detailUrl : basePath + "/admin/projectinfo/getProjectDetail",
 		modifyUrl : basePath + "/admin/projectinfo/modifyProject",
-		dropUrl : basePath + "/admin/projectinfo/deleteProject"
+		dropUrl : basePath + "/admin/projectinfo/deleteProject",
+		listCustomerUrl : basePath + "/admin/projectinfo/selectCustomers"
 	}
 };
 
@@ -82,9 +88,6 @@ if (toolbar.get("button_add")) {
 		var saveHandler = function() {
 			//检查表单是否填写好
 			if (formPanel.getForm().isValid()) {
-//				CTA.common.Mask.showMask({
-//					target : 'addWindow'
-//				});
 				formPanel.commit({
 					url : ROTEK.Project.params.url.addUrl
 				});
@@ -103,6 +106,30 @@ if (toolbar.get("button_add")) {
 		var formPanel = new CTA.common.SFormPanel({
 			fileUpload : true,
 			items : [{
+    			xtype : 'combo',
+    			fieldLabel : '所属客户',
+    			emptyText : '请选择客户',
+    			name : 'id',
+    			hiddenName : 'r_customer_id',
+    			triggerAction : 'all',
+    			displayField : 'mc',
+    			valueField : 'id',
+    			allowBlank : false,
+    			editable : false,
+    			store : new Ext.data.Store({
+    				reader : new Ext.data.JsonReader({
+    					root : 'customerList',
+    					fields : [ {
+    						name : 'id'
+    					}, {
+    						name : 'mc'
+    					} ]
+    				}),
+    				proxy : new Ext.data.HttpProxy({
+    					url : ROTEK.Project.params.url.listCustomerUrl
+    				})
+    			})
+    		}, {
 				fieldLabel : '工程名称',
 				emptyText : '请输入工程名称',
 				name : 'gcmc',
@@ -112,6 +139,12 @@ if (toolbar.get("button_add")) {
 				fieldLabel : '工程编号',
 				emptyText : '请输入工程编号',
 				name : 'gcbh',
+				minLength : 1,
+				maxLength : 100
+			}, {
+				fieldLabel : '工程现场编号',
+				emptyText : '请输入工程现场编号',
+				name : 'locale_gcbh',
 				minLength : 1,
 				maxLength : 100
 			}, {
@@ -163,13 +196,13 @@ if (toolbar.get("button_add")) {
 				inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
 				blankText : '请上传技术参数附件',
 				allowBlank : true
-			}, {
+			}/*, {
 				fieldLabel : '工程零件',
 				emptyText : '请输入工程零件',
 				name : 'gclj',
 				minLength : 1,
 				maxLength : 100
-			}, {
+			}*/, {
 				xtype : 'datefield',
 				fieldLabel : '安装时间',
 				emptyText : '请选择安装时间',
@@ -217,7 +250,30 @@ if(toolbar.get("button_modify")){
 					items : [ {
 						xtype : 'hidden',
 						name : 'id'
-					}, {
+					},{
+		    			xtype : 'combo',
+		    			fieldLabel : '所属客户',
+		    			emptyText : '请选择客户',
+		    			name : 'id',
+		    			hiddenName : 'r_customer_id',
+		    			triggerAction : 'all',
+		    			displayField : 'mc',
+		    			valueField : 'id',
+		    			editable : false,
+		    			store : new Ext.data.Store({
+		    				reader : new Ext.data.JsonReader({
+		    					root : 'customerList',
+		    					fields : [ {
+		    						name : 'id'
+		    					}, {
+		    						name : 'mc'
+		    					} ]
+		    				}),
+		    				proxy : new Ext.data.HttpProxy({
+		    					url : ROTEK.Project.params.url.listCustomerUrl
+		    				})
+		    			})
+		    		}, {
 						fieldLabel : '工程名称',
 						emptyText : '请输入工程名称',
 						name : 'gcmc',
@@ -276,13 +332,13 @@ if(toolbar.get("button_modify")){
 						//text : "点击上传技术参数附件",
 						//inputType : 'file', // 可以通过这个属性直接指定form表单的类型为上传文件的类型；
 						//blankText : '请上传技术参数附件'
-					}, {
+					}/*, {
 						fieldLabel : '工程零件',
 						emptyText : '请输入工程零件',
 						name : 'gclj',
 						minLength : 1,
 						maxLength : 100
-					}, {
+					}*/, {
 						xtype : 'datefield',
 						fieldLabel : '安装时间',
 						emptyText : '请选择安装时间',

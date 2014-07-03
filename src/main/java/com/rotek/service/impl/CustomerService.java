@@ -1,6 +1,5 @@
 package com.rotek.service.impl;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,20 +7,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cta.platform.config.SystemGlobals;
 import com.cta.platform.util.ListPager;
 import com.cta.platform.util.ValidateUtil;
 import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.CustomerDao;
-import com.rotek.entity.CustomerEntity;
-import com.rotek.util.FileUtils;
 import com.rotek.dto.CustomerDto;
+import com.rotek.entity.CustomerEntity;
 
 
 /**
@@ -166,5 +161,19 @@ public class CustomerService {
 	public List<Map<String, Object>> listAgentsByType(Integer type) throws SQLException {
 			return customerDao.listAgentsByType(type);
 	}
+	
+	/**
+	* @MethodName: selectCustomers 
+	* @Description: 查询客户信息
+	* @param status 状态
+	* @param khlb 客户类别
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public List<CustomerEntity> selectCustomers(Integer status , Integer khlb)throws SQLException{
+		return customerDao.selectCustomers(status , khlb ) ;
+	}
+	
 
 }

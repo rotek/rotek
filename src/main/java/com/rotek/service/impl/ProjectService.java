@@ -18,6 +18,7 @@ import com.cta.platform.util.ListPager;
 import com.cta.platform.util.ValidateUtil;
 import com.rotek.constant.DataStatus;
 import com.rotek.dao.impl.ProjectDao;
+import com.rotek.dto.ProjectDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.ProjectEntity;
 import com.rotek.util.FileUtils;
@@ -45,19 +46,24 @@ public class ProjectService {
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public List<ProjectEntity> listProeject(UserDto user, ProjectEntity project,
+	public List<ProjectDto> listProeject(UserDto user, ProjectEntity project,
 			Date start_azsj, Date end_azsj, Date start_tysj, Date end_tysj, ListPager pager) throws SQLException {
 
 		StringBuilder sql = new StringBuilder();
 		List<Object> params = new LinkedList<Object>();
-		sql.append("select * from r_project where 1 = 1");
+		
+		sql.append("select pro.*,custom.MC AS customer_name from r_project pro ");
+		sql.append(" left join r_customer custom on custom.id = pro.r_customer_id");
+		sql.append(" where 1=1 ");
 		
 		if(StringUtils.isNotEmpty(project.getGcmc())){
 			sql.append(" and GCMC like '%").append(project.getGcmc()).append("%'");
 		}
+		
 		if(StringUtils.isNotEmpty(project.getGcbh())){
 			sql.append(" and GCBH like '%").append(project.getGcbh()).append("%'");
 		}
+		
 		if(StringUtils.isNotEmpty(project.getGcxh())){
 			sql.append(" and GCXH like '%").append(project.getGcxh()).append("%'");
 		}

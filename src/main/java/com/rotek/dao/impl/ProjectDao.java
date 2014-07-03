@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cta.platform.persistence.dao.BaseDaoImpl;
 import com.cta.platform.util.ListPager;
+import com.rotek.dto.ProjectDto;
 import com.rotek.entity.ProjectEntity;
 
 /**
@@ -25,12 +26,12 @@ public class ProjectDao extends BaseDaoImpl{
 	* @param sql
 	* @param params
 	* @param pager
-	* @return List<ProjectEntity>
+	* @return List<ProjectDto>
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public List<ProjectEntity> listProject(String sql,Object[] params, ListPager pager) throws SQLException {
-		return this.selectPage(sql, params, ProjectEntity.class, pager);
+	public List<ProjectDto> listProject(String sql,Object[] params, ListPager pager) throws SQLException {
+		return this.selectPage(sql, params, ProjectDto.class, pager);
 	}
 	
 	/**
