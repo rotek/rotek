@@ -80,7 +80,7 @@ if (toolbar.get("button_add")) {
 		//定义添加的窗口
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
-			width : '80%',
+			width : '40%',
 			height : 310,
 			layout : 'fit',
 			handler : saveHandler
@@ -94,7 +94,7 @@ if (toolbar.get("button_add")) {
     			fieldLabel : '所属工程',
     			emptyText : '请选择工程',
     			name : 'id',
-    			hiddenName : 'id',
+    			hiddenName : 'r_project_id',
     			triggerAction : 'all',
     			displayField : 'gcmc',
     			valueField : 'id',
@@ -126,7 +126,7 @@ if (toolbar.get("button_add")) {
 				maxLength : 100
 			}, {
 				xtype : 'combo',
-				fieldLabel : '工程资料附件类型',
+				fieldLabel : '附件类型',
 				emptyText : '请选择工程资料附件类型',
 				name : 'gczllx',
 				triggerAction : 'all',
@@ -147,16 +147,18 @@ if (toolbar.get("button_add")) {
 				blankText : '请上传工程资料附件',
 				allowBlank : true
 			}, {
-				id:'myGroup',
+				id:'monitorGroup',
 			    xtype: 'checkboxgroup',
-			    fieldLabel: '功能检测图类型',
+			    width: 60, 
+			    columns: 2,
+			    fieldLabel: '检测图类型',
 			    items: [
-			        {boxLabel: '普通工程-水质监测', name: 'gcjctlx'},
-			        {boxLabel: '普通工程-流量监测', name: 'gcjctlx'},
-			        {boxLabel: '普通工程-压力监测', name: 'gcjctlx'},
-			        {boxLabel: 'EMC工程-水质监测', name: 'gcjctlx'},
-			        {boxLabel: 'EMC工程-流量监测', name: 'gcjctlx'},
-			        {boxLabel: 'EMC工程-压力监测', name: 'gcjctlx'}
+			        {boxLabel: '普通工程-水质监测', inputValue: '1'},
+			        {boxLabel: '普通工程-流量监测', inputValue: '2'},
+			        {boxLabel: '普通工程-压力监测', inputValue: '3'},
+			        {boxLabel: 'EMC工程-水质监测', inputValue: '4'},
+			        {boxLabel: 'EMC工程-流量监测', inputValue: '5'},
+			        {boxLabel: 'EMC工程-压力监测', inputValue: '6'}
 			    ]
 			}]
 		});
