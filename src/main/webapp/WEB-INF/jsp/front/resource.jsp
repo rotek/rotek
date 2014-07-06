@@ -29,38 +29,62 @@
 						width="100%">
 						<thead>
 							<tr>
-								<th style="border: solid 1px #dddddd">标题名称</th>
+								<th style="border: solid 1px #dddddd">新闻名称</th>
 								<th style="border: solid 1px #dddddd">发布人</th>
 								<th style="border: solid 1px #dddddd">发布时间</th>
-								<th style="border: solid 1px #dddddd">类型</th>
+								<th style="border: solid 1px #dddddd">是否重要</th>
 							</tr>
 						</thead>
 
 						<tbody>
-							
 							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">Tiger Nixon</a></td>
 								<td>管理员1</td>
 								<td>2014-06-28</td>
-								<td>新闻</td>
+								<td>重要</td>
 							</tr>
-							
 							
 							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">Tiger Nixon</a></td>
 								<td>管理员1</td>
 								<td>2014-06-28</td>
-								<td>新闻</td>
+								<td>重要</td>
 							</tr>
-							
 							
 							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">Tiger Nixon</a></td>
 								<td>管理员1</td>
 								<td>2014-06-28</td>
-								<td>新闻</td>
+								<td>重要</td>
 							</tr>
 							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">Tiger Nixon</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>重要</td>
+							</tr>
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">Tiger Nixon</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>重要</td>
+							</tr>
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">Tiger Nixon</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>重要</td>
+							</tr>
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">Tiger Nixon</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>重要</td>
+							</tr>
 							
 							
 						</tbody>

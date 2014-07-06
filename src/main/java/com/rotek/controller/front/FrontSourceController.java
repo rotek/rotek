@@ -3,7 +3,7 @@
  * @Package com.rotek.controller
  * @Description: TODO
  * @author chenwenpeng
- * @date 2013-5-31 上午10:33:55
+ * @date 2013531 上午10:33:55
  * @version V1.0
  */
 package com.rotek.controller.front;
@@ -20,43 +20,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.rotek.service.impl.IndexService;
 
 /**
- * @ClassName: IndexController
- * @Description: 登录的控制器
+ * 资源下载
+ * 
  * @author chenwenpeng
- * @date 2013-5-31 上午10:33:55
  * 
  */
 @Controller
-@RequestMapping("/front/login")
-public class FrontLoginController {
+@RequestMapping("/front/resource")
+public class FrontSourceController {
 
 	@Autowired
 	private IndexService indexservice;
 
 	/**
-	 * 返回登录页面
+	 * 返回资源下载
 	 * 
 	 * @return
 	 * @throws SQLException
 	 */
-	@RequestMapping("toLogin")
-	public String getIndex(HttpServletRequest request, ModelMap modelMap)
+	@RequestMapping("toResource")
+	public String toResource(HttpServletRequest request, ModelMap modelMap)
 			throws SQLException {
 
-		return "front/login";
-	}
-	
-	/**
-	 * 返回注册页面
-	 * 
-	 * @return
-	 * @throws SQLException
-	 */
-	@RequestMapping("toRegist")
-	public String toRegist(HttpServletRequest request, ModelMap modelMap)
-			throws SQLException {
-		
-		return "front/regist";
+		return "front/resource";
 	}
 
 }

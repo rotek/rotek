@@ -23,7 +23,7 @@
 <![endif]-->
 
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/front/jquery-1.7.2.js"></script>
+	src="${pageContext.request.contextPath }/assets/front/jquery-1.11.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/front/bootstrap.js"></script>
 

@@ -44,5 +44,18 @@ public class FrontNewsController {
 
 		return "front/news";
 	}
+	
+	/**
+	 * 返回水质监测详情
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping("toNewsDetail")
+	public String toNewsDetail(HttpServletRequest request, ModelMap modelMap)
+			throws SQLException {
+		
+		return "front/newsDetail";
+	}
 
 }

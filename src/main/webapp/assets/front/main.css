@@ -1,7 +1,7 @@
 * {margin:0;padding:0;}
 html, body {width:100%;height:100%;color:#000;font-family:"Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif;font-size:12px;background-color:#FFF;}
 * html, * html body {background-image:url(about:blank);background-attachment:fixed;}
-div {overflow:scroll;}
+div {overflow:hidden;}
 a, a:link, a:visited, a:active {text-decoration:none;cursor:pointer;}
 a.blink, a.blink:link, a.blink:visited, a.blink:active {color:#000;}
 a:hover, a.blink:hover {color:#3276b1;text-decoration:underline;}
@@ -52,7 +52,7 @@ input, textarea {border:none 0;outline:none;}
 	height: 100%;
 	margin: 0px auto;
 	padding: 10px 0 5px 0;
-	overflow: scroll
+	overflow: hidden;
 }
 
 
@@ -104,9 +104,6 @@ input, textarea {border:none 0;outline:none;}
 	color: #2ac1f2
 }
 
-
-
-
 .r_container .right {
 	width: 980px;
 	height: 100%;
@@ -115,8 +112,7 @@ input, textarea {border:none 0;outline:none;}
 	font-size: 14px;
 	float: right;
 	text-align:center;
-	
-	overflow: hidden
+	overflow: hidden;
 }
 
 .r_container .right .r_top {
@@ -127,8 +123,8 @@ input, textarea {border:none 0;outline:none;}
 	padding: 15px 10px 5px 10px;
 }
 
-.r_container .right .r_center {
-	
+.r_container .right .center {
+	overflow: scroll;
 }
 
 /**=====================================================main=============================================================**/

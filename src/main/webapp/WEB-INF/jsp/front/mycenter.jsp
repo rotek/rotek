@@ -11,7 +11,12 @@
 <style type="text/css">
 
 .r_container .center{
-	height: 100%
+	height: 100%;
+	padding: 30px
+}
+.input-group{
+	
+	margin: 30px 150px 0px 100px  
 }
 </style>
 
@@ -29,75 +34,48 @@
 			<div class="center well">
 
 				<form class="form-horizontal" style="margin-top: 30px" action="${pageContext.request.contextPath }/front/mycenter/modify">
+				
 					<input type="hidden" name="id" value="${sessionScope.user.id}" />
-					<div class="control-group info">
-						<label class="control-label" for="inputInfo">用户名：</label>
+					<div class="input-group input-group-lg">
+					  <span class="input-group-addon">用户名</span>
+					  <input type="text" class="form-control" placeholder="用户名不能为空" value="${sessionScope.user.name}">
+					</div>
+					
+					<div class="input-group input-group-lg">
+					  <span class="input-group-addon">密&nbsp;&nbsp;&nbsp;码</span>
+					  <input type="text" class="form-control" placeholder="密码名不能为空" value="${sessionScope.user.password}">
+					</div>
+					
+					<div class="input-group input-group-lg">
+					  <span class="input-group-addon">EMAIL</span>
+					  <input type="text" class="form-control" placeholder="EMAIL不能为空" value="${sessionScope.user.email}">
+					</div>
+					
+					<div class="input-group input-group-lg">
+					  <span class="input-group-addon">电&nbsp;&nbsp;&nbsp;话</span>
+					  <input type="text" class="form-control" placeholder="电话不能为空" value="${sessionScope.user.telephone}">
+					</div>
+					
+					<div class="input-group input-group-lg">
+					  <span class="input-group-addon">真是姓名</span>
+					  <input type="text" class="form-control" placeholder="真是姓名不能为空" value="${sessionScope.user.realname}">
+					</div>
+					
+					<div class="input-group input-group-lg">
+					  <span class="input-group-addon">所属公司</span>
+					  <input type="text" class="form-control" placeholder="所属公司不能为空" value="${sessionScope.user.companyname}">
+					</div>
+					
+					
+					<div class="input-group input-group-lg control-group info">
 						<div class="controls">
-							<input type="text" id="username" name="name"
-								style="height: 30px; width: 500px"
-								value="${sessionScope.user.name}"> <span
-								class="help-inline"></span>
+							<a style="width: 668px" class="btn btn-primary btn-lg" id="updateUser">修改</a>
 						</div>
 					</div>
 
-					<div class="control-group info">
-						<label class="control-label" for="inputInfo">密 码：</label>
-						<div class="controls">
-							<input type="text" id="password" name="password"
-								style="height: 30px; width: 500px"
-								value="${sessionScope.user.password}"> <span
-								class="help-inline"></span>
-						</div>
-					</div>
-
-					<div class="control-group info">
-						<label class="control-label" for="inputInfo">EMAIL：</label>
-						<div class="controls">
-							<input type="text" id="email" name="email" style="height: 30px; width: 500px"
-								value="${sessionScope.user.email}"> <span
-								class="help-inline"></span>
-						</div>
-					</div>
-
-					<div class="control-group info">
-						<label class="control-label" for="inputInfo">电话：</label>
-						<div class="controls">
-							<input type="text" id="telephone" name="telephone"
-								style="height: 30px; width: 500px"
-								value="${sessionScope.user.telephone}"> <span
-								class="help-inline"></span>
-						</div>
-					</div>
-
-					<div class="control-group info">
-						<label class="control-label" for="inputInfo">真实姓名：</label>
-						<div class="controls">
-							<input type="text" id="realname" name="realname"
-								style="height: 30px; width: 500px"
-								value="${sessionScope.user.realname}"> <span
-								class="help-inline"></span>
-						</div>
-					</div>
-
-					<div class="control-group info">
-						<label class="control-label" for="inputInfo">所属公司：</label>
-						<div class="controls">
-							<input type="text" id="companyname" name="companyname"
-								style="height: 30px; width: 500px"
-								value="${sessionScope.user.companyname}"> <span
-								class="help-inline"></span>
-						</div>
-					</div>
-
-					<div class="control-group info">
-						<div class="controls">
-							<a style="width: 480px;" class="btn btn-primary btn-lg"
-								id="updateUser">修改</a>
-						</div>
-					</div>
-
-				</form>
-
+				
+				</form>		
+								
 			</div>
 			
 		</div>
