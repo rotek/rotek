@@ -8,6 +8,7 @@
  */
 package com.rotek.controller.front;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 import javax.annotation.Resource;
@@ -17,57 +18,59 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.rotek.constant.SessionParams;
 import com.rotek.entity.ManagerEntity;
-import com.rotek.service.impl.LoginService;
 import com.rotek.service.impl.RegistService;
 
 /**
  * @ClassName: IndexController
- * @Description: 登录的控制器
+ * @Description: 注册的控制器
  * @author chenwenpeng
  * @date 2013-5-31 上午10:33:55
  * 
  */
 @Controller
-@RequestMapping("/front/login")
-public class FrontLoginController {
+@RequestMapping("/front/regist")
+public class FrontRegistController {
 
 	@Resource
 	private RegistService registService;
-	@Resource
-	private LoginService loginService;
 
 	/**
-	 * 返回登录页面
+	 * 返回注册页面
 	 * 
 	 * @return
 	 * @throws SQLException
 	 */
-	@RequestMapping("toLogin")
-	public String getIndex(HttpServletRequest request, ModelMap modelMap)
+	@RequestMapping("toRegist")
+	public String toRegist(HttpServletRequest request, ModelMap modelMap)
 			throws SQLException {
 
-		return "front/login";
+		return "front/regist";
 	}
 
 	/**
-	 * 登录
-	 * 
+	 * @param request
+	 * @param modelMap
+	 * @param manager
 	 * @return
 	 * @throws SQLException
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
 	 */
-	@RequestMapping("login")
-	public String login(HttpServletRequest request, ModelMap modelMap,
-			ManagerEntity manager) throws SQLException {
+	@RequestMapping("regist")
+	public String regist(HttpServletRequest request, ModelMap modelMap,
+			ManagerEntity manager) throws SQLException, IllegalAccessException,
+			InvocationTargetException, NoSuchMethodException {
 
-		String msg = loginService.login(manager.getName(),
-				manager.getPassword(), request);
+		String msg = registService.regist(manager);
 		if ("success".equals(msg)) {
+			request.getSession().setAttribute(SessionParams.USER, manager);
 			return "redirect:/front/mycenter/toMycenter";
 		} else {
 			modelMap.put("msg", msg);
-			return "front/login";
+			return "front/regist";
 		}
 	}
-
 }

@@ -19,4 +19,5 @@ public class RegexType {
 
 	/**@Field the String REG_PHONE 验证电话*/
 	public static final String REGEX_PHONE = "^1[3|4|5|8][0-9]\\d{8}$";
+	public static final String REGEX_EMAIL = "/^[a-zA-Z0-9_\\.]+@[a-zA-Z0-9-]+[\\.a-zA-Z]+$/";
 }

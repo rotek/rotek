@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.cta.platform.constant.RegexType;
 import com.cta.platform.persistence.annotation.Column;
+import com.cta.platform.persistence.annotation.Email;
 import com.cta.platform.persistence.annotation.Length;
 import com.cta.platform.persistence.annotation.NotEmpty;
 import com.cta.platform.persistence.annotation.NotNull;
@@ -83,6 +84,11 @@ public class ValidateUtil {
 		    	String message_telephone = validateTelephone(field, entity, columnName);
 		    	if(null != message_telephone){
 		    		messages.add(message_telephone);
+		    	}
+		    	
+		    	String message_email = validateEmail(field, entity, columnName);
+		    	if(null != message_email){
+		    		messages.add(message_email);
 		    	}
 		    }
 		    clazz = clazz.getSuperclass();
@@ -269,6 +275,31 @@ public class ValidateUtil {
     			message = annotation.message();
     		}
     	}
+		return message;
+	}
+	
+	
+	/**
+	 * @param field
+	 * @param entity
+	 * @param columnName
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private static <T> String validateEmail (Field field,T entity,String columnName) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		String message = null;
+		if(field.isAnnotationPresent(Email.class)){
+			Email annotation = field.getAnnotation(Email.class);
+			String value = BeanUtils.getProperty(entity, columnName);
+			
+			if(ValidateUtil.Validate(value, RegexType.REGEX_EMAIL)){
+				return message;
+			}else {
+				message = annotation.message();
+			}
+		}
 		return message;
 	}
 

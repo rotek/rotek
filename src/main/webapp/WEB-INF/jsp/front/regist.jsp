@@ -6,15 +6,6 @@
 <title>ROTEK</title>
 <%@include file="/assets/jsp/common_front.jsp"%>
 
-<script type="text/javascript">
-	$(function() {
-
-		$(document).click(function() {
-
-		});
-	});
-</script>
-
 <style type="text/css">
 * html {
 	background-color: #f5f5f5;
@@ -53,14 +44,14 @@ body {
 	width: 100%;
 }
 
-.r_container .center{
+.r_container .center {
 	height: 100%;
 	padding: 30px
 }
-.input-group{
+
+.input-group {
 	margin: 30px 150px 0px 150px;
 	min-width: 800px;
-	
 }
 </style>
 
@@ -70,67 +61,88 @@ body {
     <![endif]-->
 
 <script type="text/javascript">
-	
-	
-	
+	$(function() {
+
+		var msg = '${msg}';
+		if (msg) {
+			alert(msg);
+		}
+		console.log(msg);
+		
+		$("#regist").click(function(){
+			
+			if($("[name='password']").val() == $("[name='repassword']").val()){
+				
+				$("form").submit();
+			}else {
+				alert("两次密码输入不一致");
+			}
+		});
+	});
 </script>
 </head>
 
 <body>
 
 	<div class="container">
-		
-		<form class="form-horizontal" style="margin-top: 30px;width: 100px;" action="${pageContext.request.contextPath }/front/mycenter/modify">
-				
-					<input type="hidden" name="id" value="${sessionScope.user.id}" />
-					<div class="input-group input-group-lg">
-					  <span class="input-group-addon">用户名</span>
-					  <input type="text" class="form-control" placeholder="用户名不能为空" value="">
-					</div>
-					
-					<div class="input-group input-group-lg">
-					  <span class="input-group-addon">密&nbsp;&nbsp;&nbsp;码</span>
-					  <input type="text" class="form-control" placeholder="密码名不能为空" value="">
-					</div>
-					
-					
-					<div class="input-group input-group-lg">
-					  <span class="input-group-addon">重复密码</span>
-					  <input type="text" class="form-control" placeholder="重复密码名不能为空" value="">
-					</div>
-					
-					<div class="input-group input-group-lg">
-					  <span class="input-group-addon">EMAIL</span>
-					  <input type="text" class="form-control" placeholder="EMAIL不能为空" value="">
-					</div>
-					
-					<div class="input-group input-group-lg">
-					  <span class="input-group-addon">电&nbsp;&nbsp;&nbsp;话</span>
-					  <input type="text" class="form-control" placeholder="电话不能为空" value="">
-					</div>
-					
-					<div class="input-group input-group-lg">
-					  <span class="input-group-addon">真是姓名</span>
-					  <input type="text" class="form-control" placeholder="真是姓名不能为空" value="">
-					</div>
-					
-					<div class="input-group input-group-lg">
-					  <span class="input-group-addon">所属公司</span>
-					  <input type="text" class="form-control" placeholder="所属公司不能为空" value="">
-					</div>
-					
-					<div class="input-group input-group-lg control-group info" style="width: 100%;min-width: 800px;text-align: center;">
-						<div class="controls" style="float: left;text-align: right;width: 40%">
-							<a style="width: 250px;" class="btn btn-primary btn-lg" id="updateUser">提交</a>
-						</div>
-						
-						<div class="controls" style="float: right;text-align: left;width: 40%">
-							<a href="${pageContext.request.contextPath }/front/login/toLogin" style="width: 250px" class="btn btn-primary btn-lg" id="updateUser">取消</a>
-						</div>
-					</div>
 
-				
-				</form>		
+		<form class="form-horizontal" style="margin-top: 30px; width: 100px;"
+			action="${pageContext.request.contextPath }/front/regist/regist">
+
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon">用户名</span> <input type="text" name="name"
+					class="form-control" placeholder="用户名不能为空" value="">
+			</div>
+
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon">密&nbsp;&nbsp;&nbsp;码</span> <input name="password"
+					type="text" class="form-control" placeholder="密码名不能为空" value="">
+			</div>
+
+
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon">重复密码</span> <input type="text" name="repassword"
+					class="form-control" placeholder="重复密码名不能为空" value="">
+			</div>
+
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon">EMAIL</span> <input type="text" name="email"
+					class="form-control" placeholder="EMAIL不能为空" value="">
+			</div>
+
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon">电&nbsp;&nbsp;&nbsp;话</span> <input name="telephone"
+					type="text" class="form-control" placeholder="电话不能为空" value="">
+			</div>
+
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon">真是姓名</span> <input type="text" name="realname"
+					class="form-control" placeholder="真是姓名不能为空" value="">
+			</div>
+
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon">所属公司</span> <input type="text" name="companyname"
+					class="form-control" placeholder="所属公司不能为空" value="">
+			</div>
+
+			<div class="input-group input-group-lg control-group info"
+				style="width: 100%; min-width: 800px; text-align: center;">
+				<div class="controls"
+					style="float: left; text-align: right; width: 40%">
+					<a style="width: 250px;" class="btn btn-primary btn-lg"
+						id="regist">注册</a>
+				</div>
+
+				<div class="controls"
+					style="float: right; text-align: left; width: 40%">
+					<a href="${pageContext.request.contextPath }/front/login/toLogin"
+						style="width: 250px" class="btn btn-primary btn-lg"
+						id="updateUser">取消</a>
+				</div>
+			</div>
+
+
+		</form>
 	</div>
 
 </body>

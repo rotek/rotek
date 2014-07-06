@@ -61,8 +61,15 @@ body {
 
 <script type="text/javascript">
 	
-	
-	
+	$(function(){
+		
+		var msg = '${msg}';
+		if('fail_blank' == msg){
+			alert("用户名或密码不能为空");
+		}else if("fail" == msg){
+			alert("用户名或密码错误");
+		}
+	});
 </script>
 </head>
 
@@ -70,10 +77,10 @@ body {
 
 	<div class="container">
 
-		<form class="form-signin" action="${pageContext.request.contextPath }/front/mycenter/toMycenter">
+		<form class="form-signin" action="${pageContext.request.contextPath }/front/login/login">
 			<h2 class="form-signin-heading">登录</h2>
-			<input type="text" class="input-block-level" placeholder="请输入用户名">
-			<input type="password" class="input-block-level" placeholder="请输入密码">
+			<input name="name" type="text" class="input-block-level" placeholder="请输入用户名">
+			<input name="password" type="password" class="input-block-level" placeholder="请输入密码">
 
 			<button class="btn btn-large btn-primary" type="submit">登录</button>
 			<a href="${pageContext.request.contextPath }/front/login/toRegist"><button class="btn btn-large btn-success" type="button">注册</button></a>
