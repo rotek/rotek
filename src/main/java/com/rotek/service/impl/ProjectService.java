@@ -169,6 +169,10 @@ public class ProjectService {
 		return projectDao.getProjectById(id);
 	}
 	
+	public ProjectDto getProjectDtoById(Integer id) throws SQLException {
+		return projectDao.getProjectDtoById(id);
+	}
+	
 	public List<String> modifyProject(ProjectEntity project,MultipartHttpServletRequest multipartRequest) 
 			throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, IllegalStateException, IOException {
 

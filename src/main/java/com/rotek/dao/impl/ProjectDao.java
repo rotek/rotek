@@ -76,6 +76,13 @@ public class ProjectDao extends BaseDaoImpl{
 		return this.selectOne(sql,new Integer[]{id},ProjectEntity.class);
 	}
 	
+	public ProjectDto getProjectDtoById(Integer id) throws SQLException {
+		String sql = "select r.*,custo.MC AS CUSTOMER_NAME from r_project r "
+				+ " left join r_customer custo on custo.ID = r.r_customer_id "
+				+ " where r.id = ?";
+		return this.selectOne(sql,new Integer[]{id},ProjectDto.class);
+	}
+	
 	/**
 	* @MethodName: modifyProject 
 	* @Description: 修改工程信息

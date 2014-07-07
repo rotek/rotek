@@ -36,6 +36,7 @@ import com.rotek.entity.CustomerEntity;
 import com.rotek.entity.ProjectEntity;
 import com.rotek.service.impl.CustomerService;
 import com.rotek.service.impl.ProjectService;
+import com.rotek.util.ProjectUtils;
 
 /**
  * @ClassName:ProjectController
@@ -94,7 +95,7 @@ public class ProjectController {
 		Integer pageNo = (start / limit);
 		pager.setRowsPerPage(limit);
 		pager.setPageNo(pageNo);
-
+		
 		ProjectEntity project = new ProjectEntity();
 		project.setId(id);
 		project.setGcmc(gcmc);
@@ -173,6 +174,47 @@ public class ProjectController {
 			ModelMap model) throws SQLException {
 
 		ProjectEntity project = projectService.getProjectById(id);
+		model.put("data", project);
+		return "jsonView";
+	}
+	
+	/**
+	* @MethodName: goDuiweiProject 
+	* @Description: 转到工程对位页面
+	* @param id
+	* @param model
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("/goDuiweiUrl")
+	public String goDuiweiProject(
+			@RequestParam(value = "id", defaultValue = "") Integer id,
+			ModelMap model) throws SQLException {
+
+		ProjectDto project = projectService.getProjectDtoById(id);
+		//获取所有现场编号
+		List<String> tempList =  ProjectUtils.getProjectCode() ;
+		project.setLocalCodes(tempList);
+		model.put("data", project);
+		return "jsonView";
+	}
+	
+	/**
+	* @MethodName: duiweiProject 
+	* @Description: 工程对位，把现场工程的编号和库中工程信息进行对位
+	* @param id
+	* @param model
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("/duiweiUrl")
+	public String duiweiProject(
+			@RequestParam(value = "id", defaultValue = "") Integer id,
+			ModelMap model) throws SQLException {
+
+		ProjectDto project = projectService.getProjectDtoById(id);
 		model.put("data", project);
 		return "jsonView";
 	}

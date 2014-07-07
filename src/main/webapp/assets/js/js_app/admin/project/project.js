@@ -75,7 +75,9 @@ ROTEK.Project.params = {
 		detailUrl : basePath + "/admin/projectinfo/getProjectDetail",
 		modifyUrl : basePath + "/admin/projectinfo/modifyProject",
 		dropUrl : basePath + "/admin/projectinfo/deleteProject",
-		listCustomerUrl : basePath + "/admin/projectinfo/selectCustomers"
+		listCustomerUrl : basePath + "/admin/projectinfo/selectCustomers",
+		goDuiweiUrl : basePath + "/admin/projectinfo/goDuiweiUrl",
+		duiweiUrl : basePath + "/admin/projectinfo/duiweiProject",
 	}
 };
 
@@ -457,6 +459,95 @@ if(toolbar.get("button_query")){
 			handler : queryHandler
 		});
 		queryWindow.show();
+	});
+}
+
+// 工程对位
+if(toolbar.get("button_projectDuiwei")){
+	toolbar.get("button_projectDuiwei").setHandler(function() {
+		var selections = gridPanel.getSelectionModel().getSelections();
+		if (!selections || selections.length <= 0) {
+			Ext.Msg.alert('提示', '请选择一条您要对位的工程!');
+			return;
+		}
+		var id = selections[0].get("id");
+		Ext.Ajax.request({
+			url : ROTEK.Project.params.url.goDuiweiUrl,
+			params : {
+				id : id
+			},
+			success : function(response) {
+				var data = Ext.util.JSON.decode(response.responseText).data;
+				var formPanel = new CTA.common.SFormPanel({
+					fileUpload : true,
+					items : [ {
+						xtype : 'hidden',
+						name : 'id'
+					}, {
+						fieldLabel : '客户名称',
+						name : 'customer_name',
+						disable : true,
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '工程名称',
+						name : 'gcmc',
+						disable : true,
+						minLength : 1,
+						maxLength : 100
+					}/*,{
+		    			xtype : 'combo',
+		    			fieldLabel : '现场工程编号',
+		    			emptyText : '请选择现场工程编号',
+		    			name : 'id',
+		    			hiddenName : 'r_customer_id',
+		    			triggerAction : 'all',
+		    			displayField : 'mc',
+		    			valueField : 'id',
+		    			editable : false,
+		    			store : new Ext.data.Store({
+		    				reader : new Ext.data.JsonReader({
+		    					root : 'localCodes',
+		    					fields : [ {
+		    						name : 'id'
+		    					}, {
+		    						name : 'mc'
+		    					} ]
+		    				}),
+		    				proxy : new Ext.data.HttpProxy({
+		    					url : ROTEK.Project.params.url.goDuiweiUrl
+		    				})
+		    			})
+		    		}*/],
+					data : data
+				});
+	
+				var updateWindow = new CTA.common.UpdateWindow({
+					id : 'updateWindow',
+					width : '50%',
+					height : 350,
+					layout : 'border',
+					items : [ formPanel ],
+					handler : function() {
+						//检查表单是否填写好
+						if (formPanel.getForm().isValid()) {
+							CTA.common.Mask.showMask({
+								target : 'updateWindow'
+							});
+							formPanel.commit({
+								url : ROTEK.Project.params.url.duiweiUrl
+							});
+						}
+					}
+				});
+	
+				updateWindow.show();
+			},
+			failure : function() {
+				CTA.common.Mask.hideMask();
+				Ext.Msg.alert('提示', '操作失败!');
+			}
+		});
 	});
 }
 
