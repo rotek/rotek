@@ -20,7 +20,7 @@ import com.cta.platform.persistence.annotation.Table;
 * @Version:1.1.0
 */
 @Table(name = "r_component_detail")
-public class ComponentDetailEntity implements Serializable {
+public class ComponentDetailEntity extends BaseEntity{
 
 	/**  @Fields serialVersionUID   @Description:  */
 	private static final long serialVersionUID = 2843425794297136575L;

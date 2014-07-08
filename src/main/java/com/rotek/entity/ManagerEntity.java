@@ -50,7 +50,6 @@ public class ManagerEntity extends BaseEntity{
 	@Column(name = "name")
 	private String name;
 	//
-	@NotEmpty
 	@Column(name = "r_role_id")
 	private Integer r_role_id;
 	//
@@ -77,7 +76,7 @@ public class ManagerEntity extends BaseEntity{
 	@Column(name = "companyname")
 	private String companyname;
 	// 用户的类型状态 -1 不可用 1代表管理员
-	@NotEmpty
+	@NotEmpty(message="状态不能为空")
 	@Column(name = "status")
 	private Integer status;
 

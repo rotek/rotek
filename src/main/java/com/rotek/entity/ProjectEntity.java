@@ -20,7 +20,7 @@ import com.cta.platform.persistence.annotation.Table;
  * @Version:1.1.0
  */
 @Table(name = "r_project")
-public class ProjectEntity implements Serializable {
+public class ProjectEntity extends BaseEntity {
 
 	/** 
 	 * @Fields serialVersionUID 

@@ -15,15 +15,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.rotek.service.impl.IndexService;
+import com.rotek.dto.UserDto;
+import com.rotek.entity.ComponentDetailEntity;
+import com.rotek.entity.ComponentGroupEntity;
+import com.rotek.entity.ProjectEntity;
+import com.rotek.service.impl.ComponentDetailService;
+import com.rotek.service.impl.ComponentGroupService;
+import com.rotek.service.impl.ProjectService;
 import com.rotek.util.DateTimeUtil;
 
 /**
@@ -36,9 +42,15 @@ import com.rotek.util.DateTimeUtil;
 @RequestMapping("/front/water")
 public class FrontWaterController {
 
-	@Autowired
-	private IndexService indexservice;
-
+	@Resource
+	private ProjectService projectService;
+ 
+	@Resource
+	private ComponentGroupService componentGroupService;
+	
+	@Resource
+	private  ComponentDetailService componentDetailService;
+	
 	/**
 	 * 返回水质监测页
 	 * 
@@ -60,16 +72,11 @@ public class FrontWaterController {
 	 */
 	@RequestMapping("toWaterMonitorStatistic")
 	public String toWaterMonitorStatistic(HttpServletRequest request,
-			ModelMap modelMap) throws SQLException {
+			ModelMap modelMap,UserDto user) throws SQLException {
 
-		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>(
-				3);
-		Map<String, Object> data = new HashMap<String, Object>(2);
-		data.put("id", 1);
-		data.put("name", "工程");
-		dataList.add(data);
+		List<ProjectEntity> projectList = projectService.getProjectListByCustomerId(user.getR_customer_id());
 
-		modelMap.put("dataList", dataList);
+		modelMap.put("dataList", projectList);
 		return "front/waterMonitorStatistic";
 	}
 
@@ -80,17 +87,13 @@ public class FrontWaterController {
 	 * @throws SQLException
 	 */
 	@RequestMapping("listComponents")
-	public String listComponents(HttpServletRequest request, ModelMap modelMap)
+	public String listComponents(HttpServletRequest request, ModelMap modelMap,
+			@RequestParam(defaultValue="0",value="projectId") Integer projectId)
 			throws SQLException {
 
-		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>(
-				3);
-		Map<String, Object> data = new HashMap<String, Object>(2);
-		data.put("id", 1);
-		data.put("name", "泵");
-		dataList.add(data);
+		List<ComponentGroupEntity> cgList = componentGroupService.getComGroupListByProjectId(projectId);
 
-		modelMap.put("dataList", dataList);
+		modelMap.put("dataList", cgList);
 		
 		return "jsonView";
 	}
@@ -102,17 +105,12 @@ public class FrontWaterController {
 	 * @throws SQLException
 	 */
 	@RequestMapping("listComponentParts")
-	public String listComponentParts(HttpServletRequest request, ModelMap modelMap)
+	public String listComponentParts(HttpServletRequest request, ModelMap modelMap,
+			@RequestParam(defaultValue="0",value="componentId") Integer componentId)
 			throws SQLException {
 		
-		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>(
-				3);
-		Map<String, Object> data = new HashMap<String, Object>(2);
-		data.put("id", 1);
-		data.put("name", "泵前");
-		dataList.add(data);
-		
-		modelMap.put("dataList", dataList);
+		List<ComponentDetailEntity> cdList = componentDetailService.getListByComponentGroupId(componentId);
+		modelMap.put("dataList", cdList);
 		
 		return "jsonView";
 	}

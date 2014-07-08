@@ -60,8 +60,8 @@ public class FrontLoginController {
 	public String login(HttpServletRequest request, ModelMap modelMap,
 			ManagerEntity manager) throws SQLException {
 
-		String msg = loginService.login(manager.getName(),
-				manager.getPassword(), request);
+		String msg = loginService.login(manager.getName(),manager.getPassword(), request);
+		
 		if ("success".equals(msg)) {
 			return "redirect:/front/mycenter/toMycenter";
 		} else {
@@ -69,5 +69,4 @@ public class FrontLoginController {
 			return "front/login";
 		}
 	}
-
 }

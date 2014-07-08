@@ -21,8 +21,20 @@
 
 	<div class="r_container">
 		
+		<div class="left">
+			<div style="background-color: #2ac1f2">
+				<div class="l_box">
+					<div class="l_header">新闻公告</div>
 		
-		<div style="padding: 10px 0px 5px 0px; border: solid 1px #dddddd">
+					<div class="active l_menu">
+						<a href="#">新闻公告</a>
+					</div>
+				</div>
+		
+			</div>
+		</div>
+		
+		<div style="padding: 10px 0px 5px 0px; border: solid 1px #dddddd;padding-left: 10px">
 
 
 					<table id="example" class="cell-border" cellspacing="0"
@@ -37,6 +49,84 @@
 						</thead>
 
 						<tbody>
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>新闻</td>
+							</tr>
+							
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>新闻</td>
+							</tr>
+							
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>新闻</td>
+							</tr>
+							
+							
+							
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>新闻</td>
+							</tr>
+							
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>新闻</td>
+							</tr>
+							
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>新闻</td>
+							</tr>
+							
+							
+							
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>新闻</td>
+							</tr>
+							
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>新闻</td>
+							</tr>
+							
+							
+							<tr>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
+								<td>管理员1</td>
+								<td>2014-06-28</td>
+								<td>新闻</td>
+							</tr>
+							
+							
+							
 							
 							<tr>
 								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>

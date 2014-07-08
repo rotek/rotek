@@ -104,7 +104,17 @@ public class ProjectDao extends BaseDaoImpl{
 	public void deleteProject(String sql) throws SQLException {
 		this.executeUpdate(sql);
 	}
-	
-	
+
+	/**
+	 * @param r_customer_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<ProjectEntity> getProjectListByCustomerId(Integer r_customer_id) throws SQLException {
+		
+		String sql = "select * From r_project where R_CUSTOMER_ID = ? and status = ?";
+		
+		return this.selectAll(sql, new Integer[]{r_customer_id,ProjectEntity.STATUS_ENABLED}, ProjectEntity.class);
+	}
 	
 }

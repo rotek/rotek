@@ -74,6 +74,7 @@ function formatDate(date, format) {
 			
 			 $.ajax({
 			 	url : "${pageContext.request.contextPath }/front/water/listComponents",
+			 	data : {projectId : e.val},
 			 	success : function(response){
 			 		if(response && response.dataList && response.dataList.length > 0){
 			 			//更新input现场信息
@@ -81,11 +82,9 @@ function formatDate(date, format) {
 			 			
 			 			var componentList = [];
 			 			$.each(response.dataList,function(index,item){
-			 				console.log(index);
-			 				console.log(item);
 			 				var data = {
 			 					id : item.id,
-			 					text :item.name
+			 					text :item.group_mc
 			 				};
 			 				componentList.push(data);
 			 			});
@@ -97,6 +96,7 @@ function formatDate(date, format) {
 						
 								$.ajax({
 								 	url : "${pageContext.request.contextPath }/front/water/listComponentParts",
+								 	data : {componentId : e.val},
 								 	success : function(response){
 								 		if(response && response.dataList){
 									 		//更新input零件信息
@@ -104,11 +104,9 @@ function formatDate(date, format) {
 									 		
 									 		var componentPartList = [];
 								 			$.each(response.dataList,function(index,item){
-								 				console.log(index);
-								 				console.log(item);
 								 				var data = {
 								 					id : item.id,
-								 					text :item.name
+								 					text :item.specific_part
 								 				};
 								 				componentPartList.push(data);
 								 			});
@@ -276,7 +274,7 @@ function formatDate(date, format) {
 					<select id="xc" style="width: 250px">
 						<option value=""></option>
 					 <c:forEach items="${dataList}" var="data">
-						<option value="${data.id}">${data.name}</option>
+						<option value="${data.id}">${data.gcmc}</option>
 					</c:forEach>
 					</select> 
 					

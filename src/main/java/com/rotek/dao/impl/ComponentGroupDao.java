@@ -116,7 +116,11 @@ public class ComponentGroupDao extends BaseDaoImpl{
 		
 		return selectAll(sql.toString(), new Integer[]{}, ComponentGroupEntity.class);
 	}
-	
-	
-	
+
+	public List<ComponentGroupEntity> getComGroupListByProjectId(
+			Integer projectId) throws SQLException {
+		String sql = "select * From r_component_group where r_project_id = ? and status = ?";
+		
+		return selectAll(sql, new Integer[]{projectId,ComponentGroupEntity.STATUS_ENABLED}, ComponentGroupEntity.class);
+	}
 }

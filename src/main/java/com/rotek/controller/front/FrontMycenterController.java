@@ -8,6 +8,7 @@
  */
 package com.rotek.controller.front;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,11 +46,9 @@ public class FrontMycenterController {
 	 * @throws SQLException
 	 */
 	@RequestMapping("toMycenter")
-	public String getIndex(HttpServletRequest request, ModelMap modelMap,UserDto user)
+	public String toMycenter(HttpServletRequest request, ModelMap modelMap)
 			throws SQLException {
 		
-		UserDto userInDb = loginDao.getUserById(user.getId());
-		request.getSession().setAttribute(SessionParams.USER, userInDb);
 		return "front/mycenter";
 	}
 	
@@ -58,13 +57,28 @@ public class FrontMycenterController {
 	 * @param modelMap
 	 * @return
 	 * @throws SQLException
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
 	@RequestMapping("modify")
 	public String modifyMyInfo(HttpServletRequest request, ModelMap modelMap,UserDto frontUser)
-			throws SQLException {
+			throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		
-		managerDao.modifyManager(frontUser);
+		frontUser.setStatus(UserDto.STATUS_ENABLED);
+		String msg = managerDao.modifyManager(frontUser);
+		if ("success".equals(msg)) {
+			
+			UserDto userInSession = (UserDto) request.getSession().getAttribute(SessionParams.USER);
+			frontUser.setR_customer_id(userInSession.getR_customer_id());
+			frontUser.setR_role_id(frontUser.getR_role_id());
+			
+			request.getSession().setAttribute(SessionParams.USER, frontUser);
+		}else{
+			
+			modelMap.put("msg", msg);
+		}
 		
-		return "redirect:/front/mycenter/toMycenter";
+		return this.toMycenter(request, modelMap);
 	}
 }

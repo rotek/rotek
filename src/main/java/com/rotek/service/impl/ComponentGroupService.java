@@ -188,12 +188,14 @@ public class ComponentGroupService {
 
 	public List<ComponentGroupEntity> selectGroupByPid(Integer projectId,
 			Integer componentType, int code)throws SQLException {
-		// TODO Auto-generated method stub
+		
+		
 		return comgroupDao.selectGroupByPid(projectId, componentType, code);
 	}
-	
-	
-	
 
-	
+	public List<ComponentGroupEntity> getComGroupListByProjectId(
+			Integer projectId) throws SQLException {
+		
+		return comgroupDao.getComGroupListByProjectId(projectId);
+	}
 }

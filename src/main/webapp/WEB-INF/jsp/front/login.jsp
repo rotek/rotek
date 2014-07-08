@@ -83,7 +83,7 @@ body {
 			<input name="password" type="password" class="input-block-level" placeholder="请输入密码">
 
 			<button class="btn btn-large btn-primary" type="submit">登录</button>
-			<a href="${pageContext.request.contextPath }/front/login/toRegist"><button class="btn btn-large btn-success" type="button">注册</button></a>
+			<a href="${pageContext.request.contextPath }/front/regist/toRegist"><button class="btn btn-large btn-success" type="button">注册</button></a>
 			
 			<a href="${pageContext.request.contextPath }/front/mycenter/toMycenter"><button style="float: right" class="btn btn-large btn-warning" type="button">访客登入</button></a>
 		</form>

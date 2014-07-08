@@ -65,9 +65,13 @@ body {
 
 		var msg = '${msg}';
 		if (msg) {
-			alert(msg);
+			var msgArr = msg.split(";");
+			var msgs = "";
+			$.each(msgArr,function(index,data){
+				msgs += data + "\n";
+			});
+			alert(msgs);
 		}
-		console.log(msg);
 		
 		$("#regist").click(function(){
 			
@@ -87,42 +91,42 @@ body {
 	<div class="container">
 
 		<form class="form-horizontal" style="margin-top: 30px; width: 100px;"
-			action="${pageContext.request.contextPath }/front/regist/regist">
+			action="${pageContext.request.contextPath }/front/regist/regist" method="post">
 
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon">用户名</span> <input type="text" name="name"
-					class="form-control" placeholder="用户名不能为空" value="">
+					class="form-control" placeholder="用户名不能为空" value="${manager.name}">
 			</div>
 
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon">密&nbsp;&nbsp;&nbsp;码</span> <input name="password"
-					type="text" class="form-control" placeholder="密码名不能为空" value="">
+					type="text" class="form-control" placeholder="密码名不能为空" value="${manager.password}">
 			</div>
 
 
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon">重复密码</span> <input type="text" name="repassword"
-					class="form-control" placeholder="重复密码名不能为空" value="">
+					class="form-control" placeholder="重复密码名不能为空" value="${manager.password}">
 			</div>
 
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon">EMAIL</span> <input type="text" name="email"
-					class="form-control" placeholder="EMAIL不能为空" value="">
+					class="form-control" placeholder="EMAIL不能为空" value="${manager.email}">
 			</div>
 
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon">电&nbsp;&nbsp;&nbsp;话</span> <input name="telephone"
-					type="text" class="form-control" placeholder="电话不能为空" value="">
+					type="text" class="form-control" placeholder="电话不能为空" value="${manager.telephone}">
 			</div>
 
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon">真是姓名</span> <input type="text" name="realname"
-					class="form-control" placeholder="真是姓名不能为空" value="">
+					class="form-control" placeholder="真是姓名不能为空" value="${manager.realname}">
 			</div>
 
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon">所属公司</span> <input type="text" name="companyname"
-					class="form-control" placeholder="所属公司不能为空" value="">
+					class="form-control" placeholder="所属公司不能为空" value="${manager.companyname}">
 			</div>
 
 			<div class="input-group input-group-lg control-group info"

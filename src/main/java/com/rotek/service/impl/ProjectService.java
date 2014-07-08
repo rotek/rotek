@@ -240,9 +240,15 @@ public class ProjectService {
 		projectDao.deleteProject(sql.toString());
 		return messages;
 	}
-	
-	
-	
 
-	
+	/**
+	 * @param r_customer_id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<ProjectEntity> getProjectListByCustomerId(Integer r_customer_id)
+			throws SQLException {
+		
+		return projectDao.getProjectListByCustomerId(r_customer_id);
+	}
 }

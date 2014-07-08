@@ -19,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.rotek.constant.SessionParams;
+import com.rotek.dto.UserDto;
 import com.rotek.entity.ManagerEntity;
 import com.rotek.service.impl.RegistService;
 
@@ -61,15 +62,17 @@ public class FrontRegistController {
 	 */
 	@RequestMapping("regist")
 	public String regist(HttpServletRequest request, ModelMap modelMap,
-			ManagerEntity manager) throws SQLException, IllegalAccessException,
+			UserDto manager) throws SQLException, IllegalAccessException,
 			InvocationTargetException, NoSuchMethodException {
 
 		String msg = registService.regist(manager);
 		if ("success".equals(msg)) {
+			
 			request.getSession().setAttribute(SessionParams.USER, manager);
 			return "redirect:/front/mycenter/toMycenter";
 		} else {
 			modelMap.put("msg", msg);
+			modelMap.put("manager", manager);
 			return "front/regist";
 		}
 	}

@@ -6,8 +6,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cta.platform.util.ListPager;
@@ -29,7 +30,7 @@ import com.rotek.entity.ProjectEntity;
 @Service
 public class ComponentDetailService {
 
-	@Autowired
+	@Resource
 	private ComponentDetailDao comgroupDao;
 	
 	/**
@@ -173,9 +174,10 @@ public class ComponentDetailService {
 		comgroupDao.deleteComDetail(sql.toString());
 		return messages;
 	}
-	
-	
-	
 
-	
+	public List<ComponentDetailEntity> getListByComponentGroupId(
+			Integer componentId) throws SQLException {
+		
+		return comgroupDao.getListByComponentGroupId(componentId);
+	}
 }
