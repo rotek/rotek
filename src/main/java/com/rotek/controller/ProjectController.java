@@ -209,14 +209,22 @@ public class ProjectController {
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	@RequestMapping("/duiweiUrl")
-	public String duiweiProject(
+	@RequestMapping("/duiweiProject")
+	public void duiweiProject(
 			@RequestParam(value = "id", defaultValue = "") Integer id,
-			ModelMap model) throws SQLException {
+			@RequestParam(value = "locale_gcbh", defaultValue = "") String locale_gcbh,
+			HttpServletRequest request,HttpServletResponse response, ModelMap model) throws Exception {
 
-		ProjectDto project = projectService.getProjectDtoById(id);
-		model.put("data", project);
-		return "jsonView";
+		ProjectEntity project = projectService.getProjectById(id);
+		project.setLocale_gcbh(locale_gcbh);
+		
+		projectService.updateProject(project);
+		JSONObject json = new JSONObject();
+		json.put("success", true);
+		response.setStatus(200);
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.write(json.toString());
 	}
 
 	/**

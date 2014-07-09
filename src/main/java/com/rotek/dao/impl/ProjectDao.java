@@ -116,5 +116,16 @@ public class ProjectDao extends BaseDaoImpl{
 		
 		return this.selectAll(sql, new Integer[]{r_customer_id,ProjectEntity.STATUS_ENABLED}, ProjectEntity.class);
 	}
+
+	/**
+	* @MethodName: updateProject 
+	* @Description: 更新操作
+	* @param pe
+	* @author WangJuZhu
+	*/
+	public void updateProject(ProjectEntity pe)throws SQLException {
+		// TODO Auto-generated method stub
+		this.update(pe);
+	}
 	
 }

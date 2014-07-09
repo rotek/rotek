@@ -248,7 +248,18 @@ public class ProjectService {
 	 */
 	public List<ProjectEntity> getProjectListByCustomerId(Integer r_customer_id)
 			throws SQLException {
-		
 		return projectDao.getProjectListByCustomerId(r_customer_id);
 	}
+	
+	/**
+	* @MethodName: updateProject 
+	* @Description: 更新操作
+	* @param pe
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public void updateProject(ProjectEntity project) throws SQLException {
+		projectDao.updateProject(project);
+	}
+	
 }

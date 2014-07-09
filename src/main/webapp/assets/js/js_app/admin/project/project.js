@@ -24,6 +24,11 @@ ROTEK.Project.params = {
 			width : 50,
 			align : 'center'
 		}, {
+			index : 'locale_gcbh',
+			header : '现场工程编号',
+			width : 50,
+			align : 'center'
+		}, {
 			index : 'gcjs',
 			header : '工程介绍',
 			width : 80,
@@ -486,46 +491,35 @@ if(toolbar.get("button_projectDuiwei")){
 					}, {
 						fieldLabel : '客户名称',
 						name : 'customer_name',
-						disable : true,
+						disabled : true,
 						minLength : 1,
 						maxLength : 100
 					}, {
 						fieldLabel : '工程名称',
 						name : 'gcmc',
-						disable : true,
+						disabled : true,
 						minLength : 1,
 						maxLength : 100
-					}/*,{
+					},{
 		    			xtype : 'combo',
 		    			fieldLabel : '现场工程编号',
 		    			emptyText : '请选择现场工程编号',
-		    			name : 'id',
-		    			hiddenName : 'r_customer_id',
+		    			name : 'locale_gcbh',
+		    			forceSelection: true,
+		    			hiddenName : 'locale_gcbh',
 		    			triggerAction : 'all',
-		    			displayField : 'mc',
-		    			valueField : 'id',
+		    			displayField : 'text',
+		    			valueField : 'value',
 		    			editable : false,
-		    			store : new Ext.data.Store({
-		    				reader : new Ext.data.JsonReader({
-		    					root : 'localCodes',
-		    					fields : [ {
-		    						name : 'id'
-		    					}, {
-		    						name : 'mc'
-		    					} ]
-		    				}),
-		    				proxy : new Ext.data.HttpProxy({
-		    					url : ROTEK.Project.params.url.goDuiweiUrl
-		    				})
-		    			})
-		    		}*/],
+		    			store : data.localCodes
+		    		}],
 					data : data
 				});
 	
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
-					width : '50%',
-					height : 350,
+					width : '40%',
+					height : 300,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
