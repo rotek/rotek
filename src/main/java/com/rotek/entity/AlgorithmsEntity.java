@@ -34,73 +34,73 @@ public class AlgorithmsEntity extends BaseEntity {
 	@Column(name = "R_ALGORITHMTYPE_ID")    // 算法ID外键
 	private Integer r_algorithmtype_id ;                            
 
-	@Column(name = "R_CUSTOMER_ID")                // 客户ID外键
+	@Column(name = "R_CUSTOMER_ID")   		// 客户ID外键
 	private Integer r_customer_id ;    
 
-	@Column(name = "R_PROJECT_ID")                    // 工程ID外键
+	@Column(name = "R_PROJECT_ID")  		// 工程ID外键
 	private Integer r_project_id ;    			                 
 
-	@Column(name = "R_COMPONET_ID")              // 零件ID外键
+	@Column(name = "R_COMPONET_ID")  		// 零件ID外键
 	private Integer r_component_id ;    		   
 
-	@Column(name = "R_COMPONET_DETAIL_ID")   // 零件部位ID外键
+	@Column(name = "R_COMPONET_DETAIL_ID")	// 零件部位ID外键
 	private Integer r_component_detail_id ;  		     
 	
-	@Column(name = "MONITORTYPE")                      // 监测类型：1-水质监测，2-流量监测，3-压力监测，4-EMC水质监测，5-EMC流量监测，6-EMC压力监测
+	@Column(name = "MONITORTYPE")  			// 监测类型：1-水质监测，2-流量监测，3-压力监测，4-EMC水质监测，5-EMC流量监测，6-EMC压力监测
 	private Integer monitortype;
 	
-	@Column(name = "SPECIFICPARTPARAM")  // 零件部位的参数名称
+	@Column(name = "SPECIFICPARTPARAM")  	// 零件部位的参数名称
 	private String	specificpartparam ;    		  
 
-	@Column(name = "SPECIFICPARTEDZ")        // 零件部位的参数对应的额定值
+	@Column(name = "SPECIFICPARTEDZ")    	// 零件部位的参数对应的额定值
 	private String	specificpartedz ;  		 
 
-	@Column(name = "LJGHSJ")                                      // 零件更换时间
+	@Column(name = "LJGHSJ")    			// 零件更换时间
 	private Date ljghsj ;   	         
 
-	@Column(name = "LJEDYXSJ")                                // 零件额定运行时间标准值（小时）
+	@Column(name = "LJEDYXSJ")    			// 零件额定运行时间标准值（小时）
 	private	Integer	ljedyxsj ;      	 	
 
-	@Column(name = "LJYXSJ")                                     // 累计运行时间（小时）=目前时间-更换时间(小时)
+	@Column(name = "LJYXSJ")  				// 累计运行时间（小时）=目前时间-更换时间(小时)
 	private Integer	ljyxsj ;    		  
 
-	@Column(name = "GLQCESJ")							        // 过滤器超额时间设置[N]
+	@Column(name = "GLQCESJ")			 	// 过滤器超额时间设置[N]
 	private Integer	glqcesj ;  		  
 
-	@Column(name = "GLQCEBFB")								 // 过滤器超额百分比设置[n]
+	@Column(name = "GLQCEBFB")				// 过滤器超额百分比设置[n]
 	private Double glqcebfb ;      		 
 
-	@Column(name = "MXTCSLLCESJ")                      // 膜系统产水流量超额时间设置[N]
+	@Column(name = "MXTCSLLCESJ")			// 膜系统产水流量超额时间设置[N]
 	private Integer lxfs ;  		      
 
-	@Column(name = "MXTCSLLBZ")                         // 膜系统产水流量标准值[S]
+	@Column(name = "MXTCSLLBZ")				// 膜系统产水流量标准值[S]
 	private Double mxtcsllbz ;   	         
 
-	@Column(name = "MXTHSLCESJ")                      // 膜系统回收率超额时间[N]
+	@Column(name = "MXTHSLCESJ")       		// 膜系统回收率超额时间[N]
 	private	Integer	mxthslcesj ;      	  
 
-	@Column(name = "MXTHSLBZ")                         // 膜系统回收率标准值[S]
+	@Column(name = "MXTHSLBZ")       		// 膜系统回收率标准值[S]
 	private Double	mxthslbz ;    		  
  
-	@Column(name = "DWSJYLSD")                         // 单位时间用量设定值[S]
+	@Column(name = "DWSJYLSD")   			// 单位时间用量设定值[S]
 	private Integer	dwsjylsd ;  		  
 
-	@Column(name = "DYSYLTJ")                           // 月使用量统计
+	@Column(name = "DYSYLTJ")      			// 月使用量统计
 	private Integer dysyltj ;      		  
 
-	@Column(name = "MXTCSDDLCESJ")              // 膜系统产水电导率超额时间设置[N]
+	@Column(name = "MXTCSDDLCESJ") 			// 膜系统产水电导率超额时间设置[N]
 	private Integer mxtcsddlcesj ;   	         
 
-	@Column(name = "MXTCSDDLBZ")                  // 膜系统产水电导率标准值[S]
+	@Column(name = "MXTCSDDLBZ")     		// 膜系统产水电导率标准值[S]
 	private	Double	mxtcsddlbz ;      	  	
 	
-	@Column(name = "SITEREALDATATABLE")              // 现场实时数据表名称
+	@Column(name = "SITEREALDATATABLE")		// 现场实时数据表名称
 	private Integer siterealdatatable ;   	         
 
-	@Column(name = "SITEREALDATAField")                  // 现场实时数据字段名称
+	@Column(name = "SITEREALDATAField") 	// 现场实时数据字段名称
 	private	Double	siterealdatafield ;      	  	
 
-	@Column(name = "STATUS")                             // 是否可用
+	@Column(name = "STATUS")     			// 是否可用
 	private Integer status ;
 
 	public Integer getId() {
