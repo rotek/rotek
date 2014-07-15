@@ -48,7 +48,6 @@ public class ValidateUtil {
 	* @return List<String>
 	* @throws
 	*/
-	@SuppressWarnings("unchecked")
 	public static <T> List<String> validate(T entity) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		List<String> messages = new LinkedList<String>();
 		Class<?> clazz = entity.getClass();
