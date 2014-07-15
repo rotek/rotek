@@ -19,8 +19,14 @@ public class ComponentGroupDto extends ComponentGroupEntity {
 	private static final long serialVersionUID = -1234096955270329798L;
 	
 	@Column(name = "PROJECT_NAME")
-	private String project_name;               // 工程名称
-
+	private String project_name;   // 工程名称
+	
+	@Column(name = "CUSTOMER_ID")
+	private Integer customer_id;   // 客户ID
+	
+	@Column(name = "CUSTOMER_NAME")
+	private String customer_name;  // 客户名称
+	
 	/** @return project_name */
 	public String getProject_name() {
 		return project_name;
@@ -29,6 +35,26 @@ public class ComponentGroupDto extends ComponentGroupEntity {
 	/** @param project_name project_name to set */
 	public void setProject_name(String project_name) {
 		this.project_name = project_name;
+	}
+
+	/** @return customer_id */
+	public Integer getCustomer_id() {
+		return customer_id;
+	}
+
+	/** @param customer_id customer_id to set */
+	public void setCustomer_id(Integer customer_id) {
+		this.customer_id = customer_id;
+	}
+
+	/** @return customer_name */
+	public String getCustomer_name() {
+		return customer_name;
+	}
+
+	/** @param customer_name customer_name to set */
+	public void setCustomer_name(String customer_name) {
+		this.customer_name = customer_name;
 	}
 
 }

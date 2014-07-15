@@ -57,7 +57,10 @@ ROTEK.COMPONENT.PUMP.params = {
 		detailUrl : basePath + "/admin/componentgroup/getComGroupDetail",
 		modifyUrl : basePath + "/admin/componentgroup/modifyComGroup/1",
 		dropUrl : basePath + "/admin/componentgroup/deleteComGroup",
-		listProejctUrl : basePath + "/admin/componentgroup/listProjectByStatus"
+		listProejctUrl : basePath + "/admin/componentgroup/listProjectByStatus",
+		viewAlgorithmUrl : basePath + "/admin/algorithms/getComGroupDetail",
+		/* 1 --> 算法1 */
+		setAlgorithmUrl : basePath + "/admin/algorithms/setAlgorithm/1" 
 	}
 };
 
@@ -328,6 +331,124 @@ if(toolbar.get("button_query")){
 			handler : queryHandler
 		});
 		queryWindow.show();
+	});
+}
+
+//设置报警算法
+if(toolbar.get("button_setAlgorithm")){
+	toolbar.get("button_setAlgorithm").setHandler(function() {
+		var selections = gridPanel.getSelectionModel().getSelections();
+		if (!selections || selections.length <= 0) {
+			Ext.Msg.alert('提示', '请选择您要操作的数据，如果选择多条，只修改第一条!');
+			return;
+		}
+		var id = selections[0].get("id");
+		Ext.Ajax.request({
+			url : ROTEK.COMPONENT.PUMP.params.url.viewAlgorithmUrl,
+			params : {
+				id : id
+			},
+			success : function(response) {
+				var data = Ext.util.JSON.decode(response.responseText).data;
+				var formPanel = new CTA.common.SFormPanel({
+					fileUpload : true,
+					items : [{
+						xtype : 'hidden',
+						fieldLabel : '组ID',
+						name : 'r_component_group_id',
+						readOnly : true,
+						value : data.id
+					},{
+						xtype : 'hidden',
+						fieldLabel : '客户ID',
+						name : 'r_customer_id',
+						readOnly : true,
+						value : data.customer_id
+					},{
+						xtype : 'hidden',
+						fieldLabel : '工程ID',
+						name : 'r_project_id',
+						readOnly : true,
+						value : data.r_project_id
+					}, {
+						fieldLabel : '算法类别',
+						name : 'algorithm_type',
+						value : '算法1',
+						readOnly : true,
+						minLength : 1,
+						maxLength : 100
+					}, {
+						fieldLabel : '客户名称',
+						minLength : 1,
+						maxLength : 100,
+						readOnly : true,
+						value : data.customer_name
+					}, {
+						fieldLabel : '工程名称',
+						minLength : 1,
+						maxLength : 100,
+						readOnly : true,
+						value : data.project_name
+					}, {
+						fieldLabel : '组名称',
+						minLength : 1,
+						maxLength : 100,
+						readOnly : true,
+						value : data.group_mc
+					}, {
+						xtype : 'datefield',
+						fieldLabel : '零件更换时间',
+						emptyText : '请输入零件更换时间',
+						name : 'ljghsj',
+						format:'Y-m-d',
+						editable : false,
+						allowBlank : true,
+						width : 150
+					}, {
+						fieldLabel : '额定运行时间',
+						emptyText : '请输入额定运行时间',
+						name : 'ljedyxsj',
+						minLength : 1,
+						maxLength : 100
+					}, {
+						xtype : 'textarea',
+						readOnly : true,
+						fieldLabel : '算法说明',
+						value : '1.累计运行时间（年）达到N年，转化为小时数，记为Na，Na=设置小时， 固定值。\r\n'
+						    +'2.服务档案记录的上一次更换时间T，若当前时间记为Td，距离上一次更换'
+						    +'的时间差为Ta=(T-Td)（注：转化为小时数），既是在服务档案中对应的零'
+						    +'件目前的累计运行时间，数据库中保存为累计运行时间。\r\n'
+						    +'3.Ta>Na时发送提醒，之后累计运行时间清零，提醒记录保存到数据库中的【提醒报警信息表】。\r\n'
+						    +'4.计算公式：(T-Td)>Na',
+						height: 150
+					}]
+				});
+	
+				var setWindow = new CTA.common.SetWindow({
+					id : 'setWindow',
+					width : '40%',
+					height : 415,
+					layout : 'border',
+					items : [ formPanel ],
+					handler : function() {
+						//检查表单是否填写好
+						if (formPanel.getForm().isValid()) {
+							CTA.common.Mask.showMask({
+								target : 'setWindow'
+							});
+							formPanel.commit({
+								url : ROTEK.COMPONENT.PUMP.params.url.setAlgorithmUrl
+							});
+						}
+					}
+				});
+				setWindow.show();
+			},
+			failure : function() {
+				CTA.common.Mask.hideMask();
+				Ext.Msg.alert('提示', '操作失败!');
+			}
+		});
 	});
 }
 

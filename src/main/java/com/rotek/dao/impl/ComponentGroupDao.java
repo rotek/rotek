@@ -79,6 +79,24 @@ public class ComponentGroupDao extends BaseDaoImpl{
 	}
 	
 	/**
+	* @MethodName: selectOneComGroupById 
+	* @Description: 根据组Id获取组的详细信息，查询出对应的工程ID和客户ID
+	* @param id
+	* @return
+	* @author WangJuZhu
+	*/
+	public ComponentGroupDto selectOneComGroupById(Integer id)throws SQLException {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select cgro.*,pro.GCMC as PROJECT_NAME , cus.MC as CUSTOMER_NAME , pro.r_customer_id as CUSTOMER_ID from r_component_group cgro ");
+		sql.append(" left join r_project pro on pro.id = cgro.r_project_id ");
+		sql.append(" left join r_customer cus on cus.id = pro.r_customer_id ");
+		sql.append(" where cgro.id = ? ");
+		
+		return this.selectOne(sql.toString(),new Integer[]{id},ComponentGroupDto.class);
+	}
+	
+	/**
 	* @MethodName: modifyComGroup 
 	* @Description: 修改工程信息
 	* @param project
@@ -123,4 +141,6 @@ public class ComponentGroupDao extends BaseDaoImpl{
 		
 		return selectAll(sql, new Integer[]{projectId,ComponentGroupEntity.STATUS_ENABLED}, ComponentGroupEntity.class);
 	}
+
+	
 }

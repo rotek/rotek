@@ -145,6 +145,21 @@ public class ComponentGroupService {
 	}
 	
 	/**
+	* @MethodName: selectOneComGroupById 
+	* @Description: 根据组Id获取组的详细信息，查询出对应的工程ID和客户ID
+	* @param id
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public ComponentGroupDto selectOneComGroupById(Integer id) throws SQLException {
+		if(null == id){
+			return null;
+		}
+		return comgroupDao.selectOneComGroupById(id);
+	}
+	
+	/**
 	* @MethodName: modifyComGroup 
 	* @Description: 修改组信息
 	* @param project
