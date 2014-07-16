@@ -6,32 +6,32 @@ ROTEK.ALGORITHMS1.params = {
 		dataList : [ {
 			index : 'id',
 			header : 'ID',
-			width : 40,
+			width : 30,
 			align : 'center'
 		}, {
 			index : 'customer_name',
 			header : '用户名称',
-			width : 50,
+			width : 40,
 			align : 'center'
 		}, {
 			index : 'project_name',
 			header : '工程名称',
-			width : 50,
+			width : 40,
 			align : 'center'
 		}, {
 			index : 'component_group_name',
 			header : '零件组名称',
-			width : 50,
+			width : 40,
 			align : 'center'
 		}, {
 			index : 'component_name',
 			header : '零件名称',
-			width : 50,
+			width : 40,
 			align : 'center'
 		}, {
 			index : 'ljghsj',
 			header : '更换时间',
-			width : 25,
+			width : 30,
 			align : 'center',
 			renderer : function(value){
 				return new Date(parseFloat(value)).format("Y-m-d");
@@ -39,7 +39,7 @@ ROTEK.ALGORITHMS1.params = {
 		}, {
 			index : 'ljedyxsj',
 			header : '额定运行时间',
-			width : 25,
+			width : 30,
 			align : 'center',
 			renderer : function(value){
 				return new Date(parseFloat(value)).format("Y-m-d");
@@ -54,7 +54,7 @@ ROTEK.ALGORITHMS1.params = {
 					return "<span style='color:red'>无效</span>";
 				}
 			},
-			width : 40,
+			width : 20,
 			align : 'center'
 		} ]
 	},
@@ -176,6 +176,44 @@ if (toolbar.get("button_add")) {
 	        			allowBlank : false,
 	        			store : GroupStore,
 	     				width : 445
+	     			} ]
+	     		} ]
+	     	} {
+	     		xtype : 'container',
+	     		autoEl : {},
+	     		layout : 'column',
+	     		width : 900,
+	     		items : [ {
+	     			layout : 'form',
+	     			border : false,
+	     			items : [ {
+	     				xtype : 'combo',
+	        			fieldLabel : '零件类别',
+	        			emptyText : '请零件类别',
+	        			name : 'r_component_group_id',
+	        			hiddenName : 'r_component_group_id',
+	        			triggerAction : 'all',
+	        			displayField : 'label',
+	        			valueField : 'value',
+	        			editable : false,
+	        			allowBlank : false,
+	        			store : new Ext.data.SimpleStore({
+	    					fields : [ 'label', 'value' ],
+	    					data : [[ "泵", "1" ], [ "砂滤器", "2" ], [ "碳滤器", "3" ], [ "软化器", "4" ]
+	    						, [ "过滤器", "5" ], [ "膜", "6" ], [ "紫外杀菌器", "7" ], [ "水箱", "8" ], [ "加药装置", "9" ]]
+	    				}),
+	     				width : 445,
+	     				listeners : {
+	     					select : function(ProjectCombox, record, index) {
+	     						GroupStore.proxy = new Ext.data.HttpProxy({
+ 									url : basePath + "/admin/algorithms/selectGroupByPid/" + ProjectCombox.value + "/1"
+ 								});
+	     						GroupStore.removeAll() ;  //清空缓存的数据
+	     						Ext.getCmp('GROUPCOMB').setValue("");
+	     						Ext.getCmp('GROUPCOMB').setRawValue("");
+	     						GroupStore.load();
+	     					}
+	     				}
 	     			} ]
 	     		} ]
 	     	}, {
