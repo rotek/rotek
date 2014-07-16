@@ -8,8 +8,11 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cta.platform.util.ListPager;
 import com.cta.platform.util.ValidateUtil;
 import com.rotek.dao.impl.AlgorithmsDao;
+import com.rotek.dto.AlgorithmsDto;
+import com.rotek.dto.UserDto;
 import com.rotek.entity.AlgorithmsEntity;
 
 /**
@@ -26,20 +29,18 @@ public class AlgorithmsService {
 	private AlgorithmsDao algorithmsDao;
 	
 	/**
-	* @MethodName: selectAlgorithmByIds 
-	* @Description：查询算法
-	* @param algorithmType  		算法类别
-	* @param r_coustromer_id  		客户ID
-	* @param r_project_id 			工程ID
-	* @param r_component_group_id  	零件组ID
-	* @param r_component_detail_id 	具体零件ID
+	* @MethodName: listAlgorithms 
+	* @Description: 查询算法设置信息
+	* @param user
+	* @param algor
+	* @param pager
 	* @return
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	public List<AlgorithmsEntity> selectAlgorithmByIds(Integer algorithmType , 
-			Integer r_coustromer_id,Integer r_project_id,Integer r_component_group_id,Integer r_component_detail_id) throws SQLException {
-		return algorithmsDao.selectAlgorithmByIds(algorithmType,r_coustromer_id,r_project_id,r_component_group_id,r_component_detail_id);
+	public List<AlgorithmsDto> listAlgorithms(UserDto user, 
+			AlgorithmsDto algor,ListPager pager) throws SQLException {
+		return algorithmsDao.listAlgorithms(user, algor, pager);
 	}
 	
 	/**
@@ -56,7 +57,6 @@ public class AlgorithmsService {
 			return messages;
 		}
 		algorithmsDao.addAlgorithms(algorithm);
-		
 		return null;
 	}
 	
@@ -74,7 +74,7 @@ public class AlgorithmsService {
 		}
 		return algorithmsDao.getAlgorithmsById(id);
 	}
-
+	
 	/**
 	* @MethodName: modifyAlgorithms 
 	* @Description: 修改算法设置信息
@@ -92,7 +92,7 @@ public class AlgorithmsService {
 		algorithmsDao.modifyAlgorithms(algorithm);
 		return null;
 	}
-
+	
 	/**
 	* @MethodName: deleteAlgorithms 
 	* @Description: 批量删除（更改记录的状态为无效(status = -1)）
@@ -114,5 +114,23 @@ public class AlgorithmsService {
 		algorithmsDao.deleteAlgorithms(sql.toString());
 		return messages;
 	} 
-
+	
+	
+	/**
+	* @MethodName: selectAlgorithmByIds 
+	* @Description：查询算法
+	* @param algorithmType  		算法类别
+	* @param r_coustromer_id  		客户ID
+	* @param r_project_id 			工程ID
+	* @param r_component_group_id  	零件组ID
+	* @param r_component_detail_id 	具体零件ID
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public List<AlgorithmsEntity> selectAlgorithmByIds(Integer algorithmType , 
+			Integer r_coustromer_id,Integer r_project_id,Integer r_component_group_id,Integer r_component_detail_id) throws SQLException {
+		return algorithmsDao.selectAlgorithmByIds(algorithmType,r_coustromer_id,r_project_id,r_component_group_id,r_component_detail_id);
+	}
+	
 }
