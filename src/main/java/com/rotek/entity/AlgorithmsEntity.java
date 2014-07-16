@@ -76,29 +76,29 @@ public class AlgorithmsEntity extends BaseEntity {
 	@Column(name = "MXT_CSLLCESJ")			// 膜（组）系统产水流量超额时间设置[N]
 	private Integer mxt_csllcesj ;  		      
 
-	@Column(name = "MXT_CSLLBZ")				// 膜（组）系统产水流量标准值[S]
+	@Column(name = "MXT_CSLLBZ")			// 膜（组）系统产水流量标准值[S]
 	private Double mxt_csllbz ;   	         
 
-	@Column(name = "MXT_HSLCESJ")       		// 膜（组）系统回收率超额时间[N]
+	@Column(name = "MXT_HSLCESJ")       	// 膜（组）系统回收率超额时间[N]
 	private	Integer	mxt_hslcesj ;      	  
 
 	@Column(name = "MXT_HSLBZ")       		// 膜（组）系统回收率标准值[S]
 	private Double	mxthslbz ;    	
 	
-	@Column(name = "MXT_HSLCEBFB")       		// 膜（组）系统回收率超额百分比[S]
-	private Double	mxt_hslcebfb ;    	
+	@Column(name = "MXT_HSLCEBFB")       	// 膜（组）系统回收率超额百分比[S]
+	private Double	mxt_hslcebfb ;   
+	
+	@Column(name = "MXT_CSDDLCESJ") 		// 膜（组）系统产水电导率超额时间设置[N]
+	private Integer mxt_csddlcesj ;   	         
+
+	@Column(name = "MXT_CSDDLBZ")     		// 膜（组）系统产水电导率标准值[S]
+	private	Double	mxt_csddlbz ; 
  
 	@Column(name = "DWSJYLSD")   			// 单位时间用量设定值[S]
 	private Integer	dwsjylsd ;  		  
 
 	@Column(name = "DYSYLTJ")      			// 月使用量统计
 	private String dysyltj ;      		  
-
-	@Column(name = "MXT_CSDDLCESJ") 			// 膜（组）系统产水电导率超额时间设置[N]
-	private Integer mxt_csddlcesj ;   	         
-
-	@Column(name = "MXT_CSDDLBZ")     			// 膜（组）系统产水电导率标准值[S]
-	private	Double	mxt_csddlbz ;      	  	
 	
 	@Column(name = "SITEREAL_TABLE_NAME")		// 现场实时数据表名称
 	private String sitereal_table_name ;   	         
@@ -111,11 +111,13 @@ public class AlgorithmsEntity extends BaseEntity {
 
 	@Column(name = "STATUS")     				// 是否可用
 	private Integer status ;
-	
+
+	/** @return id */
 	public Integer getId() {
 		return id;
 	}
 
+	/** @param id id to set */
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -300,24 +302,14 @@ public class AlgorithmsEntity extends BaseEntity {
 		this.mxthslbz = mxthslbz;
 	}
 
-	/** @return dwsjylsd */
-	public Integer getDwsjylsd() {
-		return dwsjylsd;
+	/** @return mxt_hslcebfb */
+	public Double getMxt_hslcebfb() {
+		return mxt_hslcebfb;
 	}
 
-	/** @param dwsjylsd dwsjylsd to set */
-	public void setDwsjylsd(Integer dwsjylsd) {
-		this.dwsjylsd = dwsjylsd;
-	}
-
-	/** @return dysyltj */
-	public String getDysyltj() {
-		return dysyltj;
-	}
-
-	/** @param dysyltj dysyltj to set */
-	public void setDysyltj(String dysyltj) {
-		this.dysyltj = dysyltj;
+	/** @param mxt_hslcebfb mxt_hslcebfb to set */
+	public void setMxt_hslcebfb(Double mxt_hslcebfb) {
+		this.mxt_hslcebfb = mxt_hslcebfb;
 	}
 
 	/** @return mxt_csddlcesj */
@@ -338,6 +330,26 @@ public class AlgorithmsEntity extends BaseEntity {
 	/** @param mxt_csddlbz mxt_csddlbz to set */
 	public void setMxt_csddlbz(Double mxt_csddlbz) {
 		this.mxt_csddlbz = mxt_csddlbz;
+	}
+
+	/** @return dwsjylsd */
+	public Integer getDwsjylsd() {
+		return dwsjylsd;
+	}
+
+	/** @param dwsjylsd dwsjylsd to set */
+	public void setDwsjylsd(Integer dwsjylsd) {
+		this.dwsjylsd = dwsjylsd;
+	}
+
+	/** @return dysyltj */
+	public String getDysyltj() {
+		return dysyltj;
+	}
+
+	/** @param dysyltj dysyltj to set */
+	public void setDysyltj(String dysyltj) {
+		this.dysyltj = dysyltj;
 	}
 
 	/** @return sitereal_table_name */
@@ -379,5 +391,5 @@ public class AlgorithmsEntity extends BaseEntity {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+
 }
