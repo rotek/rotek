@@ -3,9 +3,13 @@ package com.rotek.dao.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.cta.platform.persistence.dao.BaseDaoImpl;
+import com.cta.platform.util.ListPager;
+import com.rotek.dto.AlgorithmsDto;
+import com.rotek.dto.UserDto;
 import com.rotek.entity.AlgorithmsEntity;
 
 /**
@@ -18,6 +22,69 @@ import com.rotek.entity.AlgorithmsEntity;
 @Repository
 public class AlgorithmsDao  extends BaseDaoImpl{
 
+	/**
+	* @MethodName: listAlgorithms 
+	* @Description: 根据条件分页查询算法设置信息
+	* @param user
+	* @param algor
+	* @param pager
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public List<AlgorithmsDto> listAlgorithms(UserDto user, 
+					AlgorithmsDto algor,ListPager pager) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select t.*,comgroup.GROUP_MC AS COMPONENT_GROUP_NAME,pro.GCMC AS PROJECT_NAME ");
+		sql.append(" ,custom.MC AS CUSTOMER_NAME, comdeta.SPECIFIC_PART AS COMPONENT_NAME ");
+		sql.append(" from r_algorithm t ");
+		sql.append(" left join r_component_group comgroup on comgroup.ID = t.R_COMPONET_GROUP_ID ");
+		sql.append(" left join r_project pro on pro.ID = comgroup.R_PROJECT_ID ");
+		sql.append(" left join r_customer custom on custom.ID = pro.R_CUSTOMER_ID ");
+		sql.append(" left join r_component_detail comdeta on comdeta.ID = t.R_COMPONET_DETAIL_ID ");
+		sql.append(" where 1=1 ");
+		if(StringUtils.isNotBlank(algor.getComponent_name())){
+			sql.append(" and comdeta.SPECIFIC_PART like '%").append(algor.getComponent_name()).append("%'");
+		}
+		if(StringUtils.isNotBlank(algor.getComponent_group_name())){
+			sql.append(" and comgroup.GROUP_MC like '%").append(algor.getComponent_group_name()).append("%'");
+		}
+		if(StringUtils.isNotBlank(algor.getProject_name())){
+			sql.append(" and pro.GCMC like '%").append(algor.getProject_name()).append("%'");
+		}
+		if(StringUtils.isNotBlank(algor.getCustomer_name())){
+			sql.append(" and custom.MC like '%").append(algor.getCustomer_name()).append("%'");
+		}
+		if(StringUtils.isNotBlank(algor.getAlgorithm_alias())){
+			sql.append(" and t.ALGORITHM_ALIAS like '%").append(algor.getAlgorithm_alias()).append("%'");
+		}
+		if(algor.getAlgorithm_type() != 0 && algor.getAlgorithm_type() != null){
+			sql.append(" and t.ALGORITHM_TYPE = ").append(algor.getAlgorithm_type());
+		}
+		sql.append(" order by t.ID desc ");
+		
+		return selectPage(sql.toString(), new Object[]{}, AlgorithmsDto.class, pager);
+		
+	}
+	
+	public void addAlgorithms(AlgorithmsEntity algorithm) throws SQLException {
+		this.insert(algorithm);
+	}
+	
+	public AlgorithmsEntity getAlgorithmsById(Integer id) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "select * from r_algorithm where id = ? ";
+		return this.selectOne(sql,new Integer[]{id},AlgorithmsEntity.class);
+	}
+	
+	public void modifyAlgorithms(AlgorithmsEntity algorithm) throws SQLException {
+		this.update(algorithm);
+	}
+	
+	public void deleteAlgorithms(String sql) throws SQLException {
+		this.executeUpdate(sql);
+	}
+	
 	/**
 	* @MethodName: selectAlgorithmByIds 
 	* @Description：查询算法
@@ -55,30 +122,5 @@ public class AlgorithmsDao  extends BaseDaoImpl{
 		return selectAll(sql.toString(), new Object[]{algorithmType,r_coustromer_id,r_project_id,r_component_group_id,r_component_detail_id}, AlgorithmsEntity.class);
 	}
 
-	public void addAlgorithms(AlgorithmsEntity algorithm) throws SQLException {
-		// TODO Auto-generated method stub
-		this.insert(algorithm);
-	}
-
-	public AlgorithmsEntity getAlgorithmsById(Integer id) throws SQLException {
-		// TODO Auto-generated method stub
-		String sql = "select * from r_algorithm where id = ? ";
-		return this.selectOne(sql,new Integer[]{id},AlgorithmsEntity.class);
-	}
-
-	public void modifyAlgorithms(AlgorithmsEntity algorithm) throws SQLException {
-		// TODO Auto-generated method stub
-		this.update(algorithm);
-	}
-
-	public void deleteAlgorithms(String sql) throws SQLException {
-		// TODO Auto-generated method stub
-		this.executeUpdate(sql);
-	}
-	
-	
-	
-	
-	
 
 }
