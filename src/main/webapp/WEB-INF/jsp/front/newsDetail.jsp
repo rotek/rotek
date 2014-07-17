@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <html lang="en">
 <head>
@@ -22,82 +23,17 @@
 	<div class="r_container">
 
 		<div class="right" style="width: 100%;overflow: scroll;">
-
+			<a style="float: left" href="javascript:history.back()">
+				<button type="button" class="btn btn-default btn-lg">返回</button>
+			</a>
 			<div class="page-header" style="text-align: center">
-				<a href="javascript:history.back()"><button type="button" class="btn btn-default btn-lg" style="float: left">返回</button></a>
-				<h1>标题</h1>
+				<h2 style="">${data.title}</h2>
+				<h5 style="color:gray"><fmt:formatDate value="${data.send_time}" pattern="yyyy-MM-dd HH:mm:ss" /></h5>
 			</div>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS. viewport
-				in desktop browsers with this custom HTMsL and CSSviewport in
-				desktop browsers with this custom HTML and
-				CSSsssssssssssssssssssssssss</p>
-
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-			<p class="lead">Pin a fixed-height footer to the bottom of the
-				viewport in desktop browsers with this custom HTML and CSS.</p>
-
-			<div id="push"></div>
-
-
-
+			
+			<div style="margin-left: 70px">
+				${data.content}
+			</div>
 
 		</div>
 	</div>

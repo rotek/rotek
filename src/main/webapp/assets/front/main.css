@@ -125,7 +125,10 @@ input, textarea {border:none 0;outline:none;}
 
 .r_container .right .center {
 	overflow: scroll;
+	height: 100%;
+	padding: 30px
 }
+
 
 /**=====================================================main=============================================================**/
 /**foot**/

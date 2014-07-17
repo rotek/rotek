@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.rotek.service.impl.IndexService;
 
 /**
- * 资源下载
+ * 新闻公告
  * 
  * @author chenwenpeng
  * 
  */
 @Controller
-@RequestMapping("/front/resource")
-public class FrontSourceController {
+@RequestMapping("/front/steward")
+public class FrontStewardController {
 
 	@Autowired
 	private IndexService indexservice;
@@ -44,5 +44,30 @@ public class FrontSourceController {
 
 		return "front/resource";
 	}
-
+	
+	/**
+	 * 返回咨询平台
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping("toConsultants")
+	public String toConsultants(HttpServletRequest request, ModelMap modelMap)
+			throws SQLException {
+		
+		return "front/consultants";
+	}
+	
+	/**
+	 * 返回咨询平台
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping("toAddConsultant")
+	public String toAddConsultant(HttpServletRequest request, ModelMap modelMap)
+			throws SQLException {
+		
+		return "front/addConsultant";
+	}
 }

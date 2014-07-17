@@ -9,6 +9,8 @@
 package com.rotek.controller.front;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,8 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.rotek.service.impl.IndexService;
+import com.rotek.service.impl.NewsService;
 
 /**
  * 新闻公告
@@ -30,7 +33,7 @@ import com.rotek.service.impl.IndexService;
 public class FrontNewsController {
 
 	@Autowired
-	private IndexService indexservice;
+	private NewsService newsService;
 
 	/**
 	 * 返回水质监测页
@@ -42,6 +45,8 @@ public class FrontNewsController {
 	public String getIndex(HttpServletRequest request, ModelMap modelMap)
 			throws SQLException {
 
+		List<Map<String,Object>> dataList = newsService.getNewsList();
+		modelMap.put("dataList", dataList);
 		return "front/news";
 	}
 	
@@ -52,9 +57,13 @@ public class FrontNewsController {
 	 * @throws SQLException
 	 */
 	@RequestMapping("toNewsDetail")
-	public String toNewsDetail(HttpServletRequest request, ModelMap modelMap)
+	public String toNewsDetail(HttpServletRequest request, ModelMap modelMap,
+			@RequestParam(value = "id", defaultValue = "0") Integer newsId)
 			throws SQLException {
 		
+		Map<String,Object> newsDetail = newsService.getNewsDetailById(newsId);
+		
+		modelMap.put("data", newsDetail);
 		return "front/newsDetail";
 	}
 

@@ -26,11 +26,11 @@
 				<div class="l_box">
 					<div class="l_header">大管家</div>
 		
-					<div class="active l_menu">
+					<div class="l_menu">
 						<a href="${pageContext.request.contextPath }/front/steward/toResource">资源下载</a>
 					</div>
 		
-					<div class="l_menu">
+					<div class="active l_menu">
 						<a href="${pageContext.request.contextPath }/front/steward/toConsultants">咨询平台</a>
 					</div>
 		
@@ -49,44 +49,35 @@
 						width="100%">
 						<thead>
 							<tr>
-								<th style="border: solid 1px #dddddd">序号</th>
-								<th style="border: solid 1px #dddddd">资源名称</th>
-								<th style="border: solid 1px #dddddd">操作</th>
+								<th style="border: solid 1px #dddddd">咨询类型</th>
+								<th style="border: solid 1px #dddddd">咨询人</th>
+								<th style="border: solid 1px #dddddd">咨询内容</th>
+								<th style="border: solid 1px #dddddd">回复人</th>
+								<th style="border: solid 1px #dddddd">回复内容</th>
+								<th style="border: solid 1px #dddddd">咨询时间</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							
 							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">咨询类型</a></td>
+								<td>客户1</td>
+								<td>咨询内容</td>
+								<td>管理员1</td>
+								<td>回复内容</td>
+								<td>2014-06-28</td>
 							</tr>
+							
 							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
+								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">咨询类型</a></td>
+								<td>客户1</td>
+								<td>咨询内容</td>
+								<td>管理员1</td>
+								<td>回复内容</td>
+								<td>2014-06-28</td>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
+							
 							
 							
 							
@@ -94,8 +85,6 @@
 					</table>
 
 				</div>
-		
-		
 		
 	</div>
 

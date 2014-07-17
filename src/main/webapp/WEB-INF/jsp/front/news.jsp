@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <html lang="en">
 <head>
@@ -50,108 +51,22 @@
 
 						<tbody>
 							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">标题标题标题</a></td>
-								<td>管理员1</td>
-								<td>2014-06-28</td>
-								<td>新闻</td>
-							</tr>
-							
-							
+							<c:forEach items="${dataList}" var="data">
+								<tr>
+									<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail?id=${data.id}">${data.title}</a></td>
+									<td>${data.realname }</td>
+									<td>
+									<fmt:formatDate value="${data.send_time}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+									<td>
+										<c:if test="${1 == data.type}">
+											新闻
+										</c:if>
+										<c:if test="${2 == data.type}">
+											新闻
+										</c:if>
+									</td>
+								</tr>
+							</c:forEach>
 							
 						</tbody>
 					</table>

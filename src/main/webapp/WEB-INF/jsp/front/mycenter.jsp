@@ -10,10 +10,6 @@
 
 <style type="text/css">
 
-.r_container .center{
-	height: 100%;
-	padding: 30px
-}
 .input-group{
 	
 	margin: 30px 150px 0px 100px  
