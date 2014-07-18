@@ -32,10 +32,11 @@ import com.cta.platform.util.ListPager;
 import com.rotek.constant.ComponentType;
 import com.rotek.constant.Status;
 import com.rotek.dto.ComponentDetailDto;
+import com.rotek.dto.ProjectDto;
 import com.rotek.dto.UserDto;
+import com.rotek.entity.BaseEntity;
 import com.rotek.entity.ComponentDetailEntity;
 import com.rotek.entity.ComponentGroupEntity;
-import com.rotek.entity.ProjectEntity;
 import com.rotek.service.impl.ComponentDetailService;
 import com.rotek.service.impl.ComponentGroupService;
 import com.rotek.service.impl.ProjectService;
@@ -445,7 +446,7 @@ public class ComponentDetailController {
 			@PathVariable(value="projectType") Integer projectType,
 			ModelMap modelMap) throws SQLException{
 		//工程类别（1、普通工程；2、EMC工程）
-		List<ProjectEntity> projectList = projectService.selectProjectByType(Status.VALID.getCode(),projectType);
+		List<ProjectDto> projectList = projectService.selectProjectByType(BaseEntity.STATUS_ENABLED,projectType);
 		modelMap.put("projectList", projectList);
 		return "jsonView";
 	}

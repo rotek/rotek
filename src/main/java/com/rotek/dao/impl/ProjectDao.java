@@ -47,9 +47,23 @@ public class ProjectDao extends BaseDaoImpl{
 		return selectAll(sql, ProjectEntity.class);
 	}
 	
-	public List<ProjectEntity> selectProjectByType(Integer status,Integer type) throws SQLException{
-		String sql = "select * from r_project where status = " + status + " and GCLB = " + type ;
-		return selectAll(sql, ProjectEntity.class);
+	/**
+	* @MethodName: selectProjectByType 
+	* @Description: 根据类别查询工程信息
+	* @param status  1、有效    2、无效
+	* @param type 1、普通功能   2、EMC工程
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	public List<ProjectDto> selectProjectByType(Integer status,Integer type) throws SQLException{
+		StringBuffer sql = new StringBuffer("select t.*,custom.MC AS CUSTOMER_NAME from r_project t ");
+		sql.append(" left join R_CUSTOMER custom on custom.id = t.r_customer_id ");
+		sql.append(" where t.STATUS = " + status ) ; 
+		if(type != null && type != 0 ){
+			sql.append(" and t.GCLB = " + type );
+		};
+		return selectAll(sql.toString(), ProjectDto.class);
 	}
 	
 	/**

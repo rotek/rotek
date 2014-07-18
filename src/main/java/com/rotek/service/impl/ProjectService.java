@@ -109,7 +109,7 @@ public class ProjectService {
 		return projectDao.listProjectByStatus(status);
 	}
 	
-	public List<ProjectEntity> selectProjectByType(Integer status,Integer type) throws SQLException{
+	public List<ProjectDto> selectProjectByType(Integer status,Integer type) throws SQLException{
 		return projectDao.selectProjectByType(status,type);
 	}
 	

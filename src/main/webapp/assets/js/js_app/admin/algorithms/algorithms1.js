@@ -63,7 +63,7 @@ ROTEK.ALGORITHMS1.params = {
 		detailUrl : basePath + "/admin/algorithms/getComDetail",
 		modifyUrl : basePath + "/admin/algorithms/modifyAlgorithms/1",
 		dropUrl : basePath + "/admin/algorithms/deleteAlgorithms",
-		listProejctUrl : basePath + "/admin/algorithms/selectProjectByType/1"
+		listProejctUrl : basePath + "/admin/algorithms/selectProjectByType/0"  // 1、普通工程   2、EMC工程     0、不限
 	}
 };
 
@@ -84,8 +84,8 @@ if (toolbar.get("button_add")) {
 		//定义添加的窗口
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
-			width : '50%',
-			height : 437,
+			width : '40%',
+			height : 357,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -103,6 +103,13 @@ if (toolbar.get("button_add")) {
 				url : ROTEK.ALGORITHMS1.params.url.listProejctUrl
 			})
 		})
+		
+		var ComponentTypeStore = new Ext.data.SimpleStore({
+			fields : [ 'label', 'value' ],
+			data : [[ "泵", "1" ], [ "砂滤器", "2" ], [ "碳滤器", "3" ], [ "软化器", "4" ]
+				, [ "过滤器", "5" ], [ "膜", "6" ], [ "紫外杀菌器", "7" ], [ "水箱", "8" ], [ "加药装置", "9" ]]
+		})
+		
 		var GroupStore = new Ext.data.Store({
 			reader : new Ext.data.JsonReader({
 				root : 'grouptList',
@@ -113,390 +120,116 @@ if (toolbar.get("button_add")) {
 				} ]
 			}),
 			proxy : new Ext.data.HttpProxy({
-				url : basePath + "/admin/algorithms/selectGroupByPid/0/1"
+				url : basePath + "/admin/algorithms/selectGroupByPid/0/0"
 			})
 		})		
 
 		//定义添加窗口中的form
 		var formPanel = new CTA.common.SFormPanel({
-			fileUpload : true,
-			items : [ {
-	     		xtype : 'container',
-	     		autoEl : {},
-	     		layout : 'column',
-	     		width : 900,
-	     		items : [ {
-	     			layout : 'form',
-	     			border : false,
-	     			items : [ {
-	     				xtype : 'combo',
-	        			fieldLabel : '工程',
-	        			emptyText : '请选择工程',
-	        			name : 'id',
-	        			hiddenName : 'r_project_id',
-	        			triggerAction : 'all',
-	        			displayField : 'gcmc',
-	        			valueField : 'id',
-	        			editable : false,
-	        			allowBlank : false,
-	        			store : ProjectStore,
-	     				width : 445,
-	     				listeners : {
-	     					select : function(ProjectCombox, record, index) {
-	     						GroupStore.proxy = new Ext.data.HttpProxy({
- 									url : basePath + "/admin/algorithms/selectGroupByPid/" + ProjectCombox.value + "/1"
- 								});
-	     						GroupStore.removeAll() ;  //清空缓存的数据
-	     						Ext.getCmp('GROUPCOMB').setValue("");
-	     						Ext.getCmp('GROUPCOMB').setRawValue("");
-	     						GroupStore.load();
-	     					}
-	     				}
-	     			} ]
-	     		} ]
-	     	}, {
-	     		xtype : 'container',
-	     		autoEl : {},
-	     		layout : 'column',
-	     		width : 900,
-	     		items : [ {
-	     			layout : 'form',
-	     			border : false,
-	     			items : [ {
-	     				xtype : 'combo',
-	     				id : 'GROUPCOMB',
-	        			fieldLabel : '组',
-	        			emptyText : '请选择组',
-	        			name : 'id',
-	        			hiddenName : 'r_component_group_id',
-	        			triggerAction : 'all',
-	        			displayField : 'group_mc',
-	        			valueField : 'id',
-	        			editable : false,
-	        			allowBlank : false,
-	        			store : GroupStore,
-	     				width : 445
-	     			} ]
-	     		} ]
-	     	} {
-	     		xtype : 'container',
-	     		autoEl : {},
-	     		layout : 'column',
-	     		width : 900,
-	     		items : [ {
-	     			layout : 'form',
-	     			border : false,
-	     			items : [ {
-	     				xtype : 'combo',
-	        			fieldLabel : '零件类别',
-	        			emptyText : '请零件类别',
-	        			name : 'r_component_group_id',
-	        			hiddenName : 'r_component_group_id',
-	        			triggerAction : 'all',
-	        			displayField : 'label',
-	        			valueField : 'value',
-	        			editable : false,
-	        			allowBlank : false,
-	        			store : new Ext.data.SimpleStore({
-	    					fields : [ 'label', 'value' ],
-	    					data : [[ "泵", "1" ], [ "砂滤器", "2" ], [ "碳滤器", "3" ], [ "软化器", "4" ]
-	    						, [ "过滤器", "5" ], [ "膜", "6" ], [ "紫外杀菌器", "7" ], [ "水箱", "8" ], [ "加药装置", "9" ]]
-	    				}),
-	     				width : 445,
-	     				listeners : {
-	     					select : function(ProjectCombox, record, index) {
-	     						GroupStore.proxy = new Ext.data.HttpProxy({
- 									url : basePath + "/admin/algorithms/selectGroupByPid/" + ProjectCombox.value + "/1"
- 								});
-	     						GroupStore.removeAll() ;  //清空缓存的数据
-	     						Ext.getCmp('GROUPCOMB').setValue("");
-	     						Ext.getCmp('GROUPCOMB').setRawValue("");
-	     						GroupStore.load();
-	     					}
-	     				}
-	     			} ]
-	     		} ]
-	     	}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'textfield',
-						fieldLabel : '零件名称',
-						emptyText : '请输入零件名称',
-						name : 'specific_part',
-						allowBlank : false,
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'textfield',
-						fieldLabel : '零件编号',
-						emptyText : '请输入零件编号',
-						name : 'specific_bh',
-						allowBlank : false,
-						width : 180
-					} ]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定扬程流量',
-						emptyText : '请输入额定扬程流量',
-						name : 'edll',
-						width : 150
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [{
-						xtype : 'datefield',
-						fieldLabel : '维护保养时间',
-						emptyText : '请输入保养时间',
-						name : 'edghsj',
-						format:'Y-m-d',
-						editable : false,
-						allowBlank : true,
-						width : 150
-					}]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定电导率',
-						emptyText : '请输入额定电导率',
-						name : 'edddl',
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定PH值',
-						emptyText : '请输入额定PH值',
-						name : 'edph',
-						width : 180
-					} ]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定余氯',
-						emptyText : '请输入额定余氯',
-						name : 'edylv',
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定温度',
-						emptyText : '请输入额定温度',
-						name : 'edwd',
-						width : 180
-					} ]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定硬度',
-						emptyText : '请输入额定硬度',
-						name : 'edyd',
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定液位计',
-						emptyText : '请输入额定液位计',
-						name : 'edywj',
-						minLength : 1,
-						width : 180
-					} ]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定TDS值',
-						emptyText : '请输入额定TDS值',
-						name : 'edtds',
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定压力',
-						emptyText : '请输入额定压力',
-						name : 'edyl',
-						width : 180
-					} ]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定浊度',
-						emptyText : '请输入额定浊度',
-						name : 'edzdu',
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定SDI值',
-						emptyText : '请输入额定SDI值',
-						name : 'edsdi',
-						width : 180
-					} ]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定COD值',
-						emptyText : '请输入额定COD值',
-						name : 'edcod',
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定BOD值',
-						emptyText : '请输入额定BOD值',
-						name : 'edbod',
-						width : 180
-					} ]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定氨氮',
-						emptyText : '请输入额定氨氮',
-						name : 'edad',
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定总氮',
-						emptyText : '请输入额定总氮',
-						name : 'edzd',
-						width : 180
-					} ]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定总磷',
-						emptyText : '请输入额定总磷',
-						name : 'edzl',
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定悬浮物',
-						emptyText : '请输入额定悬浮物',
-						name : 'edxfw',
-						width : 180
-					} ]
-				} ]
-			}, {
-				xtype : 'container',
-				layout : 'column',
-				width : 900,
-				items : [ {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'numberfield',
-						fieldLabel : '额定污泥浓度',
-						emptyText : '请输入额定污泥浓度',
-						name : 'edwnnd',
-						width : 180
-					} ]
-				}, {
-					layout : 'form',
-					border : false,
-					items : [ {
-						xtype : 'textfield',
-						fieldLabel : '其他信息',
-	    				emptyText : '请输入其他信息',
-	    				name : 'other_info',
-						width : 180
-					} ]
-				} ]
+			items : [{
+ 				xtype : 'combo',
+    			fieldLabel : '工程',
+    			id:'PROJECT_COMBO',
+    			emptyText : '请选择工程',
+    			name : 'id',
+    			hiddenName : 'r_project_id',
+    			triggerAction : 'all',
+    			displayField : 'gcmc',
+    			valueField : 'id',
+    			editable : false,
+    			allowBlank : false,
+    			store : ProjectStore,
+ 				width : 445,
+ 				listeners : {
+ 					select : function(ProjectCombox, record, index) {
+ 						GroupStore.proxy = new Ext.data.HttpProxy({
+							url : basePath + "/admin/algorithms/selectGroupByPid/" + ProjectCombox.value + "/0"
+						});
+ 						GroupStore.removeAll() ;  //清空缓存的数据
+ 						var tempId = record.id ;
+ 						var tempValue = record.get('gcmc');
+ 						console.log("record1 = " + tempId + " -- " + tempValue);
+ 						Ext.getCmp('CUSTOMER_FIELD').setValue(tempValue);
+ 						Ext.getCmp('GROUPCOMB').setValue("");
+ 						Ext.getCmp('GROUPCOMB').setRawValue("");
+ 						GroupStore.load();
+ 					}
+ 				}
+ 			},{
+				xtype : 'textfield',
+				id : 'CUSTOMER_FIELD',
+				fieldLabel : '客户名称',
+				emptyText : '客户名称',
+				name : 'customer_name',
+				readOnly : true ,
+				width : 180
+			},{
+ 				xtype : 'combo',
+    			fieldLabel : '零件类别',
+    			emptyText : '请零件类别',
+    			name : 'r_component_group_id',
+    			hiddenName : 'r_component_group_id',
+    			triggerAction : 'all',
+    			displayField : 'label',
+    			valueField : 'value',
+    			editable : false,
+    			allowBlank : false,
+    			store : ComponentTypeStore,
+ 				width : 445,
+ 				listeners : {
+ 					select : function(ComponentTypeStore, record, index) {
+ 						GroupStore.proxy = new Ext.data.HttpProxy({
+							url : basePath + "/admin/algorithms/selectGroupByPid/"+Ext.getCmp('PROJECT_COMBO').getValue()+"/" +ComponentTypeStore.value
+						});
+ 						GroupStore.removeAll() ;  //清空缓存的数据
+ 						Ext.getCmp('GROUPCOMB').setValue("");
+ 						Ext.getCmp('GROUPCOMB').setRawValue("");
+ 						GroupStore.load();
+ 					}
+ 				}
+ 			},{
+ 				xtype : 'combo',
+ 				id : 'GROUPCOMB',
+    			fieldLabel : '组',
+    			emptyText : '请选择组',
+    			name : 'id',
+    			hiddenName : 'r_component_group_id',
+    			triggerAction : 'all',
+    			displayField : 'group_mc',
+    			valueField : 'id',
+    			editable : false,
+    			allowBlank : false,
+    			store : GroupStore,
+ 				width : 445
+ 			},{
+				xtype : 'textfield',
+				fieldLabel : '零件名称',
+				emptyText : '请输入零件名称',
+				name : 'specific_part',
+				allowBlank : false,
+				width : 180
+			},{
+				xtype : 'textfield',
+				fieldLabel : '零件编号',
+				emptyText : '请输入零件编号',
+				name : 'specific_bh',
+				allowBlank : false,
+				width : 180
+			},{
+				xtype : 'numberfield',
+				fieldLabel : '额定扬程流量',
+				emptyText : '请输入额定扬程流量',
+				name : 'edll',
+				width : 150
+			},{
+				xtype : 'datefield',
+				fieldLabel : '维护保养时间',
+				emptyText : '请输入保养时间',
+				name : 'edghsj',
+				format:'Y-m-d',
+				editable : false,
+				allowBlank : true,
+				width : 150
 			}]
 		});
 		addWindow.add(formPanel);

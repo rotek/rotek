@@ -28,13 +28,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cta.platform.util.ListPager;
-import com.rotek.constant.Status;
 import com.rotek.dto.AlgorithmsDto;
+import com.rotek.dto.ProjectDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.AlgorithmsEntity;
 import com.rotek.entity.BaseEntity;
-import com.rotek.entity.ProjectEntity;
+import com.rotek.entity.ComponentGroupEntity;
 import com.rotek.service.impl.AlgorithmsService;
+import com.rotek.service.impl.ComponentGroupService;
 import com.rotek.service.impl.ProjectService;
 
 /**
@@ -53,6 +54,9 @@ public class AlgorithmsController {
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private ComponentGroupService groupService;
 
 	/**
 	* @MethodName: toAlgorithms 
@@ -216,17 +220,42 @@ public class AlgorithmsController {
 	}
 	
 	/**
-	* @MethodName: listProjectByStatus 
+	* @MethodName: selectProjectByType 
 	* @Description: 查询有效的工程信息
 	* @param modelMap
 	* @return
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	@RequestMapping("listProjectByStatus")
-	public String listProjectByStatus(ModelMap modelMap) throws SQLException{
-		List<ProjectEntity> projectList = projectService.listProjectByStatus(Status.VALID.getCode());
-		modelMap.put("dataList", projectList);
+	@RequestMapping("/selectProjectByType/{projectType}")
+	public String selectProjectByType(
+			@PathVariable(value="projectType") Integer projectType,
+			ModelMap modelMap) throws SQLException{
+		//工程类别（1、普通工程；2、EMC工程）
+		List<ProjectDto> projectList = projectService.selectProjectByType(BaseEntity.STATUS_ENABLED,projectType);
+		modelMap.put("projectList", projectList);
+		return "jsonView";
+	}
+	
+	/**
+	* @MethodName: selectGroupByPid 
+	* @Description: 由 工程ID和零件分组类型   查询分组信息
+	* @param projectId 工程ID
+	* @param componentType  零件组ID(9个分组)
+	* @param modelMap
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("selectGroupByPid/{projectId}/{componentType}")
+	public String selectGroupByPid(
+			@PathVariable(value="projectId") Integer projectId,
+			@PathVariable(value="componentType") Integer componentType,
+			ModelMap modelMap) throws SQLException{
+		if(projectId != 0 && projectId != null){
+			List<ComponentGroupEntity> grouptList = groupService.selectGroupByPid(projectId, componentType, BaseEntity.STATUS_ENABLED);
+			modelMap.put("grouptList", grouptList);
+		}
 		return "jsonView";
 	}
 

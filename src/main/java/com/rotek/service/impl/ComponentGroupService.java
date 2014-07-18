@@ -203,8 +203,6 @@ public class ComponentGroupService {
 
 	public List<ComponentGroupEntity> selectGroupByPid(Integer projectId,
 			Integer componentType, int code)throws SQLException {
-		
-		
 		return comgroupDao.selectGroupByPid(projectId, componentType, code);
 	}
 
