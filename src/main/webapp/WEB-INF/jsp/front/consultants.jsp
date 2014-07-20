@@ -42,7 +42,7 @@
 			</div>
 		</div>
 		
-		<div style="padding: 10px 0px 5px 0px; border: solid 1px #dddddd;padding-left: 10px">
+		<div style="padding: 10px 0px 5px 0px; border: solid 1px #dddddd;padding-left: 10px;overflow: auto;height:100%">
 
 
 					<table id="example" class="cell-border" cellspacing="0"
@@ -54,30 +54,21 @@
 								<th style="border: solid 1px #dddddd">咨询内容</th>
 								<th style="border: solid 1px #dddddd">回复人</th>
 								<th style="border: solid 1px #dddddd">回复内容</th>
-								<th style="border: solid 1px #dddddd">咨询时间</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">咨询类型</a></td>
-								<td>客户1</td>
-								<td>咨询内容</td>
-								<td>管理员1</td>
-								<td>回复内容</td>
-								<td>2014-06-28</td>
-							</tr>
-							
-							<tr>
-								<td><a href="${pageContext.request.contextPath }/front/news/toNewsDetail">咨询类型</a></td>
-								<td>客户1</td>
-								<td>咨询内容</td>
-								<td>管理员1</td>
-								<td>回复内容</td>
-								<td>2014-06-28</td>
-							</tr>
-							
+							<c:forEach items="${dataList}" var="data">
+								<tr>
+									<td><c:if test="1 == data.type">技术交流</c:if><c:if test="2 == data.type">业务分享</c:if></td>
+									<td>${data.sender_name }</td>
+									<td>${data.consultant_content }</td>
+									<td>${data.responser_name }</td>
+									<td>${data.response_content }</td>
+									
+								</tr>
+							</c:forEach>
 							
 							
 							

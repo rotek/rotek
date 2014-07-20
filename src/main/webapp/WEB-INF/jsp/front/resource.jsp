@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <html lang="en">
 <head>
@@ -51,43 +52,25 @@
 							<tr>
 								<th style="border: solid 1px #dddddd">序号</th>
 								<th style="border: solid 1px #dddddd">资源名称</th>
+								<th style="border: solid 1px #dddddd">发布者</th>
+								<th style="border: solid 1px #dddddd">发布日期</th>
 								<th style="border: solid 1px #dddddd">操作</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>资源1</td>
-								<td><a href="#">下载</a></td>
-							</tr>
-							
+							<c:forEach items="${dataList}" var="data">
+								<tr>
+									<td>${data.id }</td>
+									<td>${data.title }</td>
+									<td>${data.realname }</td>
+									<td>
+										<fmt:formatDate value="${data.send_time}" pattern="yyyy-MM-dd HH:mm:ss" />
+									</td>
+									<td><a href="${data.url}">下载</a></td>
+								</tr>
+							</c:forEach>
 							
 							
 						</tbody>

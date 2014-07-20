@@ -17,7 +17,26 @@
 		$("#consultCategory").select2({
 			placeholder : "请选择咨询分类"
 		}).on("change", function(e) {
-
+			
+			$("[name=type]").val(e.val);
+		});
+		
+		$("#addConsultant").click(function(){
+			
+			var type = $("[name=type]").val();
+			var content = $("[name=content]").val();
+			
+			if(!type){
+				alert("请选择咨询类型");
+				return;
+			}
+			
+			if(!content){
+				alert("请填写咨询内容");
+				return;
+			}
+			
+			$("form").submit();
 		});
 	});
 </script>
@@ -65,22 +84,23 @@
 			<div class="center well">
 
 				<form class="form-horizontal" style="margin-top: 20px;"
-					action="${pageContext.request.contextPath }/front/mycenter/modify"
+					action="${pageContext.request.contextPath }/front/steward/addConsultant"
 					method="post">
 
 					<select id="consultCategory" style="width: 80%">
 						<option value=""></option>
-						<option value="1">咨询分类1</option>
-						<option value="2">咨询分类2</option>
-						<option value="3">咨询分类3</option>
+						<option value="1">技术交流</option>
+						<option value="2">业务分享</option>
 					</select>
+					
+					<input name="type" type="hidden" value=""/>
 
-					<textarea placeholder="请填写咨询内容"
+					<textarea placeholder="请填写咨询内容" name="content"
 						style="width: 80%; height: 350px; margin: 20px 0 20px 0"></textarea>
 
 
 						<div class="controls">
-							<a  style="width: 200px" class="btn btn-primary btn-lg" id="update">修改</a>
+							<a  style="width: 200px" class="btn btn-primary btn-lg" id="addConsultant">提交</a>
 						</div>
 				</form>
 	

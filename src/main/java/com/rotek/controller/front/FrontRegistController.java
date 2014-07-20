@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.rotek.constant.SessionParams;
 import com.rotek.dto.UserDto;
-import com.rotek.entity.ManagerEntity;
 import com.rotek.service.impl.RegistService;
 
 /**
