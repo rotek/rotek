@@ -33,8 +33,10 @@ import com.rotek.dto.ProjectDto;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.AlgorithmsEntity;
 import com.rotek.entity.BaseEntity;
+import com.rotek.entity.ComponentDetailEntity;
 import com.rotek.entity.ComponentGroupEntity;
 import com.rotek.service.impl.AlgorithmsService;
+import com.rotek.service.impl.ComponentDetailService;
 import com.rotek.service.impl.ComponentGroupService;
 import com.rotek.service.impl.ProjectService;
 
@@ -57,6 +59,9 @@ public class AlgorithmsController {
 	
 	@Autowired
 	private ComponentGroupService groupService;
+	
+	@Autowired
+	private ComponentDetailService detailService;
 
 	/**
 	* @MethodName: toAlgorithms 
@@ -239,9 +244,9 @@ public class AlgorithmsController {
 	
 	/**
 	* @MethodName: selectGroupByPid 
-	* @Description: 由 工程ID和零件分组类型   查询分组信息
+	* @Description: 由 工程ID和  查询分组信息
 	* @param projectId 工程ID
-	* @param componentType  零件组ID(9个分组)
+	* @param componentType  零件分组类型 (9个分组)
 	* @param modelMap
 	* @return
 	* @throws SQLException
@@ -255,6 +260,30 @@ public class AlgorithmsController {
 		if(projectId != 0 && projectId != null){
 			List<ComponentGroupEntity> grouptList = groupService.selectGroupByPid(projectId, componentType, BaseEntity.STATUS_ENABLED);
 			modelMap.put("grouptList", grouptList);
+		}
+		return "jsonView";
+	}
+	
+	/**
+	* @MethodName: selectGroupDetailByIds 
+	* @Description: 由 工程ID、零件组ID和   查询零件信息
+	* @param projectId 工程ID
+	* @param groupId 零件组ID
+	* @param componentType 零件分组类型
+	* @param modelMap
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("selectGroupDetailByIds/{projectId}/{groupId}/{componentType}")
+	public String selectGroupDetailByIds(
+			@PathVariable(value="projectId") Integer projectId,
+			@PathVariable(value="groupId") Integer groupId,
+			@PathVariable(value="componentType") Integer componentType,
+			ModelMap modelMap) throws SQLException{
+		if(projectId != 0 && projectId != null){
+			List<ComponentDetailEntity> detailList = detailService.selectGroupDetailByIds(projectId,groupId,componentType,BaseEntity.STATUS_ENABLED);
+			modelMap.put("groupDetailList", detailList);
 		}
 		return "jsonView";
 	}

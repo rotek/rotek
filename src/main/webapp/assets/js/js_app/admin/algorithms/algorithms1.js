@@ -85,7 +85,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '40%',
-			height : 357,
+			height : 480,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -93,11 +93,11 @@ if (toolbar.get("button_add")) {
 		var ProjectStore = new Ext.data.Store({
 			reader : new Ext.data.JsonReader({
 				root : 'projectList',
-				fields : [ {
-					name : 'id'
-				}, {
-					name : 'gcmc'
-				} ]
+				fields : [ 
+				     { name : 'id'}, 
+				     { name : 'gcmc'},
+				     { name : 'customer_name'}
+				]
 			}),
 			proxy : new Ext.data.HttpProxy({
 				url : ROTEK.ALGORITHMS1.params.url.listProejctUrl
@@ -113,14 +113,14 @@ if (toolbar.get("button_add")) {
 		var GroupStore = new Ext.data.Store({
 			reader : new Ext.data.JsonReader({
 				root : 'grouptList',
-				fields : [ {
-					name : 'id'
-				}, {
-					name : 'group_mc'
-				} ]
-			}),
-			proxy : new Ext.data.HttpProxy({
-				url : basePath + "/admin/algorithms/selectGroupByPid/0/0"
+				fields : [ {name : 'id'}, {name : 'group_mc'} ]
+			})
+		})		
+		
+		var GroupDetailStore = new Ext.data.Store({
+			reader : new Ext.data.JsonReader({
+				root : 'groupDetailList',
+				fields : [ {name : 'id'}, {name : 'specific_part'}, {name : 'specific_bh'} ]
 			})
 		})		
 
@@ -141,18 +141,24 @@ if (toolbar.get("button_add")) {
     			store : ProjectStore,
  				width : 445,
  				listeners : {
- 					select : function(ProjectCombox, record, index) {
+ 					'select' : function(ComboObj, record, index) {
  						GroupStore.proxy = new Ext.data.HttpProxy({
-							url : basePath + "/admin/algorithms/selectGroupByPid/" + ProjectCombox.value + "/0"
+							url : basePath + "/admin/algorithms/selectGroupByPid/" + record.get('id') + "/0"
 						});
- 						GroupStore.removeAll() ;  //清空缓存的数据
- 						var tempId = record.id ;
- 						var tempValue = record.get('gcmc');
- 						console.log("record1 = " + tempId + " -- " + tempValue);
- 						Ext.getCmp('CUSTOMER_FIELD').setValue(tempValue);
- 						Ext.getCmp('GROUPCOMB').setValue("");
- 						Ext.getCmp('GROUPCOMB').setRawValue("");
- 						GroupStore.load();
+ 						Ext.getCmp('CUSTOMER_FIELD').setValue(record.get('customer_name'));
+ 						
+ 						if(Ext.getCmp('GROUPCOMB').getValue() != ""){
+ 							GroupStore.removeAll() ;  //清空缓存的数据
+ 							Ext.getCmp('GROUPCOMB').setValue("");
+ 	 						Ext.getCmp('GROUPCOMB').setRawValue("");
+ 	 						GroupStore.load();
+ 						}
+ 						if(Ext.getCmp('LEIBIE_COMBO').getValue() != ""){
+ 							ComponentTypeStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('LEIBIE_COMBO').setValue("");
+ 	 						Ext.getCmp('LEIBIE_COMBO').setRawValue("");
+ 	 						ComponentTypeStore.load();
+ 						}
  					}
  				}
  			},{
@@ -164,7 +170,8 @@ if (toolbar.get("button_add")) {
 				readOnly : true ,
 				width : 180
 			},{
- 				xtype : 'combo',
+				xtype : 'combo',
+				id : 'LEIBIE_COMBO',
     			fieldLabel : '零件类别',
     			emptyText : '请零件类别',
     			name : 'r_component_group_id',
@@ -172,19 +179,28 @@ if (toolbar.get("button_add")) {
     			triggerAction : 'all',
     			displayField : 'label',
     			valueField : 'value',
+    			mode : 'local',
     			editable : false,
     			allowBlank : false,
     			store : ComponentTypeStore,
  				width : 445,
  				listeners : {
- 					select : function(ComponentTypeStore, record, index) {
+ 					'select' : function(ComboObj, record, index) {
  						GroupStore.proxy = new Ext.data.HttpProxy({
-							url : basePath + "/admin/algorithms/selectGroupByPid/"+Ext.getCmp('PROJECT_COMBO').getValue()+"/" +ComponentTypeStore.value
+							url : basePath + "/admin/algorithms/selectGroupByPid/"+Ext.getCmp('PROJECT_COMBO').getValue()+"/" +ComboObj.value
 						});
- 						GroupStore.removeAll() ;  //清空缓存的数据
- 						Ext.getCmp('GROUPCOMB').setValue("");
- 						Ext.getCmp('GROUPCOMB').setRawValue("");
- 						GroupStore.load();
+ 						if(Ext.getCmp('GROUPCOMB').getValue() != ""){
+ 							GroupStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('GROUPCOMB').setValue("");
+ 	 						Ext.getCmp('GROUPCOMB').setRawValue("");
+ 	 						GroupStore.load();
+ 						}
+ 						if(Ext.getCmp('COMPONENT_COMBO').getValue() != ""){
+ 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('COMPONENT_COMBO').setValue("");
+ 	 						Ext.getCmp('COMPONENT_COMBO').setRawValue("");
+ 	 						GroupDetailStore.load();
+ 						}
  					}
  				}
  			},{
@@ -200,19 +216,49 @@ if (toolbar.get("button_add")) {
     			editable : false,
     			allowBlank : false,
     			store : GroupStore,
- 				width : 445
+ 				width : 445,
+ 				listeners : {
+ 					'select' : function(ComboObj, record, index) {
+ 						GroupDetailStore.proxy = new Ext.data.HttpProxy({
+							url : basePath + "/admin/algorithms/selectGroupDetailByIds/"+Ext.getCmp('PROJECT_COMBO').getValue()+"/"+record.get('id')+"/"+Ext.getCmp('LEIBIE_COMBO').getValue()
+						});
+ 						if(Ext.getCmp('COMPONENT_COMBO').getValue() != ""){
+ 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('COMPONENT_COMBO').setValue("");
+ 	 						Ext.getCmp('COMPONENT_COMBO').setRawValue("");
+ 	 						GroupDetailStore.load();
+ 						}
+ 						if(Ext.getCmp('COMPONENT_CODE').getValue() != ""){
+ 	 						Ext.getCmp('COMPONENT_CODE').setValue("");
+ 						}
+ 					}
+ 				}
+ 			},{
+ 				xtype : 'combo',
+    			fieldLabel : '零件名称',
+    			id:'COMPONENT_COMBO',
+    			emptyText : '请选择零件名称',
+    			name : 'specific_part',
+    			hiddenName : 'r_component_detail_id',
+    			triggerAction : 'all',
+    			displayField : 'specific_part',
+    			valueField : 'id',
+    			editable : false,
+    			allowBlank : false,
+    			store : GroupDetailStore,
+ 				width : 445,
+ 				listeners : {
+ 					'select' : function(ComboObj, record, index) {	
+ 						Ext.getCmp('COMPONENT_CODE').setValue(record.get('specific_bh'));
+ 					}
+ 				}
  			},{
 				xtype : 'textfield',
-				fieldLabel : '零件名称',
-				emptyText : '请输入零件名称',
-				name : 'specific_part',
-				allowBlank : false,
-				width : 180
-			},{
-				xtype : 'textfield',
+				id : 'COMPONENT_CODE',
 				fieldLabel : '零件编号',
 				emptyText : '请输入零件编号',
 				name : 'specific_bh',
+				readOnly : true ,
 				allowBlank : false,
 				width : 180
 			},{
@@ -230,6 +276,24 @@ if (toolbar.get("button_add")) {
 				editable : false,
 				allowBlank : true,
 				width : 150
+			},{
+				xtype : 'textfield',
+				fieldLabel : '算法别名',
+				emptyText : '请输入算法别名',
+				name : 'algorithm_alias',
+				allowBlank : false,
+				width : 180
+			}, {
+				xtype : 'textarea',
+				readOnly : true,
+				fieldLabel : '算法说明',
+				value : '1.累计运行时间（年）达到N年，转化为小时数，记为Na，Na=设置小时， 固定值。\r\n'
+				    +'2.服务档案记录的上一次更换时间T，若当前时间记为Td，距离上一次更换'
+				    +'的时间差为Ta=(T-Td)（注：转化为小时数），既是在服务档案中对应的零'
+				    +'件目前的累计运行时间，数据库中保存为累计运行时间。\r\n'
+				    +'3.Ta>Na时发送提醒，之后累计运行时间清零，提醒记录保存到数据库中的【提醒报警信息表】。\r\n'
+				    +'4.计算公式：(T-Td)>Na',
+				height: 150
 			}]
 		});
 		addWindow.add(formPanel);

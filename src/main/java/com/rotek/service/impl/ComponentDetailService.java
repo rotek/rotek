@@ -31,7 +31,7 @@ import com.rotek.entity.ProjectEntity;
 public class ComponentDetailService {
 
 	@Resource
-	private ComponentDetailDao comgroupDao;
+	private ComponentDetailDao detailDao;
 	
 	/**
 	* @MethodName: listComDetail 
@@ -77,11 +77,11 @@ public class ComponentDetailService {
 		}
 
 		sql.append(" order by cdetail.ID ");
-		return comgroupDao.listComDetail(sql.toString(), params.toArray(), pager);
+		return detailDao.listComDetail(sql.toString(), params.toArray(), pager);
 	}
 	
 	public List<ProjectEntity> listProjectByStatus(Integer status) throws SQLException{
-		return comgroupDao.listProjectByStatus(status);
+		return detailDao.listProjectByStatus(status);
 	}
 	
 	/**
@@ -98,7 +98,7 @@ public class ComponentDetailService {
 		if(messages.size() > 0){
 			return messages;
 		}
-		comgroupDao.addComDetail(comgroup);
+		detailDao.addComDetail(comgroup);
 		
 		return null;
 	}
@@ -115,7 +115,7 @@ public class ComponentDetailService {
 		if(null == id){
 			return null;
 		}
-		return comgroupDao.getComDetailById(id);
+		return detailDao.getComDetailById(id);
 	}
 	
 	/**
@@ -130,7 +130,7 @@ public class ComponentDetailService {
 		if(null == id){
 			return null;
 		}
-		return comgroupDao.getOneComDetail(id);
+		return detailDao.getOneComDetail(id);
 	}
 	
 	/**
@@ -149,7 +149,7 @@ public class ComponentDetailService {
 			return messages;
 		}
 		//修改
-		comgroupDao.modifyComDetail(comgroup);
+		detailDao.modifyComDetail(comgroup);
 		return null;
 	}
 
@@ -171,13 +171,18 @@ public class ComponentDetailService {
 		StringBuilder sql = new StringBuilder();
 		sql.append("update r_component_detail set STATUS = ").append(DataStatus.DISABLED);
 		sql.append(" where id in ("+ids.trim()+")");
-		comgroupDao.deleteComDetail(sql.toString());
+		detailDao.deleteComDetail(sql.toString());
 		return messages;
 	}
 
 	public List<ComponentDetailEntity> getListByComponentGroupId(
 			Integer componentId) throws SQLException {
-		
-		return comgroupDao.getListByComponentGroupId(componentId);
+		return detailDao.getListByComponentGroupId(componentId);
+	}
+
+	public List<ComponentDetailEntity> selectGroupDetailByIds(
+			Integer projectId, Integer groupId, Integer componentType,int statusEnabled)throws SQLException {
+		// TODO Auto-generated method stub
+		return detailDao.selectGroupDetailByIds(projectId, groupId, componentType,statusEnabled);
 	}
 }

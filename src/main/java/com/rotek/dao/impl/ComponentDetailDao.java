@@ -111,10 +111,13 @@ public class ComponentDetailDao extends BaseDaoImpl {
 
 	public List<ComponentDetailEntity> getListByComponentGroupId(
 			Integer componentId) throws SQLException {
-
 		String sql = "select * from r_component_detail where r_component_group_id = ? and status = ?";
-		return this.selectAll(sql, new Integer[] { componentId,
-				ComponentDetailEntity.STATUS_ENABLED },
-				ComponentDetailEntity.class);
+		return this.selectAll(sql, new Integer[] { componentId,ComponentDetailEntity.STATUS_ENABLED },ComponentDetailEntity.class);
+	}
+
+	public List<ComponentDetailEntity> selectGroupDetailByIds(Integer projectId, Integer groupId, Integer componentType,int statusEnabled) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "select * from r_component_detail where r_project_id = ? and  r_component_group_id = ? and r_component_group_type = ? and status = ?";
+		return this.selectAll(sql, new Integer[] { projectId, groupId,componentType,ComponentDetailEntity.STATUS_ENABLED },ComponentDetailEntity.class);
 	}
 }
