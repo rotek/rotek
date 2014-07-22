@@ -38,10 +38,10 @@ public class AlgorithmsDao  extends BaseDaoImpl{
 		sql.append(" select t.*,comgroup.GROUP_MC AS COMPONENT_GROUP_NAME,pro.GCMC AS PROJECT_NAME ");
 		sql.append(" ,custom.MC AS CUSTOMER_NAME, comdeta.SPECIFIC_PART AS COMPONENT_NAME ");
 		sql.append(" from r_algorithm t ");
-		sql.append(" left join r_component_group comgroup on comgroup.ID = t.R_COMPONET_GROUP_ID ");
+		sql.append(" left join r_component_group comgroup on comgroup.ID = t.R_COMPONENT_GROUP_ID ");
 		sql.append(" left join r_project pro on pro.ID = comgroup.R_PROJECT_ID ");
 		sql.append(" left join r_customer custom on custom.ID = pro.R_CUSTOMER_ID ");
-		sql.append(" left join r_component_detail comdeta on comdeta.ID = t.R_COMPONET_DETAIL_ID ");
+		sql.append(" left join r_component_detail comdeta on comdeta.ID = t.R_COMPONENT_DETAIL_ID ");
 		sql.append(" where 1=1 ");
 		if(StringUtils.isNotBlank(algor.getComponent_name())){
 			sql.append(" and comdeta.SPECIFIC_PART like '%").append(algor.getComponent_name()).append("%'");
@@ -112,10 +112,10 @@ public class AlgorithmsDao  extends BaseDaoImpl{
 			sql.append(" and t.R_PROJECT_ID = ? ");
 		}
 		if(r_component_group_id > 0){
-			sql.append(" and t.R_COMPONET_GROUP_ID = ? ");
+			sql.append(" and t.R_COMPONENT_GROUP_ID = ? ");
 		}
 		if(r_component_detail_id > 0){
-			sql.append(" and t.R_COMPONET_DETAIL_ID = ? ");
+			sql.append(" and t.R_COMPONENT_DETAIL_ID = ? ");
 		}
 		sql.append(" order by t.ID desc ");
 		

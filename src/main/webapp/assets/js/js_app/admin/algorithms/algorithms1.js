@@ -6,27 +6,27 @@ ROTEK.ALGORITHMS1.params = {
 		dataList : [ {
 			index : 'id',
 			header : 'ID',
-			width : 30,
+			width : 20,
 			align : 'center'
 		}, {
 			index : 'customer_name',
 			header : '用户名称',
-			width : 40,
+			width : 30,
 			align : 'center'
 		}, {
 			index : 'project_name',
 			header : '工程名称',
-			width : 40,
+			width : 30,
 			align : 'center'
 		}, {
 			index : 'component_group_name',
 			header : '零件组名称',
-			width : 40,
+			width : 30,
 			align : 'center'
 		}, {
 			index : 'component_name',
 			header : '零件名称',
-			width : 40,
+			width : 30,
 			align : 'center'
 		}, {
 			index : 'ljghsj',
@@ -41,9 +41,6 @@ ROTEK.ALGORITHMS1.params = {
 			header : '额定运行时间',
 			width : 30,
 			align : 'center',
-			renderer : function(value){
-				return new Date(parseFloat(value)).format("Y-m-d");
-			}
 		},{
 			index : 'status',
 			header : '状态',
@@ -90,13 +87,15 @@ if (toolbar.get("button_add")) {
 			handler : saveHandler
 		});
 
+		// 读取工程数据
 		var ProjectStore = new Ext.data.Store({
 			reader : new Ext.data.JsonReader({
 				root : 'projectList',
 				fields : [ 
 				     { name : 'id'}, 
 				     { name : 'gcmc'},
-				     { name : 'customer_name'}
+				     { name : 'customer_name'},
+				     { name : 'r_customer_id'}
 				]
 			}),
 			proxy : new Ext.data.HttpProxy({
@@ -104,23 +103,32 @@ if (toolbar.get("button_add")) {
 			})
 		})
 		
+		// 读取零件分类数据
 		var ComponentTypeStore = new Ext.data.SimpleStore({
 			fields : [ 'label', 'value' ],
 			data : [[ "泵", "1" ], [ "砂滤器", "2" ], [ "碳滤器", "3" ], [ "软化器", "4" ]
 				, [ "过滤器", "5" ], [ "膜", "6" ], [ "紫外杀菌器", "7" ], [ "水箱", "8" ], [ "加药装置", "9" ]]
 		})
 		
+		// 读取零件组数据
 		var GroupStore = new Ext.data.Store({
 			reader : new Ext.data.JsonReader({
 				root : 'grouptList',
 				fields : [ {name : 'id'}, {name : 'group_mc'} ]
+			}),
+			proxy : new Ext.data.HttpProxy({
+				url : basePath + "/admin/algorithms/selectGroupByPid/0/0"
 			})
 		})		
 		
+		// 读取零件数据
 		var GroupDetailStore = new Ext.data.Store({
 			reader : new Ext.data.JsonReader({
 				root : 'groupDetailList',
 				fields : [ {name : 'id'}, {name : 'specific_part'}, {name : 'specific_bh'} ]
+			}),
+			proxy : new Ext.data.HttpProxy({
+				url : basePath + "/admin/algorithms/selectGroupDetailByIds/0/0/0"
 			})
 		})		
 
@@ -146,19 +154,26 @@ if (toolbar.get("button_add")) {
 							url : basePath + "/admin/algorithms/selectGroupByPid/" + record.get('id') + "/0"
 						});
  						Ext.getCmp('CUSTOMER_FIELD').setValue(record.get('customer_name'));
+ 						Ext.getCmp('CUSTOMER_FIELD_ID').setValue(record.get('r_customer_id'));
  						
  						if(Ext.getCmp('GROUPCOMB').getValue() != ""){
  							GroupStore.removeAll() ;  //清空缓存的数据
  							Ext.getCmp('GROUPCOMB').setValue("");
  	 						Ext.getCmp('GROUPCOMB').setRawValue("");
- 	 						GroupStore.load();
  						}
  						if(Ext.getCmp('LEIBIE_COMBO').getValue() != ""){
- 							ComponentTypeStore.removeAll() ;  //清空缓存的数据
  	 						Ext.getCmp('LEIBIE_COMBO').setValue("");
- 	 						Ext.getCmp('LEIBIE_COMBO').setRawValue("");
- 	 						ComponentTypeStore.load();
  						}
+ 						if(Ext.getCmp('COMPONENT_COMBO').getValue() != ""){
+ 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('COMPONENT_COMBO').setValue("");
+ 	 						Ext.getCmp('COMPONENT_COMBO').setRawValue("");
+ 						}
+ 						if(Ext.getCmp('COMPONENT_CODE').getValue() != ""){
+ 	 						Ext.getCmp('COMPONENT_CODE').setValue("");
+ 						}
+ 						GroupDetailStore.load();
+ 						GroupStore.load();
  					}
  				}
  			},{
@@ -166,16 +181,22 @@ if (toolbar.get("button_add")) {
 				id : 'CUSTOMER_FIELD',
 				fieldLabel : '客户名称',
 				emptyText : '客户名称',
-				name : 'customer_name',
+				//name : 'customer_name',
 				readOnly : true ,
 				width : 180
+			},{
+				xtype : 'hidden',
+				id : 'CUSTOMER_FIELD_ID',
+				fieldLabel : '客户ID',
+				name : 'r_customer_id',
+				readOnly : true,
 			},{
 				xtype : 'combo',
 				id : 'LEIBIE_COMBO',
     			fieldLabel : '零件类别',
     			emptyText : '请零件类别',
-    			name : 'r_component_group_id',
-    			hiddenName : 'r_component_group_id',
+    			name : 'value',
+    			hiddenName : 'algorithm_type',
     			triggerAction : 'all',
     			displayField : 'label',
     			valueField : 'value',
@@ -193,14 +214,17 @@ if (toolbar.get("button_add")) {
  							GroupStore.removeAll() ;  //清空缓存的数据
  	 						Ext.getCmp('GROUPCOMB').setValue("");
  	 						Ext.getCmp('GROUPCOMB').setRawValue("");
- 	 						GroupStore.load();
  						}
  						if(Ext.getCmp('COMPONENT_COMBO').getValue() != ""){
  							GroupDetailStore.removeAll() ;  //清空缓存的数据
  	 						Ext.getCmp('COMPONENT_COMBO').setValue("");
  	 						Ext.getCmp('COMPONENT_COMBO').setRawValue("");
- 	 						GroupDetailStore.load();
  						}
+ 						if(Ext.getCmp('COMPONENT_CODE').getValue() != ""){
+ 	 						Ext.getCmp('COMPONENT_CODE').setValue("");
+ 						}
+ 						GroupStore.load();
+ 						GroupDetailStore.load();
  					}
  				}
  			},{
@@ -226,11 +250,11 @@ if (toolbar.get("button_add")) {
  							GroupDetailStore.removeAll() ;  //清空缓存的数据
  	 						Ext.getCmp('COMPONENT_COMBO').setValue("");
  	 						Ext.getCmp('COMPONENT_COMBO').setRawValue("");
- 	 						GroupDetailStore.load();
  						}
  						if(Ext.getCmp('COMPONENT_CODE').getValue() != ""){
  	 						Ext.getCmp('COMPONENT_CODE').setValue("");
  						}
+ 						GroupDetailStore.load();
  					}
  				}
  			},{
@@ -248,7 +272,7 @@ if (toolbar.get("button_add")) {
     			store : GroupDetailStore,
  				width : 445,
  				listeners : {
- 					'select' : function(ComboObj, record, index) {	
+ 					'select' : function(ComboObj, record, index) {
  						Ext.getCmp('COMPONENT_CODE').setValue(record.get('specific_bh'));
  					}
  				}
@@ -257,25 +281,25 @@ if (toolbar.get("button_add")) {
 				id : 'COMPONENT_CODE',
 				fieldLabel : '零件编号',
 				emptyText : '请输入零件编号',
-				name : 'specific_bh',
+				//name : 'specific_bh',
 				readOnly : true ,
 				allowBlank : false,
 				width : 180
-			},{
-				xtype : 'numberfield',
-				fieldLabel : '额定扬程流量',
-				emptyText : '请输入额定扬程流量',
-				name : 'edll',
-				width : 150
-			},{
+			}, {
 				xtype : 'datefield',
-				fieldLabel : '维护保养时间',
-				emptyText : '请输入保养时间',
-				name : 'edghsj',
+				fieldLabel : '零件更换时间',
+				emptyText : '请输入零件更换时间',
+				name : 'ljghsj',
 				format:'Y-m-d',
 				editable : false,
 				allowBlank : true,
 				width : 150
+			}, {
+				fieldLabel : '额定运行时间',
+				emptyText : '请输入额定运行时间',
+				name : 'ljedyxsj',
+				minLength : 1,
+				maxLength : 100
 			},{
 				xtype : 'textfield',
 				fieldLabel : '算法别名',

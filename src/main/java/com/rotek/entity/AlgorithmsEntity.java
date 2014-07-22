@@ -43,10 +43,10 @@ public class AlgorithmsEntity extends BaseEntity {
 	@Column(name = "R_PROJECT_ID")  		// 工程ID外键
 	private Integer r_project_id ;    			                 
 
-	@Column(name = "R_COMPONET_GROUP_ID")  		// 零件（组）ID外键
+	@Column(name = "R_COMPONENT_GROUP_ID")  		// 零件（组）ID外键
 	private Integer r_component_group_id ;    		   
 
-	@Column(name = "R_COMPONET_DETAIL_ID")		// 零件部位(零件)ID外键
+	@Column(name = "R_COMPONENT_DETAIL_ID")		// 零件部位(零件)ID外键
 	private Integer r_component_detail_id ;  		     
 	
 	@Column(name = "MONITOR_TYPE")  			// 监测类型：1-水质监测，2-流量监测，3-压力监测，4-EMC水质监测，5-EMC流量监测，6-EMC压力监测
@@ -56,7 +56,7 @@ public class AlgorithmsEntity extends BaseEntity {
 	private String	specificpart_param ;    		  
 
 	@Column(name = "SPECIFICPART_EDZ")    	// 零件部位(零件)的参数对应的额定值
-	private String	specificpart_edz ;  		 
+	private Double	specificpart_edz ;  		 
 
 	@Column(name = "LJGHSJ")    			// 零件（组）更换时间
 	private Date ljghsj ;   	         
@@ -80,10 +80,10 @@ public class AlgorithmsEntity extends BaseEntity {
 	private Double mxt_csllbz ;   	         
 
 	@Column(name = "MXT_HSLCESJ")       	// 膜（组）系统回收率超额时间[N]
-	private	Integer	mxt_hslcesj ;      	  
+	private	Double	mxt_hslcesj ;      	  
 
 	@Column(name = "MXT_HSLBZ")       		// 膜（组）系统回收率标准值[S]
-	private Double	mxthslbz ;    	
+	private Double	mxt_hslbz ;    	
 	
 	@Column(name = "MXT_HSLCEBFB")       	// 膜（组）系统回收率超额百分比[S]
 	private Double	mxt_hslcebfb ;   
@@ -203,12 +203,12 @@ public class AlgorithmsEntity extends BaseEntity {
 	}
 
 	/** @return specificpart_edz */
-	public String getSpecificpart_edz() {
+	public Double getSpecificpart_edz() {
 		return specificpart_edz;
 	}
 
 	/** @param specificpart_edz specificpart_edz to set */
-	public void setSpecificpart_edz(String specificpart_edz) {
+	public void setSpecificpart_edz(Double specificpart_edz) {
 		this.specificpart_edz = specificpart_edz;
 	}
 
@@ -283,23 +283,23 @@ public class AlgorithmsEntity extends BaseEntity {
 	}
 
 	/** @return mxt_hslcesj */
-	public Integer getMxt_hslcesj() {
+	public Double getMxt_hslcesj() {
 		return mxt_hslcesj;
 	}
 
 	/** @param mxt_hslcesj mxt_hslcesj to set */
-	public void setMxt_hslcesj(Integer mxt_hslcesj) {
+	public void setMxt_hslcesj(Double mxt_hslcesj) {
 		this.mxt_hslcesj = mxt_hslcesj;
 	}
 
-	/** @return mxthslbz */
-	public Double getMxthslbz() {
-		return mxthslbz;
+	/** @return mxt_hslbz */
+	public Double getMxt_hslbz() {
+		return mxt_hslbz;
 	}
 
-	/** @param mxthslbz mxthslbz to set */
-	public void setMxthslbz(Double mxthslbz) {
-		this.mxthslbz = mxthslbz;
+	/** @param mxt_hslbz mxt_hslbz to set */
+	public void setMxt_hslbz(Double mxt_hslbz) {
+		this.mxt_hslbz = mxt_hslbz;
 	}
 
 	/** @return mxt_hslcebfb */
