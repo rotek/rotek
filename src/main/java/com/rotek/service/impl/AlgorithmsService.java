@@ -132,5 +132,9 @@ public class AlgorithmsService {
 			Integer r_coustromer_id,Integer r_project_id,Integer r_component_group_id,Integer r_component_detail_id) throws SQLException {
 		return algorithmsDao.selectAlgorithmByIds(algorithmType,r_coustromer_id,r_project_id,r_component_group_id,r_component_detail_id);
 	}
+
+	public AlgorithmsDto getOneAlgorithm(Integer id) throws SQLException {
+		return algorithmsDao.getOneAlgorithm(id);
+	}
 	
 }

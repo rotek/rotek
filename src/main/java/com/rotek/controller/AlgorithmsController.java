@@ -206,21 +206,19 @@ public class AlgorithmsController {
 	}
 	
 	/**
-	* @MethodName: getComGroupDetail 
-	* @Description: 根据算法ID查询零件算法详情
+	* @MethodName: getAlgorithmDetail 
+	* @Description: 根据算法ID查询算法设置详情
 	* @param id
 	* @param model
 	* @return
 	* @throws SQLException
 	* @author WangJuZhu
 	*/
-	@RequestMapping("getComGroupDetail")
-	public String getComGroupDetail(
-			@RequestParam(value = "id", defaultValue = "") Integer id,
+	@RequestMapping("getAlgorithmDetail")
+	public String getAlgorithmDetail( @RequestParam(value = "id", defaultValue = "") Integer id,
 			ModelMap model) throws SQLException {
-
-		/*ComponentGroupDto cgroup = algorithmsService.getOneComGroup(id);
-		model.put("data", cgroup);*/
+		AlgorithmsDto algor = algorithmsService.getOneAlgorithm(id);
+		model.put("data", algor);
 		return "jsonView";
 	}
 	
