@@ -29,6 +29,9 @@ public class AlgorithmsDto extends AlgorithmsEntity {
 	
 	@Column(name = "COMPONENT_NAME")
 	private String component_name;   		// 零件名称
+	
+	@Column(name = "COMPONENT_BH")
+	private String component_bh;   		// 零件编号
 
 	/** @return customer_name */
 	public String getCustomer_name() {
@@ -68,6 +71,16 @@ public class AlgorithmsDto extends AlgorithmsEntity {
 	/** @param component_name component_name to set */
 	public void setComponent_name(String component_name) {
 		this.component_name = component_name;
+	}
+
+	/** @return component_bh */
+	public String getComponent_bh() {
+		return component_bh;
+	}
+
+	/** @param component_bh component_bh to set */
+	public void setComponent_bh(String component_bh) {
+		this.component_bh = component_bh;
 	}
 	
 }
