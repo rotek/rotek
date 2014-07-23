@@ -6,10 +6,10 @@ CTA.manager.params = {
 			url : basePath + "/admin/manager/listManagers",
 		    dataList:[{
 		          index:'id',
-		          header:'角色id'
+		          header:'用户ID'
 		      },{
 		          index:'name',
-		          header:'用户名'
+		          header:'用户名称'
 		      },{
 		        index:'realname',
 		        header:'真实姓名'
@@ -24,10 +24,10 @@ CTA.manager.params = {
 		    	  header:'所属公司'
 		      },{
 		    	  index:'rolename',
-		    	  header:'所属角色'
+		    	  header:'用户角色'
 		      },{
 		        index:'status',
-		        header:'角色状态',
+		        header:'用户状态',
 		        renderer:function(value){
 		          if(1==value){
 		            return "<span style='color:green;'>有效</span>";
@@ -75,32 +75,44 @@ if (toolbar.get("button_add")) {
 	  var formPanel = new CTA.common.SFormPanel({
 	    items : [{
 	        fieldLabel : '用户名',
-	        emptyText : '请输入管理员用户名',
+	        emptyText : '请输入用户名',
 	        name : 'name',
 	        minLength:6,
 	        maxLength: 30
 	      },{
 	        fieldLabel : '用户密码',
-	        emptyText : '请输入管理员密码',
+	        emptyText : '请输入密码',
 	        name : 'password',
 	        vtype:'password',
 	        minLength:6,
 	        maxLength: 30
 	      },{
 	    	  fieldLabel : '真实姓名',
-	    	  emptyText : '请输入管理员真实姓名',
+	    	  emptyText : '请输入真实姓名',
 	    	  name : 'real_name',
 	    	  minLength:1,
 	    	  maxLength: 30
 	      },{
 	    	  xtype:'numberfield',
-	    	  fieldLabel : '管理员电话',
-	    	  emptyText : '请输入管理员电话',
+	    	  fieldLabel : '电话',
+	    	  emptyText : '请输入电话',
 	    	  name : 'phone',
 	    	  vtype : 'telephone'
 	      },{
+	    	  fieldLabel : 'EMail',
+	    	  emptyText : '请输入EMail地址',
+	    	  name : 'email',
+	    	  minLength:1,
+	    	  maxLength: 30
+	      },{
+	    	  fieldLabel : '所属公司',
+	    	  emptyText : '请输入公司名称',
+	    	  name : 'companyname',
+	    	  minLength:1,
+	    	  maxLength: 30
+	      },{
 	          xtype : 'combo',
-	          name : 'question_secu',
+	          name : 'question',
 	          triggerAction : 'all',
 	          fieldLabel : '密保问题',
 	          emptyText : '请选择密保问题',
@@ -110,7 +122,7 @@ if (toolbar.get("button_add")) {
 	          }),
 	          displayField : 'value',
 	          valueField : 'value',
-	          hiddenName : 'question_secu',
+	          hiddenName : 'question',
 	          editable : false,
 	          mode : 'local'
 	     },{
@@ -119,26 +131,11 @@ if (toolbar.get("button_add")) {
 	    	  name : 'answer',
 	    	  minLength:1,
 	    	  maxLength: 30
-	    	},{
-	        xtype : 'combo',
-	        fieldLabel : '管理员状态',
-	        emptyText : '请选择管理员状态',
-	        name : 'status',
-	        triggerAction : 'all',
-	        store : new Ext.data.SimpleStore({
-	          fields : ['label', 'value'],
-	          data : [["启用", "1"],["禁用", "-1"]]
-	        }),
-	        displayField : 'label',
-	        valueField : 'value',
-	        hiddenName : 'status',
-	        mode : 'local',
-	        editable : false
-	      },{
+	    },{
 				xtype : 'combo',
-				fieldLabel : '管理员角色',
+				fieldLabel : '用户角色',
 				editable : false,
-				emptyText : '点击设置管理员角色',
+				emptyText : '请选择用户角色',
 				name : 'role_id',
 				triggerAction : 'all',
 				displayField : 'name',
@@ -159,31 +156,21 @@ if (toolbar.get("button_add")) {
 					})
 				})
 			},{
-				xtype : 'combo',
-				id : 'manager_dep',
-				fieldLabel : '所属部门',
-				editable : false,
-				emptyText : '点击设置角色所属部门',
-				name : 'dep_id',
-				hiddenName : 'dep_id',
-				triggerAction : 'all',
-				displayField : 'dep_name',
-				valueField : 'id',
-				allowBlank : true,
-				store : new Ext.data.Store({
-					reader : new Ext.data.JsonReader({
-						root : 'dataList',
-						fields : [ {
-							name : 'id'
-						}, {
-							name : 'dep_name'
-						} ]
-					}),
-					proxy : new Ext.data.HttpProxy({
-						url : CTA.manager.params.url.listDepartmentsUrl
-					})
-				})
-			}]
+		        xtype : 'combo',
+		        fieldLabel : '用户状态',
+		        emptyText : '请选择状态',
+		        name : 'status',
+		        triggerAction : 'all',
+		        store : new Ext.data.SimpleStore({
+		          fields : ['label', 'value'],
+		          data : [["启用", "1"],["禁用", "-1"]]
+		        }),
+		        displayField : 'label',
+		        valueField : 'value',
+		        hiddenName : 'status',
+		        mode : 'local',
+		        editable : false
+		      }]
 	  });
 	  addWindow.add(formPanel);
 	  addWindow.show();

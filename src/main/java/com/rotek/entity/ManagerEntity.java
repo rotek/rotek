@@ -68,7 +68,7 @@ public class ManagerEntity extends BaseEntity{
 	@Column(name = "telephone")
 	private String telephone;
 	//
-	@Length(minLength=1,maxLength=50,message="真实姓名请在1～10字符之间")
+	@Length(minLength=1,maxLength=50,message="真实姓名请在1～30字符之间")
 	@Column(name = "realname")
 	private String realname;
 	//
@@ -79,6 +79,31 @@ public class ManagerEntity extends BaseEntity{
 	@NotEmpty(message="状态不能为空")
 	@Column(name = "status")
 	private Integer status;
+	
+	@NotEmpty(message="密码问题不能为空")
+	@Column(name = "question")
+	private String question;
+
+	@NotEmpty(message="请输入密码答案")
+	@Column(name = "answer")
+	private String answer;
+	
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 
 	public Integer getId() {
 		return id;
