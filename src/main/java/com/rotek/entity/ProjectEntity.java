@@ -50,7 +50,7 @@ public class ProjectEntity extends BaseEntity {
 	private String gcxh ;    	// 工程型号
 
 	@Column(name = "GCLB")
-	private Integer gclb ;  	// 工程类别（1、普通工程；2、EMC工程）
+	private Integer gclb ;  	// 工程类别（1、托管服务；2、EMC工程）
 
 	@Column(name = "GCJS")
 	private String gcjs ;   	// 工程介绍

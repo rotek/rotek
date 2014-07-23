@@ -81,8 +81,8 @@ if (toolbar.get("button_add")) {
 		//定义添加的窗口
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
-			width : '50%',
-			height : 437,
+			width : '35%',
+			height : 275,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -323,8 +323,8 @@ if(toolbar.get("button_modify")){
 	
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
-					width : '50%',
-					height : 437,
+					width : '35%',
+					height : 275,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {

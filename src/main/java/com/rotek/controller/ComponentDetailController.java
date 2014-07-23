@@ -445,7 +445,7 @@ public class ComponentDetailController {
 	public String selectProjectByType(
 			@PathVariable(value="projectType") Integer projectType,
 			ModelMap modelMap) throws SQLException{
-		//工程类别（1、普通工程；2、EMC工程）
+		//工程类别（1、托管服务；2、EMC工程）
 		List<ProjectDto> projectList = projectService.selectProjectByType(BaseEntity.STATUS_ENABLED,projectType);
 		modelMap.put("projectList", projectList);
 		return "jsonView";

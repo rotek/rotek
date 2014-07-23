@@ -153,9 +153,9 @@ if (toolbar.get("button_add")) {
 			    columns: 2,
 			    fieldLabel: '检测图类型',
 			    items: [
-			        {boxLabel: '普通工程-水质监测', inputValue: '1'},
-			        {boxLabel: '普通工程-流量监测', inputValue: '2'},
-			        {boxLabel: '普通工程-压力监测', inputValue: '3'},
+			        {boxLabel: '托管服务-水质监测', inputValue: '1'},
+			        {boxLabel: '托管服务-流量监测', inputValue: '2'},
+			        {boxLabel: '托管服务-压力监测', inputValue: '3'},
 			        {boxLabel: 'EMC工程-水质监测', inputValue: '4'},
 			        {boxLabel: 'EMC工程-流量监测', inputValue: '5'},
 			        {boxLabel: 'EMC工程-压力监测', inputValue: '6'}
@@ -218,7 +218,7 @@ if(toolbar.get("button_modify")){
 						triggerAction : 'all',
 						store : new Ext.data.SimpleStore({
 							fields : [ 'label', 'value' ],
-							data : [[ "普通工程", "1" ], [ "EMC工程", "2" ]]
+							data : [[ "托管服务", "1" ], [ "EMC工程", "2" ]]
 						}),
 						displayField : 'label',
 						valueField : 'value',
@@ -347,7 +347,7 @@ if(toolbar.get("button_query")){
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [ [ "普通工程", "1" ], [ "EMC工程", "2" ] ]
+					data : [ [ "托管服务", "1" ], [ "EMC工程", "2" ] ]
 				}),
 				displayField : 'label',
 				valueField : 'value',

@@ -60,7 +60,7 @@ ROTEK.ALGORITHMS1.params = {
 		detailUrl : basePath + "/admin/algorithms/getAlgorithmDetail",
 		modifyUrl : basePath + "/admin/algorithms/modifyAlgorithms/1",
 		dropUrl : basePath + "/admin/algorithms/deleteAlgorithms",
-		listProejctUrl : basePath + "/admin/algorithms/selectProjectByType/0"  // 1、普通工程   2、EMC工程     0、不限
+		listProejctUrl : basePath + "/admin/algorithms/selectProjectByType/0"  // 1、托管服务   2、EMC工程     0、不限
 	}
 };
 
@@ -366,14 +366,10 @@ if(toolbar.get("button_modify")){
 				// 读取零件分类数据
 				var ComponentTypeStore = new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [[ "泵", "1" ], [ "砂滤器", "2" ], [ "碳滤器", "3" ], [ "软化器", "4" ]
-						, [ "过滤器", "5" ], [ "膜", "6" ], [ "紫外杀菌器", "7" ], [ "水箱", "8" ], [ "加药装置", "9" ]]/*,
-					autoLoad : true,
-    				listeners : {
-    					load : function (){
-	    					Ext.getCmp('LEIBIE_COMBO').setValue(data.algorithm_type);
-    					}
-    				}*/
+					data : [
+				        [ "泵", "1" ], [ "砂滤器", "2" ], [ "碳滤器", "3" ], [ "软化器", "4" ], 
+				        [ "过滤器", "5" ], [ "膜", "6" ], [ "紫外杀菌器", "7" ], [ "水箱", "8" ], [ "加药装置", "9" ]
+				    ]
 				})
 				
 				// 读取零件组数据
@@ -384,13 +380,14 @@ if(toolbar.get("button_modify")){
 					}),
 					proxy : new Ext.data.HttpProxy({
 						url : basePath + "/admin/algorithms/selectGroupByPid/0/0"
-					}),
+					})/*,
 					autoLoad : true,
     				listeners : {
     					load : function (){
+    						console.log("1 == " + data.r_component_group_id);
 	    					Ext.getCmp('GROUPCOMB').setValue(data.r_component_group_id);
     					}
-    				}
+    				}*/
 				})		
 				
 				// 读取零件数据
@@ -401,13 +398,14 @@ if(toolbar.get("button_modify")){
 					}),
 					proxy : new Ext.data.HttpProxy({
 						url : basePath + "/admin/algorithms/selectGroupDetailByIds/0/0/0"
-					}),
+					})/*,
 					autoLoad : true,
     				listeners : {
     					load : function (){
+    						console.log("2 == " + data.r_component_detail_id);
 	    					Ext.getCmp('COMPONENT_COMBO').setValue(data.r_component_detail_id);
     					}
-    				}
+    				}*/
 				})		
 
 				//定义修改窗口中的form
@@ -491,7 +489,8 @@ if(toolbar.get("button_modify")){
 		    			editable : false,
 		    			allowBlank : false,
 		    			store : ComponentTypeStore,
-		 				width : 445,
+		    			value : data.algorithm_type,
+		    			width : 445,
 		 				listeners : {
 		 					'select' : function(ComboObj, record, index) {
 		 						GroupStore.proxy = new Ext.data.HttpProxy({

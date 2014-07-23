@@ -54,7 +54,7 @@ ROTEK.Project.params = {
 			header : '工程类别',
 			renderer : function(value) {
 				if (1 == value) {
-					return "普通工程";
+					return "托管服务";
 				} else {
 					return "EMC工程";
 				}
@@ -168,7 +168,7 @@ if (toolbar.get("button_add")) {
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [[ "普通工程", "1" ], [ "EMC工程", "2" ]]
+					data : [[ "托管服务", "1" ], [ "EMC工程", "2" ]]
 				}),
 				displayField : 'label',
 				valueField : 'value',
@@ -306,7 +306,7 @@ if(toolbar.get("button_modify")){
 						triggerAction : 'all',
 						store : new Ext.data.SimpleStore({
 							fields : [ 'label', 'value' ],
-							data : [[ "普通工程", "1" ], [ "EMC工程", "2" ]]
+							data : [[ "托管服务", "1" ], [ "EMC工程", "2" ]]
 						}),
 						displayField : 'label',
 						valueField : 'value',
@@ -435,7 +435,7 @@ if(toolbar.get("button_query")){
 				triggerAction : 'all',
 				store : new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [ [ "普通工程", "1" ], [ "EMC工程", "2" ] ]
+					data : [ [ "托管服务", "1" ], [ "EMC工程", "2" ] ]
 				}),
 				displayField : 'label',
 				valueField : 'value',

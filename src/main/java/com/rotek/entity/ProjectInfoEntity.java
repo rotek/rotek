@@ -47,7 +47,7 @@ public class ProjectInfoEntity implements Serializable {
 	private String gczllj ;    	// 工程资料存储路径
 	
 	// 工程检测图类型,是否作为检测图，作为那个功能的监测图
-	// 1、普通工程流量监测图；2、普通工程压力检测图；3、普通工程水质监测图
+	// 1、托管服务流量监测图；2、托管服务压力检测图；3、托管服务水质监测图
 	// 4、EMC工程流量监测图；5、EMC工程压力检测图；6、EMC工程水质监测图
 	@Column(name = "GCJCTLX")
 	private String gcjctlx ;    	

@@ -9,9 +9,9 @@ package com.rotek.constant;
 */
 public enum MonitorType {
 	
-	PTSZ(1, "普通工程-水质监测"),
-	PTLL(2, "普通工程-流量监测"),
-	PTYL(3, "普通工程-压力监测"),
+	PTSZ(1, "托管服务-水质监测"),
+	PTLL(2, "托管服务-流量监测"),
+	PTYL(3, "托管服务-压力监测"),
 	EMCSZ(4, "EMC工程-水质监测"),
 	EMCLL(5, "EMC工程-流量监测"),
 	EMCYL(6, "EMC工程-压力监测");

@@ -73,7 +73,7 @@ if (toolbar.get("button_add")) {
 		//定义添加的窗口
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
-			width : '50%',
+			width : 510,
 			height : 437,
 			layout : 'fit',
 			handler : saveHandler
@@ -129,7 +129,7 @@ if (toolbar.get("button_add")) {
 	        			editable : false,
 	        			allowBlank : false,
 	        			store : ProjectStore,
-	     				width : 445,
+	     				width : 370,
 	     				listeners : {
 	     					select : function(ProjectCombox, record, index) {
 	     						GroupStore.proxy = new Ext.data.HttpProxy({
@@ -164,7 +164,7 @@ if (toolbar.get("button_add")) {
 	        			editable : false,
 	        			allowBlank : false,
 	        			store : GroupStore,
-	     				width : 445
+	     				width : 370
 	     			} ]
 	     		} ]
 	     	}, {
@@ -180,7 +180,7 @@ if (toolbar.get("button_add")) {
 						emptyText : '请输入零件名称',
 						name : 'specific_part',
 						allowBlank : false,
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -191,7 +191,7 @@ if (toolbar.get("button_add")) {
 						emptyText : '请输入零件编号',
 						name : 'specific_bh',
 						allowBlank : false,
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}, {
@@ -206,7 +206,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定扬程流量',
 						emptyText : '请输入额定扬程流量',
 						name : 'edll',
-						width : 150
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -219,7 +219,7 @@ if (toolbar.get("button_add")) {
 						format:'Y-m-d',
 						editable : false,
 						allowBlank : true,
-						width : 150
+						width : 142
 					}]
 				} ]
 			}, {
@@ -234,7 +234,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定电导率',
 						emptyText : '请输入额定电导率',
 						name : 'edddl',
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -244,7 +244,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定PH值',
 						emptyText : '请输入额定PH值',
 						name : 'edph',
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}, {
@@ -259,7 +259,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定余氯',
 						emptyText : '请输入额定余氯',
 						name : 'edylv',
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -269,7 +269,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定温度',
 						emptyText : '请输入额定温度',
 						name : 'edwd',
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}, {
@@ -284,7 +284,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定硬度',
 						emptyText : '请输入额定硬度',
 						name : 'edyd',
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -295,7 +295,7 @@ if (toolbar.get("button_add")) {
 						emptyText : '请输入额定液位计',
 						name : 'edywj',
 						minLength : 1,
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}, {
@@ -310,7 +310,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定TDS值',
 						emptyText : '请输入额定TDS值',
 						name : 'edtds',
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -320,7 +320,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定压力',
 						emptyText : '请输入额定压力',
 						name : 'edyl',
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}, {
@@ -335,7 +335,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定浊度',
 						emptyText : '请输入额定浊度',
 						name : 'edzdu',
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -345,7 +345,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定SDI值',
 						emptyText : '请输入额定SDI值',
 						name : 'edsdi',
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}, {
@@ -360,7 +360,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定COD值',
 						emptyText : '请输入额定COD值',
 						name : 'edcod',
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -370,7 +370,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定BOD值',
 						emptyText : '请输入额定BOD值',
 						name : 'edbod',
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}, {
@@ -385,7 +385,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定氨氮',
 						emptyText : '请输入额定氨氮',
 						name : 'edad',
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -395,7 +395,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定总氮',
 						emptyText : '请输入额定总氮',
 						name : 'edzd',
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}, {
@@ -410,7 +410,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定总磷',
 						emptyText : '请输入额定总磷',
 						name : 'edzl',
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -420,7 +420,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定悬浮物',
 						emptyText : '请输入额定悬浮物',
 						name : 'edxfw',
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}, {
@@ -435,7 +435,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '额定污泥浓度',
 						emptyText : '请输入额定污泥浓度',
 						name : 'edwnnd',
-						width : 180
+						width : 142
 					} ]
 				}, {
 					layout : 'form',
@@ -445,7 +445,7 @@ if (toolbar.get("button_add")) {
 						fieldLabel : '其他信息',
 	    				emptyText : '请输入其他信息',
 	    				name : 'other_info',
-						width : 180
+						width : 142
 					} ]
 				} ]
 			}]
@@ -581,7 +581,7 @@ if(toolbar.get("button_modify")){
 								emptyText : '请输入零件名称',
 								name : 'specific_part',
 								allowBlank : false,
-								width : 180,
+								width : 142,
 								value : data.specific_part
 							} ]
 						}, {
@@ -593,7 +593,7 @@ if(toolbar.get("button_modify")){
 								emptyText : '请输入零件编号',
 								name : 'specific_bh',
 								allowBlank : false,
-								width : 180,
+								width : 142,
 								value : data.specific_bh
 							} ],
 						} ]
@@ -640,7 +640,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定电导率',
 								emptyText : '请输入额定电导率',
 								name : 'edddl',
-								width : 180,
+								width : 142,
 								value : data.edddl
 							} ]
 						}, {
@@ -651,7 +651,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定PH值',
 								emptyText : '请输入额定PH值',
 								name : 'edph',
-								width : 180,
+								width : 142,
 								value : data.edph
 							} ]
 						} ]
@@ -667,7 +667,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定余氯',
 								emptyText : '请输入额定余氯',
 								name : 'edylv',
-								width : 180,
+								width : 142,
 								value : data.edylv
 							} ]
 						}, {
@@ -678,7 +678,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定温度',
 								emptyText : '请输入额定温度',
 								name : 'edwd',
-								width : 180,
+								width : 142,
 								value : data.edwd
 							} ]
 						} ]
@@ -694,7 +694,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定硬度',
 								emptyText : '请输入额定硬度',
 								name : 'edyd',
-								width : 180,
+								width : 142,
 								value : data.edyd
 							} ]
 						}, {
@@ -706,7 +706,7 @@ if(toolbar.get("button_modify")){
 								emptyText : '请输入额定液位计',
 								name : 'edywj',
 								minLength : 1,
-								width : 180,
+								width : 142,
 								value : data.edywj
 							} ]
 						} ]
@@ -722,7 +722,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定TDS值',
 								emptyText : '请输入额定TDS值',
 								name : 'edtds',
-								width : 180,
+								width : 142,
 								value : data.edtds
 							} ]
 						}, {
@@ -733,7 +733,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定压力',
 								emptyText : '请输入额定压力',
 								name : 'edyl',
-								width : 180,
+								width : 142,
 								value : data.edyl
 							} ]
 						} ]
@@ -749,7 +749,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定浊度',
 								emptyText : '请输入额定浊度',
 								name : 'edzdu',
-								width : 180,
+								width : 142,
 								value : data.edzdu
 							} ]
 						}, {
@@ -760,7 +760,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定SDI值',
 								emptyText : '请输入额定SDI值',
 								name : 'edsdi',
-								width : 180,
+								width : 142,
 								value : data.edsdi
 							} ]
 						} ]
@@ -776,7 +776,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定COD值',
 								emptyText : '请输入额定COD值',
 								name : 'edcod',
-								width : 180,
+								width : 142,
 								value : data.edcod
 							} ]
 						}, {
@@ -787,7 +787,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定BOD值',
 								emptyText : '请输入额定BOD值',
 								name : 'edbod',
-								width : 180,
+								width : 142,
 								value : data.edbod
 							} ]
 						} ]
@@ -803,7 +803,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定氨氮',
 								emptyText : '请输入额定氨氮',
 								name : 'edad',
-								width : 180,
+								width : 142,
 								value : data.edad
 							} ]
 						}, {
@@ -814,7 +814,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定总氮',
 								emptyText : '请输入额定总氮',
 								name : 'edzd',
-								width : 180,
+								width : 142,
 								value : data.edzd
 							} ]
 						} ]
@@ -830,7 +830,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定总磷',
 								emptyText : '请输入额定总磷',
 								name : 'edzl',
-								width : 180,
+								width : 142,
 								value : data.edzl
 							} ]
 						}, {
@@ -841,7 +841,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定悬浮物',
 								emptyText : '请输入额定悬浮物',
 								name : 'edxfw',
-								width : 180,
+								width : 142,
 								value : data.edxfw
 							} ]
 						} ]
@@ -857,7 +857,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '额定污泥浓度',
 								emptyText : '请输入额定污泥浓度',
 								name : 'edwnnd',
-								width : 180,
+								width : 142,
 								value : data.edwnnd
 							} ]
 						}, {
@@ -868,7 +868,7 @@ if(toolbar.get("button_modify")){
 								fieldLabel : '其他信息',
 			    				emptyText : '请输入其他信息',
 			    				name : 'other_info',
-								width : 180,
+								width : 142,
 								value : data.other_info
 							} ]
 						} ]
@@ -877,7 +877,7 @@ if(toolbar.get("button_modify")){
 	
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
-					width : '50%',
+					width : 510,
 					height : 437,
 					layout : 'border',
 					items : [ formPanel ],
@@ -1088,7 +1088,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入零件名称',
 									name : 'specific_part',
 									allowBlank : false,
-									width : 180,
+									width : 142,
 									disabled : true,
 									value : data.specific_part
 								} ]
@@ -1102,7 +1102,7 @@ if(toolbar.get("button_viewDetail")){
 									name : 'specific_bh',
 									allowBlank : false,
 									disabled : true,
-									width : 180,
+									width : 142,
 									value : data.specific_bh
 								} ],
 							} ]
@@ -1152,7 +1152,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定电导率',
 									name : 'edddl',
 									disabled : true,
-									width : 180,
+									width : 142,
 									value : data.edddl
 								} ]
 							}, {
@@ -1164,7 +1164,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定PH值',
 									disabled : true,
 									name : 'edph',
-									width : 180,
+									width : 142,
 									value : data.edph
 								} ]
 							} ]
@@ -1181,7 +1181,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定余氯',
 									name : 'edylv',
 									disabled : true,
-									width : 180,
+									width : 142,
 									value : data.edylv
 								} ]
 							}, {
@@ -1193,7 +1193,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定温度',
 									name : 'edwd',
 									disabled : true,
-									width : 180,
+									width : 142,
 									value : data.edwd
 								} ]
 							} ]
@@ -1210,7 +1210,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定硬度',
 									disabled : true,
 									name : 'edyd',
-									width : 180,
+									width : 142,
 									value : data.edyd
 								} ]
 							}, {
@@ -1223,7 +1223,7 @@ if(toolbar.get("button_viewDetail")){
 									name : 'edywj',
 									disabled : true,
 									minLength : 1,
-									width : 180,
+									width : 142,
 									value : data.edywj
 								} ]
 							} ]
@@ -1240,7 +1240,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定TDS值',
 									disabled : true,
 									name : 'edtds',
-									width : 180,
+									width : 142,
 									value : data.edtds
 								} ]
 							}, {
@@ -1252,7 +1252,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定压力',
 									disabled : true,
 									name : 'edyl',
-									width : 180,
+									width : 142,
 									value : data.edyl
 								} ]
 							} ]
@@ -1269,7 +1269,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定浊度',
 									disabled : true,
 									name : 'edzdu',
-									width : 180,
+									width : 142,
 									value : data.edzdu
 								} ]
 							}, {
@@ -1281,7 +1281,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定SDI值',
 									disabled : true,
 									name : 'edsdi',
-									width : 180,
+									width : 142,
 									value : data.edsdi
 								} ]
 							} ]
@@ -1298,7 +1298,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定COD值',
 									disabled : true,
 									name : 'edcod',
-									width : 180,
+									width : 142,
 									value : data.edcod
 								} ]
 							}, {
@@ -1310,7 +1310,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定BOD值',
 									disabled : true,
 									name : 'edbod',
-									width : 180,
+									width : 142,
 									value : data.edbod
 								} ]
 							} ]
@@ -1327,7 +1327,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定氨氮',
 									disabled : true,
 									name : 'edad',
-									width : 180,
+									width : 142,
 									value : data.edad
 								} ]
 							}, {
@@ -1339,7 +1339,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定总氮',
 									disabled : true,
 									name : 'edzd',
-									width : 180,
+									width : 142,
 									value : data.edzd
 								} ]
 							} ]
@@ -1356,7 +1356,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定总磷',
 									disabled : true,
 									name : 'edzl',
-									width : 180,
+									width : 142,
 									value : data.edzl
 								}]
 							}, {
@@ -1368,7 +1368,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定悬浮物',
 									disabled : true,
 									name : 'edxfw',
-									width : 180,
+									width : 142,
 									value : data.edxfw
 								}]
 							}]
@@ -1385,7 +1385,7 @@ if(toolbar.get("button_viewDetail")){
 									emptyText : '请输入额定污泥浓度',
 									disabled : true,
 									name : 'edwnnd',
-									width : 180,
+									width : 142,
 									value : data.edwnnd
 								} ]
 							}, {
@@ -1397,7 +1397,7 @@ if(toolbar.get("button_viewDetail")){
 				    				emptyText : '请输入其他信息',
 									disabled : true,
 				    				name : 'other_info',
-									width : 180,
+									width : 142,
 									value : data.other_info
 								} ]
 							} ]
@@ -1405,7 +1405,7 @@ if(toolbar.get("button_viewDetail")){
 					});
 				  var detailWindow = new CTA.common.Window({
 				    	title : '查看零件详情',
-				    	width : '50%',
+				    	width : 510,
 						height : 437,
 						layout : 'border',
 				        items : [formPanel]
