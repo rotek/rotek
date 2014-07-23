@@ -525,7 +525,7 @@ if(toolbar.get("button_modify")){
 		    			valueField : 'id',
 		    			editable : false,
 		    			allowBlank : false,
-		    			//value : data.component_group_name,
+		    			value : data.r_component_group_id,
 		    			store : GroupStore,
 		 				width : 445,
 		 				listeners : {
@@ -557,7 +557,7 @@ if(toolbar.get("button_modify")){
 		    			editable : false,
 		    			allowBlank : false,
 		    			store : GroupDetailStore,
-		    			//value : data.component_name,
+		    			value : data.r_component_detail_id,
 		 				width : 445,
 		 				listeners : {
 		 					'select' : function(ComboObj, record, index) {
@@ -582,7 +582,7 @@ if(toolbar.get("button_modify")){
 						format:'Y-m-d',
 						editable : false,
 						allowBlank : true,
-						value:data.ljghsj,
+						value : new Date(parseFloat(data.ljghsj)).format("Y-m-d"),
 						width : 150
 					}, {
 						fieldLabel : '额定运行时间',
