@@ -11,6 +11,7 @@ package com.rotek.dao.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -72,7 +73,7 @@ public class ManagerDao extends BaseDaoImpl {
 	 */
 	public ManagerDto getManagerDetail(Integer id) throws SQLException {
 
-		String sql = "select m.id, m.name, m.real_name, m.password, m.phone, m.question_secu, m.answer, m.status,mr.role_id,md.dep_id from mf_manager m left join mf_manager_role mr on m.id = mr.manager_id left join mf_manager_dep md on m.id=md.manager_id where m.id = ?";
+		String sql = "select rm.id, rm.r_role_id, rm.r_customer_id, rm.name, rm.realname, rm.email, rm.companyname, rm.password, rm.telephone, rm.question, rm.answer, rm.status,rr.name rolename,rc.mc customername from r_manager rm left join r_role rr on rm.r_role_id = rr.id left join r_customer rc on rm.r_customer_id=rc.id where rm.id = ?";
 		ManagerDto manager = this.selectOne(sql, new Integer[] { id },
 				ManagerDto.class);
 
@@ -175,5 +176,11 @@ public class ManagerDao extends BaseDaoImpl {
 
 		String sql = "delete from mf_manager_dep where manager_id = ?";
 		this.executeUpdate(sql, new Integer[] { id });
+	}
+	
+	public List<Map<String, Object>> listCustomers() throws SQLException {
+		
+		String sql = "select id, mc from r_customer where status = 1";
+		return this.executeQuery(sql, null);		
 	}
 }

@@ -10,6 +10,7 @@ package com.rotek.controller;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -153,9 +154,11 @@ public class ManagerController {
 			@RequestParam(value="telephone", defaultValue = "") String telephone,
 			@RequestParam(value="realname", defaultValue = "") String realname,
 			@RequestParam(value="companyname", defaultValue = "") String companyname,
+			@RequestParam(value="question", defaultValue = "") String question,
+			@RequestParam(value="answer", defaultValue = "") String answer,
 			@RequestParam(value="status", defaultValue = "") Integer status,
-			@RequestParam(value="role_id", defaultValue = "") Integer role_id,
-			@RequestParam(value="dep_id", defaultValue = "") Integer dep_id,
+			@RequestParam(value="r_role_id", defaultValue = "") Integer r_role_id,
+			@RequestParam(value="r_customer_id", defaultValue = "") Integer r_customer_id,
 			HttpServletRequest request,
 			UserDto user,
 			ModelMap model) throws Exception {
@@ -164,11 +167,17 @@ public class ManagerController {
 		manager.setId(id);
 		manager.setName(name);
 		manager.setPassword(password);
-		manager.setRealname(realname);
+		manager.setEmail(email);
 		manager.setTelephone(telephone);
+		manager.setRealname(realname);
+		manager.setCompanyname(companyname);
+		manager.setQuestion(question);
+		manager.setAnswer(answer);
 		manager.setStatus(status);
+		manager.setR_customer_id(r_customer_id);
+		manager.setR_role_id(r_role_id);
 
-		List<String> messages = managerService.modifyManager(manager, role_id,dep_id);
+		List<String> messages = managerService.modifyManager(manager);
 		model.put("success", null == messages ? true : false);
 		model.put("messages", messages);
 		return "jsonView";
@@ -193,6 +202,15 @@ public class ManagerController {
 		List<String> messages = managerService.deleteManager(ids);
 		model.put("success", null == messages ? true : false);
 		model.put("messages", messages);
+		return "jsonView";
+	}
+	
+	@RequestMapping("listCustomers")
+	public String listCustomers (ModelMap modelMap, HttpServletRequest request) throws Exception {
+		
+		List<Map<String,Object>> customerList = managerService.listCustomers();
+		
+		modelMap.put("dataList", customerList);
 		return "jsonView";
 	}
 }

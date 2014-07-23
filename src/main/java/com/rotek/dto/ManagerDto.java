@@ -23,6 +23,17 @@ public class ManagerDto extends ManagerEntity {
 	@Column(name = "rolename")
 	private String rolename;// 角色名称
 
+	@Column(name = "customername")
+	private String customername;// 客户名称
+
+	public String getCustomername() {
+		return customername;
+	}
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+
 	public String getRolename() {
 		return rolename;
 	}

@@ -11,6 +11,12 @@ CTA.manager.params = {
 		          index:'name',
 		          header:'用户名称'
 		      },{
+		    	  index:'rolename',
+		    	  header:'用户角色'
+		      },{
+			        index:'customername',
+			        header:'所属客户'
+			  },{
 		        index:'realname',
 		        header:'真实姓名'
 		      },{
@@ -22,9 +28,6 @@ CTA.manager.params = {
 		      },{
 		    	  index:'companyname',
 		    	  header:'所属公司'
-		      },{
-		    	  index:'rolename',
-		    	  header:'用户角色'
 		      },{
 		        index:'status',
 		        header:'用户状态',
@@ -44,7 +47,7 @@ CTA.manager.params = {
 		dropUrl : basePath + "/admin/manager/deleteManager",
 		listRolesUrl : basePath + "/admin/role/listRoles_combo",
 
-		listDepartmentsUrl : basePath + "/admin/department/listDepartments_s"
+		listDepartmentsUrl : basePath + "/admin/manager/listCustomers"
 	}
 };
 
@@ -77,27 +80,27 @@ if (toolbar.get("button_add")) {
 	        fieldLabel : '用户名',
 	        emptyText : '请输入用户名',
 	        name : 'name',
-	        minLength:6,
+	        minLength:1,
 	        maxLength: 30
 	      },{
 	        fieldLabel : '用户密码',
 	        emptyText : '请输入密码',
 	        name : 'password',
 	        vtype:'password',
-	        minLength:6,
+	        minLength:1,
 	        maxLength: 30
 	      },{
 	    	  fieldLabel : '真实姓名',
 	    	  emptyText : '请输入真实姓名',
-	    	  name : 'real_name',
+	    	  name : 'realname',
 	    	  minLength:1,
 	    	  maxLength: 30
 	      },{
 	    	  xtype:'numberfield',
-	    	  fieldLabel : '电话',
+	    	  fieldLabel : '用户电话',
 	    	  emptyText : '请输入电话',
-	    	  name : 'phone',
-	    	  vtype : 'telephone'
+	    	  name : 'telephone'
+	    	  //vtype : 'telephone'
 	      },{
 	    	  fieldLabel : 'EMail',
 	    	  emptyText : '请输入EMail地址',
@@ -136,11 +139,11 @@ if (toolbar.get("button_add")) {
 				fieldLabel : '用户角色',
 				editable : false,
 				emptyText : '请选择用户角色',
-				name : 'role_id',
+				name : 'r_role_id',
 				triggerAction : 'all',
 				displayField : 'name',
 				valueField : 'id',
-				hiddenName : 'role_id',
+				hiddenName : 'r_role_id',
 				allowBlank : false,
 				store : new Ext.data.Store({
 					reader : new Ext.data.JsonReader({
@@ -194,7 +197,7 @@ if(toolbar.get("button_modify")){
       var data = Ext.util.JSON.decode(response.responseText).data;
 
       var formPanel = new CTA.common.SFormPanel({
-    	  	height : 350,
+    	  	height : 380,
     	    items : [{
     	    	xtype : 'hidden',
     	        fieldLabel : '用户ID',
@@ -202,32 +205,43 @@ if(toolbar.get("button_modify")){
 	            readOnly:true
     	      },{
     	    	  fieldLabel : '用户名',
-    	    	  emptyText : '请输入管理员用户名',
+    	    	  emptyText : '请输入用户名称',
     	    	  name : 'name',
-    	    	  minLength:6,
+    	    	  minLength:1,
     	    	  maxLength: 30
     	      },{
     	        fieldLabel : '用户密码',
-    	        emptyText : '请输入管理员密码',
+    	        emptyText : '请输入密码',
     	        name : 'password',
     	        vtype:'password',
-    	        minLength:6,
+    	        minLength:1,
     	        maxLength: 30
     	      },{
     	    	  fieldLabel : '真实姓名',
-    	    	  emptyText : '请输入管理员真实姓名',
-    	    	  name : 'real_name',
+    	    	  emptyText : '请输入真实姓名',
+    	    	  name : 'realname',
     	    	  minLength:1,
     	    	  maxLength: 30
     	      },{
     	    	  xtype : 'numberfield',
-    	    	  fieldLabel : '管理员电话',
-    	    	  emptyText : '请输入管理员电话',
-    	    	  name : 'phone',
-    	    	  vtype : 'telephone'
+    	    	  fieldLabel : '用户电话',
+    	    	  emptyText : '请输入用户电话',
+    	    	  name : 'telephone',
+    	      },{
+    	    	  fieldLabel : 'EMail',
+    	    	  emptyText : '请输入EMail地址',
+    	    	  name : 'email',
+    	    	  minLength:1,
+    	    	  maxLength: 30
+    	      },{
+    	    	  fieldLabel : '所属公司',
+    	    	  emptyText : '请输入公司名称',
+    	    	  name : 'companyname',
+    	    	  minLength:1,
+    	    	  maxLength: 30
     	      },{
     	          xtype : 'combo',
-    	          name : 'question_secu',
+    	          name : 'question',
     	          triggerAction : 'all',
     	          fieldLabel : '密保问题',
     	          emptyText : '请选择密保问题',
@@ -237,7 +251,7 @@ if(toolbar.get("button_modify")){
     	          }),
     	          displayField : 'value',
     	          valueField : 'value',
-    	          hiddenName : 'question_secu',
+    	          hiddenName : 'question',
     	          editable : false,
     	          mode : 'local'
     	     },{
@@ -248,8 +262,8 @@ if(toolbar.get("button_modify")){
     	    	  maxLength: 30
     	    	},{
     	        xtype : 'combo',
-    	        fieldLabel : '管理员状态',
-    	        emptyText : '请选择管理员状态',
+    	        fieldLabel : '用户状态',
+    	        emptyText : '请选择用户状态',
     	        name : 'status',
     	        triggerAction : 'all',
     	        store : new Ext.data.SimpleStore({
@@ -264,13 +278,13 @@ if(toolbar.get("button_modify")){
     	      },{
     				xtype : 'combo',
     				id : 'manager_role',
-    				fieldLabel : '管理员角色',
-    				emptyText : '点击设置管理员角色',
-    				name : 'role_id',
+    				fieldLabel : '用户角色',
+    				emptyText : '请选择角色',
+    				name : 'r_role_id',
     				triggerAction : 'all',
     				displayField : 'name',
     				valueField : 'id',
-    				hiddenName : 'role_id',
+    				hiddenName : 'r_role_id',
     				editable : false,
     				allowBlank : false,
     				store : new Ext.data.Store({
@@ -288,21 +302,21 @@ if(toolbar.get("button_modify")){
     					autoLoad : true,
         				listeners : {
         					load : function (){
-    	    					Ext.getCmp('manager_role').setValue(data.role_id);
-    	    					data.role_id = null;
+    	    					Ext.getCmp('manager_role').setValue(data.r_role_id);
+    	    					//data.r_role_id = null;
         					}
         				}
     				})
     			},{
     				xtype : 'combo',
-    				id : 'manager_dep',
-    				fieldLabel : '所属部门',
+    				id : 'customerlist',
+    				fieldLabel : '所属客户',
     				editable : false,
-    				emptyText : '点击设置角色所属部门',
-    				name : 'dep_id',
-    				hiddenName : 'dep_id',
+    				emptyText : '请选择所属客户',
+    				name : 'r_customer_id',
+    				hiddenName : 'r_customer_id',
     				triggerAction : 'all',
-    				displayField : 'dep_name',
+    				displayField : 'mc',
     				valueField : 'id',
     				allowBlank : true,
     				store : new Ext.data.Store({
@@ -311,7 +325,7 @@ if(toolbar.get("button_modify")){
     						fields : [ {
     							name : 'id'
     						}, {
-    							name : 'dep_name'
+    							name : 'mc'
     						} ]
     					}),
     					proxy : new Ext.data.HttpProxy({
@@ -320,7 +334,12 @@ if(toolbar.get("button_modify")){
     					autoLoad : true,
     					listeners : {
     						load : function (){
-    							Ext.getCmp('manager_dep').setValue(data.dep_id);
+    							if (data.r_customer_id > 0){
+    								Ext.getCmp('customerlist').setValue(data.r_customer_id);
+    							}
+    							else{
+    								Ext.getCmp('customerlist').setValue("");
+    							}
     						}
     					}
     				})
@@ -332,7 +351,7 @@ if(toolbar.get("button_modify")){
       var updateWindow = new CTA.common.UpdateWindow({
     	id : 'updateWindow',
         width : 500,
-        height : 350,
+        height : 380,
         items : [formPanel],
         handler : function(){
         	 //检查表单是否填写好

@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,10 @@ public class ManagerService {
 	public List<ManagerDto> listManagers(ManagerEntity manager, ListPager pager)
 			throws SQLException {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select rm.id,rm.r_role_id,rm.r_customer_id,rm.name,rm.password,rm.email,rm.telephone,rm.realname,rm.companyname,rm.status,rr.name rolename from r_manager rm,r_role rr where rm.r_role_id = rr.id ");
+		sql.append("select rm.id,rm.r_role_id,rm.r_customer_id,rm.name,rm.password,rm.email,rm.telephone,rm.realname,rm.companyname,rm.status,rr.name rolename, rc.mc customername ");
+		sql.append("from r_manager rm ");
+		sql.append("left join r_role rr on rm.r_role_id = rr.id ");
+		sql.append("left join r_customer rc on rm.r_customer_id = rc.id");
 		List<Object> params = new LinkedList<Object>();
 		if (null != manager.getId()) {
 			sql.append(" and rm.id = ?");
@@ -131,21 +135,19 @@ public class ManagerService {
 	 * @return List<String>
 	 * @throws
 	 */
-	public List<String> modifyManager(ManagerEntity manager, Integer role_id,
-			Integer dep_id) throws IllegalAccessException,
+	public List<String> modifyManager(ManagerEntity manager) throws IllegalAccessException,
 			InvocationTargetException, NoSuchMethodException, SQLException {
 		List<String> messages = ValidateUtil.validate(manager);
-		if (messages.size() > 0 || null == manager.getId() || null == role_id
-				|| null == dep_id) {
+		if (messages.size() > 0 || null == manager.getId()) {
 			return messages;
 		}
 		managerDao.modifyManager(manager);
 		// 清除用户对应的角色信息
-		managerDao.clearManager_role(manager.getId());
-		managerDao.addManager_role(manager.getId(), role_id);
+		//managerDao.clearManager_role(manager.getId());
+		//managerDao.addManager_role(manager.getId(), role_id);
 		// 清除用户对应的部门信息
-		managerDao.clearManagerDepartment(manager.getId());
-		managerDao.addManager_dep(manager.getId(), dep_id);
+		//managerDao.clearManagerDepartment(manager.getId());
+		//managerDao.addManager_dep(manager.getId(), dep_id);
 
 		return null;
 	}
@@ -171,5 +173,9 @@ public class ManagerService {
 		sql.append(" where id in (" + ids.trim() + ")");
 		managerDao.deleteManager(sql.toString());
 		return messages;
+	}
+	
+	public List<Map<String, Object>> listCustomers() throws SQLException {
+		return managerDao.listCustomers();
 	}
 }

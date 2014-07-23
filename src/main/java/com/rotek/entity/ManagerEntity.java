@@ -46,7 +46,6 @@ public class ManagerEntity extends BaseEntity{
 	@Column(name = "id")
 	private Integer id;
 	//
-	@Length(minLength=1,maxLength=50,message="用户名为1-50个字符")
 	@Column(name = "name")
 	private String name;
 	//
@@ -56,7 +55,6 @@ public class ManagerEntity extends BaseEntity{
 	@Column(name = "r_customer_id")
 	private Integer r_customer_id;
 	//
-	@Length(minLength=1,maxLength=50,message="密码请在1～50字符之间")
 	@Column(name = "password")
 	private String password;
 	//
@@ -64,19 +62,15 @@ public class ManagerEntity extends BaseEntity{
 	@Column(name = "email")
 	private String email;
 	//
-	@TelePhone(message="请输入正确手机号")
 	@Column(name = "telephone")
 	private String telephone;
 	//
-	@Length(minLength=1,maxLength=50,message="真实姓名请在1～30字符之间")
 	@Column(name = "realname")
 	private String realname;
 	//
-	@Length(minLength=1,maxLength=50,message="公司名称请在1～100字符之间")
 	@Column(name = "companyname")
 	private String companyname;
 	// 用户的类型状态 -1 不可用 1代表管理员
-	@NotEmpty(message="状态不能为空")
 	@Column(name = "status")
 	private Integer status;
 	
