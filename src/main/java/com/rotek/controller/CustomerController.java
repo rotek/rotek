@@ -16,6 +16,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,8 +48,10 @@ public class CustomerController {
 	* @return
 	* @author Liusw
 	*/
-	@RequestMapping("toCustomerList")
-	public String toCustomerList() {
+	@RequestMapping("/toCustomerList/{customerType}")
+	public String toCustomerList( HttpServletRequest request,HttpServletResponse response,
+			@PathVariable(value = "customerType") Integer customerType,ModelMap modelMap)throws Exception{
+		modelMap.put("customerType", customerType);
 		return "admin/customer/customer";
 	}
 	
@@ -65,8 +68,9 @@ public class CustomerController {
 	* @throws Exception
 	* @author Liusw
 	*/
-	@RequestMapping("listCustomers")
+	@RequestMapping("/listCustomers/{customerType}")
 	public String listCustomers(
+			@PathVariable(value = "customerType") Integer customerType, // 3表示客户，其他表示代理商
 			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "limit", defaultValue = "15") Integer limit,
 			CustomerEntity customer,
@@ -78,7 +82,7 @@ public class CustomerController {
 		pager.setRowsPerPage(limit);
 		pager.setPageNo(pageNo);
 
-		List<CustomerDto> customerList = customerService.listCustomers(customer, pager);
+		List<CustomerDto> customerList = customerService.listCustomers(customer, customerType, pager);
 		modelMap.put("dataList", customerList);
 		modelMap.put("totalCount", pager.getTotalRows());
 

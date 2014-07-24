@@ -40,13 +40,19 @@ public class CustomerService {
 	* @throws SQLException
 	* @author Liusw
 	*/
-	public List<CustomerDto> listCustomers(CustomerEntity customer, ListPager pager) throws SQLException{
+	public List<CustomerDto> listCustomers(CustomerEntity customer, Integer customerType, ListPager pager) throws SQLException{
 		
 		StringBuilder sql = new StringBuilder();
 		//sql.append("select ID, R_CUSTOMER_ID, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where STATUS = 1");
 		sql.append("SELECT R.ID, R.R_CUSTOMER_ID, R.KHLB, R.MC,RC.MC AS SUPER_MC, R.TXDZ, R.LXFS, R.LXR, R.LXDH, R.DLQY, R.JWDDZ, R.STATUS FROM R_CUSTOMER R ");
 		sql.append(" LEFT JOIN R_CUSTOMER RC ON RC.ID = R.R_CUSTOMER_ID");
 		sql.append("  WHERE R.STATUS = 1 ");
+		if (customerType == 3){
+			sql.append(" and r.khlb = 3");
+		}
+		else{
+			sql.append(" and r.khlb != 3");
+		}
 
 		List<Object> params = new ArrayList<Object>();
 		if(null != customer.getId()){

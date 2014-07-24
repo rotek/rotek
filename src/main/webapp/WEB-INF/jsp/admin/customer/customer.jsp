@@ -6,9 +6,15 @@
 <title>客户信息管理</title>
 <%@include file="/assets/jsp/common.jsp"%>
 </head>
-<body>
+<body></body>
 
-</body>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/customer/customer.js">
-</script>
+<c:choose>
+	<c:when test="${groupType eq 3 }">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/customer/customer.js"></script>
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_app/admin/customer/Agent.js"></script>
+	</c:otherwise>
+</c:choose>
+
 </html>

@@ -3,7 +3,7 @@ Ext.ns("ROTEK.CUSTOMER");
 ROTEK.CUSTOMER.params = {
 	//全局gridpanel的参数
 	gridParam : {
-			url :   basePath + "/admin/customer/listCustomers",
+			url :   basePath + "/admin/customer/listCustomers/3",
 		    dataList:[{
 		          index:'id',
 		          header:'客户ID'

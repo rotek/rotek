@@ -168,7 +168,7 @@ public class ManagerService {
 			messages.add("请选择您要操作的数据!");
 		}
 		StringBuilder sql = new StringBuilder();
-		sql.append("update mf_manager set status = ").append(
+		sql.append("update r_manager set status = ").append(
 				DataStatus.DISABLED);
 		sql.append(" where id in (" + ids.trim() + ")");
 		managerDao.deleteManager(sql.toString());

@@ -379,26 +379,19 @@ if(toolbar.get("button_query")){
 		toolbar.get("button_query").setHandler(function() {
 	  var formPanel = new CTA.common.SFormPanel({
 		  items : [{
-		        fieldLabel : '用户名',
-		        emptyText : '请输入管理员用户名',
+		        fieldLabel : '用户名称',
+		        emptyText : '请输入用户名称',
 		        name : 'name',
 		        allowBlank : true
 		      },{
 		    	  fieldLabel : '真实姓名',
-		    	  emptyText : '请输入管理员真实姓名',
-		    	  name : 'real_name',
+		    	  emptyText : '请输入真实姓名',
+		    	  name : 'realname',
 		    	  allowBlank : true
 		      },{
-		    	  xtype:'numberfield',
-		    	  fieldLabel : '管理员电话',
-		    	  emptyText : '请输入管理员电话',
-		    	  name : 'phone',
-		    	  allowBlank : true,
-		    	  vtype : 'telephone'
-		      },{
 		        xtype : 'combo',
-		        fieldLabel : '管理员状态',
-		        emptyText : '请选择管理员状态',
+		        fieldLabel : '用户状态',
+		        emptyText : '请选择用户状态',
 		        name : 'status',
 		        triggerAction : 'all',
 		        store : new Ext.data.SimpleStore({
