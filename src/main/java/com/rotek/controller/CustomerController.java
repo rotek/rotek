@@ -108,8 +108,9 @@ public class CustomerController {
 	* @throws Exception
 	* @author Liusw
 	*/
-	@RequestMapping("addCustomer")
+	@RequestMapping("addCustomer/{customerType}")
 	public String addCustomer(HttpServletRequest request,HttpServletResponse response,
+			@PathVariable(value = "customerType") Integer customerType,
 			@RequestParam(value = "khlb", defaultValue = "0") Integer KHLB,
 			@RequestParam(value = "r_customer_id", defaultValue = "0") Integer R_CUSTOMER_ID,
 			@RequestParam(value = "mc", defaultValue = "") String MC,
@@ -123,7 +124,13 @@ public class CustomerController {
 			ModelMap model ) throws Exception {
 
 		CustomerEntity customer = new CustomerEntity();
-		customer.setKhlb(KHLB);
+		if (customerType == 3){
+			customer.setKhlb(3);
+		}
+		else{
+			customer.setKhlb(KHLB);
+		}
+		
 		if (KHLB == 1)
 		{
 			customer.setR_customer_id(0);
@@ -238,6 +245,15 @@ public class CustomerController {
 		
 		modelMap.put("firstAgentList", firstAgentList);
 		modelMap.put("secondAgentList", secondAgentList);
+		return "jsonView";
+	}
+	
+	@RequestMapping("listAllAgents")
+	public String listAllAgents (ModelMap modelMap, HttpServletRequest request) throws Exception {
+		
+		List<Map<String,Object>> agentList = customerService.listAgentsByType(CustomerEntity.KHLB_SECONDAGENT);
+		
+		modelMap.put("dataList", agentList);
 		return "jsonView";
 	}
 	

@@ -56,11 +56,11 @@ ROTEK.CUSTOMER.params = {
 		      }]
 	},
 	url : {
-		addUrl : basePath + "/admin/customer/addCustomer",
+		addUrl : basePath + "/admin/customer/addCustomer/3",
 		detailUrl : basePath + "/admin/customer/getCustomerDetail",
 		modifyUrl : basePath + "/admin/customer/modifyCustomer",
 		dropUrl : basePath + "/admin/customer/deleteCustomer",
-		listAgentsUrl : basePath + "/admin/customer/listAgents"
+		listAllAgentsUrl : basePath + "/admin/customer/listAllAgents"
 	}
 };
 
@@ -92,68 +92,6 @@ if (toolbar.get("button_add")) {
 	  //定义添加窗口中的form
 	  var formPanel = new CTA.common.SFormPanel({
 	    items : [{
-	    	id : 'khlb_combo',
-	        xtype : 'combo',
-	        fieldLabel : '客户类别',
-	        emptyText : '请选择客户类别',
-	        name : 'khlb',
-	        triggerAction : 'all',
-	        store : new Ext.data.SimpleStore({
-	          fields : ['label', 'value'],
-	          data : [["一级代理商", "1"],["二级代理商", "2"],["客户", "3"]]
-	        }),
-	        listeners : {
-	        	'change': function(combo,item,index){
-	        		
-	        		console.log(item);
-	        		console.log(index);
-        			Ext.Ajax.request({
-	        		    url : ROTEK.CUSTOMER.params.url.listAgentsUrl,
-	        		    success : function(response) {
-	        			      var firstAgentList = Ext.util.JSON.decode(response.responseText).firstAgentList;
-	        			      var secondAgentList = Ext.util.JSON.decode(response.responseText).secondAgentList;
-	        			      customerCache.firstAgentList = [];
-	        			      customerCache.secondAgentList = [];
-	        			      Ext.each(firstAgentList, function(item) {
-      			    			  var arr = new Array();
-      			    			  arr.push(item.mc + "");
-      			    			  arr.push(item.id);
-	        			    	  customerCache.firstAgentList.push(arr);
-        			    	  });
-	        			      
-	        			      Ext.each(secondAgentList, function(item) {
-      			    			  var arr = new Array();
-      			    			  arr.push(item.mc);
-      			    			  arr.push(item.id);
-	        			    	  customerCache.secondAgentList.push(arr);
-        			    	  });
-	        			      
-	        			      if(item == 2){
-	        			    	  Ext.getCmp('agentlist').setDisabled(false);// 所属代理商
-          	        			  Ext.getCmp('agentarea').setDisabled(false);   // 代理区域	      	        			
-	        			    	  Ext.getCmp('agentlist').getStore().loadData(customerCache.firstAgentList);
-	        			      }else if (item == 3) {
-	        			    	  Ext.getCmp('agentlist').setDisabled(false);
-	      	        			  Ext.getCmp('agentarea').setDisabled(true);	      	        			
-	        			    	  Ext.getCmp('agentlist').getStore().loadData(customerCache.secondAgentList);
-	        			      }
-	        			      else {
-	        			    	  Ext.getCmp('agentlist').setDisabled(true);
-	      	        			  Ext.getCmp('agentarea').setDisabled(false);
-	      	        			  return false;
-	        			      }
-
-	        			      return true;
-	        		    }
-	        	    });
-	        	}
-	        },
-	        displayField : 'label',
-	        valueField : 'value',
-	        hiddenName : 'khlb',
-	        mode : 'local',
-	        editable : false
-	      },{
 	        fieldLabel : '客户名称',
 	        emptyText : '请输入客户名称',
 	        name : 'mc',
@@ -191,15 +129,6 @@ if (toolbar.get("button_add")) {
 	         maxLength: 50,  
 	         allowBlank : true
 	     },{
-	    	id : 'agentarea',
-	        fieldLabel : '代理区域',
-	        emptyText : '请输入代理区域',
-	        name : 'dlqy',
-	        minLength : 1,
-	        maxLength: 50,
-	        disabled : true,
-            allowBlank : true
-	     },{
 		     id : 'agentlist',
 		     xtype : 'combo',
 		     fieldLabel : '所属代理商',
@@ -210,13 +139,23 @@ if (toolbar.get("button_add")) {
 			 valueField : 'id',
 			 hiddenName : 'r_customer_id',
 			 allowBlank : true,
-			 store : new Ext.data.SimpleStore({
-		            fields : ['mc', 'id'],
-		            data : []
-		    }),
-		    mode : 'local',
+		        store : new Ext.data.Store({
+					reader : new Ext.data.JsonReader({
+						root : 'dataList',
+						fields : [ {
+							name : 'id'
+						}, {
+							name : 'mc'
+						} ]
+					}),
+					proxy : new Ext.data.HttpProxy({
+						url : ROTEK.CUSTOMER.params.url.listAllAgentsUrl
+					}),
+					autoLoad : true
+				}),
+				
 		    editable : false,
-		    disabled : true
+		    disabled : false
 		},{
 		        xtype : 'combo',
 		        fieldLabel : '客户状态',
@@ -293,14 +232,6 @@ if(toolbar.get("button_modify")){
 	          name : 'lxdh',
 	          allowBlank : false
 	        },{
-	          id : 'agentarea',
-	          fieldLabel : '代理区域',
-	          emptyText : '请输入代理区域',
-	          name : 'dlqy',
-	          //editable : data.khlb == 3 ? false : true,// 下拉框用
-	          readOnly : data.khlb == 3 ? true : false,
-	          allowBlank : true
-	        },{
 	          fieldLabel : '经纬度地址',
 	          emptyText : '请输入经纬度地址',
 	          name : 'jwddz',
@@ -366,22 +297,6 @@ if(toolbar.get("button_query")){
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 100
-			}, {
-				xtype : 'combo',
-				fieldLabel : '客户类别',
-				emptyText : '请选择客户类别',
-				name : 'khlb',
-				triggerAction : 'all',
-				store : new Ext.data.SimpleStore({
-					fields : [ 'label', 'value' ],
-					data : [ [ "一级代理商", "1" ], [ "二级代理商", "2" ], [ "客户", "3" ] ]
-				}),
-				displayField : 'label',
-				valueField : 'value',
-				hiddenName : 'khlb',
-				allowBlank : true,
-				editable : false,
-				mode : 'local'
 			}, {
 				fieldLabel : '联系人',
 				emptyText : '请输入联系人',
