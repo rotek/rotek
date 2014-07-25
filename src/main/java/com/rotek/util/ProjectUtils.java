@@ -17,6 +17,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import com.cta.platform.config.SystemGlobals;
+import com.rotek.entity.TableDescEntity;
 
 /**
  * @ClassName:ProjectUtils
@@ -86,31 +87,33 @@ public class ProjectUtils {
 	}
 	
 	/**
-	* @MethodName: getColumnNames 
-	* @Description: 根据表名获取其所有的字段名称
+	* @MethodName: getColumnDesc 
+	* @Description: 根据表名获取其字段名称、字段类型、字段注释
 	* @param tableName 表名称
-	* @return 字段名称List
+	* @return 字段描述List
 	* @author WangJuZhu
 	*/
-	public static List<String> getColumnNames(String tableName){
-		List<String> columnNames = new ArrayList<String>() ;
-		ResultSetMetaData data = null;
+	public static List<TableDescEntity> getColumnDesc(String tableName){
+		List<TableDescEntity> tabEntityList = new ArrayList<>();
 		ResultSet rs = null;
 		if(StringUtils.isNotBlank(tableName)){
 			try {
 				Connection conn = getConnection();
-				String sql = "select * from " + tableName;
+				String sql = "SELECT COLUMN_NAME, DATA_TYPE, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='" + tableName + "'";
 				PreparedStatement stmt;
 				stmt = conn.prepareStatement(sql);
 				rs = stmt.executeQuery(sql);
-				data = rs.getMetaData();
-				for (int i = 1; i <= data.getColumnCount(); i++) {
-					columnNames.add(data.getColumnName(i));
+				while (rs.next()) {
+					TableDescEntity tabEntity = new TableDescEntity();
+					tabEntity.setColumnName(rs.getString(1));
+					tabEntity.setColumnType(rs.getString(2));
+					tabEntity.setColumnComment(rs.getString(3));
+					tabEntityList.add(tabEntity);	
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			return columnNames;
+			return tabEntityList;
 		}else{
 			return null;
 		}
@@ -170,7 +173,7 @@ public class ProjectUtils {
 		DatabaseMetaData md = null;
 		ResultSet rs = null;
 		
-		int j = 1;
+	/*	int j = 1;
 		try {
 			Class.forName(dbDrive);
 			conn = DriverManager.getConnection(url, name, password);
@@ -189,18 +192,27 @@ public class ProjectUtils {
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		 
 		try {
 			Class.forName(dbDrive); 
 			conn = DriverManager.getConnection(url, name, password);
-			String sql = "select * from r_button";
+			String sql = "SELECT COLUMN_NAME, DATA_TYPE, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='R_COMPONENT_GROUP'";
+
 			PreparedStatement stmt;
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery(sql);
 			ResultSetMetaData data = rs.getMetaData();
+			List<TableDescEntity> tabEntityList = new ArrayList<>();
+			
 			while (rs.next()) {
-				for (int i = 1; i <= data.getColumnCount(); i++) {
+				TableDescEntity tabEntity = new TableDescEntity();
+				tabEntity.setColumnName(rs.getString(1));
+				tabEntity.setColumnType(rs.getString(2));
+				tabEntity.setColumnComment(rs.getString(3));
+				tabEntityList.add(tabEntity);
+				
+				/*for (int i = 1; i <= data.getColumnCount(); i++) {
 					// 获得所有列的数目及实际列数
 					int columnCount = data.getColumnCount();
 					// 获得指定列的列名
@@ -238,6 +250,7 @@ public class ProjectUtils {
 					// 能否出现在where中
 					boolean isSearchable = data.isSearchable(i);
 					System.out.println(columnCount);
+					System.out.println("获得列" + i + "的字段建议名称:" + data.getColumnLabel(i));
 					System.out.println("获得列" + i + "的字段名称:" + columnName);
 					System.out.println("获得列" + i + "的字段值:" + columnValue);
 					System.out.println("获得列" + i + "的类型,返回SqlType中的编号:" + columnType);
@@ -255,8 +268,12 @@ public class ProjectUtils {
 					System.out.println("获得列" + i + "是否为空:" + isNullable);
 					System.out.println("获得列" + i + "是否为只读:" + isReadOnly);
 					System.out.println("获得列" + i + "能否出现在where中:"+ isSearchable);
-				}
+				}*/
 			}
+			for(TableDescEntity tab : tabEntityList){
+				System.out.println("列名称 ：" + tab.getColumnName() + "   列类型： " + tab.getColumnType() + "   列注释 : " + tab.getColumnComment());
+			}
+			
 		} catch (Exception e) {
 			System.out.println("数据库连接失败");
 		}

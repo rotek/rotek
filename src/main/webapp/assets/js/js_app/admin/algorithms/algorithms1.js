@@ -1,4 +1,4 @@
-/** 管理泵组信息  */
+/** 设置算法 管理  */
 Ext.ns("ROTEK.ALGORITHMS1");
 ROTEK.ALGORITHMS1.params = {
 	gridParam : {
@@ -82,7 +82,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '40%',
-			height : 480,
+			height : 330,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -307,17 +307,6 @@ if (toolbar.get("button_add")) {
 				name : 'algorithm_alias',
 				allowBlank : false,
 				width : 180
-			}, {
-				xtype : 'textarea',
-				readOnly : true,
-				fieldLabel : '算法说明',
-				value : '1.累计运行时间（年）达到N年，转化为小时数，记为Na，Na=设置小时， 固定值。\r\n'
-				    +'2.服务档案记录的上一次更换时间T，若当前时间记为Td，距离上一次更换'
-				    +'的时间差为Ta=(T-Td)（注：转化为小时数），既是在服务档案中对应的零'
-				    +'件目前的累计运行时间，数据库中保存为累计运行时间。\r\n'
-				    +'3.Ta>Na时发送提醒，之后累计运行时间清零，提醒记录保存到数据库中的【提醒报警信息表】。\r\n'
-				    +'4.计算公式：(T-Td)>Na',
-				height: 150
 			}]
 		});
 		addWindow.add(formPanel);
@@ -599,24 +588,13 @@ if(toolbar.get("button_modify")){
 						allowBlank : false,
 						value:data.algorithm_alias,
 						width : 180
-					}, {
-						xtype : 'textarea',
-						readOnly : true,
-						fieldLabel : '算法说明',
-						value : '1.累计运行时间（年）达到N年，转化为小时数，记为Na，Na=设置小时， 固定值。\r\n'
-						    +'2.服务档案记录的上一次更换时间T，若当前时间记为Td，距离上一次更换'
-						    +'的时间差为Ta=(T-Td)（注：转化为小时数），既是在服务档案中对应的零'
-						    +'件目前的累计运行时间，数据库中保存为累计运行时间。\r\n'
-						    +'3.Ta>Na时发送提醒，之后累计运行时间清零，提醒记录保存到数据库中的【提醒报警信息表】。\r\n'
-						    +'4.计算公式：(T-Td)>Na',
-						height: 150
 					}]
 				});
 	
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
-					width : '50%',
-					height : 437,
+					width : '40%',
+					height : 330,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -702,6 +680,34 @@ if(toolbar.get("button_query")){
 			handler : queryHandler
 		});
 		queryWindow.show();
+	});
+}
+
+// 查看算法说明
+if(toolbar.get("button_algorithmDesc")){
+	toolbar.get("button_algorithmDesc").setHandler(function() {
+		var formPanel = new CTA.common.SFormPanel({
+			items : [ {
+				xtype : 'tbtext',
+				readOnly : true,
+				text : '1.累计运行时间（年）达到N年，转化为小时数，记为Na，Na=设置小时， 固定值。<p>&nbsp;</p>'
+				    +'2.服务档案记录的上一次更换时间T，若当前时间记为Td，距离上一次更换'
+				    +'的时间差为Ta=(T-Td)（注：转化为小时数），既是在服务档案中对应的零'
+				    +'件目前的累计运行时间，数据库中保存为累计运行时间。<p>&nbsp;</p>'
+				    +'3.Ta>Na时发送提醒，之后累计运行时间清零，提醒记录保存到数据库中的【提醒报警信息表】。<p>&nbsp;</p>'
+				    +'4.计算公式：(T-Td)>Na',
+				height: 160
+			}]
+		});
+	
+		// 查看算法说明窗口
+		var descWindow = new CTA.common.DescWindow({
+			width : 500,
+			height : 249,
+			layout : 'border',
+			items : [ formPanel ]
+		});
+		descWindow.show();
 	});
 }
 

@@ -83,13 +83,12 @@ CTA.common.UpdateWindow = Ext.extend(CTA.common.SaveWindow,{
 	}
 });
 
-CTA.common.SetWindow = Ext.extend(CTA.common.SaveWindow,{
+CTA.common.DescWindow = Ext.extend(CTA.common.Window,{
 	constructor : function(config){
 		config = Ext.apply({
-			buttonText : "设置(enter)",
-			title : "设置"
+			title : "算法说明"
 		},config);
-		CTA.common.SetWindow.superclass.constructor.call(this,config);
+		CTA.common.DescWindow.superclass.constructor.call(this,config);
 	}
 });
 
