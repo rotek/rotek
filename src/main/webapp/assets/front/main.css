@@ -25,19 +25,20 @@ input, textarea {border:none 0;outline:none;}
 .r_header .left {
 	width: 200px;
 	height: 100px;
-	float: left;
+	float: right;
 }
 
 .r_header .left img {
 	width: 200px;
-	height: 100px
+	height: 150px;
+	margin: -20px 0 100px 0px
 }
 
 .r_header .right {
 	width: 990px;
 	height: 100px;
-	padding: 5px;
-	text-align: right
+	padding: 5px 5px 5px 25px ;
+	text-align: left
 }
 
 .r_header .right img {

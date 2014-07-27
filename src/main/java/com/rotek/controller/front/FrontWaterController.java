@@ -210,6 +210,20 @@ public class FrontWaterController {
 		modelMap.put("dataList", projectList);
 		return "front/waterMonitorStatistic";
 	}
+	
+	/**
+	 * 返回水质报警页面
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping("toWaterWarning")
+	public String toWaterWarning(HttpServletRequest request,
+			ModelMap modelMap,UserDto user) throws SQLException {
+		
+		
+		return "front/waterWarning";
+	}
 
 	/**
 	 * 
