@@ -3,7 +3,7 @@ Ext.ns("ROTEK.CUSTOMERDOC");
 ROTEK.CUSTOMERDOC.params = {
 	//全局gridpanel的参数
 	gridParam : {
-			url :   basePath + "/admin/customerdoc/listCustomerDocs",
+			url :   basePath + "/admin/customerdoc/listCustomerDocs/3",
 		    dataList:[{
 		          index:'id',
 		          header:'资料ID',
@@ -11,17 +11,17 @@ ROTEK.CUSTOMERDOC.params = {
 				  align : 'center'
 		      },{
 		    	  index:'super_mc',
-		          header:'客户资料所有人',
+		          header:'资料所有人',
 		          width : 50,
 		  		  align : 'center'
 		      },{
 		          index:'khzlmc',
-		          header:'客户资料名称',
+		          header:'资料名称',
      	          width : 50,
 		  		  align : 'center'
 		      },{
 		    	  index:'khzllb',
-		          header:'客户资料类别',
+		          header:'资料类别',
 			      renderer:function(value){
 			    	  if(1==value){
 			    		  return "<span style='color:black;'>文档</span>";
@@ -99,7 +99,7 @@ if (toolbar.get("button_add")) {
 	  var formPanel = new CTA.common.SFormPanel({
 		fileUpload : true,
 	    items : [{
-	        fieldLabel : '客户资料名称',
+	        fieldLabel : '资料名称',
 	        labelAlign : 'left',
 	        labelWidth : 120,
 	        emptyText : '请输入客户资料名称',
@@ -109,7 +109,7 @@ if (toolbar.get("button_add")) {
 	        allowBlank : false
 	      },{
 		     xtype : 'combo',
-		     fieldLabel : '客户资料类别',
+		     fieldLabel : '资料类别',
 		     labelAlign : 'left',
              labelWidth : 120,
 		     emptyText : '请选择客户资料类别',
@@ -117,7 +117,8 @@ if (toolbar.get("button_add")) {
 		     triggerAction : 'all',
 		     store : new Ext.data.SimpleStore({
 		       fields : ['label', 'value'],
-		       data : [["文档", "1"],["演示稿", "2"],["图片", "3"],["视频", "4"],["监测图", "5"],["代理商证件", "6"]]
+		       data : [["文档", "1"],["演示稿", "2"],["图片", "3"],["视频", "4"],["监测图", "5"]]
+		     //,["代理商证件", "6"]]
 		     }),
 		     displayField : 'label',
 		     valueField : 'value',
@@ -127,7 +128,7 @@ if (toolbar.get("button_add")) {
 		     mode : 'local'
 	      },{        	  	
 	        xtype : 'combo',
-	        fieldLabel : '客户资料所有人',
+	        fieldLabel : '资料所有人',
 	        labelAlign : 'left',
 	        labelWidth : 120,
 	        emptyText : '请选择客户资料所有人',
@@ -153,7 +154,7 @@ if (toolbar.get("button_add")) {
 				autoLoad : true
 			})
 	      },{
-			fieldLabel : '客户资料附件',
+			fieldLabel : '资料附件',
 			labelAlign : 'left',
 			labelWidth : 120,
 			name : 'khzlfj',
@@ -163,10 +164,10 @@ if (toolbar.get("button_add")) {
 			allowBlank : true
 		  },{
 			xtype : 'datefield',
-			fieldLabel : '客户资料有效期',
+			fieldLabel : '资料有效期',
 			labelAlign : 'left',
 			labelWidth : 120,
-			emptyText : '若资料类型为证件，请选择证件资料有效期',
+			emptyText : '请选择客户资料有效期',
 			name : 'dlszjyxq',
 			format:'Y-m-d',
 			editable : false,
@@ -218,13 +219,13 @@ if(toolbar.get("button_modify")){
 	          name : 'id',
 	          readOnly:true
 	        },{
-		      fieldLabel : '客户资料名称',
+		      fieldLabel : '资料名称',
 		      emptyText : '请输入客户资料名称',
 		      name : 'khzlmc',
 		      allowBlank : false       	
 		    },{
 			  xtype : 'combo',
-			  fieldLabel : '客户资料类别',
+			  fieldLabel : '资料类别',
 			  labelAlign : 'left',
 	          labelWidth : 120,
 			  emptyText : '请选择客户资料类别',
@@ -232,7 +233,8 @@ if(toolbar.get("button_modify")){
 			  triggerAction : 'all',
 			  store : new Ext.data.SimpleStore({
 			       fields : ['label', 'value'],
-			       data : [["文档", "1"],["演示稿", "2"],["图片", "3"],["视频", "4"],["监测图", "5"],["代理商证件", "6"]]
+			       data : [["文档", "1"],["演示稿", "2"],["图片", "3"],["视频", "4"],["监测图", "5"]]
+			  //,["代理商证件", "6"]]
 			  }),
 	          renderer:function(value){
 	        	  console.log(value);
@@ -259,7 +261,7 @@ if(toolbar.get("button_modify")){
 		    },{    
 		      id : 'khzlsyr',
 		      xtype : 'combo',
-		      fieldLabel : '客户资料所有人',
+		      fieldLabel : '资料所有人',
 		      labelAlign : 'left',
 		      labelWidth : 120,
 		      emptyText : '请选择客户资料所有人',
@@ -291,17 +293,17 @@ if(toolbar.get("button_modify")){
 
 				})
 		   },{
-			 fieldLabel : '客户资料附件',
+			 fieldLabel : '资料附件',
 			 labelAlign : 'left',
 			 labelWidth : 120,
 			 name : 'khzlfj',
 			 readOnly : true
 		   },{
 			 xtype : 'datefield',
-			 fieldLabel : '客户资料有效期',
+			 fieldLabel : '资料有效期',
 			 labelAlign : 'left',
 			 labelWidth : 120,
-			 emptyText : '若资料类型为证件，请选择证件资料有效期',
+			 emptyText : '请选择客户资料有效期',
 			 name : 'dlszjyxq',
 			 format:'Y-m-d',
 			 editable : false,
@@ -361,7 +363,7 @@ if(toolbar.get("button_query")){
 
 		var formPanel = new CTA.common.SFormPanel({
 			items : [ {
-				fieldLabel : '客户资料名称',
+				fieldLabel : '资料名称',
 				emptyText : '请输入客户资料名称',
 				name : 'khzlmc',
 				allowBlank : true,
@@ -369,7 +371,7 @@ if(toolbar.get("button_query")){
 				maxLength : 100
 			}, {
 			     xtype : 'combo',
-			     fieldLabel : '客户资料类别',
+			     fieldLabel : '资料类别',
 			     labelAlign : 'left',
 	             labelWidth : 120,
 			     emptyText : '请选择客户资料类别',
@@ -377,7 +379,8 @@ if(toolbar.get("button_query")){
 			     triggerAction : 'all',
 			     store : new Ext.data.SimpleStore({
 			       fields : ['label', 'value'],
-			       data : [["文档", "1"],["演示稿", "2"],["图片", "3"],["视频", "4"],["监测图", "5"],["代理商证件", "6"]]
+			       data : [["文档", "1"],["演示稿", "2"],["图片", "3"],["视频", "4"],["监测图", "5"]]
+			     //,["代理商证件", "6"]]
 			     }),
 			     displayField : 'label',
 			     valueField : 'value',

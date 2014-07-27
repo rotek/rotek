@@ -45,12 +45,19 @@ public class CustomerDocService {
 	* @throws SQLException
 	* @author liusw
 	*/
-	public List<CustomerDocDto> listCustomerDocs(CustomerDocEntity customerdoc, ListPager pager) throws SQLException{
+	public List<CustomerDocDto> listCustomerDocs(CustomerDocEntity customerdoc, Integer docType, ListPager pager) throws SQLException{
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT R.ID, R.R_CUSTOMER_ID, R.KHZLLB, R.KHZLFJ, R.KHZLMC, R.DLSZJYXQ, RC.MC AS SUPER_MC, R.STATUS FROM R_CUSTOMERDOCINFO R ");
 		sql.append(" LEFT JOIN R_CUSTOMER RC ON RC.ID = R.R_CUSTOMER_ID");
 		sql.append("  WHERE R.STATUS = 1 ");
+		
+		if (docType == 3) {
+			sql.append("  And R.KHZLLB <> 6 ");			
+		}
+		else {
+			sql.append("  And R.KHZLLB = 6 ");		
+		}
 
 		List<Object> params = new ArrayList<Object>();
 		if(null != customerdoc.getId()){

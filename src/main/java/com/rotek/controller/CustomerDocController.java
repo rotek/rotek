@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -54,8 +55,10 @@ public class CustomerDocController {
 	* @return
 	* @author Liusw
 	*/
-	@RequestMapping("toCustomerDocList")
-	public String toCustomerDocList() {
+	@RequestMapping("/toCustomerDocList/{docType}")
+	public String toCustomerDocList(HttpServletRequest request,HttpServletResponse response,
+			@PathVariable(value = "docType") Integer docType,ModelMap modelMap)throws Exception{
+		modelMap.put("docType", docType);
 		// 返回JSP文件目录及对应的JSP文件
 		return "admin/customer/customerdoc";
 	}
@@ -73,8 +76,9 @@ public class CustomerDocController {
 	* @throws Exception
 	* @author liusw
 	*/
-	@RequestMapping("listCustomerDocs")
+	@RequestMapping("listCustomerDocs/{docType}")
 	public String listCustomerDocs(
+			@PathVariable(value = "docType") Integer docType, // 3表示客户的资料，其他表示代理商
 			@RequestParam(value = "start", defaultValue = "0") Integer start,
 			@RequestParam(value = "limit", defaultValue = "15") Integer limit,
 			CustomerDocEntity customerdoc,
@@ -86,7 +90,7 @@ public class CustomerDocController {
 		pager.setRowsPerPage(limit);
 		pager.setPageNo(pageNo);
 
-		List<CustomerDocDto> customerdocList = customerdocService.listCustomerDocs(customerdoc, pager);
+		List<CustomerDocDto> customerdocList = customerdocService.listCustomerDocs(customerdoc, docType, pager);
 		modelMap.put("dataList", customerdocList);
 		modelMap.put("totalCount", pager.getTotalRows());
 
