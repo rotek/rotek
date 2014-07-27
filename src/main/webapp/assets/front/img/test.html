@@ -1,0 +1,93 @@
+<html>
+<head>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var width = $(window).width();
+		var offset = Math.ceil((width - 978)/2);
+		console.log(offset)
+		
+		
+		$(".p_img").click(function(e) {
+			console.log(e);
+			console.log(e.pageX);
+			console.log(e.pageY);
+			
+			var xOffset = e.pageY-54 - 16;
+			var yOffset = e.pageX-200-offset - 16; 
+			
+			console.log(xOffset)
+			console.log(yOffset)
+			$(".mark").css({top:xOffset+"px",left: yOffset+"px"});
+		});
+		
+	});
+</script>
+
+<style type="text/css">
+.container {
+	border: solid 2px red;
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+
+.menu_container {
+	border: solid 2px black;
+	width: 200px;
+	height: 600px;
+	position: absolute;
+	margin: 50px 0 0 0;
+}
+
+.img_container {
+	width: 700px;
+	height: 600px;
+	position: absolute;
+	margin: 50px 0 0 204px;
+}
+
+
+.p_img {
+	position: absolute;
+	border: solid 1px blue;
+	width: 700px;
+	height: 600px;
+	z-index: 1;
+	top: 0;
+	left:0
+}
+
+.mark {
+	position: absolute;
+	z-index: 2;
+	width: 42px;
+	height: 42px;
+	top: 0;
+	left:0
+}
+</style>
+</head>
+<body style="width: 100%;height: 100%">
+
+	<div class="container">
+		
+		
+		<div style="width: 987px;height:100%;margin: 0 auto">
+		
+			<div class="menu_container">
+		
+			
+		</div>
+		<div class="img_container">
+			<img src="img_700_600.png" class="p_img" />
+			
+			
+			<img src="marker-32-32.png" class="mark"/>
+		</div>
+		</div>
+	</div>
+</body>
+</html>

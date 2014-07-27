@@ -2,6 +2,7 @@ package com.rotek.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -141,5 +142,17 @@ public class ProjectDao extends BaseDaoImpl{
 		// TODO Auto-generated method stub
 		this.update(pe);
 	}
-	
+
+	public Map<String, Object> getProjectDetailById(Integer projectId) throws SQLException {
+		
+		String sql = "select p.*,pi.GCJCTLX from r_project p,r_project_info pi where p.id = pi.R_PROJECT_ID and p.status = 1 and pi.status = 1 and pi.gczllx = 1 and p.id = ?";
+		return this.executeQueryOne(sql, new Integer[]{projectId});
+	}
+
+	public List<Map<String,Object>> getJCTProjectListByCustomerId(
+			Integer r_customer_id) throws SQLException {
+		
+		String sql = "select p.*,pi.GCJCTLX from r_project p,r_project_info pi where p.id = pi.R_PROJECT_ID and p.status = 1 and pi.status = 1 and pi.gczllx = 1 and p.r_customer_id = ?";
+		return this.executeQuery(sql, new Integer[]{r_customer_id});
+	}
 }

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -261,5 +262,21 @@ public class ProjectService {
 	public void updateProject(ProjectEntity project) throws SQLException {
 		projectDao.updateProject(project);
 	}
-	
+
+	/**
+	 * @param projectId
+	 * @return
+	 * @throws SQLException 
+	 */
+	public Map<String, Object> getProjectDetailById(Integer projectId) throws SQLException {
+		
+		
+		return projectDao.getProjectDetailById(projectId);
+	}
+
+	public List<Map<String,Object>> getJCTProjectListByCustomerId(
+			Integer r_customer_id) throws SQLException {
+
+		return projectDao.getJCTProjectListByCustomerId(r_customer_id);
+	}
 }

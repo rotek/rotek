@@ -262,7 +262,28 @@ function formatDate(date, format) {
 
 	<div class="r_container">
 
-		<%@include file="/assets/jsp/common_front_left.jsp"%>
+		<div class="left">
+			<div style="background-color: #2ac1f2">
+				<div class="l_box">
+					<div class="l_header">水质监测</div>
+					
+					<div class="l_menu">
+						<a href="${pageContext.request.contextPath }/front/water/toWaterMonitor">实时监测</a>
+					</div>
+		
+					
+					<div class="l_menu">
+						<a href="${pageContext.request.contextPath }/front/water/toWaterMonitorSetter">实时监测设置</a>
+					</div>
+		
+					<div class="active l_menu">
+						<a href="${pageContext.request.contextPath }/front/water/toWaterMonitorStatistic">历史监测查询</a>
+					</div>
+				</div>
+		
+			</div>
+		</div>
+		
 		<div class="right">
 			
 			

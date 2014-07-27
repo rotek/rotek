@@ -24,6 +24,13 @@
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/front/jquery-1.11.js"></script>
+	
+	
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/front/layer/layer.min.js"></script>
+	
+	
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/front/bootstrap.js"></script>
 

@@ -18,17 +18,22 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rotek.constant.MonitorParams;
 import com.rotek.dto.UserDto;
 import com.rotek.entity.ComponentDetailEntity;
 import com.rotek.entity.ComponentGroupEntity;
 import com.rotek.entity.ProjectEntity;
 import com.rotek.service.impl.ComponentDetailService;
 import com.rotek.service.impl.ComponentGroupService;
+import com.rotek.service.impl.MonitorsettingService;
 import com.rotek.service.impl.ProjectService;
 import com.rotek.util.DateTimeUtil;
 
@@ -51,6 +56,10 @@ public class FrontWaterController {
 	@Resource
 	private  ComponentDetailService componentDetailService;
 	
+	
+	@Resource
+	private  MonitorsettingService monitorsettingService;
+	
 	/**
 	 * 返回水质监测页
 	 * 
@@ -58,10 +67,132 @@ public class FrontWaterController {
 	 * @throws SQLException
 	 */
 	@RequestMapping("toWaterMonitor")
-	public String getIndex(HttpServletRequest request, ModelMap modelMap)
+	public String toWaterMonitor(HttpServletRequest request, ModelMap modelMap,UserDto user)
 			throws SQLException {
+		List<Map<String,Object>> projectList = projectService.getJCTProjectListByCustomerId(user.getR_customer_id());
 
-		return "front/waterMonitorIndex";
+		modelMap.put("dataList", projectList);
+
+		return "front/waterMonitor";
+	}
+	
+	/**
+	 * 返回水质监实时值
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping("getWaterMonitorValues")
+	public String getWaterMonitorValues(HttpServletRequest request, ModelMap modelMap,UserDto user,
+			@RequestParam(defaultValue="0",value="projectId") Integer projectId)
+			throws SQLException {
+		List<Map<String,Object>> projectParamList = monitorsettingService.getParamListByProjectIdAndCustomerId(projectId,user.getId());
+		
+		List<Object> dataList = new ArrayList<Object>();
+		if(CollectionUtils.isNotEmpty(projectParamList)){
+			
+			for(Map<String,Object> param : projectParamList){
+				
+				dataList.add(Math.random() * 10);
+				
+			}
+		}
+		modelMap.put("dataList", dataList);
+		return "jsonView";
+	}
+	
+	/**
+	 * 返回水质监测设置页
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping("toWaterMonitorSetter")
+	public String toWaterMonitorSetter(HttpServletRequest request, ModelMap modelMap,UserDto user)
+			throws SQLException {
+		List<Map<String,Object>> projectList = projectService.getJCTProjectListByCustomerId(user.getR_customer_id());
+		
+		modelMap.put("dataList", projectList);
+		
+		return "front/waterMonitorSetter";
+	}
+	
+	/**
+	 * 返回水质监测选择页面
+	 * 
+	 * @return
+	 * @throws SQLExceptiony
+	 */
+	@RequestMapping("getProjectInfo")
+	@ResponseBody
+	public Map<String,Object> getProjectInfo(HttpServletRequest request, ModelMap modelMap,UserDto user,
+			@RequestParam(defaultValue="0",value="projectId") Integer projectId)
+			throws SQLException {
+		
+		Map<String,Object> data = projectService.getProjectDetailById(projectId);
+		List<Map<String,Object>> projectParamList = monitorsettingService.getParamListByProjectIdAndCustomerId(projectId,user.getId());
+		data.put("projectParamList", projectParamList);
+		
+		MonitorParams[] paramList = MonitorParams.values();
+		Map<String,Object> params = new HashMap<String,Object>(paramList.length);
+		for(MonitorParams param : paramList){
+			params.put(param.getCode(), param.getLable());
+		}
+		data.put("params", params);
+		
+		return data;
+	}
+	
+	/**
+	 * 返回projectinfo
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping("toWaterMonitorSelector")
+	public String toWaterMonitorSelector(HttpServletRequest request, ModelMap modelMap,UserDto user,
+			@RequestParam(defaultValue="0",value="projectId") Integer projectId,
+			@RequestParam(defaultValue="0",value="xOffset") Double xOffset,
+			@RequestParam(defaultValue="0",value="yOffset") Double yOffset)
+			throws SQLException {
+		List<ComponentGroupEntity> cgList = componentGroupService.getComGroupListByProjectId(projectId);
+
+		modelMap.put("dataList", cgList);
+		modelMap.put("xOffset", xOffset);
+		modelMap.put("yOffset", yOffset);
+		
+		return "front/waterMonitorSelector";
+	}
+	
+	/**
+	 * 返回projectinfo
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping("saveMornitorParams")
+	public String saveMornitorParams(HttpServletRequest request, ModelMap modelMap,UserDto user,
+			@RequestParam(defaultValue="0",value="params") String params,
+			@RequestParam(defaultValue="0",value="projectId") Integer projectId)
+					throws SQLException {
+		
+		monitorsettingService.clearParamsByCustomerIdAndProjectId(user.getId(),projectId);
+		if(StringUtils.isNotBlank(params)){
+			String[] paramArr = params.split(";");
+			for(String param : paramArr){
+				String [] paramStrs = param.split(",");
+				Integer ljId = Integer.valueOf(paramStrs[0]);
+				String ljxqId = paramStrs[1];
+				String jcxId = paramStrs[2];
+				Double xOffset = Double.valueOf(paramStrs[3]);
+				Double yOffset = Double.valueOf(paramStrs[4]);
+				
+				Object[] dbParams = new Object[]{user.getId(),projectId,ljId,ljxqId,jcxId,xOffset,yOffset,1};
+				
+				monitorsettingService.save(dbParams);
+			}
+		}
+		return "jsonView";
 	}
 
 	/**
@@ -125,16 +256,15 @@ public class FrontWaterController {
 	public String listMonitorItems(HttpServletRequest request, ModelMap modelMap)
 			throws SQLException {
 		
-		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>(
-				3);
-		Map<String, Object> data = new HashMap<String, Object>(2);
-		data.put("id", 1);
-		data.put("name", "PH值");
-		dataList.add(data);
-		Map<String, Object> data1 = new HashMap<String, Object>(2);
-		data1.put("id", 2);
-		data1.put("name", "硬度");
-		dataList.add(data1);
+		MonitorParams[] paramList = MonitorParams.values();
+		List<Map<String,Object>> dataList = new ArrayList<Map<String,Object>>(paramList.length);
+		for(MonitorParams param : paramList){
+			Map<String,Object> p = new HashMap<String,Object>(2);
+			p.put("alias", param.getCode());
+			p.put("name", param.getLable());
+			
+			dataList.add(p);
+		}
 		
 		modelMap.put("dataList", dataList);
 		

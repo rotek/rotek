@@ -278,6 +278,10 @@ public class ProjectUtils {
 			System.out.println("数据库连接失败");
 		}
 
+		
+		List<TableDescEntity> cdList = getColumnDesc("R_MONITORSETTING");
+		
+		System.out.println(cdList);
 	}
 	
 }
