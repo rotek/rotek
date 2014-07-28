@@ -901,7 +901,7 @@ if(toolbar.get("button_algorithmDesc")){
 				readOnly : true,
 				text : '1. 当设定相应的开关量K存在信号时，根据此膜系统产水电导率M，产水电导率小于设定值S m³时。时<p>&nbsp;</p>'
 				       + '2. 此种状态持续N分钟以上。<p>&nbsp;</p> '
-			           + '3. 计算公式：M &ls S|K|N ',
+			           + '3. 计算公式：M &lt; S|K|N ',
 				height: 80
 			}]
 		});
