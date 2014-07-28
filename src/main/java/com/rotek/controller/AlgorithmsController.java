@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -310,9 +311,39 @@ public class AlgorithmsController {
 		return "jsonView";
 	}
 	
+	/**
+	* @MethodName: getParamsValue 
+	* @Description: 根据参数字段名和零件ID，查询参数的额定值
+	* @param paramName 参数的字段名
+	* @param componentId 零件ID
+	* @param modelMap
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("/getParamsValue")
+	public String getParamsValue(
+			@RequestParam(value = "paramName" , defaultValue = "" ) String paramName ,
+			@RequestParam(value = "componentId" , defaultValue = "" ) Integer componentId ,
+			ModelMap modelMap) throws SQLException{
+		
+		if(StringUtils.isNotBlank(paramName)){
+			String[] temp = paramName.split("-");
+			//String tempStr = temp[0]
+			
+			ComponentDetailEntity paramValue = detailService.getComDetailById(componentId );
+			
+			
+		}
+		
+		List<ProjectDto> projectList = null ;
+		modelMap.put("projectList", projectList);
+		return "jsonView";
+	}
+	
 	@RequestMapping("getLocalTables")
 	public String getLocalTables(ModelMap modelMap) throws SQLException{
-		List<String> tables = ProjectUtils.getTableNames("tb%");
+		List<TableDescEntity> tables = ProjectUtils.getTableNames("tb%");
 		modelMap.put("locTableList", tables);
 		
 		return "jsonView";

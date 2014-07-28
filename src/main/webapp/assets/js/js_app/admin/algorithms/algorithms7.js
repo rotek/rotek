@@ -158,20 +158,14 @@ if (toolbar.get("button_add")) {
 		})
 		
 		// 读取现场表
-		/*var LocalTableStore = new Ext.data.Store({
+		var LocalTableStore = new Ext.data.Store({
 			reader : new Ext.data.JsonReader({
 				root : 'locTableList',
-				fields : ['label']
+				fields : [ {name : 'tableName'} ]
 			}),
 			proxy : new Ext.data.HttpProxy({
 				url : basePath + "/admin/algorithms/getLocalTables"
 			})
-		})*/
-		
-		var LocalTableStore = new Ext.data.SimpleStore({
-			fields : [ 'label', 'value' ],
-			data : [[ "tb000101", "1" ], [ "tb000101_jb", "2" ], [ "tb000201_jb", "3" ], [ "tb000301_lj", "4" ]
-				, [ "tb000401", "5" ], [ "tb000501", "6" ]]
 		})
 		
 		// 读取现场表对应的字段
@@ -366,10 +360,35 @@ if (toolbar.get("button_add")) {
     			valueField : 'columnComment',
     			editable : false,
     			allowBlank : false,
-    			//alue : data.r_component_group_id,
     			store : ComponentParamsStore,
  				width : 445,
- 			}, {
+ 				listeners : {
+ 					'select' : function(ComboObj, record, index) {
+ 						var tempParam = Ext.getCmp('COMPON_PARAM').getValue();
+ 						var componentId = Ext.getCmp('COMPONENT_COMBO').getValue();
+ 						
+ 						CTA.common.Ajax.request({
+ 							url :  basePath + "/admin/algorithms/getParamsValue",
+ 							params : {
+ 								componentId : componentId,
+ 								paramName : tempParam
+ 							},
+ 							success : function(response) {
+ 								
+ 							}
+ 						});
+ 					}
+ 				}
+ 			},{
+				xtype : 'textfield',
+				id : 'PAREM_VALUE',
+				fieldLabel : '参数额定值',
+				emptyText : '请输入参数额定值',
+				//name : 'specific_bh',
+				readOnly : true ,
+				allowBlank : false,
+				width : 180
+			}, {
 				fieldLabel : '产水电导率设定值',
 				emptyText : '产水电导率设定值',
 				name : 'mxt_csddlbz',
@@ -386,12 +405,11 @@ if (toolbar.get("button_add")) {
  				id : 'LOCAL_TABLES',
     			fieldLabel : '现场表',
     			emptyText : '请选择现场表',
-    			name : 'label',
+    			name : 'tableName',
     			hiddenName : 'sitereal_table_name',
     			triggerAction : 'all',
-    			displayField : 'label',
-    			valueField : 'label',
-    			mode : 'local',
+    			displayField : 'tableName',
+    			valueField : 'tableName',
     			editable : false,
     			allowBlank : false,
     			store : LocalTableStore,
@@ -537,20 +555,14 @@ if(toolbar.get("button_modify")){
 				})
 				
 				// 读取现场表
-				/*var LocalTableStore = new Ext.data.Store({
+				var LocalTableStore = new Ext.data.Store({
 					reader : new Ext.data.JsonReader({
 						root : 'locTableList',
-						fields : ['label']
+						fields : [ {name : 'tableName'} ]
 					}),
 					proxy : new Ext.data.HttpProxy({
 						url : basePath + "/admin/algorithms/getLocalTables"
 					})
-				})*/
-				
-				var LocalTableStore = new Ext.data.SimpleStore({
-					fields : [ 'label', 'value' ],
-					data : [[ "tb000101", "1" ], [ "tb000101_jb", "2" ], [ "tb000201_jb", "3" ], [ "tb000301_lj", "4" ]
-						, [ "tb000401", "5" ], [ "tb000501", "6" ]]
 				})
 				
 				// 读取现场表对应的字段
@@ -794,12 +806,11 @@ if(toolbar.get("button_modify")){
 		 				id : 'LOCAL_TABLES',
 		    			fieldLabel : '现场表',
 		    			emptyText : '请选择现场表',
-		    			name : 'label',
+		    			name : 'tableName',
 		    			hiddenName : 'sitereal_table_name',
 		    			triggerAction : 'all',
-		    			displayField : 'label',
-		    			valueField : 'label',
-		    			mode : 'local',
+		    			displayField : 'tableName',
+		    			valueField : 'tableName',
 		    			editable : false,
 		    			allowBlank : false,
 		    			store : LocalTableStore,

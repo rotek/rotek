@@ -49,13 +49,12 @@ public class ProjectUtils {
 		List<String> pcodes = new ArrayList<String>();
 		//获取所有已TB开头的表的表名
 		String tabName = "TB%" ; 
-		List<String> tabNames = getTableNames(tabName);
+		List<TableDescEntity> tabNames = getTableNames(tabName);
 		if(tabNames.size() > 0){
-			for(String tn : tabNames){
-				pcodes.add(tn.substring(2, 6));
+			for(TableDescEntity tn : tabNames){
+				pcodes.add(tn.getTableName().substring(2, 6));
 			}
 		}
-	
 		return removeRepetition(pcodes);
 	}
 	
@@ -67,8 +66,8 @@ public class ProjectUtils {
 	* @return
 	* @author WangJuZhu
 	*/
-	public static List<String> getTableNames(String tabName){
-		List<String> dbNames = new ArrayList<String>() ;
+	public static List<TableDescEntity> getTableNames(String tabName){
+		List<TableDescEntity> dbNames = new ArrayList<TableDescEntity>() ;
 		DatabaseMetaData md = null;
 		ResultSet rs = null;
 		try {
@@ -76,7 +75,9 @@ public class ProjectUtils {
 			md = conn.getMetaData();
 			rs = md.getTables(null, null, tabName, null);
 			while (rs.next()) {
-				dbNames.add(rs.getString("TABLE_NAME"));
+				TableDescEntity tempEntity = new TableDescEntity();
+				tempEntity.setTableName(rs.getString("TABLE_NAME"));
+				dbNames.add(tempEntity);
 			}
 			rs.close();
 			conn.close();

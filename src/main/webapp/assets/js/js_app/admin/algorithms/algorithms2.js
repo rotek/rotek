@@ -146,20 +146,14 @@ if (toolbar.get("button_add")) {
 		})
 		
 		// 读取现场表
-		/*var LocalTableStore = new Ext.data.Store({
+		var LocalTableStore = new Ext.data.Store({
 			reader : new Ext.data.JsonReader({
 				root : 'locTableList',
-				fields : ['label']
+				fields : [ {name : 'tableName'} ]
 			}),
 			proxy : new Ext.data.HttpProxy({
 				url : basePath + "/admin/algorithms/getLocalTables"
 			})
-		})*/
-		
-		var LocalTableStore = new Ext.data.SimpleStore({
-			fields : [ 'label', 'value' ],
-			data : [[ "tb000101", "1" ], [ "tb000101_jb", "2" ], [ "tb000201_jb", "3" ], [ "tb000301_lj", "4" ]
-				, [ "tb000401", "5" ], [ "tb000501", "6" ]]
 		})
 		
 		// 读取现场表对应的字段
@@ -356,9 +350,8 @@ if (toolbar.get("button_add")) {
     			name : 'label',
     			hiddenName : 'sitereal_table_name',
     			triggerAction : 'all',
-    			displayField : 'label',
-    			valueField : 'label',
-    			mode : 'local',
+    			displayField : 'tableName',
+    			valueField : 'tableName',
     			editable : false,
     			allowBlank : false,
     			store : LocalTableStore,
@@ -389,7 +382,20 @@ if (toolbar.get("button_add")) {
     			editable : false,
     			allowBlank : false,
     			store : LocalTableColumnStore,
- 				width : 445
+ 				width : 445,
+ 				listeners : {
+ 					'select' : function(ComboObj, record, index) {
+ 						LocalTableColumnStore.proxy = new Ext.data.HttpProxy({
+							url : basePath + "/admin/algorithms/selectLocalParams/"+Ext.getCmp('LOCAL_TABLES').getValue()
+						});
+ 						if(Ext.getCmp('LOCAL_TABLE_PARAM').getValue() != ""){
+ 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM').setValue("");
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM').setRawValue("");
+ 						}
+ 						LocalTableColumnStore.load();
+ 					}
+ 				}
  			},{
 				xtype : 'textfield',
 				fieldLabel : '算法别名',
@@ -499,20 +505,14 @@ if(toolbar.get("button_modify")){
 				})
 				
 				// 读取现场表
-				/*var LocalTableStore = new Ext.data.Store({
+				var LocalTableStore = new Ext.data.Store({
 					reader : new Ext.data.JsonReader({
 						root : 'locTableList',
-						fields : ['label']
+						fields : [ {name : 'tableName'} ]
 					}),
 					proxy : new Ext.data.HttpProxy({
 						url : basePath + "/admin/algorithms/getLocalTables"
 					})
-				})*/
-				
-				var LocalTableStore = new Ext.data.SimpleStore({
-					fields : [ 'label', 'value' ],
-					data : [[ "tb000101", "1" ], [ "tb000101_jb", "2" ], [ "tb000201_jb", "3" ], [ "tb000301_lj", "4" ]
-						, [ "tb000401", "5" ], [ "tb000501", "6" ]]
 				})
 				
 				// 读取现场表对应的字段
@@ -734,12 +734,11 @@ if(toolbar.get("button_modify")){
 		 				id : 'LOCAL_TABLES',
 		    			fieldLabel : '现场表',
 		    			emptyText : '请选择现场表',
-		    			name : 'label',
+		    			name : 'tableName',
 		    			hiddenName : 'sitereal_table_name',
 		    			triggerAction : 'all',
-		    			displayField : 'label',
-		    			valueField : 'label',
-		    			mode : 'local',
+		    			displayField : 'tableName',
+		    			valueField : 'tableName',
 		    			editable : false,
 		    			allowBlank : false,
 		    			store : LocalTableStore,
