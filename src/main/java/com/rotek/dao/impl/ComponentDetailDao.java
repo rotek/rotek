@@ -120,4 +120,10 @@ public class ComponentDetailDao extends BaseDaoImpl {
 		String sql = "select * from r_component_detail where r_project_id = ? and  r_component_group_id = ? and r_component_group_type = ? and status = ?";
 		return this.selectAll(sql, new Integer[] { projectId, groupId,componentType,ComponentDetailEntity.STATUS_ENABLED },ComponentDetailEntity.class);
 	}
+
+	public Double getParamsValue(Integer componentId, String paramname) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
 }

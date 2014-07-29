@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -35,10 +37,12 @@ import com.rotek.entity.AlgorithmsEntity;
 import com.rotek.entity.BaseEntity;
 import com.rotek.entity.ComponentDetailEntity;
 import com.rotek.entity.ComponentGroupEntity;
+import com.rotek.entity.TableDescEntity;
 import com.rotek.service.impl.AlgorithmsService;
 import com.rotek.service.impl.ComponentDetailService;
 import com.rotek.service.impl.ComponentGroupService;
 import com.rotek.service.impl.ProjectService;
+import com.rotek.util.ProjectUtils;
 
 /**
 * @ClassName:AlgorithmsController
@@ -283,6 +287,78 @@ public class AlgorithmsController {
 			List<ComponentDetailEntity> detailList = detailService.selectGroupDetailByIds(projectId,groupId,componentType,BaseEntity.STATUS_ENABLED);
 			modelMap.put("groupDetailList", detailList);
 		}
+		return "jsonView";
+	}
+	
+	@RequestMapping("getParamsByGroupId/{componentType}")
+	public String getParamsByGroupId(
+			@PathVariable(value="componentType") Integer componentType, 
+			ModelMap modelMap) throws SQLException{
+		
+		List<TableDescEntity> tempDesc = new ArrayList<>();
+		
+		// 所有字段信息
+		List<TableDescEntity> allDesc = ProjectUtils.getColumnDesc("r_component_detail");
+		// 找出以 “ED”开头的参数，column_comment 字段组合成   字段名 + "-" + 注释
+		for(TableDescEntity temp : allDesc){
+			if(temp.getColumnName().startsWith("ED")){
+				temp.setColumnComment(temp.getColumnName() + "-" + temp.getColumnComment());
+				tempDesc.add(temp);
+			}
+		}
+		modelMap.put("paramList", tempDesc);
+		
+		return "jsonView";
+	}
+	
+	/**
+	* @MethodName: getParamsValue 
+	* @Description: 根据参数字段名和零件ID，查询参数的额定值
+	* @param paramName 参数的字段名
+	* @param componentId 零件ID
+	* @param modelMap
+	* @return
+	* @throws SQLException
+	* @author WangJuZhu
+	*/
+	@RequestMapping("/getParamsValue")
+	public String getParamsValue(
+			@RequestParam(value = "paramName" , defaultValue = "" ) String paramName ,
+			@RequestParam(value = "componentId" , defaultValue = "" ) Integer componentId ,
+			ModelMap modelMap) throws SQLException{
+		
+		if(StringUtils.isNotBlank(paramName)){
+			String[] temp = paramName.split("-");
+			//String tempStr = temp[0]
+			
+			ComponentDetailEntity paramValue = detailService.getComDetailById(componentId );
+			
+			
+		}
+		
+		List<ProjectDto> projectList = null ;
+		modelMap.put("projectList", projectList);
+		return "jsonView";
+	}
+	
+	@RequestMapping("getLocalTables")
+	public String getLocalTables(ModelMap modelMap) throws SQLException{
+		List<TableDescEntity> tables = ProjectUtils.getTableNames("tb%");
+		modelMap.put("locTableList", tables);
+		
+		return "jsonView";
+	}
+	
+	@RequestMapping("selectLocalParams/{loalTableName}")
+	public String selectLocalParams(
+			@PathVariable(value="loalTableName") String loalTableName, 
+			ModelMap modelMap) throws SQLException{
+		
+		// 所有字段信息
+		List<TableDescEntity> allDesc = ProjectUtils.getColumnDesc(loalTableName);
+		
+		modelMap.put("localParamList", allDesc);
+		
 		return "jsonView";
 	}
 

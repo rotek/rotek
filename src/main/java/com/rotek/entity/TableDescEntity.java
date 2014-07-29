@@ -20,6 +20,9 @@ public class TableDescEntity extends BaseEntity{
 	/**@Field the long serialVersionUID*/
 	private static final long serialVersionUID = 103654789244563236L;
 	
+	//表名称
+	private String tableName;
+	
 	//列名称
 	private String columnName;
 	
@@ -28,6 +31,16 @@ public class TableDescEntity extends BaseEntity{
 	
 	//列注释
 	private String columnComment;
+
+	/** @return tableName */
+	public String getTableName() {
+		return tableName;
+	}
+
+	/** @param tableName tableName to set */
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
 
 	/** @return columnName */
 	public String getColumnName() {

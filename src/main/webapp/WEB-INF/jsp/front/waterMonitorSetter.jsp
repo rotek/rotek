@@ -207,6 +207,10 @@
 					<div class="l_menu">
 						<a href="${pageContext.request.contextPath }/front/water/toWaterMonitorStatistic">历史监测查询</a>
 					</div>
+					
+						<div class="l_menu">
+						<a href="${pageContext.request.contextPath }/front/water/toWaterWarning">水质报警</a>
+					</div>
 				</div>
 		
 			</div>

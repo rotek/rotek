@@ -185,4 +185,9 @@ public class ComponentDetailService {
 		// TODO Auto-generated method stub
 		return detailDao.selectGroupDetailByIds(projectId, groupId, componentType,statusEnabled);
 	}
+
+	public Double getParamsValue(Integer componentId, String paramname) throws SQLException {
+		// TODO Auto-generated method stub
+		return detailDao.getParamsValue(componentId , paramname);
+	}
 }
