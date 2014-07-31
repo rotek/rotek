@@ -89,7 +89,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '40%',
-			height : 450,
+			height : 510,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -382,20 +382,20 @@ if (toolbar.get("button_add")) {
  			},{
 				xtype : 'textfield',
 				id : 'PAREM_VALUE',
-				fieldLabel : '参数额定值',
+				fieldLabel : '参数额定值(s):',
 				emptyText : '请输入参数额定值',
 				//name : 'specific_bh',
 				readOnly : true ,
 				allowBlank : false,
 				width : 180
 			}, {
-				fieldLabel : '产水电导率设定值',
-				emptyText : '产水电导率设定值',
-				name : 'mxt_csddlbz',
+				fieldLabel : '超额百分比设定值(N):',
+				emptyText : '请输入超额百分比设定值',
+				name : 'glq_cebfb',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '超额时间设定值',
+				fieldLabel : '超额时间设定值(N):',
 				emptyText : '请输入超额时间设定值',
 				name : 'mxt_csllcesj',
 				minLength : 1,
@@ -443,9 +443,16 @@ if (toolbar.get("button_add")) {
  				width : 445
  			},{
 				xtype : 'textfield',
-				fieldLabel : '算法别名',
-				emptyText : '请输入算法别名',
+				fieldLabel : '提示别名',
+				emptyText : '请输入提示别名',
 				name : 'algorithm_alias',
+				allowBlank : false,
+				width : 180
+			},{
+				xtype : 'textfield',
+				fieldLabel : '提示内容',
+				emptyText : '请输入提示内容',
+				name : 'tip_content',
 				allowBlank : false,
 				width : 180
 			}]
@@ -765,6 +772,15 @@ if(toolbar.get("button_modify")){
 		 				width : 445,
 		 			},{
 						xtype : 'textfield',
+						id : 'PAREM_VALUE',
+						fieldLabel : '参数额定值(s):',
+						emptyText : '请输入参数额定值',
+						//name : 'specific_bh',
+						readOnly : true ,
+						allowBlank : false,
+						width : 180
+					},{
+						xtype : 'textfield',
 						id : 'COMPONENT_CODE',
 						fieldLabel : '零件编号',
 						emptyText : '请输入零件编号',
@@ -789,14 +805,14 @@ if(toolbar.get("button_modify")){
 		    			store : ComponentParamsStore,
 		 				width : 445,
 		 			}, {
-						fieldLabel : '超额百分比设定值',
+		 				fieldLabel : '超额百分比设定值(N):',
 						emptyText : '请输入超额百分比设定值',
 						name : 'glq_cebfb',
 						value : data.glq_cebfb,
 						minLength : 1,
 						maxLength : 100
 					}, {
-						fieldLabel : '超额时间设定值',
+						fieldLabel : '超额时间设定值(N):',
 						emptyText : '请输入超额时间设定值',
 						name : 'mxt_csllcesj',
 						minLength : 1,
@@ -844,11 +860,19 @@ if(toolbar.get("button_modify")){
 		 				width : 445
 		 			},{
 						xtype : 'textfield',
-						fieldLabel : '算法别名',
-						emptyText : '请输入算法别名',
+						fieldLabel : '提示别名',
+						emptyText : '请输入提示别名',
 						name : 'algorithm_alias',
 						allowBlank : false,
 						value:data.algorithm_alias,
+						width : 180
+					},{
+						xtype : 'textfield',
+						fieldLabel : '提示内容',
+						emptyText : '请输入提示内容',
+						name : 'tip_content',
+						allowBlank : false,
+						value:data.tip_content,
 						width : 180
 					}]
 				});
@@ -856,7 +880,7 @@ if(toolbar.get("button_modify")){
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '40%',
-					height : 450,
+					height : 510,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -915,9 +939,16 @@ if(toolbar.get("button_query")){
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '算法别名',
-				emptyText : '请输入算法别名',
+				fieldLabel : '提示别名',
+				emptyText : '请输入提示别名',
 				name : 'algorithm_alias',
+				allowBlank : true,
+				minLength : 1,
+				maxLength : 50
+			}, {
+				fieldLabel : '提示内容',
+				emptyText : '请输入提示内容',
+				name : 'tip_content',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
@@ -935,7 +966,7 @@ if(toolbar.get("button_query")){
 		// 查询窗口
 		var queryWindow = new CTA.common.QueryWindow({
 			width : 500,
-			height : 220,
+			height : 260,
 			layout : 'border',
 			closeAction : 'hide',
 			items : [ formPanel ],
@@ -952,8 +983,8 @@ if(toolbar.get("button_algorithmDesc")){
 			items : [ {
 				xtype : 'tbtext',
 				readOnly : true,
-				text : '1. 在水质、压力、流量的监测中，计算是否超限。<p>&nbsp;</p>'
-				       + '2. 计算式：(X-S)/S > n|N ',
+				text : '1. 在水质、压力的监测中，计算是否超限。<p>&nbsp;</p>'
+				       + '2. 计算式：|M-s|/s>n%|N ',
 				height: 60
 			}]
 		});

@@ -84,7 +84,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '40%',
-			height : 430,
+			height : 450,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -391,9 +391,16 @@ if (toolbar.get("button_add")) {
  				width : 445
  			},{
 				xtype : 'textfield',
-				fieldLabel : '算法别名',
-				emptyText : '请输入算法别名',
+				fieldLabel : '提示别名',
+				emptyText : '请输入提示别名',
 				name : 'algorithm_alias',
+				allowBlank : false,
+				width : 180
+			},{
+				xtype : 'textfield',
+				fieldLabel : '提示内容',
+				emptyText : '请输入提示内容',
+				name : 'tip_content',
 				allowBlank : false,
 				width : 180
 			}]
@@ -778,11 +785,11 @@ if(toolbar.get("button_modify")){
 		 				width : 445
 		 			},{
 						xtype : 'textfield',
-						fieldLabel : '算法别名',
-						emptyText : '请输入算法别名',
-						name : 'algorithm_alias',
+						fieldLabel : '提示内容',
+						emptyText : '请输入提示内容',
+						name : 'tip_content',
 						allowBlank : false,
-						value:data.algorithm_alias,
+						value:data.tip_content,
 						width : 180
 					}]
 				});
@@ -790,7 +797,7 @@ if(toolbar.get("button_modify")){
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '40%',
-					height : 430,
+					height : 450,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -849,9 +856,16 @@ if(toolbar.get("button_query")){
 				minLength : 1,
 				maxLength : 50
 			}, {
-				fieldLabel : '算法别名',
-				emptyText : '请输入算法别名',
+				fieldLabel : '提示别名',
+				emptyText : '请输入提示别名',
 				name : 'algorithm_alias',
+				allowBlank : true,
+				minLength : 1,
+				maxLength : 50
+			}, {
+				fieldLabel : '提示内容',
+				emptyText : '请输入提示内容',
+				name : 'tip_content',
 				allowBlank : true,
 				minLength : 1,
 				maxLength : 50
@@ -869,7 +883,7 @@ if(toolbar.get("button_query")){
 		// 查询窗口
 		var queryWindow = new CTA.common.QueryWindow({
 			width : 500,
-			height : 220,
+			height : 260,
 			layout : 'border',
 			closeAction : 'hide',
 			items : [ formPanel ],

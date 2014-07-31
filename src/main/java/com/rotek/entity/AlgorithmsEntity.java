@@ -34,8 +34,11 @@ public class AlgorithmsEntity extends BaseEntity {
 	@Column(name = "ALGORITHM_TYPE")    	// 算法类别，1 --> 算法1 ...... 8 --> 算法8,一期不做维护，直接写对应的ID
 	private Integer algorithm_type ;
 	
-	@Column(name = "ALGORITHM_ALIAS")     	// 算法别名,为每一条记录设置一个别名
+	@Column(name = "ALGORITHM_ALIAS")     	// 提示别名,为每一条记录设置一个别名
 	private String algorithm_alias ;
+	
+	@Column(name = "TIP_CONTENT")     	// 提示内容
+	private String tip_content ;
 
 	@Column(name = "R_CUSTOMER_ID")   		// 客户ID外键
 	private Integer r_customer_id ;    
@@ -390,6 +393,16 @@ public class AlgorithmsEntity extends BaseEntity {
 	/** @param status status to set */
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	/** @return tip_content */
+	public String getTip_content() {
+		return tip_content;
+	}
+
+	/** @param tip_content tip_content to set */
+	public void setTip_content(String tip_content) {
+		this.tip_content = tip_content;
 	}
 
 }

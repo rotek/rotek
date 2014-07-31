@@ -103,7 +103,8 @@ public class AlgorithmsController {
 			@RequestParam(value = "project_name", defaultValue = "") String project_name,  // 工程名称
 			@RequestParam(value = "component_group_name", defaultValue = "") String component_group_name,  // 零件（组）名称
 			@RequestParam(value = "component_name", defaultValue = "") String component_name,  // 零件名称
-			@RequestParam(value = "algorithm_alias", defaultValue = "") String algorithm_alias,  // 算法别名	
+			@RequestParam(value = "algorithm_alias", defaultValue = "") String algorithm_alias,  // 提示别名
+			@RequestParam(value = "tip_content", defaultValue = "") String tip_content,  // 提示内容
 			@RequestParam(value = "status", defaultValue = "1") Integer status,  // 状态
 			HttpServletRequest request, UserDto user, ModelMap modelMap)throws Exception {
 		
@@ -328,12 +329,9 @@ public class AlgorithmsController {
 			ModelMap modelMap) throws SQLException{
 		
 		if(StringUtils.isNotBlank(paramName)){
-			String[] temp = paramName.split("-");
+			/*String[] temp = paramName.split("-");
 			//String tempStr = temp[0]
-			
-			ComponentDetailEntity paramValue = detailService.getComDetailById(componentId );
-			
-			
+			ComponentDetailEntity paramValue = detailService.getComDetailById(componentId );*/
 		}
 		
 		List<ProjectDto> projectList = null ;
@@ -356,9 +354,7 @@ public class AlgorithmsController {
 		
 		// 所有字段信息
 		List<TableDescEntity> allDesc = ProjectUtils.getColumnDesc(loalTableName);
-		
 		modelMap.put("localParamList", allDesc);
-		
 		return "jsonView";
 	}
 
