@@ -22,9 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cta.platform.util.ListPager;
+import com.rotek.dto.AgentEstimateInfoDto;
 import com.rotek.dto.UserDto;
+import com.rotek.service.impl.AgentEstimateInfoService;
+import com.rotek.service.impl.CustomerService;
 import com.rotek.service.impl.UnProcessInfoService;
 import com.rotek.dto.UnProcessInfoDto;
+import com.rotek.entity.AgentEstimateInfoEntity;
+import com.rotek.entity.CustomerEntity;
 import com.rotek.entity.UnProcessInfoEntity;
 import com.rotek.entity.ProjectEntity;
 
@@ -39,8 +44,13 @@ import com.rotek.entity.ProjectEntity;
 @RequestMapping("/admin/UnProcessInfo") // controller方法路径，每个Controller最好取不一样的路径名字
 public class UnProcessInfoController {
 
+	// liusw 每个service都需要注解
 	@Autowired
 	private UnProcessInfoService unprocessinfoService;
+	@Autowired
+	private CustomerService customerService;
+	@Autowired
+	private AgentEstimateInfoService agentestimateinfoService;
 
 	
 	/**
@@ -194,6 +204,29 @@ public class UnProcessInfoController {
 		unprocessInfo.setStatus(STATUS);
 
 		List<String> messages = unprocessinfoService.addUnProcessInfo(unprocessInfo);
+		
+		// liusw 关联代理商进行扣分处理
+		if (unprocessInfo.getR_customer_id() > 0){
+			// 获取客户记录
+			CustomerEntity customerEntity = customerService.getCustomerDetail(unprocessInfo.getR_customer_id());
+			if (customerEntity.getR_customer_id() > 0){
+				// 通过客户获取代理商，获取星级评价记录
+				AgentEstimateInfoDto agentestimateinfodto = agentestimateinfoService.getAgentEstimateInfoDetail(customerEntity.getR_customer_id());
+				// 更新分数
+				Integer DLSXJPJ = agentestimateinfodto.getDlsxjpj() - 1;
+				// 更新数据库
+				AgentEstimateInfoEntity agentestimateinfo = new AgentEstimateInfoEntity();
+				agentestimateinfo.setId(agentestimateinfodto.getId());
+				agentestimateinfo.setDlsxjpj(DLSXJPJ);
+				agentestimateinfo.setDlsglxz(agentestimateinfodto.getDlsglxz());
+				agentestimateinfo.setR_customer_id(agentestimateinfodto.getR_customer_id());
+				agentestimateinfo.setStatus(agentestimateinfodto.getStatus());
+
+				agentestimateinfoService.modifyAgentEstimateInfo(agentestimateinfo);			
+				
+			}
+		}
+
 		JSONObject json = new JSONObject();
 		json.put("success", null == messages ? true : false);
 		json.put("messages", messages);

@@ -57,7 +57,7 @@ public class ComplaintInfoDao extends BaseDaoImpl{
 	*/
 	public List<Map<String, Object>> listCustomers() throws SQLException {
 		
-		String sql = "select id, mc from r_customer where status = 1 and khlb <> 3";
+		String sql = "select id, mc from r_customer where status = 1 and khlb = 3";
 		return this.executeQuery(sql, null);		
 	}
 

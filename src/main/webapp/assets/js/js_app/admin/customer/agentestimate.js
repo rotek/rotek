@@ -112,28 +112,24 @@ if (toolbar.get("button_add")) {
 				proxy : new Ext.data.HttpProxy({
 					url : ROTEK.AGENTESTIMATE.params.url.listCustomersUrl
 				}),
-				autoLoad : true
+				autoLoad : true,
+				listeners : {
+					load : function (){
+						Ext.getCmp('dlsfs').setValue(10);
+					}
+    			}
 			})
 	      },{
-	    	xtype : 'combo',
+	    	 id : 'dlsfs',
 	        fieldLabel : '代理商星级分数',
 	        labelAlign : 'left',
 	        labelWidth : 120,
-	        emptyText : '请选择代理商星级分数',
-	        triggerAction : 'all',
-	        store : new Ext.data.SimpleStore({
-			   fields : ['label', 'value'],
-			   data : [["10", "10"]]
-			}),
-			displayField : 'label',
-		    valueField : 'value',
-		    hiddenName : 'dlsxjpj',
-		    mode : 'local',
+	        emptyText : '0',
 	        name : 'dlsxjpj',
 	        minLength : 1,
 	        maxLength: 100,
-	        allowBlank : false,
-	        editable : false
+	        editable : false,
+	        readOnly : true,
 	      },{
 			xtype : 'textarea',
 			fieldLabel : '代理商管理细则',

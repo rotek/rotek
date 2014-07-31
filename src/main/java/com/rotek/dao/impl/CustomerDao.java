@@ -59,7 +59,7 @@ public class CustomerDao extends BaseDaoImpl{
 	* @author Liusw
 	*/
 	public CustomerEntity getCustomerDetail_all(Integer id) throws SQLException {
-		String sql = "select ID, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS from r_customer where id = ?";
+		String sql = "select ID, KHLB, MC, TXDZ, LXFS, LXR, LXDH, DLQY, JWDDZ, STATUS, R_CUSTOMER_ID from r_customer where id = ?";
 
 		return this.selectOne(sql, new Object[] { id }, CustomerEntity.class);
 	}

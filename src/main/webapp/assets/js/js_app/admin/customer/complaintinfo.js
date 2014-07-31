@@ -11,12 +11,12 @@ ROTEK.COMPLAINTINFO.params = {
 				  align : 'center'
 		      },{
 		    	  index:'customer_mc',
-		          header:'投诉代理商名称',
+		          header:'客户名称',
 		          width : 50,
 		  		  align : 'center'
 		      },{
 		    	  index:'tsdw',
-		          header:'投诉单位',			 
+		          header:'投诉人',			 
 		          width : 50,
 		  		  align : 'center'
 		      },{
@@ -84,10 +84,10 @@ if (toolbar.get("button_add")) {
 	  var formPanel = new CTA.common.SFormPanel({
 	    items : [{        	  	
 	        xtype : 'combo',
-	        fieldLabel : '投诉代理商名称',
+	        fieldLabel : '选择客户信息',
 	        labelAlign : 'left',
 	        labelWidth : 120,
-	        emptyText : '请选择投诉代理商',
+	        emptyText : '请选择选择客户信息',
 	        name : 'r_customer_id',
 	        hiddenName : 'r_customer_id',
 	        triggerAction : 'all',
@@ -108,12 +108,49 @@ if (toolbar.get("button_add")) {
 					url : ROTEK.COMPLAINTINFO.params.url.listCustomersUrl
 				}),
 				autoLoad : true
-			})
+			}),
+	        listeners : {
+	        	select: function(combo,item,index){
+	        		var purl = basePath + "/admin/ComplaintInfo/getAgent?r_customer_id=" + item.id;
+	        		console.log(purl);
+        			Ext.Ajax.request({
+        				url : purl, 
+	        		    success : function(response) {
+	        			      var projectData = Ext.util.JSON.decode(response.responseText).data;
+	        			      console.log(projectData);
+	        			      if (projectData != null){
+	        			    	  Ext.getCmp('supername').setValue(projectData.mc);  
+	        			    	  Ext.getCmp('superid').setValue(projectData.id);  
+	        			      }
+	        			      else {
+	        			    	  Ext.getCmp('supername').setValue("");
+	        			    	  Ext.getCmp('superid').setValue(0);  
+	        			      }
+	        			      return true;
+	        		    }
+	        	    });
+	        	}
+	        }
 	      },{
-		    fieldLabel : '投诉单位',
+			  	id : 'supername',
+		        fieldLabel : '所属代理商',
+		        emptyText : '当前客户没有对应代理商',
+		        name : 'super_mc',
+		        minLength : 1,
+		        editable : false,
+		        allowBlank : true,
+		        readOnly : true,
+		        maxLength: 100
+		  }, {
+			     xtype : 'hidden',
+			     id : 'superid',
+			     fieldLabel : '代理商ID',
+			     name : 'r_customer_super_id',
+		  },{
+		    fieldLabel : '投诉人',
 		    labelAlign : 'left',
 		    labelWidth : 120,
-		    emptyText : '请输入投诉单位名称',
+		    emptyText : '请输入投诉人名称',
 		    name : 'tsdw',
 		    minLength : 1,
 		    maxLength: 100,
@@ -183,10 +220,10 @@ if(toolbar.get("button_modify")){
 		        },{    
 			      id : 'dlsmc',
 			      xtype : 'combo',
-			      fieldLabel : '投诉代理商名称',
+			      fieldLabel : '客户名称',
 			      labelAlign : 'left',
 			      labelWidth : 120,
-			      emptyText : '请选择代理商',
+			      emptyText : '请选择客户信息',
 			      name : 'r_customer_id',
 			      hiddenName : 'r_customer_id',
 			      triggerAction : 'all',
@@ -194,6 +231,7 @@ if(toolbar.get("button_modify")){
 			      valueField : 'id',
 			      editable : false,
 			      allowBlank : false,
+        	      readOnly : true,
 			      store : new Ext.data.Store({
 					reader : new Ext.data.JsonReader({
 						root : 'dataList',
@@ -214,8 +252,8 @@ if(toolbar.get("button_modify")){
 	    			}
      			})
 		  },{
-			fieldLabel : '投诉单位',
-			emptyText : '请输入投诉单位名称',
+			fieldLabel : '投诉人',
+			emptyText : '请输入投诉人名称',
 			name : 'tsdw',
 			allowBlank : false       	
 		  },{
@@ -287,8 +325,8 @@ if(toolbar.get("button_query")){
 
 		var formPanel = new CTA.common.SFormPanel({
 			items : [{
-				fieldLabel : '投诉单位',
-				emptyText : '请输入投诉单位名称',
+				fieldLabel : '投诉人',
+				emptyText : '请输入投诉人名称',
 				name : 'tsdw',
 				allowBlank : true,
 				minLength : 1,

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cta.platform.persistence.dao.BaseDaoImpl;
 import com.cta.platform.util.ListPager;
+import com.rotek.entity.CustomerEntity;
 import com.rotek.entity.UnProcessInfoEntity;
 import com.rotek.dto.UnProcessInfoDto;
 import com.rotek.entity.ProjectEntity;
