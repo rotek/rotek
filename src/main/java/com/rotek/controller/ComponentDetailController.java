@@ -115,10 +115,19 @@ public class ComponentDetailController {
 		comDetail.setSpecific_bh(specific_bh);  // 零件编号
 		comDetail.setStatus(status);
 
-		List<ComponentDetailDto> cgroup = detailService.listComDetail(user, comDetail,projectType, pager);
-		modelMap.put("dataList", cgroup);
-		modelMap.put("totalCount", pager.getTotalRows());
-		return "jsonView";
+		if (projectType == 1){
+			List<ComponentDetailDto> cgroup = detailService.listComDetail(user, comDetail, 0, pager);
+			modelMap.put("dataList", cgroup);
+			modelMap.put("totalCount", pager.getTotalRows());
+			return "jsonView";
+		}
+		else  // EMC工程
+		{
+			List<ComponentDetailDto> cgroup = detailService.listComDetail(user, comDetail, projectType, pager);
+			modelMap.put("dataList", cgroup);
+			modelMap.put("totalCount", pager.getTotalRows());
+			return "jsonView";		
+		}
 	}
 
 	/**
@@ -137,12 +146,11 @@ public class ComponentDetailController {
 
 		ComponentDetailEntity addDetail = new ComponentDetailEntity();
 		addDetail.setR_project_id(comDetail.getR_project_id());
-		addDetail.setR_component_group_type(groupType);
 		addDetail.setR_component_group_id(comDetail.getR_component_group_id());
 		
 		if(groupType == 0){ // EMC工程
-			ComponentGroupEntity groupEntity = groupService.getComGroupById(comDetail.getR_component_group_id());
-			addDetail.setR_component_group_type(groupEntity.getGroup_lb());
+			//ComponentGroupEntity groupEntity = groupService.getComGroupById(comDetail.getR_component_group_id());
+			addDetail.setR_component_group_type(1); // EMC只有泵组
 		}else{
 			addDetail.setR_component_group_type(groupType);
 		}
@@ -277,8 +285,8 @@ public class ComponentDetailController {
 		editDetail.setId(comDetail.getId());
 		editDetail.setR_component_group_id(comDetail.getR_component_group_id());
 		if(groupType == 0){ // EMC工程
-			ComponentGroupEntity groupEntity = groupService.getComGroupById(comDetail.getR_component_group_id());
-			editDetail.setR_component_group_type(groupEntity.getGroup_lb());
+			//ComponentGroupEntity groupEntity = groupService.getComGroupById(comDetail.getR_component_group_id());
+			editDetail.setR_component_group_type(1);
 		}else{
 			editDetail.setR_component_group_type(groupType);
 		}
@@ -446,9 +454,17 @@ public class ComponentDetailController {
 			@PathVariable(value="projectType") Integer projectType,
 			ModelMap modelMap) throws SQLException{
 		//工程类别（1、托管服务；2、EMC工程）
-		List<ProjectDto> projectList = projectService.selectProjectByType(BaseEntity.STATUS_ENABLED,projectType);
-		modelMap.put("projectList", projectList);
-		return "jsonView";
+		if (projectType == 1) {
+			List<ProjectDto> projectList = projectService.selectProjectByType(BaseEntity.STATUS_ENABLED, 0);	
+			modelMap.put("projectList", projectList);
+			return "jsonView";
+		}
+		else
+		{
+			List<ProjectDto> projectList = projectService.selectProjectByType(BaseEntity.STATUS_ENABLED, projectType);	
+			modelMap.put("projectList", projectList);
+			return "jsonView";
+		}
 	}
 	
 	/**

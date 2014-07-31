@@ -2,7 +2,7 @@
 Ext.ns("ROTEK.COMPONENTD.EMC");
 ROTEK.COMPONENTD.EMC.params = {
 	gridParam : {
-		url : basePath + "/admin/componentdetail/listComDetail/0/2",
+		url : basePath + "/admin/componentdetail/listComDetail/1/2",
 		dataList : [ {
 			index : 'id',
 			header : '零件ID',
@@ -48,6 +48,7 @@ ROTEK.COMPONENTD.EMC.params = {
 		} ]
 	},
 	url : {
+		// 0作为特殊标记位
 		addUrl : basePath + "/admin/componentdetail/addComDetail/0",
 		detailUrl : basePath + "/admin/componentdetail/getComDetail",
 		modifyUrl : basePath + "/admin/componentdetail/modifyComDetail/0",
@@ -102,7 +103,7 @@ if (toolbar.get("button_add")) {
 				} ]
 			}),
 			proxy : new Ext.data.HttpProxy({
-				url : basePath + "/admin/componentdetail/selectGroupByPid/0/0"
+				url : basePath + "/admin/componentdetail/selectGroupByPid/0/1"
 			})
 		})		
 
@@ -133,7 +134,7 @@ if (toolbar.get("button_add")) {
 	     				listeners : {
 	     					select : function(ProjectCombox, record, index) {
 	     						GroupStore.proxy = new Ext.data.HttpProxy({
- 									url : basePath + "/admin/componentdetail/selectGroupByPid/" + ProjectCombox.value + "/0"
+ 									url : basePath + "/admin/componentdetail/selectGroupByPid/" + ProjectCombox.value + "/1"
  								});
 	     						GroupStore.removeAll() ;  //清空缓存的数据
 	     						Ext.getCmp('GROUPCOMB').setValue("");
@@ -508,7 +509,7 @@ if(toolbar.get("button_modify")){
 						} ]
 					}),
 					proxy : new Ext.data.HttpProxy({
-						url : basePath + "/admin/componentdetail/selectGroupByPid/0/0"
+						url : basePath + "/admin/componentdetail/selectGroupByPid/0/1"
 					})
 				})
 				
@@ -546,7 +547,7 @@ if(toolbar.get("button_modify")){
 			     				listeners : {
 			     					select : function(ProjectCombox, record, index) {
 			     						GroupStore.proxy = new Ext.data.HttpProxy({
-		 									url : basePath + "/admin/componentdetail/selectGroupByPid/" + ProjectCombox.value + "/0"
+		 									url : basePath + "/admin/componentdetail/selectGroupByPid/" + ProjectCombox.value + "/1"
 		 								});
 			     						GroupStore.removeAll() ;  //清空缓存的数据
 			     						Ext.getCmp('GROUPCOMB').setValue("");
@@ -1026,7 +1027,7 @@ if(toolbar.get("button_viewDetail")){
 							} ]
 						}),
 						proxy : new Ext.data.HttpProxy({
-							url : basePath + "/admin/componentdetail/selectGroupByPid/0/0"
+							url : basePath + "/admin/componentdetail/selectGroupByPid/0/1"
 						})
 					})
 					
