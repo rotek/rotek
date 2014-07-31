@@ -17,13 +17,35 @@
 	$(document).ready(function(){
 		//所有点
 		window.pointList = [];
-		//定时任务
-		window.intervalTask = 0;
 		//
 		var projects = {};
 		<c:forEach items="${dataList}" var="data">
 			projects["${data.ID}"] = "${data.GCJCTLX}";
 		</c:forEach>
+		//
+		var width = $(window).width();
+		var offset = Math.ceil((width - 1200)/2);
+		
+		$(".p_img").click(function(e) {
+			
+			var xOffset = e.pageY-150 - 16;
+			var yOffset = e.pageX-270-offset - 16; 
+			
+			var projectId = $("[name='xc']").val();
+			if(projectId){
+				
+				selectorLayer = $.layer({
+			        type: 2,
+			        title: '请选择监测项',
+			        maxmin: true,
+			        shadeClose: true, //开启点击遮罩关闭层
+			        area : ['500px' , '400px'],
+			        offset : ['100px', ''],
+			        iframe: {src: '${pageContext.request.contextPath }/front/water/toWaterMonitorSelector?projectId=' + projectId + "&xOffset=" + xOffset + "&yOffset=" + yOffset}
+			    }); 
+				
+			}
+		});
 		
 		$("#xc").select2({
 			placeholder : "请选择您要查看的现场"
@@ -42,51 +64,72 @@
 					
 					var allParams = response.params;
 					var projectParamList = response.projectParamList;
+					console.log(allParams);
+					console.log(projectParamList);
 					
 					$.each(projectParamList,function(index,data){
 						//待添加点
 						var span = document.createElement("span");
-						var id = "id_"+Math.random();
+						var id = Math.random();
 						$(span).attr("id",id);
-						$(span).text(allParams[data.SPECIFICPART_PARAM] + " 加载中...");
+						$(span).text(allParams[data.SPECIFICPART_PARAM]);
 						$(span).attr("class","mark-text");
 						$(span).css({top:data.X+"px",left: data.Y+"px"});
-						
-						data.ID = id;
 						$(".img_container").append(span);
 						
-						pointList.push(data);
+						
+						var p = {
+								id : id,
+								ljId : data.R_COMPONENT_GROUP_ID,
+								ljxqId : data.R_COMPONENT_DETAIL_ID,
+								jcxId : data.SPECIFICPART_PARAM,
+								xOffset : data.X,
+								yOffset : data.Y
+						};
+						pointList.push(p);
+						
+						$(".mark-text").dblclick(function(){
+							
+							var id = $(this).attr("id");
+							var _pointList = [];
+							$.each(pointList,function(index,data){
+								
+								if(data.id != id){
+									_pointList.push(data);
+								}
+							});
+							
+							pointList = _pointList;
+							$(this).remove();
+						});
 						
 					});
 					
-					loadData(e.val);
-					//初始化任务
-					window.clearInterval(intervalTask);
-					intervalTask = setInterval(loadData,3000);
+					
 				}
 			});
 		});
 		
-		//加载数据
-		function loadData(){
-			
-			$.ajax({
+		
+		$("#moidify").click(function(){
+			var projectId = $("[name='xc']").val();
+			if(projectId){
+				var params = "";
+				$.each(pointList,function(index,data){
+					
+					params += (data.ljId +"," + data.ljxqId+ "," + data.jcxId + "," + data.xOffset + "," + data.yOffset +  ";"); 
+				});
 				
-				url : "${pageContext.request.contextPath }/front/water/getWaterMonitorValues?projectId="+ $("[name='xc']").val(),
-				success : function(response){
-					
-					var dataList = response.dataList;
-					console.log(response)
-					console.log(pointList)
-					
-					
-					$.each(pointList,function(index,data){
+				$.ajax({
+					url : '${pageContext.request.contextPath }/front/water/saveMornitorParams?params=' + params + "&projectId=" + projectId,
+					success : function(){
 						
-						$(".mark-text[id='"+data.ID+"']").text(dataList[index]);
-					});			
-				}
-			});
-		}
+						layer.alert("恭喜您，设置成功 !");
+						
+					}
+				});
+			}
+		});
 		
 	});
 	
@@ -151,30 +194,26 @@
 			<div style="background-color: #2ac1f2">
 				
 				<div class="l_box">
-					<div class="l_header">水质监测</div>
+					<div class="l_header">压力监测</div>
+					
+					<div class="l_menu">
+						<a href="${pageContext.request.contextPath }/front/pressure/toWaterMonitor">压力实时监测</a>
+					</div>
+		
 					
 					<div class="active l_menu">
-						<a href="${pageContext.request.contextPath }/front/water/toWaterMonitor">实时监测</a>
+						<a href="${pageContext.request.contextPath }/front/pressure/toWaterMonitorSetter">实时监测设置</a>
 					</div>
 		
+					<div class="l_menu">
+						<a href="${pageContext.request.contextPath }/front/pressure/toWaterMonitorStatistic">历史监测查询</a>
+					</div>
 					
-					<div class="l_menu">
-						<a href="${pageContext.request.contextPath }/front/water/toWaterMonitorSetter">实时监测设置</a>
-					</div>
-		
-					<div class="l_menu">
-						<a href="${pageContext.request.contextPath }/front/water/toWaterMonitorStatistic">历史监测查询</a>
-					</div>
-		
-					<div class="l_menu">
-						<a href="${pageContext.request.contextPath }/front/water/toWaterWarning">水质报警</a>
-					</div>
 				</div>
 		
 			</div>
 		</div>
 		
-
 		
 		<div class="right">
 				
@@ -188,6 +227,7 @@
 				</select> 
 				
 				<input name="xc" value="" type="hidden"/>
+				<button id="moidify" type="button" class="btn btn-primary">修改</button>
 				
 				</div>
 				

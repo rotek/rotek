@@ -19,7 +19,7 @@ input, textarea {border:none 0;outline:none;}
 	height: 100px;
 	margin: 0 auto;
 	overflow: hidden;
-	background-color: red;
+	background-color: #2ac1f2;
 }
 
 .r_header .left {
@@ -30,8 +30,8 @@ input, textarea {border:none 0;outline:none;}
 
 .r_header .left img {
 	width: 200px;
-	height: 150px;
-	margin: -20px 0 100px 0px
+	height: 210px;
+	margin: -25px 0 100px 0px
 }
 
 .r_header .right {
