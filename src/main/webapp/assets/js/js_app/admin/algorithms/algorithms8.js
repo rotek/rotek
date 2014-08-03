@@ -777,6 +777,12 @@ if(toolbar.get("button_modify")){
 						minLength : 1,
 						maxLength : 100
 					},{
+						fieldLabel : '超额百分比',
+						emptyText : '请输入超额百分比',
+						name : 'mxt_hslcebfb',
+						minLength : 1,
+						maxLength : 100
+					},{
 		 				xtype : 'combo',
 		 				id : 'LOCAL_TABLES',
 		    			fieldLabel : '现场表',
@@ -800,6 +806,11 @@ if(toolbar.get("button_modify")){
 		 	 						Ext.getCmp('LOCAL_TABLE_PARAM').setValue("");
 		 	 						Ext.getCmp('LOCAL_TABLE_PARAM').setRawValue("");
 		 						}
+		 						if(Ext.getCmp('LOCAL_TABLE_PARAM2').getValue() != ""){
+		 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+		 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setValue("");
+		 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setRawValue("");
+		 						}
 		 						LocalTableColumnStore.load();
 		 					}
 		 				}
@@ -810,6 +821,20 @@ if(toolbar.get("button_modify")){
 		    			emptyText : '请选择现场表参数',
 		    			name : 'columnName',
 		    			hiddenName : 'sitereal_field_name',
+		    			triggerAction : 'all',
+		    			displayField : 'columnName',
+		    			valueField : 'columnName',
+		    			editable : false,
+		    			allowBlank : false,
+		    			store : LocalTableColumnStore,
+		 				width : 445
+		 			},{
+		 				xtype : 'combo',
+		    			fieldLabel : '开关量参数',
+		    			id:'LOCAL_TABLE_PARAM2',
+		    			emptyText : '请选择开关量参数',
+		    			name : 'columnName',
+		    			hiddenName : 'sitereal_offon_field',
 		    			triggerAction : 'all',
 		    			displayField : 'columnName',
 		    			valueField : 'columnName',
@@ -839,7 +864,7 @@ if(toolbar.get("button_modify")){
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '40%',
-					height : 470,
+					height : 550,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
