@@ -143,7 +143,7 @@
 </style>
 <body>
 
-	<%@include file="/assets/jsp/common_front_top.jsp"%>
+	
 
 	<div class="r_container">
 

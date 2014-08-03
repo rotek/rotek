@@ -1,7 +1,7 @@
 * {margin:0;padding:0;}
 html, body {width:100%;height:100%;color:#000;font-family:"Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti,sans-serif;font-size:12px;background-color:#FFF;}
 * html, * html body {background-image:url(about:blank);background-attachment:fixed;}
-div {overflow:hidden;}
+div {overflow:hidden;box-sizing:border-box;}
 a, a:link, a:visited, a:active {text-decoration:none;cursor:pointer;}
 a.blink, a.blink:link, a.blink:visited, a.blink:active {color:#000;}
 a:hover, a.blink:hover {color:#3276b1;text-decoration:underline;}
@@ -12,7 +12,10 @@ input, textarea {border:none 0;outline:none;}
 .inputTips {color:#C7C7C7;}
 .clear {height:0;clear:both;}
 
-
+body{
+	min-width: 100%;
+	overflow: scroll
+}
 /**header**/
 .r_header {
 	width: 1200px;
@@ -49,7 +52,7 @@ input, textarea {border:none 0;outline:none;}
 
 /**=====================================================main=============================================================**/
 .r_container {
-	width: 1200px;
+	width: 100%;
 	height: 100%;
 	margin: 0px auto;
 	padding: 10px 0 5px 0;
@@ -106,12 +109,11 @@ input, textarea {border:none 0;outline:none;}
 }
 
 .r_container .right {
-	width: 980px;
+	min-width: 980px;
 	height: 100%;
-	margin : 0 0 0 10px;
+	margin : 0 0 0 210px;
 	padding: 0 0 10px 0px;
 	font-size: 14px;
-	float: right;
 	text-align:center;
 	overflow: hidden;
 }

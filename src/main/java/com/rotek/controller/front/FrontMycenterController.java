@@ -49,7 +49,20 @@ public class FrontMycenterController {
 	public String toMycenter(HttpServletRequest request, ModelMap modelMap)
 			throws SQLException {
 		
-		return "front/mycenter";
+		return "front/index";
+	}
+	
+	/**
+	 * 返回用户的首页内容
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping("toMycenterContent")
+	public String toMycenterContent(HttpServletRequest request, ModelMap modelMap)
+			throws SQLException {
+		
+		return "front/mycenterContent";
 	}
 	
 	/**修改
