@@ -35,17 +35,22 @@ ROTEK.ALGORITHMS5.params = {
 			align : 'center'
 		}, {
 			index : 'sitereal_field_name',
-			header : '现场参数',
+			header : '纯水流量',
+			width : 30,
+			align : 'center'
+		}, {
+			index : 'sitereal_field_name2',
+			header : '浓水流量',
 			width : 30,
 			align : 'center'
 		}, {
 			index : 'mxt_hslcebfb',
-			header : '回收率超额设定值',
+			header : '回收率超额百分比（%）',
 			width : 30,
 			align : 'center',
 		}, {
-			index : 'mxt_csllcesj',
-			header : '超额时间设定值',
+			index : 'mxt_hslcesj',
+			header : '超额时间设定值（分钟）',
 			width : 30,
 			align : 'center',
 		},{
@@ -89,7 +94,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '40%',
-			height : 470,
+			height : 580,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -341,15 +346,15 @@ if (toolbar.get("button_add")) {
     			store : ComponentParamsStore,
  				width : 445,
  			}, {
-				fieldLabel : '回收率超额设定值',
-				emptyText : '回收率超额设定值',
+				fieldLabel : '回收率超额百分比',
+				emptyText : '请输入回收率超额百分比',
 				name : 'mxt_hslcebfb',
 				minLength : 1,
 				maxLength : 100
 			}, {
 				fieldLabel : '超额时间设定值',
 				emptyText : '请输入超额时间设定值',
-				name : 'mxt_csllcesj',
+				name : 'mxt_hslcesj',
 				minLength : 1,
 				maxLength : 100
 			},{
@@ -376,14 +381,29 @@ if (toolbar.get("button_add")) {
  	 						Ext.getCmp('LOCAL_TABLE_PARAM').setValue("");
  	 						Ext.getCmp('LOCAL_TABLE_PARAM').setRawValue("");
  						}
+ 						if(Ext.getCmp('LOCAL_TABLE_PARAM2').getValue() != ""){
+ 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setValue("");
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setRawValue("");
+ 						}
+ 						if(Ext.getCmp('LOCAL_TABLE_PARAM3').getValue() != ""){
+ 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM3').setValue("");
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM3').setRawValue("");
+ 						}
+ 						if(Ext.getCmp('LOCAL_TABLE_PARAM4').getValue() != ""){
+ 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM4').setValue("");
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM4').setRawValue("");
+ 						}
  						LocalTableColumnStore.load();
  					}
  				}
  			},{
  				xtype : 'combo',
-    			fieldLabel : '现场表参数',
+    			fieldLabel : '纯水流量',
     			id:'LOCAL_TABLE_PARAM',
-    			emptyText : '请选择现场表参数',
+    			emptyText : '请选择纯水流量参数',
     			name : 'columnName',
     			hiddenName : 'sitereal_field_name',
     			triggerAction : 'all',
@@ -394,6 +414,48 @@ if (toolbar.get("button_add")) {
     			store : LocalTableColumnStore,
  				width : 445
  			},{
+ 				xtype : 'combo',
+    			fieldLabel : '纯水流量开关量',
+    			id:'LOCAL_TABLE_PARAM2',
+    			emptyText : '请选择纯水流量开关量参数',
+    			name : 'columnName',
+    			hiddenName : 'sitereal_offon_field',
+    			triggerAction : 'all',
+    			displayField : 'columnName',
+    			valueField : 'columnName',
+    			editable : false,
+    			allowBlank : false,
+    			store : LocalTableColumnStore,
+ 				width : 445
+ 			}, {
+ 				xtype : 'combo',
+    			fieldLabel : '浓水流量',
+    			id:'LOCAL_TABLE_PARAM3',
+    			emptyText : '请选择浓水流量参数',
+    			name : 'columnName',
+    			hiddenName : 'sitereal_field_name2',
+    			triggerAction : 'all',
+    			displayField : 'columnName',
+    			valueField : 'columnName',
+    			editable : false,
+    			allowBlank : false,
+    			store : LocalTableColumnStore,
+ 				width : 445
+ 			},{
+ 				xtype : 'combo',
+    			fieldLabel : '浓水流量开关量',
+    			id:'LOCAL_TABLE_PARAM4',
+    			emptyText : '请选择浓水流量开关量参数',
+    			name : 'columnName',
+    			hiddenName : 'sitereal_offon_field2',
+    			triggerAction : 'all',
+    			displayField : 'columnName',
+    			valueField : 'columnName',
+    			editable : false,
+    			allowBlank : false,
+    			store : LocalTableColumnStore,
+ 				width : 445
+ 			}, {
 				xtype : 'textfield',
 				fieldLabel : '提示别名',
 				emptyText : '请输入提示别名',
@@ -728,8 +790,8 @@ if(toolbar.get("button_modify")){
 		    			store : ComponentParamsStore,
 		 				width : 445,
 		 			}, {
-						fieldLabel : '回收率超额设定值',
-						emptyText : '请输入回收率超额设定值',
+						fieldLabel : '回收率超额百分比',
+						emptyText : '请输入回收率超额百分比',
 						name : 'mxt_hslcebfb',
 						value : data.mxt_hslcebfb,
 						minLength : 1,
@@ -737,7 +799,7 @@ if(toolbar.get("button_modify")){
 					}, {
 						fieldLabel : '超额时间设定值',
 						emptyText : '请输入超额时间设定值',
-						name : 'mxt_csllcesj',
+						name : 'mxt_hslcesj',
 						minLength : 1,
 						maxLength : 100
 					},{
@@ -764,14 +826,29 @@ if(toolbar.get("button_modify")){
 		 	 						Ext.getCmp('LOCAL_TABLE_PARAM').setValue("");
 		 	 						Ext.getCmp('LOCAL_TABLE_PARAM').setRawValue("");
 		 						}
+		 						if(Ext.getCmp('LOCAL_TABLE_PARAM2').getValue() != ""){
+		 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+		 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setValue("");
+		 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setRawValue("");
+		 						}
+		 						if(Ext.getCmp('LOCAL_TABLE_PARAM3').getValue() != ""){
+		 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+		 	 						Ext.getCmp('LOCAL_TABLE_PARAM3').setValue("");
+		 	 						Ext.getCmp('LOCAL_TABLE_PARAM3').setRawValue("");
+		 						}
+		 						if(Ext.getCmp('LOCAL_TABLE_PARAM4').getValue() != ""){
+		 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+		 	 						Ext.getCmp('LOCAL_TABLE_PARAM4').setValue("");
+		 	 						Ext.getCmp('LOCAL_TABLE_PARAM4').setRawValue("");
+		 						}
 		 						LocalTableColumnStore.load();
 		 					}
 		 				}
 		 			},{
 		 				xtype : 'combo',
-		    			fieldLabel : '现场表参数',
+		    			fieldLabel : '纯水流量',
 		    			id:'LOCAL_TABLE_PARAM',
-		    			emptyText : '请选择现场表参数',
+		    			emptyText : '请选择纯水流量参数',
 		    			name : 'columnName',
 		    			hiddenName : 'sitereal_field_name',
 		    			triggerAction : 'all',
@@ -782,6 +859,48 @@ if(toolbar.get("button_modify")){
 		    			store : LocalTableColumnStore,
 		 				width : 445
 		 			},{
+		 				xtype : 'combo',
+		    			fieldLabel : '纯水流量开关量',
+		    			id:'LOCAL_TABLE_PARAM2',
+		    			emptyText : '请选择纯水流量开关量参数',
+		    			name : 'columnName',
+		    			hiddenName : 'sitereal_offon_field',
+		    			triggerAction : 'all',
+		    			displayField : 'columnName',
+		    			valueField : 'columnName',
+		    			editable : false,
+		    			allowBlank : false,
+		    			store : LocalTableColumnStore,
+		 				width : 445
+		 			}, {
+		 				xtype : 'combo',
+		    			fieldLabel : '浓水流量',
+		    			id:'LOCAL_TABLE_PARAM3',
+		    			emptyText : '请选择浓水流量参数',
+		    			name : 'columnName',
+		    			hiddenName : 'sitereal_field_name2',
+		    			triggerAction : 'all',
+		    			displayField : 'columnName',
+		    			valueField : 'columnName',
+		    			editable : false,
+		    			allowBlank : false,
+		    			store : LocalTableColumnStore,
+		 				width : 445
+		 			},{
+		 				xtype : 'combo',
+		    			fieldLabel : '浓水流量开关量',
+		    			id:'LOCAL_TABLE_PARAM4',
+		    			emptyText : '请选择浓水流量开关量参数',
+		    			name : 'columnName',
+		    			hiddenName : 'sitereal_offon_field2',
+		    			triggerAction : 'all',
+		    			displayField : 'columnName',
+		    			valueField : 'columnName',
+		    			editable : false,
+		    			allowBlank : false,
+		    			store : LocalTableColumnStore,
+		 				width : 445
+		 			}, {
 						xtype : 'textfield',
 						fieldLabel : '提示别名',
 						emptyText : '请输入提示别名',
@@ -803,7 +922,7 @@ if(toolbar.get("button_modify")){
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '40%',
-					height : 470,
+					height : 580,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -906,9 +1025,9 @@ if(toolbar.get("button_algorithmDesc")){
 			items : [ {
 				xtype : 'tbtext',
 				readOnly : true,
-				text : '1. 当设定相应的开关量K存在信号时，根据此膜系统产实际水流量M，产水流量小于设定值S m³时<p>&nbsp;</p>'
+				text : '1. 当设定相应的开关量K存在信号时，根据此膜系统产水纯水流量M1和浓水流量M2进行比较计算，如果回收率{纯水流量/（纯水流量+浓水流量）*100%}高于或低于设定值S的n%时<p>&nbsp;</p>'
 				       + '2. 此种状态持续N分钟以上。<p>&nbsp;</p> '
-			           + '3. 计算公式：M &lt; S|K|N ',
+			           + '3. 计算公式：|M1/(M1+M2)-S| >= n%|K|N',
 				height: 140
 			}]
 		});

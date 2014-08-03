@@ -39,8 +39,16 @@ ROTEK.ALGORITHMS2.params = {
 			width : 30,
 			align : 'center'
 		}, {
+			index : 'ljghsj',
+			header : '零件更换时间',
+			width : 30,
+			align : 'center',
+			renderer : function(value){
+				 return new Date(parseFloat(value)).format("Y-m-d");
+			  }
+		},{
 			index : 'ljedyxsj',
-			header : '额定运行时间',
+			header : '额定运行时间(小时)',
 			width : 30,
 			align : 'center',
 		},{
@@ -337,6 +345,16 @@ if (toolbar.get("button_add")) {
     			store : ComponentParamsStore,
  				width : 445,
  			}, {
+ 				xtype : 'datefield',
+ 				fieldLabel : '零件更换时间',
+ 				labelAlign : 'left',
+ 				labelWidth : 120,
+ 				emptyText : '请选择计时起点时间',
+ 				name : 'ljghsj',
+ 				format:'Y-m-d',
+ 				editable : false,
+ 				allowBlank : true
+ 			  },{
 				fieldLabel : '额定运行时间',
 				emptyText : '请输入额定运行时间，单位（小时）',
 				name : 'ljedyxsj',
