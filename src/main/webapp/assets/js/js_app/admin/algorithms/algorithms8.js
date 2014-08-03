@@ -39,23 +39,13 @@ ROTEK.ALGORITHMS8.params = {
 			width : 30,
 			align : 'center'
 		}, {
-			index : 'sitereal_offon_field',
-			header : '开关量参数',
-			width : 30,
-			align : 'center'
-		}, {
 			index : 'mxt_csddlbz',
 			header : '产水电导率设定值',
 			width : 30,
 			align : 'center',
 		}, {
 			index : 'mxt_csllcesj',
-			header : '超额时间设定值（分钟）',
-			width : 30,
-			align : 'center',
-		},{
-			index : 'mxt_hslcebfb',
-			header : '超额百分比（%）',
+			header : '超额时间设定值',
 			width : 30,
 			align : 'center',
 		},{
@@ -99,7 +89,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '40%',
-			height : 550,
+			height : 470,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -364,12 +354,6 @@ if (toolbar.get("button_add")) {
 				minLength : 1,
 				maxLength : 100
 			},{
-				fieldLabel : '超额百分比',
-				emptyText : '请输入超额百分比',
-				name : 'mxt_hslcebfb',
-				minLength : 1,
-				maxLength : 100
-			},{
  				xtype : 'combo',
  				id : 'LOCAL_TABLES',
     			fieldLabel : '现场表',
@@ -393,11 +377,6 @@ if (toolbar.get("button_add")) {
  	 						Ext.getCmp('LOCAL_TABLE_PARAM').setValue("");
  	 						Ext.getCmp('LOCAL_TABLE_PARAM').setRawValue("");
  						}
- 						if(Ext.getCmp('LOCAL_TABLE_PARAM2').getValue() != ""){
- 							GroupDetailStore.removeAll() ;  //清空缓存的数据
- 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setValue("");
- 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setRawValue("");
- 						}
  						LocalTableColumnStore.load();
  					}
  				}
@@ -408,20 +387,6 @@ if (toolbar.get("button_add")) {
     			emptyText : '请选择现场表参数',
     			name : 'columnName',
     			hiddenName : 'sitereal_field_name',
-    			triggerAction : 'all',
-    			displayField : 'columnName',
-    			valueField : 'columnName',
-    			editable : false,
-    			allowBlank : false,
-    			store : LocalTableColumnStore,
- 				width : 445
- 			},{
- 				xtype : 'combo',
-    			fieldLabel : '开关量参数',
-    			id:'LOCAL_TABLE_PARAM2',
-    			emptyText : '请选择开关量参数',
-    			name : 'columnName',
-    			hiddenName : 'sitereal_offon_field',
     			triggerAction : 'all',
     			displayField : 'columnName',
     			valueField : 'columnName',
@@ -777,12 +742,6 @@ if(toolbar.get("button_modify")){
 						minLength : 1,
 						maxLength : 100
 					},{
-						fieldLabel : '超额百分比',
-						emptyText : '请输入超额百分比',
-						name : 'mxt_hslcebfb',
-						minLength : 1,
-						maxLength : 100
-					},{
 		 				xtype : 'combo',
 		 				id : 'LOCAL_TABLES',
 		    			fieldLabel : '现场表',
@@ -806,11 +765,6 @@ if(toolbar.get("button_modify")){
 		 	 						Ext.getCmp('LOCAL_TABLE_PARAM').setValue("");
 		 	 						Ext.getCmp('LOCAL_TABLE_PARAM').setRawValue("");
 		 						}
-		 						if(Ext.getCmp('LOCAL_TABLE_PARAM2').getValue() != ""){
-		 							GroupDetailStore.removeAll() ;  //清空缓存的数据
-		 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setValue("");
-		 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setRawValue("");
-		 						}
 		 						LocalTableColumnStore.load();
 		 					}
 		 				}
@@ -821,20 +775,6 @@ if(toolbar.get("button_modify")){
 		    			emptyText : '请选择现场表参数',
 		    			name : 'columnName',
 		    			hiddenName : 'sitereal_field_name',
-		    			triggerAction : 'all',
-		    			displayField : 'columnName',
-		    			valueField : 'columnName',
-		    			editable : false,
-		    			allowBlank : false,
-		    			store : LocalTableColumnStore,
-		 				width : 445
-		 			},{
-		 				xtype : 'combo',
-		    			fieldLabel : '开关量参数',
-		    			id:'LOCAL_TABLE_PARAM2',
-		    			emptyText : '请选择开关量参数',
-		    			name : 'columnName',
-		    			hiddenName : 'sitereal_offon_field',
 		    			triggerAction : 'all',
 		    			displayField : 'columnName',
 		    			valueField : 'columnName',
@@ -864,7 +804,7 @@ if(toolbar.get("button_modify")){
 				var updateWindow = new CTA.common.UpdateWindow({
 					id : 'updateWindow',
 					width : '40%',
-					height : 550,
+					height : 470,
 					layout : 'border',
 					items : [ formPanel ],
 					handler : function() {
@@ -967,9 +907,9 @@ if(toolbar.get("button_algorithmDesc")){
 			items : [ {
 				xtype : 'tbtext',
 				readOnly : true,
-				text : '1. 当设定相应的开关量K存在信号时，根据此膜系统产水电导率M，产水电导率大于设定值S m³的n%时<p>&nbsp;</p>'
+				text : '1. 当设定相应的开关量K存在信号时，根据此膜系统产水电导率M，产水电导率小于设定值S m³时。时<p>&nbsp;</p>'
 				       + '2. 此种状态持续N分钟以上。<p>&nbsp;</p> '
-			           + '3. 计算公式：(M - S) / S &gt; n%|N|K ',
+			           + '3. 计算公式：M &lt; S|K|N ',
 				height: 80
 			}]
 		});

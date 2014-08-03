@@ -40,12 +40,12 @@ ROTEK.ALGORITHMS7.params = {
 			align : 'center'
 		}, {
 			index : 'glq_cebfb',
-			header : '超额百分比设定值（%）',
+			header : '超额百分比设定值',
 			width : 30,
 			align : 'center',
 		}, {
 			index : 'mxt_csllcesj',
-			header : '超额时间设定值（分钟）',
+			header : '超额时间设定值',
 			width : 30,
 			align : 'center',
 		},{
@@ -89,7 +89,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '40%',
-			height : 550,
+			height : 510,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -120,10 +120,9 @@ if (toolbar.get("button_add")) {
 		// 监测分类数据
 		var MonitorTypeStore = new Ext.data.SimpleStore({
 			fields : [ 'label', 'value' ],
-			data : [[ "托管工程-水质监测", "1" ], [ "托管工程-压力监测", "3" ], [ "EMC工程-水质监测", "4" ]
-				, [ "EMC工程-压力监测", "6" ]]
+			data : [[ "托管工程-水质监测", "1" ], [ "托管工程-流量监测", "2" ], [ "托管工程-压力监测", "3" ], [ "EMC工程-水质监测", "4" ]
+				, [ "EMC工程-流量监测", "5" ], [ "EMC工程-压力监测", "6" ]]
 		})
-		// [ "托管工程-流量监测", "2" ] [ "EMC工程-流量监测", "5" ]: 流量监测使用单独的算法处理
 		
 		// 读取零件组数据
 		var GroupStore = new Ext.data.Store({
@@ -383,20 +382,20 @@ if (toolbar.get("button_add")) {
  			},{
 				xtype : 'textfield',
 				id : 'PAREM_VALUE',
-				fieldLabel : '参数额定值(s)',
+				fieldLabel : '参数额定值(s):',
 				emptyText : '请输入参数额定值',
-				hiddenName : 'specificpart_edz',
+				//name : 'specific_bh',
 				readOnly : true ,
 				allowBlank : false,
 				width : 180
 			}, {
-				fieldLabel : '超额百分比设定值(n)',
+				fieldLabel : '超额百分比设定值(N):',
 				emptyText : '请输入超额百分比设定值',
 				name : 'glq_cebfb',
 				minLength : 1,
 				maxLength : 100
 			}, {
-				fieldLabel : '超额时间设定值(N)',
+				fieldLabel : '超额时间设定值(N):',
 				emptyText : '请输入超额时间设定值',
 				name : 'mxt_csllcesj',
 				minLength : 1,
@@ -512,11 +511,9 @@ if(toolbar.get("button_modify")){
 				// 监测分类数据
 				var MonitorTypeStore = new Ext.data.SimpleStore({
 					fields : [ 'label', 'value' ],
-					data : [[ "托管工程-水质监测", "1" ], [ "托管工程-压力监测", "3" ], [ "EMC工程-水质监测", "4" ]
-						, [ "EMC工程-压力监测", "6" ]]
+					data : [[ "托管工程-水质监测", "1" ], [ "托管工程-流量监测", "2" ], [ "托管工程-压力监测", "3" ], [ "EMC工程-水质监测", "4" ]
+						, [ "EMC工程-流量监测", "5" ], [ "EMC工程-压力监测", "6" ]]
 				})
-				// [ "托管工程-流量监测", "2" ] [ "EMC工程-流量监测", "5" ]: 流量监测使用单独的算法处理
-				
 				// 读取零件组数据
 				var GroupStore = new Ext.data.Store({
 					reader : new Ext.data.JsonReader({
