@@ -112,6 +112,50 @@ public class AlgorithmsEntity extends BaseEntity {
 	@Column(name = "SITEREAL_FIELD_CODE") 		// 现场实时数据编号
 	private	String	sitereal_field_code ;
 
+	@Column(name = "SITEREAL_TABLE_NAME2")		// 现场实时数据表名称
+	private String sitereal_table_name2 ;   	         
+
+	@Column(name = "SITEREAL_FIELD_NAME2") 		// 现场实时数据字段名称
+	private	String	sitereal_field_name2 ;
+
+	@Column(name = "SITEREAL_OFFON_FIELD") 		// 开关量
+	private	String	sitereal_offon_field;
+
+	@Column(name = "SITEREAL_OFFON_FIELD2") 		// 开关量
+	private	String	sitereal_offon_field2 ;
+	
+	public String getSitereal_offon_field() {
+		return sitereal_offon_field;
+	}
+
+	public void setSitereal_offon_field(String sitereal_offon_field) {
+		this.sitereal_offon_field = sitereal_offon_field;
+	}
+
+	public String getSitereal_offon_field2() {
+		return sitereal_offon_field2;
+	}
+
+	public void setSitereal_offon_field2(String sitereal_offon_field2) {
+		this.sitereal_offon_field2 = sitereal_offon_field2;
+	}
+
+	public String getSitereal_table_name2() {
+		return sitereal_table_name2;
+	}
+
+	public void setSitereal_table_name2(String sitereal_table_name2) {
+		this.sitereal_table_name2 = sitereal_table_name2;
+	}
+
+	public String getSitereal_field_name2() {
+		return sitereal_field_name2;
+	}
+
+	public void setSitereal_field_name2(String sitereal_field_name2) {
+		this.sitereal_field_name2 = sitereal_field_name2;
+	}
+
 	@Column(name = "STATUS")     				// 是否可用
 	private Integer status ;
 

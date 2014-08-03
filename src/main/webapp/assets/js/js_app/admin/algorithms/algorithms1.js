@@ -38,7 +38,7 @@ ROTEK.ALGORITHMS1.params = {
 			}
 		}, {
 			index : 'ljedyxsj',
-			header : '额定运行时间',
+			header : '额定运行时间(小时)',
 			width : 30,
 			align : 'center',
 		},{

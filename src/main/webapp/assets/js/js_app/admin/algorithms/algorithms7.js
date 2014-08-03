@@ -40,12 +40,12 @@ ROTEK.ALGORITHMS7.params = {
 			align : 'center'
 		}, {
 			index : 'glq_cebfb',
-			header : '超额百分比设定值',
+			header : '超额百分比设定值（%）',
 			width : 30,
 			align : 'center',
 		}, {
 			index : 'mxt_csllcesj',
-			header : '超额时间设定值',
+			header : '超额时间设定值（分钟）',
 			width : 30,
 			align : 'center',
 		},{
