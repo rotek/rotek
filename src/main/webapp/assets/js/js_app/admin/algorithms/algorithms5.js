@@ -40,12 +40,12 @@ ROTEK.ALGORITHMS5.params = {
 			align : 'center'
 		}, {
 			index : 'mxt_hslcebfb',
-			header : '回收率超额设定值',
+			header : '回收率超额设定值（%）',
 			width : 30,
 			align : 'center',
 		}, {
 			index : 'mxt_csllcesj',
-			header : '超额时间设定值',
+			header : '超额时间设定值（分钟）',
 			width : 30,
 			align : 'center',
 		},{

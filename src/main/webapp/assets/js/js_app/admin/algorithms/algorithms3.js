@@ -35,17 +35,22 @@ ROTEK.ALGORITHMS3.params = {
 			align : 'center'
 		}, {
 			index : 'sitereal_field_name',
-			header : '现场参数',
+			header : '现场参数（前）',
+			width : 30,
+			align : 'center'
+		}, {
+			index : 'sitereal_field_name2',
+			header : '现场参数（后）',
 			width : 30,
 			align : 'center'
 		}, {
 			index : 'glq_cesj',
-			header : '持续时间设定值',
+			header : '持续时间设定值(分钟)',
 			width : 30,
 			align : 'center',
 		}, {
 			index : 'glq_cebfb',
-			header : '超额压差百分比',
+			header : '超额压差百分比(%)',
 			width : 30,
 			align : 'center',
 		},{
@@ -89,7 +94,7 @@ if (toolbar.get("button_add")) {
 		var addWindow = new CTA.common.SaveWindow({
 			id : 'addWindow',
 			width : '40%',
-			height : 470,
+			height : 550,
 			layout : 'fit',
 			handler : saveHandler
 		});
@@ -349,7 +354,7 @@ if (toolbar.get("button_add")) {
 				maxLength : 100
 			}*/, {
 				fieldLabel : '持续时间设定值',
-				emptyText : '请输入持续时间设定值',
+				emptyText : '请输入持续时间设定值，单位分钟',
 				name : 'glq_cesj',
 				minLength : 1,
 				maxLength : 100
@@ -362,7 +367,7 @@ if (toolbar.get("button_add")) {
 			},{
  				xtype : 'combo',
  				id : 'LOCAL_TABLES',
-    			fieldLabel : '现场表',
+    			fieldLabel : '现场表（前）',
     			emptyText : '请选择现场表',
     			name : 'tableName',
     			hiddenName : 'sitereal_table_name',
@@ -388,11 +393,52 @@ if (toolbar.get("button_add")) {
  				}
  			},{
  				xtype : 'combo',
-    			fieldLabel : '现场表参数',
+    			fieldLabel : '现场表参数（前）',
     			id:'LOCAL_TABLE_PARAM',
     			emptyText : '请选择现场表参数',
     			name : 'columnName',
     			hiddenName : 'sitereal_field_name',
+    			triggerAction : 'all',
+    			displayField : 'columnName',
+    			valueField : 'columnName',
+    			editable : false,
+    			allowBlank : false,
+    			store : LocalTableColumnStore,
+ 				width : 445
+ 			},{
+ 				xtype : 'combo',
+ 				id : 'LOCAL_TABLES2',
+    			fieldLabel : '现场表（后）',
+    			emptyText : '请选择现场表',
+    			name : 'tableName',
+    			hiddenName : 'sitereal_table_name2',
+    			triggerAction : 'all',
+    			displayField : 'tableName',
+    			valueField : 'tableName',
+    			editable : false,
+    			allowBlank : false,
+    			store : LocalTableStore,
+ 				width : 445,
+ 				listeners : {
+ 					'select' : function(ComboObj, record, index) {
+ 						LocalTableColumnStore.proxy = new Ext.data.HttpProxy({
+							url : basePath + "/admin/algorithms/selectLocalParams/"+Ext.getCmp('LOCAL_TABLES').getValue()
+						});
+ 						if(Ext.getCmp('LOCAL_TABLE_PARAM2').getValue() != ""){
+ 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setValue("");
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setRawValue("");
+ 						}
+ 						LocalTableColumnStore.load();
+ 					}
+ 				}
+ 			},{
+ 				xtype : 'combo',
+    			fieldLabel : '现场表参数（后）',
+    			id:'LOCAL_TABLE_PARAM2',
+    			emptyText : '请选择现场表参数',
+    			name : 'columnName',
+    			hiddenName : 'sitereal_field_name2',
     			triggerAction : 'all',
     			displayField : 'columnName',
     			valueField : 'columnName',

@@ -44,6 +44,11 @@ ROTEK.ALGORITHMS6.params = {
 			width : 30,
 			align : 'center',
 		}*/, {
+			index : 'sitereal_offon_field',
+			header : '开关量参数',
+			width : 30,
+			align : 'center'
+		}, {
 			index : 'dwsjylsd',
 			header : '单位运行用量设定值',
 			width : 30,
@@ -371,6 +376,11 @@ if (toolbar.get("button_add")) {
  	 						Ext.getCmp('LOCAL_TABLE_PARAM').setValue("");
  	 						Ext.getCmp('LOCAL_TABLE_PARAM').setRawValue("");
  						}
+ 						if(Ext.getCmp('LOCAL_TABLE_PARAM2').getValue() != ""){
+ 							GroupDetailStore.removeAll() ;  //清空缓存的数据
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setValue("");
+ 	 						Ext.getCmp('LOCAL_TABLE_PARAM2').setRawValue("");
+ 						}
  						LocalTableColumnStore.load();
  					}
  				}
@@ -381,6 +391,20 @@ if (toolbar.get("button_add")) {
     			emptyText : '请选择现场表参数',
     			name : 'columnName',
     			hiddenName : 'sitereal_field_name',
+    			triggerAction : 'all',
+    			displayField : 'columnName',
+    			valueField : 'columnName',
+    			editable : false,
+    			allowBlank : false,
+    			store : LocalTableColumnStore,
+ 				width : 445
+ 			},{
+ 				xtype : 'combo',
+    			fieldLabel : '开关量参数',
+    			id:'LOCAL_TABLE_PARAM2',
+    			emptyText : '请选择开关量参数',
+    			name : 'columnName',
+    			hiddenName : 'sitereal_offon_field',
     			triggerAction : 'all',
     			displayField : 'columnName',
     			valueField : 'columnName',
