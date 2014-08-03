@@ -30,7 +30,7 @@ import com.rotek.service.impl.RoleService;
 
 /**
  * @ClassName: RoleController
- * @Description: 角色信息设置
+ * @Description: 角色信息设置 
  * @author chenwenpeng
  * @date 2013-6-3 上午08:58:16
  *
