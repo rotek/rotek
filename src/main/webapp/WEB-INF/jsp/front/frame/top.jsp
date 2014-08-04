@@ -35,7 +35,7 @@
 			<img src="${pageContext.request.contextPath}/assets/images/nav_btn_szx.gif">
 		</a>
 		<!-- 新闻公告 -->
-		<a href="" onclick="changeIframe('${pageContext.request.contextPath}/front/news/toNews');return false;" target="content_iframe">
+		<a href="" onclick="changeIframe('${pageContext.request.contextPath}/front/rnews/toNews');return false;" target="content_iframe">
 			<img src="${pageContext.request.contextPath}/assets/images/nav_btn_xwgg.gif">
 		</a>
 	</div>
