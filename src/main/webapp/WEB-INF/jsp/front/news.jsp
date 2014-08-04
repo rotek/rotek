@@ -18,7 +18,7 @@
 </script>
 <body>
 
-	
+	<%@include file="/assets/jsp/common_front_top.jsp"%>
 
 	<div class="r_container">
 		
@@ -77,5 +77,7 @@
 		
 	</div>
 
+
+	<%@include file="/assets/jsp/common_front_bottom.jsp"%>
 </body>
 </html>
