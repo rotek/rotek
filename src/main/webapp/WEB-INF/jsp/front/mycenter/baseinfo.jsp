@@ -15,7 +15,7 @@
 <!-- 客户资源信息 -->
 <c:if test="${flagStr eq 'resource' }">
 	<div class="h2">客户资源信息</div>
-	<table width="90%" border="0" cellspacing="1" cellpadding="0" style="background: #EF7E18;">
+	<table width="90%" border="0" cellspacing="1" cellpadding="0" style="background: #EF7E18;" id="listtable">
 		<thead>
 			<tr>
 				<td width="50%" align="center" bgcolor="#F7B77D" style="font-weight: bold; font-size: 14px;">资料名称</td>
@@ -51,7 +51,7 @@
 <!-- 客户工程信息 -->
 <c:if test="${flagStr eq 'project' }">
 	<div class="h2">客户工程信息</div>
-	<table width="90%" border="0" cellspacing="1" cellpadding="0" style="background: #EF7E18;">
+	<table width="90%" border="0" cellspacing="1" cellpadding="0" style="background: #EF7E18;" id="listtable">
 		<thead>
 			<tr>
 				<td width="50%" align="center" bgcolor="#F7B77D" style="font-weight: bold; font-size: 14px;">工程名称</td>
@@ -92,7 +92,7 @@
 		<input type="text" name="textfield" id="textfield" style="width: 30%;" />
 		<button value="查询">查询</button>
 	</div>
-	<table width="90%" border="0" cellspacing="1" cellpadding="0" style="background: #EF7E18;">
+	<table width="90%" border="0" cellspacing="1" cellpadding="0" style="background: #EF7E18;" id="listtable">
 		<thead>
 			<tr>
 				<td width="10%" align="center" bgcolor="#F7B77D" style="font-weight: bold; font-size: 14px;">零件编号</td>

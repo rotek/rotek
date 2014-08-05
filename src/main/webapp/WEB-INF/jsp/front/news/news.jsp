@@ -76,6 +76,6 @@ function viewInfo(flag){
 			</td>
 		</tr>
 	</table>
-
+	<jsp:include page="../frame/paging.jsp" />
 </body>
 </html>

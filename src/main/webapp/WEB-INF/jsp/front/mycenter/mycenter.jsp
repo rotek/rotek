@@ -26,7 +26,14 @@
 	font-weight:bold; 
 	font-family:"微软雅黑", Tahoma;
 }
-
+#listtable tr td{
+	font-family:"微软雅黑", Tahoma; 
+	font-size:12px; padding:10px;
+}
+#listtable tr td a{ 
+	text-decoration:none;
+}
+img{ vertical-align:middle;}
 </style>
 <script type="text/javascript">
 function viewInfo(flag){

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- ext 支持文件 -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/assets/js/js_lib/ext3.3/resources/css/ext-all.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/assets/js/js_lib/ext3.3/resources/css/xtheme-orange.css" />
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_lib/ext3.3/ext-base.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_lib//ext3.3/ext-all.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/js_lib/ext3.3/ext-lang-zh_CN.js"></script>
